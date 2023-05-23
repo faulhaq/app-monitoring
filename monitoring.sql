@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2023 at 04:14 PM
+-- Generation Time: May 23, 2023 at 04:32 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -27,7 +27,6 @@ SET time_zone = "+00:00";
 -- Table structure for table `guru`
 --
 
-
 CREATE TABLE `guru` (
   `id` int(10) UNSIGNED NOT NULL,
   `nik` char(16) NOT NULL,
@@ -39,7 +38,8 @@ CREATE TABLE `guru` (
   `goldar` enum('A','B','AB','O') NOT NULL,
   `pendidikan` enum('sd','smp/sltp','sma/smk','d1/d2/d3','s1','s2','s3') DEFAULT NULL,
   `pekerjaan` varchar(64) NOT NULL,
-  `alamat` varchar(255) NOT NULL
+  `alamat` varchar(255) NOT NULL,
+  `role` enum('admin','wali_kelas','guru') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -163,7 +163,8 @@ ALTER TABLE `guru`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`),
   ADD UNIQUE KEY `nip` (`nip`),
-  ADD KEY `nama` (`nama`);
+  ADD KEY `nama` (`nama`),
+  ADD KEY `role` (`role`);
 
 --
 -- Indexes for table `kelas`
