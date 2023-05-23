@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2023 at 04:38 PM
+-- Generation Time: May 23, 2023 at 04:51 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -32,6 +32,7 @@ CREATE TABLE `guru` (
   `nik` char(16) NOT NULL,
   `nip` char(18) DEFAULT NULL,
   `nama` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL,
   `tanggal_lahir` date NOT NULL,
   `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') NOT NULL,
@@ -39,15 +40,16 @@ CREATE TABLE `guru` (
   `pendidikan` enum('sd','smp/sltp','sma/smk','d1/d2/d3','s1','s2','s3') DEFAULT NULL,
   `pekerjaan` varchar(64) NOT NULL,
   `alamat` varchar(255) NOT NULL,
-  `role` enum('admin','wali_kelas','guru') NOT NULL
+  `role` enum('admin','wali_kelas','guru') NOT NULL,
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `guru`
 --
 
-INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `jenis_kelamin`, `tanggal_lahir`, `agama`, `goldar`, `pendidikan`, `pekerjaan`, `alamat`, `role`) VALUES
-(1, '1234567890098765', NULL, 'Alex', 'L', '2001-09-08', 'islam', 'A', 's1', 'guru', 'sleman', 'admin');
+INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jenis_kelamin`, `tanggal_lahir`, `agama`, `goldar`, `pendidikan`, `pekerjaan`, `alamat`, `role`, `password`) VALUES
+(1, '1234567890098765', NULL, 'Alex', '', 'L', '2001-09-08', 'islam', 'A', 's1', 'guru', 'sleman', 'admin', '$2y$10$b97mC8GOrwi1aRDIiVjdpOxBCNych4ZSXtftlFAl8Vsq6sm6lrgoW');
 
 -- --------------------------------------------------------
 
@@ -103,6 +105,7 @@ CREATE TABLE `orang_tua` (
   `id` int(10) UNSIGNED NOT NULL,
   `nik` char(16) NOT NULL,
   `nama` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL,
   `tanggal_lahir` date NOT NULL,
   `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') NOT NULL,
@@ -169,6 +172,7 @@ CREATE TABLE `tahun_ajaran` (
 ALTER TABLE `guru`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `nip` (`nip`),
   ADD KEY `nama` (`nama`),
   ADD KEY `role` (`role`);
@@ -209,6 +213,7 @@ ALTER TABLE `laporan_ngaji`
 ALTER TABLE `orang_tua`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD KEY `nama` (`nama`),
   ADD KEY `ttl` (`tanggal_lahir`),
   ADD KEY `goldar` (`goldar`),
