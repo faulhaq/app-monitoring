@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2023 at 04:32 PM
+-- Generation Time: May 23, 2023 at 04:38 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -30,10 +30,10 @@ SET time_zone = "+00:00";
 CREATE TABLE `guru` (
   `id` int(10) UNSIGNED NOT NULL,
   `nik` char(16) NOT NULL,
-  `nip` varchar(64) NOT NULL,
+  `nip` char(18) DEFAULT NULL,
   `nama` varchar(255) NOT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL,
-  `ttl` date NOT NULL,
+  `tanggal_lahir` date NOT NULL,
   `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') NOT NULL,
   `goldar` enum('A','B','AB','O') NOT NULL,
   `pendidikan` enum('sd','smp/sltp','sma/smk','d1/d2/d3','s1','s2','s3') DEFAULT NULL,
@@ -41,6 +41,13 @@ CREATE TABLE `guru` (
   `alamat` varchar(255) NOT NULL,
   `role` enum('admin','wali_kelas','guru') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `guru`
+--
+
+INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `jenis_kelamin`, `tanggal_lahir`, `agama`, `goldar`, `pendidikan`, `pekerjaan`, `alamat`, `role`) VALUES
+(1, '1234567890098765', NULL, 'Alex', 'L', '2001-09-08', 'islam', 'A', 's1', 'guru', 'sleman', 'admin');
 
 -- --------------------------------------------------------
 
@@ -97,7 +104,7 @@ CREATE TABLE `orang_tua` (
   `nik` char(16) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL,
-  `ttl` date NOT NULL,
+  `tanggal_lahir` date NOT NULL,
   `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') NOT NULL,
   `goldar` enum('A','B','AB','O') NOT NULL,
   `pendidikan` enum('sd','smp/sltp','sma/smk','d1/d2/d3','s1','s2','s3') DEFAULT NULL,
@@ -203,7 +210,7 @@ ALTER TABLE `orang_tua`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`),
   ADD KEY `nama` (`nama`),
-  ADD KEY `ttl` (`ttl`),
+  ADD KEY `ttl` (`tanggal_lahir`),
   ADD KEY `goldar` (`goldar`),
   ADD KEY `pekerjaan` (`pekerjaan`),
   ADD KEY `agama` (`agama`),
@@ -253,7 +260,7 @@ ALTER TABLE `tahun_ajaran`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `kelas`
