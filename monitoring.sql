@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 14, 2023 at 05:37 PM
+-- Generation Time: May 23, 2023 at 04:14 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -27,11 +27,19 @@ SET time_zone = "+00:00";
 -- Table structure for table `guru`
 --
 
+
 CREATE TABLE `guru` (
   `id` int(10) UNSIGNED NOT NULL,
   `nik` char(16) NOT NULL,
   `nip` varchar(64) NOT NULL,
-  `nama` varchar(255) NOT NULL
+  `nama` varchar(255) NOT NULL,
+  `jenis_kelamin` enum('L','P') NOT NULL,
+  `ttl` date NOT NULL,
+  `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') NOT NULL,
+  `goldar` enum('A','B','AB','O') NOT NULL,
+  `pendidikan` enum('sd','smp/sltp','sma/smk','d1/d2/d3','s1','s2','s3') DEFAULT NULL,
+  `pekerjaan` varchar(64) NOT NULL,
+  `alamat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -49,6 +57,38 @@ CREATE TABLE `kelas` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `laporan_hafalan`
+--
+
+CREATE TABLE `laporan_hafalan` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_siswa` int(10) UNSIGNED NOT NULL,
+  `nama_surat` varchar(64) NOT NULL,
+  `id_orang_tua` int(10) UNSIGNED DEFAULT NULL,
+  `id_guru` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `laporan_ngaji`
+--
+
+CREATE TABLE `laporan_ngaji` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_siswa` int(10) UNSIGNED NOT NULL,
+  `nama_surat` varchar(64) NOT NULL,
+  `ayat_mulai` smallint(5) UNSIGNED NOT NULL,
+  `ayat_selesai` smallint(5) UNSIGNED NOT NULL,
+  `id_orang_tua` int(10) UNSIGNED DEFAULT NULL,
+  `id_guru` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `orang_tua`
 --
 
@@ -56,6 +96,7 @@ CREATE TABLE `orang_tua` (
   `id` int(10) UNSIGNED NOT NULL,
   `nik` char(16) NOT NULL,
   `nama` varchar(255) NOT NULL,
+  `jenis_kelamin` enum('L','P') NOT NULL,
   `ttl` date NOT NULL,
   `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') NOT NULL,
   `goldar` enum('A','B','AB','O') NOT NULL,
@@ -133,6 +174,28 @@ ALTER TABLE `kelas`
   ADD KEY `id_wali_kelas` (`id_wali_kelas`);
 
 --
+-- Indexes for table `laporan_hafalan`
+--
+ALTER TABLE `laporan_hafalan`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `nama_surat` (`nama_surat`),
+  ADD KEY `id_orang_tua` (`id_orang_tua`),
+  ADD KEY `id_guru` (`id_guru`),
+  ADD KEY `created_at` (`created_at`);
+
+--
+-- Indexes for table `laporan_ngaji`
+--
+ALTER TABLE `laporan_ngaji`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `nama_surat` (`nama_surat`),
+  ADD KEY `id_orang_tua` (`id_orang_tua`),
+  ADD KEY `id_guru` (`id_guru`),
+  ADD KEY `created_at` (`created_at`);
+
+--
 -- Indexes for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
@@ -142,7 +205,8 @@ ALTER TABLE `orang_tua`
   ADD KEY `ttl` (`ttl`),
   ADD KEY `goldar` (`goldar`),
   ADD KEY `pekerjaan` (`pekerjaan`),
-  ADD KEY `agama` (`agama`);
+  ADD KEY `agama` (`agama`),
+  ADD KEY `jenis_kelamin` (`jenis_kelamin`);
 ALTER TABLE `orang_tua` ADD FULLTEXT KEY `alamat` (`alamat`);
 
 --
@@ -197,6 +261,18 @@ ALTER TABLE `kelas`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `laporan_hafalan`
+--
+ALTER TABLE `laporan_hafalan`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `laporan_ngaji`
+--
+ALTER TABLE `laporan_ngaji`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
@@ -229,6 +305,22 @@ ALTER TABLE `tahun_ajaran`
 --
 ALTER TABLE `kelas`
   ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_wali_kelas`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `laporan_hafalan`
+--
+ALTER TABLE `laporan_hafalan`
+  ADD CONSTRAINT `laporan_hafalan_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `laporan_hafalan_ibfk_2` FOREIGN KEY (`id_orang_tua`) REFERENCES `orang_tua` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `laporan_hafalan_ibfk_3` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `laporan_ngaji`
+--
+ALTER TABLE `laporan_ngaji`
+  ADD CONSTRAINT `laporan_ngaji_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `laporan_ngaji_ibfk_2` FOREIGN KEY (`id_orang_tua`) REFERENCES `orang_tua` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `laporan_ngaji_ibfk_3` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orang_tua_siswa`
