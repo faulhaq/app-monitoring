@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2023 at 04:51 PM
+-- Generation Time: May 28, 2023 at 05:03 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -49,7 +49,7 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jenis_kelamin`, `tanggal_lahir`, `agama`, `goldar`, `pendidikan`, `pekerjaan`, `alamat`, `role`, `password`) VALUES
-(1, '1234567890098765', NULL, 'Alex', '', 'L', '2001-09-08', 'islam', 'A', 's1', 'guru', 'sleman', 'admin', '$2y$10$b97mC8GOrwi1aRDIiVjdpOxBCNych4ZSXtftlFAl8Vsq6sm6lrgoW');
+(1, '1234567890098765', NULL, 'Alex', 'alex123@gmail.com', 'L', '2001-09-08', 'islam', 'A', 's1', 'guru', 'sleman', 'admin', '$2y$10$b97mC8GOrwi1aRDIiVjdpOxBCNych4ZSXtftlFAl8Vsq6sm6lrgoW');
 
 -- --------------------------------------------------------
 
@@ -106,6 +106,7 @@ CREATE TABLE `orang_tua` (
   `nik` char(16) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
   `jenis_kelamin` enum('L','P') NOT NULL,
   `tanggal_lahir` date NOT NULL,
   `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') NOT NULL,
@@ -114,6 +115,13 @@ CREATE TABLE `orang_tua` (
   `pekerjaan` varchar(64) NOT NULL,
   `alamat` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orang_tua`
+--
+
+INSERT INTO `orang_tua` (`id`, `nik`, `nama`, `email`, `password`, `jenis_kelamin`, `tanggal_lahir`, `agama`, `goldar`, `pendidikan`, `pekerjaan`, `alamat`) VALUES
+(2, '1234567890098765', 'orang tua', 'orang_tua@gmail.com', '$2y$10$VE0OtESr2c1heFp.F34naOzbs0tjNeEIw7DosRlJwcMCtBle2FMUG', 'L', '1991-10-01', 'islam', 'A', 's1', 'Guru', 'Jogja');
 
 -- --------------------------------------------------------
 
@@ -289,7 +297,7 @@ ALTER TABLE `laporan_ngaji`
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `orang_tua_siswa`
