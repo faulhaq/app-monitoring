@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jan 12, 2021 at 03:13 AM
--- Server version: 5.7.24
--- PHP Version: 7.4.13
+-- Host: 127.0.0.1
+-- Generation Time: May 31, 2023 at 07:14 PM
+-- Server version: 10.4.25-MariaDB
+-- PHP Version: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -48,7 +48,7 @@ CREATE TABLE `failed_jobs` (
   `queue` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `payload` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
   `exception` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -288,7 +288,7 @@ CREATE TABLE `pengumuman` (
 --
 
 INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`) VALUES
-(1, 'pengumuman', 'pengumuman', '2021-01-11 01:01:19', '2021-01-11 01:01:19');
+(1, 'pengumuman', 'halo hai', '2021-01-11 01:01:19', '2023-05-31 16:34:46');
 
 -- --------------------------------------------------------
 
@@ -307,7 +307,7 @@ CREATE TABLE `rapot` (
   `p_deskripsi` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `k_nilai` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `k_predikat` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `k_deskripsi` text COLLATE utf8mb4_unicode_ci,
+  `k_deskripsi` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -459,7 +459,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `no_induk`, `id_card`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$gNt5v.nhaW1plxWw.4Irxul3mNn0QoCTiFx6cCRg02KNtI78Hwa8m', 'Admin', NULL, NULL, NULL, '2021-01-11 01:01:19', '2021-01-11 01:01:19', NULL);
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$vNx9v.pslkvQOoea7tY7/O3J1LNfnA6I5C8kH5dywaLiQtmBb1ySm', 'Admin', NULL, NULL, 'iAg7Wz00ORdUlyKJCq2gCKXt2CpTFzgk1YiWvwkxnOX4Zoz1nOJiNeS9YlFL', '2021-01-11 01:01:19', '2021-01-11 01:01:19', NULL);
 
 --
 -- Indexes for dumped tables
