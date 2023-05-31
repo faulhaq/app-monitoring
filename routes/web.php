@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
 use App\Http\Middleware\AdminMiddleware;
+use App\Http\Middleware\GuruMiddleware;
+use App\Http\Middleware\OrangTuaMiddleware;
+use App\Http\Middleware\WaliKelasMiddleware;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +29,24 @@ Route::middleware(AdminMiddleware::class)->prefix("/admin")->group(function () {
     Route::get('/dashboard', function () {
         return view("admin.dashboard");
     })->name("admin.dashboard");
+});
+
+Route::middleware(OrangTuaMiddleware::class)->prefix("/orang_tua")->group(function () {
+    Route::get('/dashboard', function () {
+        return view("orang_tua.dashboard");
+    })->name("orang_tua.dashboard");
+});
+
+Route::middleware(GuruMiddleware::class)->prefix("/guru")->group(function () {
+    Route::get('/dashboard', function () {
+        return view("guru.dashboard");
+    })->name("guru.dashboard");
+});
+
+Route::middleware(WalikelasMiddleware::class)->prefix("/wali_kelas")->group(function () {
+    Route::get('/dashboard', function () {
+        return view("wali_kelas.dashboard");
+    })->name("wali_kelas.dashboard");
 });
 
 Route::get("/logout", function () {

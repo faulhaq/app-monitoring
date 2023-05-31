@@ -21,6 +21,14 @@ class Login extends Model
             }
         }
 
+        $orang_tua = OrangTua::where("email", $email)->first();
+        if ($orang_tua) {
+            if (password_verify($password, $orang_tua->password)) {
+                return $orang_tua;
+            } else {
+                return NULL;
+            }
+        }
         return NULL;
     }
 }

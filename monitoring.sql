@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 28, 2023 at 05:03 PM
+-- Generation Time: May 31, 2023 at 03:53 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -49,7 +49,9 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jenis_kelamin`, `tanggal_lahir`, `agama`, `goldar`, `pendidikan`, `pekerjaan`, `alamat`, `role`, `password`) VALUES
-(1, '1234567890098765', NULL, 'Alex', 'alex123@gmail.com', 'L', '2001-09-08', 'islam', 'A', 's1', 'guru', 'sleman', 'admin', '$2y$10$b97mC8GOrwi1aRDIiVjdpOxBCNych4ZSXtftlFAl8Vsq6sm6lrgoW');
+(1, '1234567890098765', NULL, 'Alex', 'alex123@gmail.com', 'L', '2001-09-08', 'islam', 'A', 's1', 'guru', 'sleman', 'admin', '$2y$10$b97mC8GOrwi1aRDIiVjdpOxBCNych4ZSXtftlFAl8Vsq6sm6lrgoW'),
+(3, '2123456789009876', '119284928492248172', 'guru', 'guru123@gmail.com', 'L', '1991-09-01', 'islam', 'A', 's1', 'guru', 'sleman', 'guru', '$2y$10$4jfmGvmVwcqcpLOLuvOFAe6J7r9u4vRxVGKvXeCuRT7lVFXyPZDJi'),
+(4, '1634567890098765', '110284928492848172', 'wali kelas', 'walikelas123@gmail.com', 'L', '1991-09-01', 'islam', 'AB', 's1', 'guru', 'bantul', 'wali_kelas', '$2y$10$Vdt09EE7McjFhMOIjojGEuelOUjQO7F9NcwxI.wWoLz4txcTd5Him');
 
 -- --------------------------------------------------------
 
@@ -273,7 +275,7 @@ ALTER TABLE `tahun_ajaran`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kelas`
