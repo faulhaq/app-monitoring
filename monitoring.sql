@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2023 at 05:14 AM
+-- Generation Time: Jun 01, 2023 at 06:25 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -62,12 +62,12 @@ CREATE TABLE `guru` (
   `id_card` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nip` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama_guru` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mapel_id` int(11) NOT NULL,
   `kode` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
   `telp` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tmp_lahir` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tgl_lahir` date DEFAULT NULL,
+  `goldar` enum('A','B','AB','O') COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -229,6 +229,31 @@ CREATE TABLE `nilai` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orang_tua`
+--
+
+CREATE TABLE `orang_tua` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nik` char(16) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `jk` enum('L','P') NOT NULL,
+  `tmp_lahir` varchar(50) NOT NULL,
+  `tgl_lahir` date NOT NULL,
+  `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') NOT NULL,
+  `pendidikan` enum('sd','smp/sltp','sma/smk','d1/d2/d3','s1','s2','s3') DEFAULT NULL,
+  `goldar` enum('A','B','AB','O') NOT NULL,
+  `pekerjaan` varchar(64) NOT NULL,
+  `alamat` varchar(255) NOT NULL,
+  `foto` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `upload_at` timestamp NULL DEFAULT NULL,
+  `delete_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -482,7 +507,8 @@ ALTER TABLE `failed_jobs`
 -- Indexes for table `guru`
 --
 ALTER TABLE `guru`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `goldar` (`goldar`);
 
 --
 -- Indexes for table `hari`
@@ -525,6 +551,14 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `nilai`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `orang_tua`
+--
+ALTER TABLE `orang_tua`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tmp_lahir` (`tmp_lahir`),
+  ADD KEY `goldar` (`goldar`);
 
 --
 -- Indexes for table `paket`
@@ -644,6 +678,12 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `nilai`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `orang_tua`
+--
+ALTER TABLE `orang_tua`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `paket`
