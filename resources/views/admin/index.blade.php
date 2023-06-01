@@ -227,8 +227,8 @@
                 ],
                 datasets: [
                     {
-                    data: [{{ $bkp }}, {{ $dpib }}, {{ $ei }}, {{ $oi }}, {{ $tbsm }}, {{ $rpl }}, {{ $tpm }}, {{ $las }}],
-                    backgroundColor : ['#d4c148', '#ba6906', '#ff990a', '#00a352', '#2cabe6', '#999999', '#0b2e75', '#7980f7'],
+                    data: [],
+                    backgroundColor : [],
                     }
                 ]
             }
