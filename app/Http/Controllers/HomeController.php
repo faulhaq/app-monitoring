@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Jadwal;
 use App\Guru;
-use App\Kehadiran;
 use App\Kelas;
 use App\Siswa;
-use App\Mapel;
 use App\User;
 use App\Paket;
 use App\Pengumuman;
@@ -33,17 +30,14 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $hari = date('w');
-        $jam = date('H:i');
-        $jadwal = Jadwal::OrderBy('jam_mulai')->OrderBy('jam_selesai')->OrderBy('kelas_id')->where('hari_id', $hari)->where('jam_mulai', '<=', $jam)->where('jam_selesai', '>=', $jam)->get();
+       
         $pengumuman = Pengumuman::first();
-        $kehadiran = Kehadiran::all();
-        return view('home', compact('jadwal', 'pengumuman', 'kehadiran'));
+    
+        return view('home', compact('pengumuman'));
     }
 
     public function admin()
     {
-        $jadwal = Jadwal::count();
         $guru = Guru::count();
         $gurulk = Guru::where('jk', 'L')->count();
         $gurupr = Guru::where('jk', 'P')->count();
@@ -59,11 +53,9 @@ class HomeController extends Controller
         $rpl = Kelas::where('paket_id', '7')->count();
         $tpm = Kelas::where('paket_id', '5')->count();
         $las = Kelas::where('paket_id', '8')->count();
-        $mapel = Mapel::count();
         $user = User::count();
         $paket = Paket::all();
         return view('admin.index', compact(
-            'jadwal',
             'guru',
             'gurulk',
             'gurupr',
@@ -79,7 +71,6 @@ class HomeController extends Controller
             'rpl',
             'tpm',
             'las',
-            'mapel',
             'user',
             'paket'
         ));
