@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2023 at 07:14 PM
+-- Generation Time: Jun 01, 2023 at 05:14 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `akademik`
+-- Database: `monitoring`
 --
 
 -- --------------------------------------------------------
@@ -445,7 +445,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` enum('Admin','Guru','Siswa','Operator') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `role` enum('Admin','Guru','Orang Tua','Wali Kelas') COLLATE utf8mb4_unicode_ci NOT NULL,
   `no_induk` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_card` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -459,7 +459,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `no_induk`, `id_card`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$vNx9v.pslkvQOoea7tY7/O3J1LNfnA6I5C8kH5dywaLiQtmBb1ySm', 'Admin', NULL, NULL, 'iAg7Wz00ORdUlyKJCq2gCKXt2CpTFzgk1YiWvwkxnOX4Zoz1nOJiNeS9YlFL', '2021-01-11 01:01:19', '2021-01-11 01:01:19', NULL);
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$vNx9v.pslkvQOoea7tY7/O3J1LNfnA6I5C8kH5dywaLiQtmBb1ySm', 'Admin', NULL, NULL, 'e8qYwwWaQnbiufum4uezpZIMIJ3ryEyLmQr6GOIHJw0rthNaUwbxhwdMG0yt', '2021-01-11 01:01:19', '2021-01-11 01:01:19', NULL),
+(2, 'guru', 'guru@gmail.com', NULL, '$2y$10$f1M5VIKKG8PjYZHReIqq3.qZBlFJP2BT9CWOmnZ5aEoWjwAWEMio2', 'Guru', NULL, NULL, 'EXOkF9wcxznkklobk2W9sVVyawImiGylit2CEGe0dfbJN8FOBTxPFS035UaH', '2023-06-01 03:06:32', '2023-06-01 03:06:32', NULL);
 
 --
 -- Indexes for dumped tables
@@ -690,7 +691,7 @@ ALTER TABLE `ulangan`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
