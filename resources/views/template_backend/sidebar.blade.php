@@ -58,7 +58,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('mapel.index') }}" class="nav-link" id="DataMapel">
+                                <a href="{{ route('siswa.index') }}" class="nav-link" id="DataSiswa">
                                     <i class="fas fa-users nav-icon"></i>
                                     <p>Data Orang Tua</p>
                                 </a>
@@ -101,7 +101,7 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{ route('mapel.trash') }}" class="nav-link" id="TrashMapel">
+                                    <a href="{{ route('siswa.trash') }}" class="nav-link" id="TrashSiswa">
                                         <i class="fas fa-users nav-icon"></i>
                                         <p>Trash Orang Tua</p>
                                     </a>
@@ -191,18 +191,6 @@
                                     <p>Entry Nilai Ulangan</p>
                                 </a>
                             </li>
-                            @if (
-                                Auth::user()->guru(Auth::user()->id_card)->mapel->nama_mapel == "Pendidikan Agama dan Budi Pekerti" ||
-                                Auth::user()->guru(Auth::user()->id_card)->mapel->nama_mapel == "Pendidikan Pancasila dan Kewarganegaraan"
-                            )
-                                <li class="nav-item">
-                                    <a href="{{ route('sikap.index') }}" class="nav-link" id="SikapGuru">
-                                        <i class="fas fa-file-alt nav-icon"></i>
-                                        <p>Entry Nilai Sikap</p>
-                                    </a>
-                                </li>
-                            @else
-                            @endif
                             <li class="nav-item">
                                 <a href="{{ route('rapot.index') }}" class="nav-link" id="RapotGuru">
                                     <i class="fas fa-file-alt nav-icon"></i>
