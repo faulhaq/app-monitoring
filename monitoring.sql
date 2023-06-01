@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2023 at 06:25 AM
+-- Generation Time: Jun 01, 2023 at 06:33 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -163,22 +163,6 @@ CREATE TABLE `kelas` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `mapel`
---
-
-CREATE TABLE `mapel` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nama_mapel` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `paket_id` int(11) NOT NULL,
-  `kelompok` enum('A','B','C') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `migrations`
 --
 
@@ -254,33 +238,6 @@ CREATE TABLE `orang_tua` (
   `upload_at` timestamp NULL DEFAULT NULL,
   `delete_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `paket`
---
-
-CREATE TABLE `paket` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `ket` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `paket`
---
-
-INSERT INTO `paket` (`id`, `ket`, `created_at`, `updated_at`) VALUES
-(1, 'Bisnis kontruksi dan Properti', '2021-01-11 01:01:19', '2021-01-11 01:01:19'),
-(2, 'Desain Permodelan dan Informasi Bangunan', '2021-01-11 01:01:19', '2021-01-11 01:01:19'),
-(3, 'Elektronika Industri', '2021-01-11 01:01:19', '2021-01-11 01:01:19'),
-(4, 'Otomasi Industri', '2021-01-11 01:01:19', '2021-01-11 01:01:19'),
-(5, 'Teknik Pemesinan', '2021-01-11 01:01:19', '2021-01-11 01:01:19'),
-(6, 'Teknik dan Bisnis Sepeda Motor', '2021-01-11 01:01:19', '2021-01-11 01:01:19'),
-(7, 'Rekayasa Perangkat Lunak', '2021-01-11 01:01:19', '2021-01-11 01:01:19'),
-(8, 'Teknik Pengelasan', '2021-01-11 01:01:19', '2021-01-11 01:01:19');
 
 -- --------------------------------------------------------
 
@@ -399,25 +356,6 @@ INSERT INTO `ruang` (`id`, `nama_ruang`, `created_at`, `updated_at`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sikap`
---
-
-CREATE TABLE `sikap` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `siswa_id` int(11) NOT NULL,
-  `kelas_id` int(11) NOT NULL,
-  `guru_id` int(11) NOT NULL,
-  `mapel_id` int(11) NOT NULL,
-  `sikap_1` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sikap_2` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `sikap_3` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `siswa`
 --
 
@@ -435,27 +373,6 @@ CREATE TABLE `siswa` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `ulangan`
---
-
-CREATE TABLE `ulangan` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `siswa_id` int(11) NOT NULL,
-  `kelas_id` int(11) NOT NULL,
-  `guru_id` int(11) NOT NULL,
-  `mapel_id` int(11) NOT NULL,
-  `ulha_1` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ulha_2` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `uts` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `ulha_3` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `uas` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -535,12 +452,6 @@ ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `mapel`
---
-ALTER TABLE `mapel`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -559,12 +470,6 @@ ALTER TABLE `orang_tua`
   ADD PRIMARY KEY (`id`),
   ADD KEY `tmp_lahir` (`tmp_lahir`),
   ADD KEY `goldar` (`goldar`);
-
---
--- Indexes for table `paket`
---
-ALTER TABLE `paket`
-  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `password_resets`
@@ -591,21 +496,9 @@ ALTER TABLE `ruang`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `sikap`
---
-ALTER TABLE `sikap`
-  ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `ulangan`
---
-ALTER TABLE `ulangan`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -662,12 +555,6 @@ ALTER TABLE `kelas`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `mapel`
---
-ALTER TABLE `mapel`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
@@ -684,12 +571,6 @@ ALTER TABLE `nilai`
 --
 ALTER TABLE `orang_tua`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `paket`
---
-ALTER TABLE `paket`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`
@@ -710,21 +591,9 @@ ALTER TABLE `ruang`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT for table `sikap`
---
-ALTER TABLE `sikap`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ulangan`
---
-ALTER TABLE `ulangan`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
