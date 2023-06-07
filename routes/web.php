@@ -24,12 +24,22 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', function () {})->name('profile');
     Route::middleware(['admin'])->group(function () {
         Route::get('/admin/home', 'HomeController@admin')->name('admin.home');
-        Route::resource('/guru', 'GuruController');
-        Route::resource('/siswa', 'SiswaController');
-        Route::resource('/kelas', 'KelasController');
-        Route::resource('/user', 'UserController');
         Route::get('/admin/pengumuman', 'PengumumanController@index')->name('admin.pengumuman');
         Route::post('/admin/pengumuman/simpan', 'PengumumanController@simpan')->name('admin.pengumuman.simpan');
+
+        Route::resource('/guru', 'GuruController');
+        Route::get('/guru/export_excel', 'GuruController@export_excel')->name('guru.export_excel');
+        Route::post('/guru/import_excel', 'GuruController@import_excel')->name('guru.import_excel');
+        Route::delete('/guru/deleteAll', 'GuruController@deleteAll')->name('guru.deleteAll');
+
+        Route::resource('/siswa', 'SiswaController');
+
+        Route::resource('/kelas', 'KelasController');
+
+        Route::resource('/user', 'UserController');
+
+        
+
     });
     Route::middleware(['guru'])->group(function () {
         

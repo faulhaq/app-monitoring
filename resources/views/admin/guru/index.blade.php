@@ -72,29 +72,6 @@
 				</form>
 			</div>
 		</div>
-        <!-- /.card-header -->
-        <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>No.</th>
-                    <th>Nama Mapel</th>
-                    <th>Lihat Guru</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($mapel as $data)
-                    <tr>
-                        <td>{{ $loop->iteration }}</td>
-                        <td>{{ $data->nama_mapel }}</td>
-                        <td>
-                            <a href="{{ route('guru.mapel', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-          </table>
-        </div>
     </div>
 </div>
 
@@ -143,37 +120,7 @@
                         <label for="nip">NIP</label>
                         <input type="text" id="nip" name="nip" onkeypress="return inputAngka(event)" class="form-control @error('nip') is-invalid @enderror">
                     </div>
-                    <div class="form-group">
-                        <label for="mapel_id">Mapel</label>
-                        <select id="mapel_id" name="mapel_id" class="select2bs4 form-control @error('mapel_id') is-invalid @enderror">
-                            <option value="">-- Pilih Mapel --</option>
-                            @foreach ($mapel as $data)
-                                <option value="{{ $data->id }}">{{ $data->nama_mapel }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                    @php
-                        $kode = $max+1;
-                        if (strlen($kode) == 1) {
-                            $id_card = "0000".$kode;
-                        } else if(strlen($kode) == 2) {
-                            $id_card = "000".$kode;
-                        } else if(strlen($kode) == 3) {
-                            $id_card = "00".$kode;
-                        } else if(strlen($kode) == 4) {
-                            $id_card = "0".$kode;
-                        } else {
-                            $id_card = $kode;
-                        }
-                    @endphp
-                    <div class="form-group">
-                        <label for="id_card">Nomor ID Card</label>
-                        <input type="text" id="id_card" name="id_card" maxlength="5" onkeypress="return inputAngka(event)" value="{{ $id_card }}" class="form-control @error('id_card') is-invalid @enderror" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="kode">Kode Jadwal</label>
-                        <input type="text" id="kode" name="kode" maxlength="3" onkeyup="this.value = this.value.toUpperCase()" class="form-control @error('kode') is-invalid @enderror">
-                    </div>
+                    
                     <div class="form-group">
                         <label for="foto">File input</label>
                         <div class="input-group">

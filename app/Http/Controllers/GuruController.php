@@ -5,10 +5,6 @@ namespace App\Http\Controllers;
 use Auth;
 use App\User;
 use App\Guru;
-use App\Mapel;
-use App\Jadwal;
-use App\Absen;
-use App\Kehadiran;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -26,9 +22,8 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $mapel = Mapel::orderBy('nama_mapel')->get();
         $max = Guru::max('id_card');
-        return view('admin.guru.index', compact('mapel', 'max'));
+        return view('admin.guru.index', compact('max'));
     }
 
     /**
@@ -52,7 +47,6 @@ class GuruController extends Controller
         $this->validate($request, [
             'id_card' => 'required',
             'nama_guru' => 'required',
-            'mapel_id' => 'required',
             'kode' => 'required|string|unique:guru|min:2|max:3',
             'jk' => 'required'
         ]);
@@ -64,7 +58,6 @@ class GuruController extends Controller
                 'id_card' => $request->id_card,
                 'nip' => $request->nip,
                 'nama_guru' => $request->nama_guru,
-                'mapel_id' => $request->mapel_id,
                 'kode' => $request->kode,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
@@ -83,7 +76,6 @@ class GuruController extends Controller
                 'id_card' => $request->id_card,
                 'nip' => $request->nip,
                 'nama_guru' => $request->nama_guru,
-                'mapel_id' => $request->mapel_id,
                 'kode' => $request->kode,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
@@ -119,8 +111,7 @@ class GuruController extends Controller
     {
         $id = Crypt::decrypt($id);
         $guru = Guru::findorfail($id);
-        $mapel = Mapel::all();
-        return view('admin.guru.edit', compact('guru', 'mapel'));
+        return view('admin.guru.edit', compact('guru'));
     }
 
     /**
@@ -134,7 +125,6 @@ class GuruController extends Controller
     {
         $this->validate($request, [
             'nama_guru' => 'required',
-            'mapel_id' => 'required',
             'jk' => 'required',
         ]);
 
@@ -149,7 +139,6 @@ class GuruController extends Controller
         }
         $guru_data = [
             'nama_guru' => $request->nama_guru,
-            'mapel_id' => $request->mapel_id,
             'jk' => $request->jk,
             'telp' => $request->telp,
             'tmp_lahir' => $request->tmp_lahir,
@@ -249,106 +238,9 @@ class GuruController extends Controller
         return redirect()->route('guru.index')->with('success', 'Berhasil merubah foto!');
     }
 
-    public function mapel($id)
-    {
-        $id = Crypt::decrypt($id);
-        $mapel = Mapel::findorfail($id);
-        $guru = Guru::where('mapel_id', $id)->orderBy('kode', 'asc')->get();
-        return view('admin.guru.show', compact('mapel', 'guru'));
-    }
+    
 
-    public function absen()
-    {
-        $absen = Absen::where('tanggal', date('Y-m-d'))->get();
-        $kehadiran = Kehadiran::limit(4)->get();
-        return view('guru.absen', compact('absen', 'kehadiran'));
-    }
-
-    public function simpan(Request $request)
-    {
-        $this->validate($request, [
-            'id_card' => 'required',
-            'kehadiran_id' => 'required'
-        ]);
-        $cekGuru = Guru::where('id_card', $request->id_card)->count();
-        if ($cekGuru >= 1) {
-            $guru = Guru::where('id_card', $request->id_card)->first();
-            if ($guru->id_card == Auth::user()->id_card) {
-                $cekAbsen = Absen::where('guru_id', $guru->id)->where('tanggal', date('Y-m-d'))->count();
-                if ($cekAbsen == 0) {
-                    if (date('w') != '0' && date('w') != '6') {
-                        if (date('H:i:s') >= '06:00:00') {
-                            if (date('H:i:s') >= '09:00:00') {
-                                if (date('H:i:s') >= '16:15:00') {
-                                    Absen::create([
-                                        'tanggal' => date('Y-m-d'),
-                                        'guru_id' => $guru->id,
-                                        'kehadiran_id' => '6',
-                                    ]);
-                                    return redirect()->back()->with('info', 'Maaf sekarang sudah waktunya pulang!');
-                                } else {
-                                    if ($request->kehadiran_id == '1') {
-                                        $terlambat = date('H') - 9 . ' Jam ' . date('i') . ' Menit';
-                                        if (date('H') - 9 == 0) {
-                                            $terlambat = date('i') . ' Menit';
-                                        }
-                                        Absen::create([
-                                            'tanggal' => date('Y-m-d'),
-                                            'guru_id' => $guru->id,
-                                            'kehadiran_id' => '5',
-                                        ]);
-                                        return redirect()->back()->with('warning', 'Maaf anda terlambat ' . $terlambat . '!');
-                                    } else {
-                                        Absen::create([
-                                            'tanggal' => date('Y-m-d'),
-                                            'guru_id' => $guru->id,
-                                            'kehadiran_id' => $request->kehadiran_id,
-                                        ]);
-                                        return redirect()->back()->with('success', 'Anda hari ini berhasil absen!');
-                                    }
-                                }
-                            } else {
-                                Absen::create([
-                                    'tanggal' => date('Y-m-d'),
-                                    'guru_id' => $guru->id,
-                                    'kehadiran_id' => $request->kehadiran_id,
-                                ]);
-                                return redirect()->back()->with('success', 'Anda hari ini berhasil absen tepat waktu!');
-                            }
-                        } else {
-                            return redirect()->back()->with('info', 'Maaf absensi di mulai jam 6 pagi!');
-                        }
-                    } else {
-                        $namaHari = ["Minggu", "Senin", "Selasa", "Rabu", "Kamis", "Jum'at", "Sabtu"];
-                        $d = date('w');
-                        $hari = $namaHari[$d];
-                        return redirect()->back()->with('info', 'Maaf sekolah hari ' . $hari . ' libur!');
-                    }
-                } else {
-                    return redirect()->back()->with('warning', 'Maaf absensi tidak bisa dilakukan 2x!');
-                }
-            } else {
-                return redirect()->back()->with('error', 'Maaf id card ini bukan milik anda!');
-            }
-        } else {
-            return redirect()->back()->with('error', 'Maaf id card ini tidak terdaftar!');
-        }
-    }
-
-    public function absensi()
-    {
-        $guru = Guru::all();
-        return view('admin.guru.absen', compact('guru'));
-    }
-
-    public function kehadiran($id)
-    {
-        $id = Crypt::decrypt($id);
-        $guru = Guru::findorfail($id);
-        $absen = Absen::orderBy('tanggal', 'desc')->where('guru_id', $id)->get();
-        return view('admin.guru.kehadiran', compact('guru', 'absen'));
-    }
-
+    
     public function export_excel()
     {
         return Excel::download(new GuruExport, 'guru.xlsx');
