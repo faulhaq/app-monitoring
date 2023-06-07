@@ -33,6 +33,9 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/guru/deleteAll', 'GuruController@deleteAll')->name('guru.deleteAll');
 
         Route::resource('/siswa', 'SiswaController');
+        Route::get('/siswa/export_excel', 'SiswaController@export_excel')->name('siswa.export_excel');
+        Route::post('/siswa/import_excel', 'SiswaController@import_excel')->name('siswa.import_excel');
+        Route::delete('/siswa/deleteAll', 'SiswaController@deleteAll')->name('siswa.deleteAll');
 
         Route::resource('/kelas', 'KelasController');
 
