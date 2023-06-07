@@ -21,4 +21,18 @@ Route::patch('/reset/password/update/{id}', 'UserController@update_password')->n
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/profile', function () {})->name('profile');
+    Route::middleware(['admin'])->group(function () {
+        Route::get('/admin/home', 'HomeController@admin')->name('admin.home');
+        Route::resource('/guru', 'GuruController');
+        Route::resource('/siswa', 'SiswaController');
+        Route::resource('/kelas', 'KelasController');
+        Route::resource('/user', 'UserController');
+        Route::get('/admin/pengumuman', 'PengumumanController@index')->name('admin.pengumuman');
+        Route::post('/admin/pengumuman/simpan', 'PengumumanController@simpan')->name('admin.pengumuman.simpan');
+    });
+    Route::middleware(['guru'])->group(function () {
+        
+    });
 });
+
