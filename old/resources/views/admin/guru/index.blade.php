@@ -72,6 +72,29 @@
 				</form>
 			</div>
 		</div>
+        <!-- /.card-header -->
+        <div class="card-body">
+          <table id="example1" class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>Nama Mapel</th>
+                    <th>Lihat Guru</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($mapel as $data)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $data->nama_mapel }}</td>
+                        <td>
+                            <a href="{{ route('guru.mapel', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+          </table>
+        </div>
     </div>
 </div>
 
@@ -119,6 +142,15 @@
                     <div class="form-group">
                         <label for="nip">NIP</label>
                         <input type="text" id="nip" name="nip" onkeypress="return inputAngka(event)" class="form-control @error('nip') is-invalid @enderror">
+                    </div>
+                    <div class="form-group">
+                        <label for="mapel_id">Mapel</label>
+                        <select id="mapel_id" name="mapel_id" class="select2bs4 form-control @error('mapel_id') is-invalid @enderror">
+                            <option value="">-- Pilih Mapel --</option>
+                            @foreach ($mapel as $data)
+                                <option value="{{ $data->id }}">{{ $data->nama_mapel }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     @php
                         $kode = $max+1;

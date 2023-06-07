@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Kelas;
 use App\Guru;
+use App\Paket;
+use App\Jadwal;
 use App\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -19,7 +21,8 @@ class KelasController extends Controller
     {
         $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
         $guru = Guru::OrderBy('nama_guru', 'asc')->get();
-        return view('admin.kelas.index', compact('kelas', 'guru'));
+        $paket = Paket::all();
+        return view('admin.kelas.index', compact('kelas', 'guru', 'paket'));
     }
 
     /**
@@ -44,11 +47,13 @@ class KelasController extends Controller
         if ($request->id != '') {
             $this->validate($request, [
                 'nama_kelas' => 'required|min:6|max:10',
+                'paket_id' => 'required',
                 'guru_id' => 'required|unique:kelas',
             ]);
         } else {
             $this->validate($request, [
                 'nama_kelas' => 'required|unique:kelas|min:6|max:10',
+                'paket_id' => 'required',
                 'guru_id' => 'required|unique:kelas',
             ]);
         }
@@ -59,6 +64,7 @@ class KelasController extends Controller
             ],
             [
                 'nama_kelas' => $request->nama_kelas,
+                'paket_id' => $request->paket_id,
                 'guru_id' => $request->guru_id,
             ]
         );
@@ -109,6 +115,11 @@ class KelasController extends Controller
     public function destroy($id)
     {
         $kelas = Kelas::findorfail($id);
+        $countJadwal = Jadwal::where('kelas_id', $kelas->id)->count();
+        if ($countJadwal >= 1) {
+            Jadwal::where('kelas_id', $kelas->id)->delete();
+        } else {
+        }
         $countSiswa = Siswa::where('kelas_id', $kelas->id)->count();
         if ($countSiswa >= 1) {
             Siswa::where('kelas_id', $kelas->id)->delete();
@@ -128,6 +139,11 @@ class KelasController extends Controller
     {
         $id = Crypt::decrypt($id);
         $kelas = Kelas::withTrashed()->findorfail($id);
+        $countJadwal = Jadwal::withTrashed()->where('kelas_id', $kelas->id)->count();
+        if ($countJadwal >= 1) {
+            Jadwal::withTrashed()->where('kelas_id', $kelas->id)->restore();
+        } else {
+        }
         $countSiswa = Siswa::withTrashed()->where('kelas_id', $kelas->id)->count();
         if ($countSiswa >= 1) {
             Siswa::withTrashed()->where('kelas_id', $kelas->id)->restore();
@@ -140,6 +156,11 @@ class KelasController extends Controller
     public function kill($id)
     {
         $kelas = Kelas::withTrashed()->findorfail($id);
+        $countJadwal = Jadwal::withTrashed()->where('kelas_id', $kelas->id)->count();
+        if ($countJadwal >= 1) {
+            Jadwal::withTrashed()->where('kelas_id', $kelas->id)->forceDelete();
+        } else {
+        }
         $countSiswa = Siswa::withTrashed()->where('kelas_id', $kelas->id)->count();
         if ($countSiswa >= 1) {
             Siswa::withTrashed()->where('kelas_id', $kelas->id)->forceDelete();
@@ -156,6 +177,7 @@ class KelasController extends Controller
             $newForm[] = array(
                 'id' => $val->id,
                 'nama' => $val->nama_kelas,
+                'paket_id' => $val->paket_id,
                 'guru_id' => $val->guru_id,
             );
         }

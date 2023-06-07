@@ -1,9 +1,9 @@
 @extends('layouts.app')
-@section('page', 'Kegiatan Monitoring Keagamaan')
+@section('page', 'Login Authentication')
 @section('content')
 <div class="card-body login-card-body">
-  <p class="login-box-msg">Login Authentication</p>
-
+  <p class="login-box-msg">Sign in to start your session</p>
+<br><center><p>Repost by <a href='https://stokcoding.com/' title='StokCoding.com' target='_blank'>StokCoding.com</a></p></center>
 
   <form action="{{ route('login') }}" method="post">
     @csrf
@@ -56,6 +56,9 @@
         {{ __('Lupa Password?') }}
       </a>
     @endif
+  </p>
+  <p class="mb-0">
+    <a class="text-center" href="{{ route('register') }}">Buat Akun Baru</a>
   </p>
 </div>
 @endsection
