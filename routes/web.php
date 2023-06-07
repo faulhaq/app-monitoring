@@ -20,4 +20,5 @@ Route::patch('/reset/password/update/{id}', 'UserController@update_password')->n
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
 });
