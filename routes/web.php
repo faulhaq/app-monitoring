@@ -21,7 +21,7 @@ Route::patch('/reset/password/update/{id}', 'UserController@update_password')->n
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/home', 'HomeController@index')->name('home');
-    
+
     Route::get('/profile', 'UserController@profile')->name('profile');
     Route::get('/pengaturan/profile', 'UserController@edit_profile')->name('pengaturan.profile');
     Route::post('/pengaturan/ubah-profile', 'UserController@ubah_profile')->name('pengaturan.ubah-profile');
@@ -38,6 +38,9 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/admin/pengumuman/simpan', 'PengumumanController@simpan')->name('admin.pengumuman.simpan');
 
         Route::resource('/guru', 'GuruController');
+        Route::get('/guru/ubah-foto/{id}', 'GuruController@ubah_foto')->name('guru.ubah-foto');
+        Route::post('/guru/update-foto/{id}', 'GuruController@update_foto')->name('guru.update-foto');
+        Route::post('/guru/upload', 'GuruController@upload')->name('guru.upload');
         Route::get('/guru/export_excel', 'GuruController@export_excel')->name('guru.export_excel');
         Route::post('/guru/import_excel', 'GuruController@import_excel')->name('guru.import_excel');
         Route::delete('/guru/deleteAll', 'GuruController@deleteAll')->name('guru.deleteAll');

@@ -22,8 +22,8 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $max = Guru::max('id_card');
-        return view('admin.guru.index', compact('max'));
+        $guru = Guru::get();
+        return view('admin.guru.index', compact("guru"));
     }
 
     /**
@@ -45,9 +45,7 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_card' => 'required',
             'nama_guru' => 'required',
-            'kode' => 'required|string|unique:guru|min:2|max:3',
             'jk' => 'required'
         ]);
 
@@ -55,10 +53,8 @@ class GuruController extends Controller
             $foto = $request->foto;
             $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
             Guru::create([
-                'id_card' => $request->id_card,
                 'nip' => $request->nip,
                 'nama_guru' => $request->nama_guru,
-                'kode' => $request->kode,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
@@ -73,10 +69,8 @@ class GuruController extends Controller
                 $foto = 'uploads/guru/23171022042020_female.jpg';
             }
             Guru::create([
-                'id_card' => $request->id_card,
                 'nip' => $request->nip,
                 'nama_guru' => $request->nama_guru,
-                'kode' => $request->kode,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
@@ -129,7 +123,7 @@ class GuruController extends Controller
         ]);
 
         $guru = Guru::findorfail($id);
-        $user = User::where('id_card', $guru->id_card)->first();
+        $user = User::where('id', $guru->id)->first();
         if ($user) {
             $user_data = [
                 'name' => $request->nama_guru
@@ -163,9 +157,9 @@ class GuruController extends Controller
             $jadwal = Jadwal::where('guru_id', $guru->id)->delete();
         } else {
         }
-        $countUser = User::where('id_card', $guru->id_card)->count();
+        $countUser = User::where('id', $guru->id)->count();
         if ($countUser >= 1) {
-            $user = User::where('id_card', $guru->id_card)->delete();
+            $user = User::where('id', $guru->id)->delete();
         } else {
         }
         $guru->delete();
@@ -187,9 +181,9 @@ class GuruController extends Controller
             $jadwal = Jadwal::withTrashed()->where('guru_id', $guru->id)->restore();
         } else {
         }
-        $countUser = User::withTrashed()->where('id_card', $guru->id_card)->count();
+        $countUser = User::withTrashed()->where('id', $guru->id)->count();
         if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_card', $guru->id_card)->restore();
+            $user = User::withTrashed()->where('id', $guru->id)->restore();
         } else {
         }
         $guru->restore();
@@ -204,9 +198,9 @@ class GuruController extends Controller
             $jadwal = Jadwal::withTrashed()->where('guru_id', $guru->id)->forceDelete();
         } else {
         }
-        $countUser = User::withTrashed()->where('id_card', $guru->id_card)->count();
+        $countUser = User::withTrashed()->where('id', $guru->id)->count();
         if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_card', $guru->id_card)->forceDelete();
+            $user = User::withTrashed()->where('id', $guru->id)->forceDelete();
         } else {
         }
         $guru->forceDelete();

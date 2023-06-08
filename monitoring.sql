@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 07, 2023 at 06:13 AM
+-- Generation Time: Jun 08, 2023 at 09:18 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -29,11 +29,8 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `guru` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `id_card` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nip` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama_guru` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mapel_id` int(11) NOT NULL,
-  `kode` varchar(5) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
   `telp` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tmp_lahir` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -43,6 +40,13 @@ CREATE TABLE `guru` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `guru`
+--
+
+INSERT INTO `guru` (`id`, `nip`, `nama_guru`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, NULL, 'Andika Pratama', 'L', '08123456789', 'Sleman', '2023-06-01', 'uploads/guru/35251431012020_male.jpg', '2023-06-08 00:03:29', '2023-06-08 00:17:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -79,7 +83,7 @@ CREATE TABLE `pengumuman` (
 --
 
 INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`) VALUES
-(1, 'pengumuman', 'pengumuman', '2021-01-11 01:01:19', '2021-01-11 01:01:19');
+(1, 'pengumuman', 'Halo Halo', '2021-01-11 01:01:19', '2023-06-07 23:57:04');
 
 -- --------------------------------------------------------
 
@@ -129,7 +133,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `no_induk`, `id_card`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$EDF1K/5oQoBzDj3.gxH/Wutmiw8.Wq8nfmKlt1Wj/UCkL2XHSRPD6', 'Admin', NULL, NULL, NULL, '2021-01-11 01:01:19', '2021-01-11 01:01:19', NULL);
+(1, 'Andika Pratama', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, NULL, 'CyOjAd2SsyoayUVXesRGvBO6NW8oltNBHuYFopAwdFmVeC53MzxONTCVgDeX', '2021-01-11 01:01:19', '2023-06-08 00:17:59', NULL);
 
 --
 -- Indexes for dumped tables
@@ -174,7 +178,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `kelas`
