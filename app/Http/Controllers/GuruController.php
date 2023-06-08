@@ -123,7 +123,7 @@ class GuruController extends Controller
         ]);
 
         $guru = Guru::findorfail($id);
-        $user = User::where('id', $guru->id)->first();
+        $user = User::where('id_guru', $guru->id)->first();
         if ($user) {
             $user_data = [
                 'name' => $request->nama_guru

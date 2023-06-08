@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2023 at 09:18 AM
+-- Generation Time: Jun 08, 2023 at 09:28 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -46,7 +46,7 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id`, `nip`, `nama_guru`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 'Andika Pratama', 'L', '08123456789', 'Sleman', '2023-06-01', 'uploads/guru/35251431012020_male.jpg', '2023-06-08 00:03:29', '2023-06-08 00:17:59', NULL);
+(1, NULL, 'Andika P', 'L', '08123456789', 'Sleman', '2023-06-01', 'uploads/guru/35251431012020_male.jpg', '2023-06-08 00:03:29', '2023-06-08 00:27:49', NULL);
 
 -- --------------------------------------------------------
 
@@ -120,8 +120,8 @@ CREATE TABLE `users` (
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `role` enum('Admin','Guru','Siswa','Operator') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `no_induk` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `id_card` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_siswa` bigint(20) UNSIGNED DEFAULT NULL,
+  `id_guru` bigint(20) UNSIGNED DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -132,8 +132,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `no_induk`, `id_card`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Andika Pratama', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, NULL, 'CyOjAd2SsyoayUVXesRGvBO6NW8oltNBHuYFopAwdFmVeC53MzxONTCVgDeX', '2021-01-11 01:01:19', '2023-06-08 00:17:59', NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_siswa`, `id_guru`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, NULL, 'CyOjAd2SsyoayUVXesRGvBO6NW8oltNBHuYFopAwdFmVeC53MzxONTCVgDeX', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL);
 
 --
 -- Indexes for dumped tables
@@ -168,7 +168,9 @@ ALTER TABLE `siswa`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
+  ADD UNIQUE KEY `users_email_unique` (`email`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `id_guru` (`id_guru`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -203,6 +205,17 @@ ALTER TABLE `siswa`
 --
 ALTER TABLE `users`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
