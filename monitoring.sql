@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2023 at 09:28 AM
+-- Generation Time: Jun 08, 2023 at 09:32 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -46,7 +46,8 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id`, `nip`, `nama_guru`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 'Andika P', 'L', '08123456789', 'Sleman', '2023-06-01', 'uploads/guru/35251431012020_male.jpg', '2023-06-08 00:03:29', '2023-06-08 00:27:49', NULL);
+(1, NULL, 'Andika P', 'L', '08123456789', 'Sleman', '2023-06-01', 'uploads/guru/35251431012020_male.jpg', '2023-06-08 00:03:29', '2023-06-08 00:30:38', '2023-06-08 00:30:38'),
+(2, '196506061992032001', 'Andi', 'L', '08123456789', 'bantul', '2023-06-02', 'uploads/guru/57310708062023_card.jpg', '2023-06-08 00:31:57', '2023-06-08 00:31:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -180,7 +181,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kelas`

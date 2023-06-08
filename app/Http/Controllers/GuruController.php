@@ -152,14 +152,9 @@ class GuruController extends Controller
     public function destroy($id)
     {
         $guru = Guru::findorfail($id);
-        $countJadwal = Jadwal::where('guru_id', $guru->id)->count();
-        if ($countJadwal >= 1) {
-            $jadwal = Jadwal::where('guru_id', $guru->id)->delete();
-        } else {
-        }
-        $countUser = User::where('id', $guru->id)->count();
+        $countUser = User::where('id_guru', $guru->id)->count();
         if ($countUser >= 1) {
-            $user = User::where('id', $guru->id)->delete();
+            $user = User::where('id_guru', $guru->id)->delete();
         } else {
         }
         $guru->delete();
@@ -176,14 +171,9 @@ class GuruController extends Controller
     {
         $id = Crypt::decrypt($id);
         $guru = Guru::withTrashed()->findorfail($id);
-        $countJadwal = Jadwal::withTrashed()->where('guru_id', $guru->id)->count();
-        if ($countJadwal >= 1) {
-            $jadwal = Jadwal::withTrashed()->where('guru_id', $guru->id)->restore();
-        } else {
-        }
-        $countUser = User::withTrashed()->where('id', $guru->id)->count();
+        $countUser = User::withTrashed()->where('id_guru', $guru->id)->count();
         if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id', $guru->id)->restore();
+            $user = User::withTrashed()->where('id_guru', $guru->id)->restore();
         } else {
         }
         $guru->restore();
@@ -193,14 +183,9 @@ class GuruController extends Controller
     public function kill($id)
     {
         $guru = Guru::withTrashed()->findorfail($id);
-        $countJadwal = Jadwal::withTrashed()->where('guru_id', $guru->id)->count();
-        if ($countJadwal >= 1) {
-            $jadwal = Jadwal::withTrashed()->where('guru_id', $guru->id)->forceDelete();
-        } else {
-        }
-        $countUser = User::withTrashed()->where('id', $guru->id)->count();
+        $countUser = User::withTrashed()->where('id_guru', $guru->id)->count();
         if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id', $guru->id)->forceDelete();
+            $user = User::withTrashed()->where('id_guru', $guru->id)->forceDelete();
         } else {
         }
         $guru->forceDelete();
@@ -256,8 +241,8 @@ class GuruController extends Controller
     {
         $guru = Guru::all();
         if ($guru->count() >= 1) {
-            Guru::whereNotNull('id')->delete();
-            Guru::withTrashed()->whereNotNull('id')->forceDelete();
+            Guru::whereNotNull('id_guru')->delete();
+            Guru::withTrashed()->whereNotNull('id_guru')->forceDelete();
             return redirect()->back()->with('success', 'Data table guru berhasil dihapus!');
         } else {
             return redirect()->back()->with('warning', 'Data table guru kosong!');
