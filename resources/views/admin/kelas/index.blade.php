@@ -72,8 +72,8 @@
               <input type="hidden" id="id" name="id">
               <div class="form-group" id="form_nama"></div>
               <div class="form-group">
-                <label for="guru_id">Wali Kelas</label>
-                <select id="guru_id" name="guru_id" class="select2bs4 form-control @error('guru_id') is-invalid @enderror">
+                <label for="id_guru">Wali Kelas</label>
+                <select id="id_guru" name="id_guru" class="select2bs4 form-control @error('id_guru') is-invalid @enderror">
                   <option value="">-- Pilih Wali Kelas --</option>
                   @foreach ($guru as $data)
                     <option value="{{ $data->id }}">{{ $data->nama_guru }}</option>
@@ -145,11 +145,18 @@
       $("#judul").text('Tambah Data Kelas');
       $('#id').val('');
       $('#form_nama').html(`
-        <label for="nama_kelas">Nama Kelas</label>
-        <input type='text' id="nama_kelas" onkeyup="this.value = this.value.toUpperCase()" name='nama_kelas' class="form-control @error('nama_kelas') is-invalid @enderror" placeholder="{{ __('Nama Kelas') }}">
-      `);
+        <label for="nama_kelas">Kelas</label>
+        <select id="nama_kelas" name="nama_kelas" class="select2bs4 form-control @error('nama_kelas') is-invalid @enderror" required>
+          <option value="">-- Pilih Kelas --</option>
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+          <option>6</option>
+        </select>`);
       $('#nama_kelas').val('');
-      $('#guru_id').val('');
+      $('#id_guru').val('');
     }
 
     function getEditKelas(id){
@@ -167,7 +174,7 @@
               $('#id').val(val.id);
               $('#form_nama').html('');
               $('#nama_kelas').val(val.nama);
-              $('#guru_id').val(val.guru_id);
+              $('#id_guru').val(val.id_guru);
             });
           }
         },

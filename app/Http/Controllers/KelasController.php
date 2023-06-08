@@ -43,23 +43,23 @@ class KelasController extends Controller
     {
         if ($request->id != '') {
             $this->validate($request, [
-                'nama_kelas' => 'required|min:6|max:10',
-                'guru_id' => 'required|unique:kelas',
+                'nama_kelas' => 'required',
+                'id_guru' => 'required',
             ]);
         } else {
             $this->validate($request, [
-                'nama_kelas' => 'required|unique:kelas|min:6|max:10',
-                'guru_id' => 'required|unique:kelas',
+                'nama_kelas' => 'required',
+                'id_guru' => 'required',
             ]);
         }
-
+        // dd($request->id_guru);
         Kelas::updateOrCreate(
             [
                 'id' => $request->id
             ],
             [
                 'nama_kelas' => $request->nama_kelas,
-                'guru_id' => $request->guru_id,
+                'id_guru' => $request->id_guru,
             ]
         );
 
@@ -156,7 +156,7 @@ class KelasController extends Controller
             $newForm[] = array(
                 'id' => $val->id,
                 'nama' => $val->nama_kelas,
-                'guru_id' => $val->guru_id,
+                'id_guru' => $val->id_guru,
             );
         }
         return response()->json($newForm);

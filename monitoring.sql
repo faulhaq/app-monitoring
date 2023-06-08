@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2023 at 09:32 AM
+-- Generation Time: Jun 08, 2023 at 09:52 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -57,13 +57,20 @@ INSERT INTO `guru` (`id`, `nip`, `nama_guru`, `jk`, `telp`, `tmp_lahir`, `tgl_la
 
 CREATE TABLE `kelas` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `nama_kelas` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `paket_id` int(11) NOT NULL,
-  `guru_id` int(11) NOT NULL,
+  `nama_kelas` enum('1','2','3','4','5','6') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_guru` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kelas`
+--
+
+INSERT INTO `kelas` (`id`, `nama_kelas`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '1', NULL, '2023-06-08 00:45:28', '2023-06-08 00:52:41', '2023-06-08 00:52:41'),
+(2, '2', 2, '2023-06-08 00:48:20', '2023-06-08 00:48:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -150,7 +157,9 @@ ALTER TABLE `guru`
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nama_kelas` (`nama_kelas`),
+  ADD KEY `id_guru` (`id_guru`);
 
 --
 -- Indexes for table `pengumuman`
@@ -187,7 +196,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`
@@ -210,6 +219,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `kelas`
+--
+ALTER TABLE `kelas`
+  ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
