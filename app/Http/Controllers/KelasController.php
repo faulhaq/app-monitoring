@@ -18,7 +18,7 @@ class KelasController extends Controller
     public function index()
     {
         $kelas = Kelas::OrderBy('nama_kelas', 'asc')->get();
-        $guru = Guru::OrderBy('nama_guru', 'asc')->get();
+        $guru = Guru::OrderBy('nama', 'asc')->get();
         return view('admin.kelas.index', compact('kelas', 'guru'));
     }
 
@@ -29,7 +29,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        $guru = Guru::OrderBy('nama_guru', 'asc')->get();
+        $guru = Guru::OrderBy('nama', 'asc')->get();
         return view('admin.kelas.create', compact('guru'));
     }
 
@@ -109,9 +109,9 @@ class KelasController extends Controller
     public function destroy($id)
     {
         $kelas = Kelas::findorfail($id);
-        $countSiswa = Siswa::where('kelas_id', $kelas->id)->count();
+        $countSiswa = Siswa::where('id_kelas', $kelas->id)->count();
         if ($countSiswa >= 1) {
-            Siswa::where('kelas_id', $kelas->id)->delete();
+            Siswa::where('id_kelas', $kelas->id)->delete();
         } else {
         }
         $kelas->delete();
@@ -128,9 +128,9 @@ class KelasController extends Controller
     {
         $id = Crypt::decrypt($id);
         $kelas = Kelas::withTrashed()->findorfail($id);
-        $countSiswa = Siswa::withTrashed()->where('kelas_id', $kelas->id)->count();
+        $countSiswa = Siswa::withTrashed()->where('id_kelas', $kelas->id)->count();
         if ($countSiswa >= 1) {
-            Siswa::withTrashed()->where('kelas_id', $kelas->id)->restore();
+            Siswa::withTrashed()->where('id_kelas', $kelas->id)->restore();
         } else {
         }
         $kelas->restore();
@@ -140,9 +140,9 @@ class KelasController extends Controller
     public function kill($id)
     {
         $kelas = Kelas::withTrashed()->findorfail($id);
-        $countSiswa = Siswa::withTrashed()->where('kelas_id', $kelas->id)->count();
+        $countSiswa = Siswa::withTrashed()->where('id_kelas', $kelas->id)->count();
         if ($countSiswa >= 1) {
-            Siswa::withTrashed()->where('kelas_id', $kelas->id)->forceDelete();
+            Siswa::withTrashed()->where('id_kelas', $kelas->id)->forceDelete();
         } else {
         }
         $kelas->forceDelete();

@@ -47,21 +47,21 @@ class SiswaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'no_induk' => 'required|string|unique:siswa',
-            'nama_siswa' => 'required',
+            'id_siswa' => 'required|string|unique:siswa',
+            'nama' => 'required',
             'jk' => 'required',
-            'kelas_id' => 'required'
+            'id_kelas' => 'required'
         ]);
 
         if ($request->foto) {
             $foto = $request->foto;
             $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
             Siswa::create([
-                'no_induk' => $request->no_induk,
+                'id_siswa' => $request->no_induk,
                 'nis' => $request->nis,
-                'nama_siswa' => $request->nama_siswa,
+                'nama' => $request->nama,
                 'jk' => $request->jk,
-                'kelas_id' => $request->kelas_id,
+                'id_kelas' => $request->id_kelas,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
@@ -75,11 +75,11 @@ class SiswaController extends Controller
                 $foto = 'uploads/siswa/50271431012020_female.jpg';
             }
             Guru::create([
-                'no_induk' => $request->no_induk,
+                'id_siswa' => $request->no_induk,
                 'nis' => $request->nis,
-                'nama_siswa' => $request->nama_siswa,
+                'nama' => $request->nama,
                 'jk' => $request->jk,
-                'kelas_id' => $request->kelas_id,
+                'id_kelas' => $request->id_kelas,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
@@ -127,25 +127,25 @@ class SiswaController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama_siswa' => 'required',
+            'nama' => 'required',
             'jk' => 'required',
-            'kelas_id' => 'required'
+            'id_kelas' => 'required'
         ]);
 
         $siswa = Siswa::findorfail($id);
-        $user = User::where('no_induk', $siswa->no_induk)->first();
+        $user = User::where('id_siswa', $siswa->id)->first();
         if ($user) {
             $user_data = [
-                'name' => $request->nama_siswa
+                'name' => $request->nama
             ];
             $user->update($user_data);
         } else {
         }
         $siswa_data = [
             'nis' => $request->nis,
-            'nama_siswa' => $request->nama_siswa,
+            'nama' => $request->nama,
             'jk' => $request->jk,
-            'kelas_id' => $request->kelas_id,
+            'id_kelas' => $request->id_kelas,
             'telp' => $request->telp,
             'tmp_lahir' => $request->tmp_lahir,
             'tgl_lahir' => $request->tgl_lahir,
@@ -164,9 +164,9 @@ class SiswaController extends Controller
     public function destroy($id)
     {
         $siswa = Siswa::findorfail($id);
-        $countUser = User::where('no_induk', $siswa->no_induk)->count();
+        $countUser = User::where('id_siswa', $siswa->id)->count();
         if ($countUser >= 1) {
-            $user = User::where('no_induk', $siswa->no_induk)->first();
+            $user = User::where('id_siswa', $siswa->id)->first();
             $siswa->delete();
             $user->delete();
             return redirect()->back()->with('warning', 'Data siswa berhasil dihapus! (Silahkan cek trash data siswa)');
@@ -186,9 +186,9 @@ class SiswaController extends Controller
     {
         $id = Crypt::decrypt($id);
         $siswa = Siswa::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('no_induk', $siswa->no_induk)->count();
+        $countUser = User::withTrashed()->where('id_siswa', $siswa->id)->count();
         if ($countUser >= 1) {
-            $user = User::withTrashed()->where('no_induk', $siswa->no_induk)->first();
+            $user = User::withTrashed()->where('id_siswa', $siswa->id)->first();
             $siswa->restore();
             $user->restore();
             return redirect()->back()->with('info', 'Data siswa berhasil direstore! (Silahkan cek data siswa)');
@@ -201,9 +201,9 @@ class SiswaController extends Controller
     public function kill($id)
     {
         $siswa = Siswa::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('no_induk', $siswa->no_induk)->count();
+        $countUser = User::withTrashed()->where('id_siswa', $siswa->id)->count();
         if ($countUser >= 1) {
-            $user = User::withTrashed()->where('no_induk', $siswa->no_induk)->first();
+            $user = User::withTrashed()->where('id_siswa', $siswa->id)->first();
             $siswa->forceDelete();
             $user->forceDelete();
             return redirect()->back()->with('success', 'Data siswa berhasil dihapus secara permanent');
@@ -240,13 +240,13 @@ class SiswaController extends Controller
 
     public function view(Request $request)
     {
-        $siswa = Siswa::OrderBy('nama_siswa', 'asc')->where('kelas_id', $request->id)->get();
-
+        $siswa = Siswa::OrderBy('nama', 'asc')->where('id_kelas', $request->id)->get();
+        $newForm = [];
         foreach ($siswa as $val) {
             $newForm[] = array(
                 'kelas' => $val->kelas->nama_kelas,
-                'no_induk' => $val->no_induk,
-                'nama_siswa' => $val->nama_siswa,
+                'id_siswa' => $val->no_induk,
+                'nama' => $val->nama,
                 'jk' => $val->jk,
                 'foto' => $val->foto
             );
@@ -257,7 +257,7 @@ class SiswaController extends Controller
 
     public function cetak_pdf(Request $request)
     {
-        $siswa = siswa::OrderBy('nama_siswa', 'asc')->where('kelas_id', $request->id)->get();
+        $siswa = siswa::OrderBy('nama', 'asc')->where('id_kelas', $request->id)->get();
         $kelas = Kelas::findorfail($request->id);
 
         $pdf = PDF::loadView('siswa-pdf', ['siswa' => $siswa, 'kelas' => $kelas]);
@@ -268,7 +268,7 @@ class SiswaController extends Controller
     public function kelas($id)
     {
         $id = Crypt::decrypt($id);
-        $siswa = Siswa::where('kelas_id', $id)->OrderBy('nama_siswa', 'asc')->get();
+        $siswa = Siswa::where('id_kelas', $id)->OrderBy('nama', 'asc')->get();
         $kelas = Kelas::findorfail($id);
         return view('admin.siswa.show', compact('siswa', 'kelas'));
     }

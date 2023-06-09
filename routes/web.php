@@ -46,6 +46,11 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/guru/deleteAll', 'GuruController@deleteAll')->name('guru.deleteAll');
 
         Route::resource('/siswa', 'SiswaController');
+        Route::get('/siswa/kelas/{id}', 'SiswaController@kelas')->name('siswa.kelas');
+        Route::get('/siswa/view/json', 'SiswaController@view');
+        Route::get('/listsiswapdf/{id}', 'SiswaController@cetak_pdf');
+        Route::get('/siswa/ubah-foto/{id}', 'SiswaController@ubah_foto')->name('siswa.ubah-foto');
+        Route::post('/siswa/update-foto/{id}', 'SiswaController@update_foto')->name('siswa.update-foto');
         Route::get('/siswa/export_excel', 'SiswaController@export_excel')->name('siswa.export_excel');
         Route::post('/siswa/import_excel', 'SiswaController@import_excel')->name('siswa.import_excel');
         Route::delete('/siswa/deleteAll', 'SiswaController@deleteAll')->name('siswa.deleteAll');

@@ -121,8 +121,8 @@
                         <input type="text" id="no_induk" name="no_induk" onkeypress="return inputAngka(event)" class="form-control @error('no_induk') is-invalid @enderror">
                     </div>
                     <div class="form-group">
-                        <label for="nama_siswa">Nama Siswa</label>
-                        <input type="text" id="nama_siswa" name="nama_siswa" class="form-control @error('nama_siswa') is-invalid @enderror">
+                        <label for="nama">Nama Siswa</label>
+                        <input type="text" id="nama" name="nama" class="form-control @error('nama') is-invalid @enderror">
                     </div>
                     <div class="form-group">
                         <label for="jk">Jenis Kelamin</label>
@@ -152,8 +152,8 @@
                         <input type="text" id="nis" name="nis" onkeypress="return inputAngka(event)" class="form-control @error('nis') is-invalid @enderror">
                     </div>
                     <div class="form-group">
-                        <label for="kelas_id">Kelas</label>
-                        <select id="kelas_id" name="kelas_id" class="select2bs4 form-control @error('kelas_id') is-invalid @enderror">
+                        <label for="id_kelas">Kelas</label>
+                        <select id="id_kelas" name="id_kelas" class="select2bs4 form-control @error('id_kelas') is-invalid @enderror">
                             <option value="">-- Pilih Kelas --</option>
                             @foreach ($kelas as $data)
                                 <option value="{{ $data->id }}">{{ $data->nama_kelas }}</option>

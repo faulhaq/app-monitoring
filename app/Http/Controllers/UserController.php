@@ -58,7 +58,7 @@ class UserController extends Controller
             }
             if ($countGuru >= 1) {
                 User::create([
-                    'name' => $guru->nama_guru,
+                    'name' => $guru->nama,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
                     'role' => $request->role,
@@ -76,7 +76,7 @@ class UserController extends Controller
             }
             if ($countSiswa >= 1) {
                 User::create([
-                    'name' => strtolower($siswa->nama_siswa),
+                    'name' => strtolower($siswa->nama),
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
                     'role' => $request->role,
@@ -234,7 +234,7 @@ class UserController extends Controller
     {
         if ($request->role == 'Guru') {
             $this->validate($request, [
-                'nama_guru' => 'required',
+                'nama' => 'required',
                 'jk' => 'required',
             ]);
             $guru = Guru::where('id_card', Auth::user()->id_card)->first();
@@ -248,7 +248,7 @@ class UserController extends Controller
             } else {
             }
             $guru_data = [
-                'nama_guru' => $request->name,
+                'nama' => $request->name,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
@@ -258,9 +258,9 @@ class UserController extends Controller
             return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
         } elseif ($request->role == 'Siswa') {
             $this->validate($request, [
-                'nama_siswa' => 'required',
+                'nama' => 'required',
                 'jk' => 'required',
-                'kelas_id' => 'required'
+                'id_kelas' => 'required'
             ]);
             $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
             $user = User::where('no_induk', Auth::user()->no_induk)->first();
@@ -273,9 +273,9 @@ class UserController extends Controller
             }
             $siswa_data = [
                 'nis' => $request->nis,
-                'nama_siswa' => $request->name,
+                'nama' => $request->name,
                 'jk' => $request->jk,
-                'kelas_id' => $request->kelas_id,
+                'id_kelas' => $request->id_kelas,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,

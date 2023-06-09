@@ -45,7 +45,7 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama_guru' => 'required',
+            'nama' => 'required',
             'jk' => 'required'
         ]);
 
@@ -54,7 +54,7 @@ class GuruController extends Controller
             $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
             Guru::create([
                 'nip' => $request->nip,
-                'nama_guru' => $request->nama_guru,
+                'nama' => $request->nama,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
@@ -70,7 +70,7 @@ class GuruController extends Controller
             }
             Guru::create([
                 'nip' => $request->nip,
-                'nama_guru' => $request->nama_guru,
+                'nama' => $request->nama,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
@@ -118,7 +118,7 @@ class GuruController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'nama_guru' => 'required',
+            'nama' => 'required',
             'jk' => 'required',
         ]);
 
@@ -126,13 +126,13 @@ class GuruController extends Controller
         $user = User::where('id_guru', $guru->id)->first();
         if ($user) {
             $user_data = [
-                'name' => $request->nama_guru
+                'name' => $request->nama
             ];
             $user->update($user_data);
         } else {
         }
         $guru_data = [
-            'nama_guru' => $request->nama_guru,
+            'nama' => $request->nama,
             'jk' => $request->jk,
             'telp' => $request->telp,
             'tmp_lahir' => $request->tmp_lahir,

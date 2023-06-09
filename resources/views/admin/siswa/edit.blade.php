@@ -24,8 +24,8 @@
                     <input type="text" id="no_induk" name="no_induk" value="{{ $siswa->no_induk }}" class="form-control" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="nama_siswa">Nama Siswa</label>
-                    <input type="text" id="nama_siswa" name="nama_siswa" value="{{ $siswa->nama_siswa }}" class="form-control @error('nama_siswa') is-invalid @enderror">
+                    <label for="nama">Nama Siswa</label>
+                    <input type="text" id="nama" name="nama" value="{{ $siswa->nama }}" class="form-control @error('nama') is-invalid @enderror">
                 </div>
                 <div class="form-group">
                     <label for="jk">Jenis Kelamin</label>
@@ -54,12 +54,12 @@
                     <input type="text" id="nis" name="nis" onkeypress="return inputAngka(event)" value="{{ $siswa->nis }}" class="form-control @error('nis') is-invalid @enderror">
                 </div>
                 <div class="form-group">
-                    <label for="kelas_id">Kelas</label>
-                    <select id="kelas_id" name="kelas_id" class="select2bs4 form-control @error('kelas_id') is-invalid @enderror">
+                    <label for="id_kelas">Kelas</label>
+                    <select id="id_kelas" name="id_kelas" class="select2bs4 form-control @error('id_kelas') is-invalid @enderror">
                         <option value="">-- Pilih Kelas --</option>
                         @foreach ($kelas as $data)
                             <option value="{{ $data->id }}"
-                                @if ($siswa->kelas_id == $data->id)
+                                @if ($siswa->id_kelas == $data->id)
                                     selected
                                 @endif
                             >{{ $data->nama_kelas }}</option>
@@ -92,7 +92,7 @@
 <script type="text/javascript">
     $(document).ready(function() {
         $('#back').click(function() {
-        window.location="{{ route('siswa.kelas', Crypt::encrypt($siswa->kelas_id)) }}";
+        window.location="{{ route('siswa.kelas', Crypt::encrypt($siswa->id_kelas)) }}";
         });
     });
     $("#MasterData").addClass("active");

@@ -200,8 +200,8 @@
             $.each(result,function(index, val){
               $("#judul-siswa").text('View Data Siswa ' + val.kelas);
               siswa += "<tr>";
-                siswa += "<td>"+val.no_induk+"</td>";
-                siswa += "<td>"+val.nama_siswa+"</td>";
+                siswa += "<td>"+val.id_siswa+"</td>";
+                siswa += "<td>"+val.nama+"</td>";
                 siswa += "<td>"+val.jk+"</td>";
                 siswa += "<td><img src='"+val.foto+"' width='100px'></td>";
               siswa+="</tr>";

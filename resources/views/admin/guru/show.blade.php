@@ -29,11 +29,11 @@
                 @foreach ($guru as $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->nama_guru }}</td>
+                    <td>{{ $data->nama }}</td>
                     <td>{{ $data->id_card }}</td>
                     <td>{{ $data->nip }}</td>
                     <td>
-                        <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama_guru }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.ubah-foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
+                        <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.ubah-foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
                             <img src="{{ asset($data->foto) }}" width="130px" class="img-fluid mb-2">
                         </a>
                         {{-- https://siakad.didev.id/guru/ubah-foto/{{$data->id}} --}}

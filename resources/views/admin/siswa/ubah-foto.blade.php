@@ -26,8 +26,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="nama_siswa">Nama Siswa</label>
-                        <input type="text" name="nama_siswa" class="form-control" value="{{ $siswa->nama_siswa }}" readonly>
+                        <label for="nama">Nama Siswa</label>
+                        <input type="text" name="nama" class="form-control" value="{{ $siswa->nama }}" readonly>
                     </div>
                     <div class="form-group">
                         <label for="foto">File input</label>

@@ -88,10 +88,10 @@
                 @foreach ($guru as $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->nama_guru }}</td>
+                    <td>{{ $data->nama }}</td>
                     <td>{{ $data->nip }}</td>
                     <td>
-                        <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama_guru }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.ubah-foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
+                        <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.ubah-foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
                             <img src="{{ asset($data->foto) }}" width="130px" class="img-fluid mb-2">
                         </a>
                         {{-- https://siakad.didev.id/guru/ubah-foto/{{$data->id}} --}}
@@ -130,8 +130,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="nama_guru">Nama Guru</label>
-                        <input type="text" id="nama_guru" name="nama_guru" class="form-control @error('nama_guru') is-invalid @enderror">
+                        <label for="nama">Nama Guru</label>
+                        <input type="text" id="nama" name="nama" class="form-control @error('nama') is-invalid @enderror">
                     </div>
                     <div class="form-group">
                         <label for="tmp_lahir">Tempat Lahir</label>

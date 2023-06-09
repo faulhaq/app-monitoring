@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 08, 2023 at 09:52 AM
+-- Generation Time: Jun 09, 2023 at 08:10 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -30,11 +30,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `guru` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `nip` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nama_guru` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
   `telp` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tmp_lahir` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tgl_lahir` date DEFAULT NULL,
+  `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pendidikan` enum('sd','smp/sltp','sma/smk','d1/d2/d3','s1','s2','s3') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `goldar` enum('A','B','AB','O') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `pekerjaan` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -45,9 +50,9 @@ CREATE TABLE `guru` (
 -- Dumping data for table `guru`
 --
 
-INSERT INTO `guru` (`id`, `nip`, `nama_guru`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 'Andika P', 'L', '08123456789', 'Sleman', '2023-06-01', 'uploads/guru/35251431012020_male.jpg', '2023-06-08 00:03:29', '2023-06-08 00:30:38', '2023-06-08 00:30:38'),
-(2, '196506061992032001', 'Andi', 'L', '08123456789', 'bantul', '2023-06-02', 'uploads/guru/57310708062023_card.jpg', '2023-06-08 00:31:57', '2023-06-08 00:31:57', NULL);
+INSERT INTO `guru` (`id`, `nip`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `pendidikan`, `goldar`, `pekerjaan`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, NULL, 'Andika P', 'L', '08123456789', 'Sleman', '2023-06-01', 'islam', 'sd', 'A', '', '', 'uploads/guru/35251431012020_male.jpg', '2023-06-08 00:03:29', '2023-06-08 00:30:38', '2023-06-08 00:30:38'),
+(2, '196506061992032001', 'Andi', 'L', '08123456789', 'bantul', '2023-06-02', 'islam', 'sd', 'A', '', '', 'uploads/guru/57310708062023_card.jpg', '2023-06-08 00:31:57', '2023-06-08 00:31:57', NULL);
 
 -- --------------------------------------------------------
 
@@ -70,7 +75,32 @@ CREATE TABLE `kelas` (
 
 INSERT INTO `kelas` (`id`, `nama_kelas`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, '1', NULL, '2023-06-08 00:45:28', '2023-06-08 00:52:41', '2023-06-08 00:52:41'),
-(2, '2', 2, '2023-06-08 00:48:20', '2023-06-08 00:48:20', NULL);
+(2, '2', 2, '2023-06-08 00:48:20', '2023-06-08 00:48:20', NULL),
+(3, '1', 2, '2023-06-08 22:46:01', '2023-06-08 22:46:01', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orang_tua`
+--
+
+CREATE TABLE `orang_tua` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nik` char(16) NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `jk` enum('L','P') NOT NULL,
+  `tmp_lahir` varchar(50) NOT NULL,
+  `tgl_lahir` date NOT NULL,
+  `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') NOT NULL,
+  `pendidikan` enum('sd','smp/sltp','sma/smk','d1/d2/d3','s1','s2','s3') DEFAULT NULL,
+  `goldar` enum('A','B','AB','O') NOT NULL,
+  `pekerjaan` varchar(64) NOT NULL,
+  `alamat` text NOT NULL,
+  `foto` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `upload_at` timestamp NULL DEFAULT NULL,
+  `delete_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -103,17 +133,27 @@ CREATE TABLE `siswa` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `no_induk` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nis` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `nama_siswa` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
   `telp` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tmp_lahir` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tgl_lahir` date DEFAULT NULL,
+  `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `goldar` enum('A','B','AB','O') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `kelas_id` int(11) NOT NULL,
+  `id_kelas` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `siswa`
+--
+
+INSERT INTO `siswa` (`id`, `no_induk`, `nis`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `goldar`, `alamat`, `foto`, `id_kelas`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '123', '12345', 'paul', 'L', '08123456789', 'sragen', '2020-01-09', 'islam', NULL, '', 'uploads/siswa/08430509062023_logoyayasan.png', 2, '2023-06-08 22:43:08', '2023-06-08 22:45:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -141,7 +181,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_siswa`, `id_guru`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, NULL, 'CyOjAd2SsyoayUVXesRGvBO6NW8oltNBHuYFopAwdFmVeC53MzxONTCVgDeX', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL);
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, NULL, 'QT3VV4I1hf2GbIU0wMEY5i9TOY3f8Vlc2eY67FH9WFNAgd2eMDGk6kUJNkcb', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL);
 
 --
 -- Indexes for dumped tables
@@ -151,7 +191,14 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 -- Indexes for table `guru`
 --
 ALTER TABLE `guru`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `telp` (`telp`,`nip`),
+  ADD KEY `agama` (`agama`),
+  ADD KEY `pendidikan` (`pendidikan`),
+  ADD KEY `pekerjaan` (`pekerjaan`),
+  ADD KEY `goldar` (`goldar`),
+  ADD KEY `tmp_lahir` (`tmp_lahir`,`tgl_lahir`,`nama`,`jk`);
+ALTER TABLE `guru` ADD FULLTEXT KEY `alamat` (`alamat`);
 
 --
 -- Indexes for table `kelas`
@@ -160,6 +207,14 @@ ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `nama_kelas` (`nama_kelas`),
   ADD KEY `id_guru` (`id_guru`);
+
+--
+-- Indexes for table `orang_tua`
+--
+ALTER TABLE `orang_tua`
+  ADD UNIQUE KEY `nik` (`nik`),
+  ADD KEY `nama` (`nama`,`jk`,`tmp_lahir`,`tgl_lahir`,`agama`,`pendidikan`,`goldar`,`pekerjaan`);
+ALTER TABLE `orang_tua` ADD FULLTEXT KEY `alamat` (`alamat`);
 
 --
 -- Indexes for table `pengumuman`
@@ -171,7 +226,12 @@ ALTER TABLE `pengumuman`
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `no_induk` (`no_induk`,`nis`,`telp`),
+  ADD KEY `agama` (`agama`),
+  ADD KEY `goldar` (`goldar`),
+  ADD KEY `nama` (`nama`,`jk`,`tmp_lahir`,`tgl_lahir`,`id_kelas`);
+ALTER TABLE `siswa` ADD FULLTEXT KEY `alamat` (`alamat`);
 
 --
 -- Indexes for table `users`
@@ -196,7 +256,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`
@@ -208,7 +268,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

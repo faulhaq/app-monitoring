@@ -20,8 +20,8 @@
           <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="nama_guru">Nama Guru</label>
-                    <input type="text" id="nama_guru" name="nama_guru" value="{{ $guru->nama_guru }}" class="form-control @error('nama_guru') is-invalid @enderror">
+                    <label for="nama">Nama Guru</label>
+                    <input type="text" id="nama" name="nama" value="{{ $guru->nama }}" class="form-control @error('nama') is-invalid @enderror">
                 </div>
                 <div class="form-group">
                     <label for="tmp_lahir">Tempat Lahir</label>
