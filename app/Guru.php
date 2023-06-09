@@ -9,7 +9,7 @@ class Guru extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['id', 'nip', 'nama_guru', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'foto'];
+    protected $fillable = ['nip', 'nama_guru', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'foto'];
 
 
     public function dsk($id)
