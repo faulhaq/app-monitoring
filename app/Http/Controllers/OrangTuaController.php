@@ -126,7 +126,7 @@ class OrangTuaController extends Controller
     {
         $id = Crypt::decrypt($id);
         $orang_tua = OrangTua::findorfail($id);
-        return view('admin.orang_tua.edit');
+        return view('admin.orang_tua.edit', compact('orang_tua'));
     }
 
     /**
@@ -139,12 +139,21 @@ class OrangTuaController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'nik' => 'required',
             'nama' => 'required',
             'jk' => 'required',
+            'telp' => 'required',
+            'tmp_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'agama' => 'required',
+            'pendidikan' => 'required',
+            'goldar' => 'required',
+            'pekerjaan' => 'required',
+            'alamat' => 'required',
         ]);
 
         $orang_tua = OrangTua::findorfail($id);
-        $user = User::where('id_orang_tua', $orang_tua->id)->first();
+        $user = User::where('id', $orang_tua->id)->first();
         if ($user) {
             $user_data = [
                 'name' => $request->nama
@@ -153,12 +162,17 @@ class OrangTuaController extends Controller
         } else {
         }
         $orang_tua_data = [
-            'nis' => $request->nis,
+            'nik' => $request->nik,
             'nama' => $request->nama,
             'jk' => $request->jk,
             'telp' => $request->telp,
             'tmp_lahir' => $request->tmp_lahir,
             'tgl_lahir' => $request->tgl_lahir,
+            'agama' => $request->agama,
+            'pendidikan' => $request->pendidikan,
+            'goldar' => $request->goldar,
+            'pekerjaan' => $request->pekerjaan,
+            'alamat' => $request->alamat
         ];
         $orang_tua->update($orang_tua_data);
 
@@ -173,17 +187,16 @@ class OrangTuaController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
         $orang_tua = OrangTua::findorfail($id);
         $countUser = User::where('id_orang_tua', $orang_tua->id)->count();
         if ($countUser >= 1) {
             $user = User::where('id_orang_tua', $orang_tua->id)->first();
             $orang_tua->delete();
             $user->delete();
-            return redirect()->back()->with('warning', 'Data orang tua berhasil dihapus! (Silahkan cek trash data orang tua)');
+            return redirect()->back()->with('warning', 'Data orang tua berhasil dihapus!');
         } else {
             $orang_tua->delete();
-            return redirect()->back()->with('warning', 'Data orang tua berhasil dihapus! (Silahkan cek trash data orang tua)');
+            return redirect()->back()->with('warning', 'Data orang tua berhasil dihapus!');
         }
     }
 

@@ -179,7 +179,7 @@
                     </div>
                     <div class="form-group">
                         <label for="pendidikan">Pendidikan</label>
-                        <select id="pendidikan" name="pendidikan" class="select2bs4 form-control @error('jk') is-invalid @enderror">
+                        <select id="pendidikan" name="pendidikan" class="select2bs4 form-control @error('pendidikan') is-invalid @enderror">
                             <option value="">-- Pilih Pendidikan Terakhir --</option>
                             <option value="sd">SD</option>
                             <option value="smp/sltp">SMP/SLTP</option>
@@ -192,7 +192,7 @@
                     </div>
                     <div class="form-group">
                         <label for="goldar">Golongan Darah</label>
-                        <select id="goldar" name="goldar" class="select2bs4 form-control @error('jk') is-invalid @enderror">
+                        <select id="goldar" name="goldar" class="select2bs4 form-control @error('alamat') is-invalid @enderror">
                             <option value="">-- Pilih Golongan Darah --</option>
                             <option value="A">A</option>
                             <option value="B">B</option>
