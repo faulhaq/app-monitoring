@@ -56,7 +56,6 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/siswa/deleteAll', 'SiswaController@deleteAll')->name('siswa.deleteAll');
 
         Route::resource('/orang_tua', 'OrangTuaController');
-        Route::get('/orang_tua/kelas/{id}', 'OrangTuaController@kelas')->name('orang_tua.kelas');
         Route::get('/orang_tua/view/json', 'OrangTuaController@view');
         Route::get('/listorang_tuapdf/{id}', 'OrangTuaController@cetak_pdf');
         Route::get('/orang_tua/ubah-foto/{id}', 'OrangTuaController@ubah_foto')->name('orang_tua.ubah-foto');

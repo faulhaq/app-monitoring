@@ -50,10 +50,6 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="nis">NIS</label>
-                    <input type="text" id="nis" name="nis" onkeypress="return inputAngka(event)" value="{{ $orang_tua->nis }}" class="form-control @error('nis') is-invalid @enderror">
-                </div>
-                <div class="form-group">
                     <label for="id_kelas">Kelas</label>
                     <select id="id_kelas" name="id_kelas" class="select2bs4 form-control @error('id_kelas') is-invalid @enderror">
                         <option value="">-- Pilih Kelas --</option>

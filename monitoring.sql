@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 09, 2023 at 08:10 AM
+-- Generation Time: Jun 13, 2023 at 04:43 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -89,6 +89,7 @@ CREATE TABLE `orang_tua` (
   `nik` char(16) NOT NULL,
   `nama` varchar(255) NOT NULL,
   `jk` enum('L','P') NOT NULL,
+  `telp` varchar(64) NOT NULL,
   `tmp_lahir` varchar(50) NOT NULL,
   `tgl_lahir` date NOT NULL,
   `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') NOT NULL,
@@ -98,9 +99,18 @@ CREATE TABLE `orang_tua` (
   `alamat` text NOT NULL,
   `foto` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `upload_at` timestamp NULL DEFAULT NULL,
-  `delete_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `orang_tua`
+--
+
+INSERT INTO `orang_tua` (`id`, `nik`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `pendidikan`, `goldar`, `pekerjaan`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(4, '1234567890098765', 'bapak', 'L', '123456789', 'solo', '2023-06-01', 'islam', NULL, 'A', 'guru', 'solo', '', NULL, NULL, NULL),
+(5, '1212121212121231', 'ibu', 'P', '1435575745645', 'solo', '2023-06-02', 'islam', 's1', 'A', 'dosen', 'solo', '', NULL, NULL, NULL),
+(6, '3314110809010001', 'abc', 'L', '08123456732', 'sragen', '2023-06-01', 'islam', 's1', 'A', 'dosen', 'Sragen', 'uploads/orang_tua/52471919042020_male.jpg', '2023-06-13 07:35:29', '2023-06-13 07:35:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -181,7 +191,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_siswa`, `id_guru`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, NULL, 'QT3VV4I1hf2GbIU0wMEY5i9TOY3f8Vlc2eY67FH9WFNAgd2eMDGk6kUJNkcb', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL);
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, NULL, 'kYfDECa258fkSLaHeVBnE7aLgNPBNiCZuVPIJsUYmCAFWIDTU1adbHXNSBkR', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL);
 
 --
 -- Indexes for dumped tables
@@ -212,7 +222,9 @@ ALTER TABLE `kelas`
 -- Indexes for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`),
+  ADD UNIQUE KEY `telp` (`telp`),
   ADD KEY `nama` (`nama`,`jk`,`tmp_lahir`,`tgl_lahir`,`agama`,`pendidikan`,`goldar`,`pekerjaan`);
 ALTER TABLE `orang_tua` ADD FULLTEXT KEY `alamat` (`alamat`);
 
@@ -257,6 +269,12 @@ ALTER TABLE `guru`
 --
 ALTER TABLE `kelas`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `orang_tua`
+--
+ALTER TABLE `orang_tua`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`

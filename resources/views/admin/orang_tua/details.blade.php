@@ -7,9 +7,6 @@
 @section('content')
 <div class="col-md-12">
     <div class="card">
-        <div class="card-header">
-            <a href="{{ route('orang_tua.kelas', Crypt::encrypt($orang_tua->id_kelas)) }}" class="btn btn-default btn-sm"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
-        </div>
         <div class="card-body">
             <div class="row no-gutters ml-2 mb-2 mr-2">
                 <div class="col-md-4">
@@ -18,9 +15,7 @@
                 <div class="col-md-1 mb-4"></div>
                 <div class="col-md-7">
                     <h5 class="card-title card-text mb-2">Nama : {{ $orang_tua->nama }}</h5>
-                    <h5 class="card-title card-text mb-2">No. Induk : {{ $orang_tua->no_induk }}</h5>
-                    <h5 class="card-title card-text mb-2">NIS : {{ $orang_tua->nis }}</h5>
-                    <h5 class="card-title card-text mb-2">Kelas : {{ $orang_tua->kelas->nama_kelas }}</h5>
+                    <h5 class="card-title card-text mb-2">No. Induk : {{ $orang_tua->nik }}</h5>
                     @if ($orang_tua->jk == 'L')
                         <h5 class="card-title card-text mb-2">Jenis Kelamin : Laki-laki</h5>
                     @else

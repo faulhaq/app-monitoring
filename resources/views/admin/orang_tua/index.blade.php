@@ -78,17 +78,23 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Kelas</th>
+                    <th>Nama</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($kelas as $data)
+                @foreach ($orang_tua as $data)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $data->nama_kelas }}</td>
+                        <td>{{ $data->nama }}</td>
                         <td>
-                            <a href="{{ route('orang_tua.kelas', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm"><i class="nav-icon fas fa-search-plus"></i> &nbsp; Ditails</a>
+                            <form action="{{ route('orang_tua.destroy', $data->id) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <a href="{{ route('orang_tua.show', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
+                                <a href="{{ route('orang_tua.edit', Crypt::encrypt($data->id)) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                                <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach
@@ -117,8 +123,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="no_induk">Nomor Induk</label>
-                        <input type="text" id="no_induk" name="no_induk" onkeypress="return inputAngka(event)" class="form-control @error('no_induk') is-invalid @enderror">
+                        <label for="nik">NIK</label>
+                        <input type="text" id="nik" name="nik" onkeypress="return inputAngka(event)" class="form-control @error('no_induk') is-invalid @enderror">
                     </div>
                     <div class="form-group">
                         <label for="nama">Nama Orang Tua</label>
@@ -130,6 +136,18 @@
                             <option value="">-- Pilih Jenis Kelamin --</option>
                             <option value="L">Laki-Laki</option>
                             <option value="P">Perempuan</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="agama">Agama</label>
+                        <select id="agama" name="agama" class="select2bs4 form-control @error('jk') is-invalid @enderror">
+                            <option value="">-- Pilih Agama --</option>
+                            <option value="islam">Islam</option>
+                            <option value="kristen">Kristen</option>
+                            <option value="katholik">Katholik</option>
+                            <option value="budha">Budha</option>
+                            <option value="kong hu cu">Kong Hu Cu</option>
+                            <option value="hindu">Hindu</option>
                         </select>
                     </div>
                     <div class="form-group">
@@ -148,17 +166,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="nis">NIS</label>
-                        <input type="text" id="nis" name="nis" onkeypress="return inputAngka(event)" class="form-control @error('nis') is-invalid @enderror">
-                    </div>
-                    <div class="form-group">
-                        <label for="id_kelas">Kelas</label>
-                        <select id="id_kelas" name="id_kelas" class="select2bs4 form-control @error('id_kelas') is-invalid @enderror">
-                            <option value="">-- Pilih Kelas --</option>
-                            @foreach ($kelas as $data)
-                                <option value="{{ $data->id }}">{{ $data->nama_kelas }}</option>
-                            @endforeach
-                        </select>
+                        <label for="nis">Alamat</label>
+                        <input type="text" id="alamt" name="alamat" onkeypress="return inputAngka(event)" class="form-control @error('nis') is-invalid @enderror">
                     </div>
                     <div class="form-group">
                         <label for="telp">Nomor Telpon/HP</label>
@@ -167,6 +176,33 @@
                     <div class="form-group">
                         <label for="tgl_lahir">Tanggal Lahir</label>
                         <input type="date" id="tgl_lahir" name="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror">
+                    </div>
+                    <div class="form-group">
+                        <label for="pendidikan">Pendidikan</label>
+                        <select id="pendidikan" name="pendidikan" class="select2bs4 form-control @error('jk') is-invalid @enderror">
+                            <option value="">-- Pilih Pendidikan Terakhir --</option>
+                            <option value="sd">SD</option>
+                            <option value="smp/sltp">SMP/SLTP</option>
+                            <option value="sma/smk">SMA/SMK</option>
+                            <option value="d1/d2/d3">D1/D2/D3</option>
+                            <option value="s1">S1</option>
+                            <option value="s2">S2</option>
+                            <option value="s3">S3</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="goldar">Golongan Darah</label>
+                        <select id="goldar" name="goldar" class="select2bs4 form-control @error('jk') is-invalid @enderror">
+                            <option value="">-- Pilih Golongan Darah --</option>
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="AB">AB</option>
+                            <option value="O">O</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="pekerjaan">Pekerjaan</label>
+                        <input type="text" id="pekerjaan" name="pekerjaan" class="form-control @error('pekerjaan') is-invalid @enderror">
                     </div>
                 </div>
             </div>

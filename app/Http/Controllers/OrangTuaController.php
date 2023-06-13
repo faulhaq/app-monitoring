@@ -23,7 +23,9 @@ class OrangTuaController extends Controller
      */
     public function index()
     {
-        return view('admin.orang_tua.index');
+        return view('admin.orang_tua.index', [
+            "orang_tua" => OrangTua::get()
+        ]);
     }
 
     /**
@@ -45,22 +47,34 @@ class OrangTuaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_orang_tua' => 'required|string|unique:orang_tua',
+            'nik' => 'required',
             'nama' => 'required',
             'jk' => 'required',
+            'telp' => 'required',
+            'tmp_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'agama' => 'required',
+            'pendidikan' => 'required',
+            'goldar' => 'required',
+            'pekerjaan' => 'required',
+            'alamat' => 'required',
         ]);
 
         if ($request->foto) {
             $foto = $request->foto;
             $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
             OrangTua::create([
-                'id_orang_tua' => $request->no_induk,
-                'nis' => $request->nis,
+                'nik' => $request->nik,
                 'nama' => $request->nama,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
+                'agama' => $request->agama,
+                'pendidikan' => $request->pendidikan,
+                'goldar' => $request->goldar,
+                'pekerjaan' => $request->pekerjaan,
+                'alamat' => $request->alamat, 
                 'foto' => 'uploads/orang_tua/' . $new_foto
             ]);
             $foto->move('uploads/orang_tua/', $new_foto);
@@ -70,14 +84,18 @@ class OrangTuaController extends Controller
             } else {
                 $foto = 'uploads/orang_tua/50271431012020_female.jpg';
             }
-            Guru::create([
-                'id_orang_tua' => $request->no_induk,
-                'nis' => $request->nis,
+            OrangTua::create([
+                'nik' => $request->nik,
                 'nama' => $request->nama,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
+                'agama' => $request->agama,
+                'pendidikan' => $request->pendidikan,
+                'goldar' => $request->goldar,
+                'pekerjaan' => $request->pekerjaan,
+                'alamat' => $request->alamat, 
                 'foto' => $foto
             ]);
         }
@@ -155,6 +173,7 @@ class OrangTuaController extends Controller
      */
     public function destroy($id)
     {
+        dd($id);
         $orang_tua = OrangTua::findorfail($id);
         $countUser = User::where('id_orang_tua', $orang_tua->id)->count();
         if ($countUser >= 1) {
