@@ -3,13 +3,13 @@
   Data Anak
 @endsection
 @section('page')
-  <li class="breadcrumb-item active"><a href="{{ route('siswa.index') }}">Siswa</a></li>
+  <li class="breadcrumb-item active"><a href="{{ route('orang_tua.index') }}">Siswa</a></li>
 @endsection
 @section('content')
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <a href="{{ route('siswa.index') }}" class="btn btn-default btn-sm"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
+            <a href="{{ route('orang_tua.index') }}" class="btn btn-default btn-sm"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -59,6 +59,6 @@
     <script>
         $("#MasterData").addClass("active");
         $("#liMasterData").addClass("menu-open");
-        $("#DataSiswa").addClass("active");
+        $("#DataOrangTua").addClass("active");
     </script>
 @endsection
