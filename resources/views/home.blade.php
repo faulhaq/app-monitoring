@@ -24,7 +24,12 @@
         </div>
       </div>
     </div>
-@include('orang_tua.index')
+
+    <?php $user = Auth::user(); ?>
+
+    @if ($user->role === 'OrangTua')
+      @include('orang_tua.index')
+    @endif
   
 @endsection
 @section('script')
