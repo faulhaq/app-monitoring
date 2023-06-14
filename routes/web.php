@@ -76,5 +76,13 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['guru'])->group(function () {
         
     });
+
+    Route::middleware(['orang_tua'])->group(function () {
+        
+    });
+
+    Route::middleware(['guru'])->group(function () {
+        
+    });
 });
 
