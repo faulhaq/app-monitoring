@@ -24,7 +24,7 @@
         </div>
       </div>
     </div>
-
+@include('orang_tua.index')
   
 @endsection
 @section('script')
