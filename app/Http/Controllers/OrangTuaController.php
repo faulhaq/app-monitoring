@@ -108,8 +108,17 @@ class OrangTuaController extends Controller
     {
         $id = Crypt::decrypt($id);
         return view('admin.orang_tua.edit_anak', [
+            "orang_tua" => (object) [
+                "id" => $id
+            ],
             "siswa" => Siswa::getByOrangTuaId($id)
         ]);
+    }
+
+    public function hapus_anak($id_siswa, $id_orang_tua)
+    {
+        Siswa::hapusAnakDariOrangTua($id_siswa, $id_orang_tua);
+        return redirect()->back()->with('success', 'Berhasil menghapus data anak dari orang tua!');
     }
     /**
      * Display the specified resource.

@@ -64,6 +64,7 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/orang_tua/import_excel', 'OrangTuaController@import_excel')->name('orang_tua.import_excel');
         Route::delete('/orang_tua/deleteAll', 'OrangTuaController@deleteAll')->name('orang_tua.deleteAll');
         Route::get('/orang_tua/edit_anak/{id}', 'OrangTuaController@edit_anak')->name('orang_tua.edit_anak');
+        Route::delete('/orang_tua/hapus_anak/{id_siswa}/{id_orang_tua}', 'OrangTuaController@hapus_anak')->name('orang_tua.hapus_anak');
 
         Route::resource('/kelas', 'KelasController');
 

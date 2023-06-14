@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -27,6 +28,15 @@ class Siswa extends Model
                 ->join("orang_tua", "orang_tua.id", "orang_tua_siswa.id_orang_tua")
                 ->where("orang_tua.id", $id)
                 ->get();
+    }
+
+    public static function hapusAnakDariOrangTua($id_siswa, $id_orang_tua)
+    {
+        return DB::table("orang_tua_siswa")
+                ->where("id_orang_tua", $id_orang_tua)
+                ->where("id_siswa", $id_siswa)
+                ->limit(1)
+                ->delete();
     }
 
     protected $table = 'siswa';
