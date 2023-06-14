@@ -15,6 +15,7 @@
                 <div class="col-md-1 mb-4"></div>
                 <div class="col-md-7">
                     <h5 class="card-title card-text mb-2">Nama : {{ $guru->nama }}</h5>
+                    <h5 class="card-title card-text mb-2">NIK : {{ $guru->nik }}</h5>
                     <h5 class="card-title card-text mb-2">NIP : {{ $guru->nip }}</h5>
                     @if ($guru->jk == 'L')
                         <h5 class="card-title card-text mb-2">Jenis Kelamin : Laki-laki</h5>

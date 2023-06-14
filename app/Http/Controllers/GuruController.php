@@ -45,20 +45,36 @@ class GuruController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'nik' => 'required',
+            'nip' => 'required',
             'nama' => 'required',
-            'jk' => 'required'
+            'jk' => 'required',
+            'telp' => 'required',
+            'tmp_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'agama' => 'required',
+            'pendidikan' => 'required',
+            'goldar' => 'required',
+            'pekerjaan' => 'required',
+            'alamat' => 'required'
         ]);
 
         if ($request->foto) {
             $foto = $request->foto;
             $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
             Guru::create([
+                'nik' => $request->nik,
                 'nip' => $request->nip,
                 'nama' => $request->nama,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
+                'agama' => $request->agama,
+                'pendidikan' => $request->pendidikan,
+                'goldar' => $request->goldar,
+                'pekerjaan' => $request->pekerjaan,
+                'alamat' => $request->alamat,
                 'foto' => 'uploads/guru/' . $new_foto
             ]);
             $foto->move('uploads/guru/', $new_foto);
@@ -69,12 +85,18 @@ class GuruController extends Controller
                 $foto = 'uploads/guru/23171022042020_female.jpg';
             }
             Guru::create([
+                'nik' => $request->nik,
                 'nip' => $request->nip,
                 'nama' => $request->nama,
                 'jk' => $request->jk,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
+                'agama' => $request->agama,
+                'pendidikan' => $request->pendidikan,
+                'goldar' => $request->goldar,
+                'pekerjaan' => $request->pekerjaan,
+                'alamat' => $request->alamat, 
                 'foto' => $foto
             ]);
         }

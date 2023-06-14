@@ -4,7 +4,7 @@
     <!-- <meta charset="UTF-8"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Sistem Informasi Akademik Sekolah</title>
+    <title>Monitoring Kegiatan Keagamaan</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Font Awesome -->
@@ -49,7 +49,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="shrotcut icon" href="{{ asset('img/favicon.ico') }}">
+    <link rel="shrotcut icon" href="{{ asset('img/logoyayasan.png') }}">
     <style>
         .ctr {
             text-align: center !important;

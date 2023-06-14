@@ -30,7 +30,7 @@
                         <input type="text" name="nama" class="form-control" value="{{ $guru->nama }}" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="foto">File input</label>
+                        <label for="foto">Foto</label>
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" name="foto" class="custom-file-input @error('foto') is-invalid @enderror" id="foto">

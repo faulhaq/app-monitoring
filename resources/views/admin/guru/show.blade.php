@@ -19,7 +19,7 @@
                 <tr>
                     <th>No.</th>
                     <th>Nama</th>
-                    <th>Id Card</th>
+                    <th>NIK</th>
                     <th>NIP</th>
                     <th>Foto</th>
                     <th>Aksi</th>
@@ -30,7 +30,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->nama }}</td>
-                    <td>{{ $data->id_card }}</td>
+                    <td>{{ $data->nik }}</td>
                     <td>{{ $data->nip }}</td>
                     <td>
                         <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.ubah-foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>

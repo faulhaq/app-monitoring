@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2023 at 05:28 PM
+-- Generation Time: Jun 14, 2023 at 06:28 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -29,6 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `guru` (
   `id` bigint(20) UNSIGNED NOT NULL,
+  `nik` char(16) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nip` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -50,9 +51,8 @@ CREATE TABLE `guru` (
 -- Dumping data for table `guru`
 --
 
-INSERT INTO `guru` (`id`, `nip`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `pendidikan`, `goldar`, `pekerjaan`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, NULL, 'Andika P', 'L', '08123456789', 'Sleman', '2023-06-01', 'islam', 'sd', 'A', '', '', 'uploads/guru/35251431012020_male.jpg', '2023-06-08 00:03:29', '2023-06-08 00:30:38', '2023-06-08 00:30:38'),
-(2, '196506061992032001', 'Andi', 'L', '08123456789', 'bantul', '2023-06-02', 'islam', 'sd', 'A', '', '', 'uploads/guru/57310708062023_card.jpg', '2023-06-08 00:31:57', '2023-06-08 00:31:57', NULL);
+INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `pendidikan`, `goldar`, `pekerjaan`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(3, '3314150809010009', '196411271994031004', 'awsss', 'P', '081265345346', 'bantul', '2023-05-28', 'islam', 's1', 'A', 'guru', 'Sragen', 'uploads/guru/25250414062023_male.jpg', '2023-06-13 21:25:25', '2023-06-13 21:28:20', '2023-06-13 21:28:20');
 
 -- --------------------------------------------------------
 
@@ -75,8 +75,8 @@ CREATE TABLE `kelas` (
 
 INSERT INTO `kelas` (`id`, `nama_kelas`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, '1', NULL, '2023-06-08 00:45:28', '2023-06-08 00:52:41', '2023-06-08 00:52:41'),
-(2, '2', 2, '2023-06-08 00:48:20', '2023-06-08 00:48:20', NULL),
-(3, '1', 2, '2023-06-08 22:46:01', '2023-06-08 22:46:01', NULL);
+(2, '2', NULL, '2023-06-08 00:48:20', '2023-06-08 00:48:20', NULL),
+(3, '1', NULL, '2023-06-08 22:46:01', '2023-06-08 22:46:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -111,7 +111,9 @@ INSERT INTO `orang_tua` (`id`, `nik`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_la
 (4, '1234567890098765', 'bapak', 'L', '123456789', 'solo', '2023-06-01', 'islam', 'sd', 'A', 'guruuuu', 'solooo', '', NULL, '2023-06-13 08:27:07', '2023-06-13 08:27:07'),
 (5, '1212121212121231', 'ibu', 'P', '1435575745645', 'solo', '2023-06-02', 'islam', 's1', 'A', 'dosen', 'solo', '', NULL, NULL, NULL),
 (6, '3314110809010001', 'abc', 'L', '08123456732', 'sragen', '2023-06-01', 'islam', 's1', 'A', 'dosen', 'Sragen', 'uploads/orang_tua/52471919042020_male.jpg', '2023-06-13 00:35:29', '2023-06-13 00:35:29', NULL),
-(7, '3314150809010003', 'aZxs', 'P', '08623456789', 'bantull', '2023-06-01', 'islam', 'sma/smk', 'B', 'tani', 'Sragen', 'uploads/orang_tua/54271513062023_Logomi.png', '2023-06-13 08:27:54', '2023-06-13 08:28:21', '2023-06-13 08:28:21');
+(7, '3314150809010003', 'aZxs', 'P', '08623456789', 'bantull', '2023-06-01', 'islam', 'sma/smk', 'B', 'tani', 'Sragen', 'uploads/orang_tua/54271513062023_Logomi.png', '2023-06-13 08:27:54', '2023-06-13 08:28:21', '2023-06-13 08:28:21'),
+(9, '3314150809010005', 'aZxs', 'L', '081265345346', 'Sleman', '2023-06-09', 'islam', 's1', 'A', 'guru', 'Sragen', 'uploads/orang_tua/24140414062023_male.jpg', '2023-06-13 21:14:24', '2023-06-13 21:20:08', '2023-06-13 21:20:08'),
+(10, '3314150809010008', 'aku', 'L', '081234532654', 'bantul', '2023-05-30', 'islam', 'd1/d2/d3', 'B', 'guru', 'Sragen', 'uploads/orang_tua/52471919042020_male.jpg', '2023-06-13 21:19:32', '2023-06-13 21:20:07', '2023-06-13 21:20:07');
 
 -- --------------------------------------------------------
 
@@ -204,6 +206,7 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `ro
 --
 ALTER TABLE `guru`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nik` (`nik`),
   ADD UNIQUE KEY `telp` (`telp`,`nip`),
   ADD KEY `agama` (`agama`),
   ADD KEY `pendidikan` (`pendidikan`),
@@ -265,7 +268,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -277,7 +280,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`
