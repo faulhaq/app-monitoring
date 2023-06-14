@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2023 at 06:52 AM
+-- Generation Time: Jun 14, 2023 at 07:01 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -53,6 +53,19 @@ CREATE TABLE `guru` (
 
 INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `pendidikan`, `goldar`, `pekerjaan`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (5, '3314150809010009', '196506061992032001', 'abc', 'L', '081265345346', 'bantul', '2023-05-29', 'islam', 'd1/d2/d3', 'A', 'guru', 'Sragen', 'uploads/guru/00470414062023_Logomi.png', '2023-06-13 21:47:00', '2023-06-13 21:47:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `guru_siswa`
+--
+
+CREATE TABLE `guru_siswa` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_guru` bigint(20) UNSIGNED NOT NULL,
+  `id_siswa` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -114,6 +127,19 @@ INSERT INTO `orang_tua` (`id`, `nik`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_la
 (7, '3314150809010003', 'aZxs', 'P', '08623456789', 'bantull', '2023-06-01', 'islam', 'sma/smk', 'B', 'tani', 'Sragen', 'uploads/orang_tua/54271513062023_Logomi.png', '2023-06-13 08:27:54', '2023-06-13 08:28:21', '2023-06-13 08:28:21'),
 (9, '3314150809010005', 'aZxs', 'L', '081265345346', 'Sleman', '2023-06-09', 'islam', 's1', 'A', 'guru', 'Sragen', 'uploads/orang_tua/24140414062023_male.jpg', '2023-06-13 21:14:24', '2023-06-13 21:20:08', '2023-06-13 21:20:08'),
 (10, '3314150809010008', 'aku', 'L', '081234532654', 'bantul', '2023-05-30', 'islam', 'd1/d2/d3', 'B', 'guru', 'Sragen', 'uploads/orang_tua/52471919042020_male.jpg', '2023-06-13 21:19:32', '2023-06-13 21:20:07', '2023-06-13 21:20:07');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orang_tua_siswa`
+--
+
+CREATE TABLE `orang_tua_siswa` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_orang_tua` bigint(20) UNSIGNED NOT NULL,
+  `id_siswa` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -194,8 +220,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'kYfDECa258fkSLaHeVBnE7aLgNPBNiCZuVPIJsUYmCAFWIDTU1adbHXNSBkR', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
-(3, 'abc', 'guru@gmail.com', NULL, '$2y$10$E5i4No.FFhUniesUIzZ/w.4jZ9rERWRdh3AsQ67MnZdHdpqy5aCwO', 'Guru', 5, NULL, NULL, '2023-06-13 21:52:09', '2023-06-13 21:52:09', NULL);
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'fCvP2cYdKMZu31GvTYnuJe07tmfauiS4r9dzojCcg57lUOfxfWjx1BQJFAHz', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
+(5, 'ibu', 'orangtua@gmail.com', NULL, '$2y$10$usXyaHZyg2JapPiuvZS7GeXxYVyQY9dCMcjjjoi6/w.aXqrzytn2S', 'OrangTua', NULL, 5, NULL, '2023-06-13 21:55:17', '2023-06-13 21:55:17', NULL);
 
 --
 -- Indexes for dumped tables
@@ -216,6 +242,15 @@ ALTER TABLE `guru`
 ALTER TABLE `guru` ADD FULLTEXT KEY `alamat` (`alamat`);
 
 --
+-- Indexes for table `guru_siswa`
+--
+ALTER TABLE `guru_siswa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_guru` (`id_guru`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `created_at` (`created_at`);
+
+--
 -- Indexes for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -232,6 +267,15 @@ ALTER TABLE `orang_tua`
   ADD UNIQUE KEY `telp` (`telp`),
   ADD KEY `nama` (`nama`,`jk`,`tmp_lahir`,`tgl_lahir`,`agama`,`pendidikan`,`goldar`,`pekerjaan`);
 ALTER TABLE `orang_tua` ADD FULLTEXT KEY `alamat` (`alamat`);
+
+--
+-- Indexes for table `orang_tua_siswa`
+--
+ALTER TABLE `orang_tua_siswa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_orang_tua` (`id_orang_tua`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `created_at` (`created_at`);
 
 --
 -- Indexes for table `pengumuman`
@@ -270,6 +314,12 @@ ALTER TABLE `guru`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `guru_siswa`
+--
+ALTER TABLE `guru_siswa`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
@@ -280,6 +330,12 @@ ALTER TABLE `kelas`
 --
 ALTER TABLE `orang_tua`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `orang_tua_siswa`
+--
+ALTER TABLE `orang_tua_siswa`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`
@@ -297,17 +353,31 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
 --
 
 --
+-- Constraints for table `guru_siswa`
+--
+ALTER TABLE `guru_siswa`
+  ADD CONSTRAINT `guru_siswa_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `guru_siswa_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `kelas`
 --
 ALTER TABLE `kelas`
   ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `orang_tua_siswa`
+--
+ALTER TABLE `orang_tua_siswa`
+  ADD CONSTRAINT `orang_tua_siswa_ibfk_1` FOREIGN KEY (`id_orang_tua`) REFERENCES `orang_tua` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `orang_tua_siswa_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`
