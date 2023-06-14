@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\OrangTua;
 use App\User;
+use App\Siswa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
@@ -103,6 +104,13 @@ class OrangTuaController extends Controller
         return redirect()->back()->with('success', 'Berhasil menambahkan data orang tua baru!');
     }
 
+    public function edit_anak($id)
+    {
+        $id = Crypt::decrypt($id);
+        return view('admin.orang_tua.edit_anak', [
+            "siswa" => Siswa::getByOrangTuaId($id)
+        ]);
+    }
     /**
      * Display the specified resource.
      *

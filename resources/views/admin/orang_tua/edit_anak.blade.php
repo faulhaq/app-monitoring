@@ -1,16 +1,15 @@
 @extends('template_backend.home')
 @section('heading')
-  Data Orang Tua {{ $kelas->nama_kelas }}
+  Data Anak
 @endsection
 @section('page')
-  <li class="breadcrumb-item active"><a href="{{ route('orang_tua.index') }}">Orang Tua</a></li>
-  <li class="breadcrumb-item active">{{ $kelas->nama_kelas }}</li>
+  <li class="breadcrumb-item active"><a href="{{ route('siswa.index') }}">Siswa</a></li>
 @endsection
 @section('content')
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <a href="{{ route('orang_tua.index') }}" class="btn btn-default btn-sm"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
+            <a href="{{ route('siswa.index') }}" class="btn btn-default btn-sm"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
         </div>
         <!-- /.card-header -->
         <div class="card-body">
@@ -18,30 +17,30 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Nama Orang Tua</th>
+                    <th>Nama Siswa</th>
                     <th>No Induk</th>
                     <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($orang_tua as $data)
+                @foreach ($siswa as $data)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $data->nama }}</td>
                         <td>{{ $data->no_induk }}</td>
                         <td>
-                            <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('orang_tua.ubah-foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
+                            <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('siswa.ubah-foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
                                 <img src="{{ asset($data->foto) }}" width="130px" class="img-fluid mb-2">
                             </a>
-                            {{-- https://siakad.didev.id/Orang Tua/ubah-foto/{{$data->id}} --}}
+                            {{-- https://siakad.didev.id/siswa/ubah-foto/{{$data->id}} --}}
                         </td>
                         <td>
-                            <form action="{{ route('orang_tua.destroy', $data->id) }}" method="post">
+                            <form action="{{ route('siswa.destroy', $data->id) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <a href="{{ route('orang_tua.show', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
-                                <a href="{{ route('orang_tua.edit', Crypt::encrypt($data->id)) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                                <a href="{{ route('siswa.show', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
+                                <a href="{{ route('siswa.edit', Crypt::encrypt($data->id)) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                             </form>
                         </td>
@@ -60,6 +59,6 @@
     <script>
         $("#MasterData").addClass("active");
         $("#liMasterData").addClass("menu-open");
-        $("#DataOrangTua").addClass("active");
+        $("#DataSiswa").addClass("active");
     </script>
 @endsection
