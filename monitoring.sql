@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2023 at 06:28 AM
+-- Generation Time: Jun 14, 2023 at 06:52 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -52,7 +52,7 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `pendidikan`, `goldar`, `pekerjaan`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(3, '3314150809010009', '196411271994031004', 'awsss', 'P', '081265345346', 'bantul', '2023-05-28', 'islam', 's1', 'A', 'guru', 'Sragen', 'uploads/guru/25250414062023_male.jpg', '2023-06-13 21:25:25', '2023-06-13 21:28:20', '2023-06-13 21:28:20');
+(5, '3314150809010009', '196506061992032001', 'abc', 'L', '081265345346', 'bantul', '2023-05-29', 'islam', 'd1/d2/d3', 'A', 'guru', 'Sragen', 'uploads/guru/00470414062023_Logomi.png', '2023-06-13 21:47:00', '2023-06-13 21:47:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -180,8 +180,7 @@ CREATE TABLE `users` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` enum('Admin','Guru','Siswa','Operator') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_siswa` bigint(20) UNSIGNED DEFAULT NULL,
+  `role` enum('Admin','Guru','WaliKelas','OrangTua') COLLATE utf8mb4_unicode_ci NOT NULL,
   `id_guru` bigint(20) UNSIGNED DEFAULT NULL,
   `id_orang_tua` bigint(20) UNSIGNED DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -194,8 +193,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_siswa`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, NULL, 0, 'kYfDECa258fkSLaHeVBnE7aLgNPBNiCZuVPIJsUYmCAFWIDTU1adbHXNSBkR', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL);
+INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'kYfDECa258fkSLaHeVBnE7aLgNPBNiCZuVPIJsUYmCAFWIDTU1adbHXNSBkR', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
+(3, 'abc', 'guru@gmail.com', NULL, '$2y$10$E5i4No.FFhUniesUIzZ/w.4jZ9rERWRdh3AsQ67MnZdHdpqy5aCwO', 'Guru', 5, NULL, NULL, '2023-06-13 21:52:09', '2023-06-13 21:52:09', NULL);
 
 --
 -- Indexes for dumped tables
@@ -256,7 +256,6 @@ ALTER TABLE `siswa` ADD FULLTEXT KEY `alamat` (`alamat`);
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`),
-  ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `id_guru` (`id_guru`),
   ADD KEY `id_orang_tua` (`id_orang_tua`);
 
@@ -268,7 +267,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -298,7 +297,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -314,7 +313,6 @@ ALTER TABLE `kelas`
 -- Constraints for table `users`
 --
 ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `users_ibfk_2` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `users_ibfk_3` FOREIGN KEY (`id_orang_tua`) REFERENCES `orang_tua` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;

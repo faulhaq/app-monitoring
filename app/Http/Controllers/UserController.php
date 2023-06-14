@@ -5,8 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\User;
 use App\Guru;
-use App\Siswa;
-use App\Kelas;
+use App\OrangTua;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
@@ -50,41 +49,34 @@ class UserController extends Controller
             'role' => 'required',
         ]);
 
-        if ($request->role == 'Guru') {
-            $countGuru = Guru::where('id_card', $request->nomer)->count();
-            $guruId = Guru::where('id_card', $request->nomer)->get();
-            foreach ($guruId as $val) {
-                $guru = Guru::findorfail($val->id);
-            }
-            if ($countGuru >= 1) {
+        // dd($request);
+        if ($request->role == 'Guru' || $request->role == 'WaliKelas') {
+            $guru = Guru::where('nik', $request->nik)->first();
+            if ($guru) {
                 User::create([
                     'name' => $guru->nama,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
                     'role' => $request->role,
-                    'id_card' => $request->nomer,
+                    'id_guru' => $guru->id,
                 ]);
                 return redirect()->back()->with('success', 'Berhasil menambahkan user Guru baru!');
             } else {
                 return redirect()->back()->with('error', 'Maaf User ini tidak terdaftar sebagai guru!');
             }
-        } elseif ($request->role == 'Siswa') {
-            $countSiswa = Siswa::where('no_induk', $request->nomer)->count();
-            $siswaId = Siswa::where('no_induk', $request->nomer)->get();
-            foreach ($siswaId as $val) {
-                $siswa = Siswa::findorfail($val->id);
-            }
-            if ($countSiswa >= 1) {
+        } elseif ($request->role == 'OrangTua') {
+            $orang_tua = OrangTua::where('nik', $request->nik)->first();
+            if ($orang_tua) {
                 User::create([
-                    'name' => strtolower($siswa->nama),
+                    'name' => $orang_tua->nama,
                     'email' => $request->email,
                     'password' => Hash::make($request->password),
                     'role' => $request->role,
-                    'no_induk' => $request->nomer,
+                    'id_orang_tua' => $orang_tua->id,
                 ]);
-                return redirect()->back()->with('success', 'Berhasil menambahkan user Siswa baru!');
+                return redirect()->back()->with('success', 'Berhasil menambahkan user orang tua baru!');
             } else {
-                return redirect()->back()->with('error', 'Maaf User ini tidak terdaftar sebagai siswa!');
+                return redirect()->back()->with('error', 'Maaf User ini tidak terdaftar sebagai orang tua!');
             }
         } else {
             User::create([
@@ -222,12 +214,6 @@ class UserController extends Controller
     public function profile()
     {
         return view('user.pengaturan');
-    }
-
-    public function edit_profile()
-    {
-        $kelas = Kelas::all();
-        return view('user.profile', compact('kelas'));
     }
 
     public function ubah_profile(Request $request)

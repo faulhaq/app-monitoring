@@ -68,9 +68,9 @@
                   <select id="role" type="text" class="form-control @error('role') is-invalid @enderror select2bs4" name="role" value="{{ old('role') }}" autocomplete="role">
                     <option value="">-- Select {{ __('Level User') }} --</option>
                     <option value="Admin">Admin</option>
-                    <option value="Operator">Operator</option>
                     <option value="Guru">Guru</option>
-                    <option value="Siswa">Siswa</option>
+                    <option value="WaliKelas">Wali Kelas</option>
+                    <option value="OrangTua">Orang Tua</option>
                   </select>
                   @error('role')
                     <span class="invalid-feedback" role="alert">
@@ -115,11 +115,9 @@
     $(document).ready(function(){
         $('#role').change(function(){
             var kel = $('#role option:selected').val();
-            if (kel == "Guru") {
-              $("#noId").html('<label for="nomer">Nomer Id Card</label><input id="nomer" type="text" maxlength="5" onkeypress="return inputAngka(event)" placeholder="No Id Card" class="form-control" name="nomer" autocomplete="off">');
-            } else if(kel == "Siswa") {
-              $("#noId").html(`<label for="nomer">Nomer Induk Siswa</label><input id="nomer" type="text" placeholder="No Induk Siswa" class="form-control" name="nomer" autocomplete="off">`);
-            } else if(kel == "Admin" || kel == "Operator") {
+            if (kel == "Guru" || kel == "WaliKelas" || kel == "OrangTua") {
+              $("#noId").html('<label for="nomer">NIK</label><input id="nomer" type="text" maxlength="16" onkeypress="return inputAngka(event)" placeholder="NIK" class="form-control" name="nik" autocomplete="off">');
+            } else if(kel == "Admin") {
               $("#noId").html(`<label for="name">Username</label><input id="name" type="text" placeholder="Username" class="form-control" name="name" autocomplete="off">`);
             } else {
               $("#noId").html("")
