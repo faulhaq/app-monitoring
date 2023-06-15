@@ -5,10 +5,19 @@
   <li class="breadcrumb-item active">Details Siswa</li>
 @endsection
 @section('content')
+<?php
+if (isset($_GET["back"]) && $_GET["back"] === "orang_tua") {
+    $back_link = route("orang_tua.index");
+    $orang_tua = true;
+} else {
+    $back_link = route('siswa.kelas', Crypt::encrypt($siswa->id_kelas));
+    $orang_tua = false;
+}
+?>
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
-            <a href="{{ route('siswa.kelas', Crypt::encrypt($siswa->id_kelas)) }}" class="btn btn-default btn-sm"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
+            <a href="{{ $back_link }}" class="btn btn-default btn-sm"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
         </div>
         <div class="card-body">
             <div class="row no-gutters ml-2 mb-2 mr-2">
@@ -36,9 +45,17 @@
 </div>
 @endsection
 @section('script')
-    <script>
-        $("#MasterData").addClass("active");
-        $("#liMasterData").addClass("menu-open");
-        $("#DataSiswa").addClass("active");
-    </script>
+@if ($orang_tua)
+<script>
+    $("#MasterData").addClass("active");
+    $("#liMasterData").addClass("menu-open");
+    $("#DataOrangTua").addClass("active");
+</script>
+@else
+<script>
+    $("#MasterData").addClass("active");
+    $("#liMasterData").addClass("menu-open");
+    $("#DataSiswa").addClass("active");
+</script>
+@endif
 @endsection

@@ -39,7 +39,7 @@
                             <form action="{{ route('orang_tua.hapus_anak', [$data->id, $orang_tua->id]) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <a href="{{ route('siswa.show', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
+                                <a href="{{ route('siswa.show', Crypt::encrypt($data->id)) }}?back=orang_tua" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                             </form>
                         </td>

@@ -81,8 +81,6 @@ Route::middleware(['auth'])->group(function () {
         
     });
 
-    Route::middleware(['guru'])->group(function () {
-        
-    });
+    
 });
 
