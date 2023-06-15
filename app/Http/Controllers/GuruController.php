@@ -181,40 +181,10 @@ class GuruController extends Controller
         } else {
         }
         $guru->delete();
-        return redirect()->route('guru.index')->with('warning', 'Data guru berhasil dihapus! (Silahkan cek trash data guru)');
+        return redirect()->route('guru.index')->with('warning', 'Data guru berhasil dihapus!');
     }
 
-    public function trash()
-    {
-        $guru = Guru::onlyTrashed()->get();
-        return view('admin.guru.trash', compact('guru'));
-    }
-
-    public function restore($id)
-    {
-        $id = Crypt::decrypt($id);
-        $guru = Guru::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('id_guru', $guru->id)->count();
-        if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_guru', $guru->id)->restore();
-        } else {
-        }
-        $guru->restore();
-        return redirect()->back()->with('info', 'Data guru berhasil direstore! (Silahkan cek data guru)');
-    }
-
-    public function kill($id)
-    {
-        $guru = Guru::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('id_guru', $guru->id)->count();
-        if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_guru', $guru->id)->forceDelete();
-        } else {
-        }
-        $guru->forceDelete();
-        return redirect()->back()->with('success', 'Data guru berhasil dihapus secara permanent');
-    }
-
+    
     public function ubah_foto($id)
     {
         $id = Crypt::decrypt($id);
@@ -239,9 +209,6 @@ class GuruController extends Controller
 
         return redirect()->route('guru.index')->with('success', 'Berhasil merubah foto!');
     }
-
-    
-
     
     public function export_excel()
     {
@@ -258,17 +225,5 @@ class GuruController extends Controller
         $file->move('file_guru', $nama_file);
         Excel::import(new GuruImport, public_path('/file_guru/' . $nama_file));
         return redirect()->back()->with('success', 'Data Guru Berhasil Diimport!');
-    }
-
-    public function deleteAll()
-    {
-        $guru = Guru::all();
-        if ($guru->count() >= 1) {
-            Guru::whereNotNull('id_guru')->delete();
-            Guru::withTrashed()->whereNotNull('id_guru')->forceDelete();
-            return redirect()->back()->with('success', 'Data table guru berhasil dihapus!');
-        } else {
-            return redirect()->back()->with('warning', 'Data table guru kosong!');
-        }
     }
 }

@@ -115,38 +115,7 @@ class KelasController extends Controller
         } else {
         }
         $kelas->delete();
-        return redirect()->back()->with('warning', 'Data kelas berhasil dihapus! (Silahkan cek trash data kelas)');
-    }
-
-    public function trash()
-    {
-        $kelas = Kelas::onlyTrashed()->get();
-        return view('admin.kelas.trash', compact('kelas'));
-    }
-
-    public function restore($id)
-    {
-        $id = Crypt::decrypt($id);
-        $kelas = Kelas::withTrashed()->findorfail($id);
-        $countSiswa = Siswa::withTrashed()->where('id_kelas', $kelas->id)->count();
-        if ($countSiswa >= 1) {
-            Siswa::withTrashed()->where('id_kelas', $kelas->id)->restore();
-        } else {
-        }
-        $kelas->restore();
-        return redirect()->back()->with('info', 'Data kelas berhasil direstore! (Silahkan cek data kelas)');
-    }
-
-    public function kill($id)
-    {
-        $kelas = Kelas::withTrashed()->findorfail($id);
-        $countSiswa = Siswa::withTrashed()->where('id_kelas', $kelas->id)->count();
-        if ($countSiswa >= 1) {
-            Siswa::withTrashed()->where('id_kelas', $kelas->id)->forceDelete();
-        } else {
-        }
-        $kelas->forceDelete();
-        return redirect()->back()->with('success', 'Data kelas berhasil dihapus secara permanent');
+        return redirect()->back()->with('warning', 'Data kelas berhasil dihapus!');
     }
 
     public function getEdit(Request $request)

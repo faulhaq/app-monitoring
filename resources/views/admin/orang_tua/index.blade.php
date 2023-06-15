@@ -55,23 +55,6 @@
 				</form>
 			</div>
 		</div>
-        <div class="modal fade" id="dropTable" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<form method="post" action="{{ route('orang_tua.deleteAll') }}">
-                    @csrf
-                    @method('delete')
-					<div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title" id="exampleModalLabel">Sure you drop all data?</h5>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Cencel</button>
-							<button type="submit" class="btn btn-danger">Drop</button>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
         <!-- /.card-header -->
         <div class="card-body">
           <table id="example1" class="table table-bordered table-striped table-hover">

@@ -217,43 +217,6 @@ class OrangTuaController extends Controller
         }
     }
 
-    public function trash()
-    {
-        $orang_tua = OrangTua::onlyTrashed()->get();
-        return view('admin.orang_tua.trash', compact('orang_tua'));
-    }
-
-    public function restore($id)
-    {
-        $id = Crypt::decrypt($id);
-        $orang_tua = OrangTua::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('id_orang_tua', $orang_tua->id)->count();
-        if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_orang_tua', $orang_tua->id)->first();
-            $orang_tua->restore();
-            $user->restore();
-            return redirect()->back()->with('info', 'Data orang tua berhasil direstore! (Silahkan cek data orang tua)');
-        } else {
-            $orang_tua->restore();
-            return redirect()->back()->with('info', 'Data orang tua berhasil direstore! (Silahkan cek data orang tua)');
-        }
-    }
-
-    public function kill($id)
-    {
-        $orang_tua = OrangTua::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('id_orang_tua', $orang_tua->id)->count();
-        if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_orang_tua', $orang_tua->id)->first();
-            $orang_tua->forceDelete();
-            $user->forceDelete();
-            return redirect()->back()->with('success', 'Data orang tua berhasil dihapus secara permanent');
-        } else {
-            $orang_tua->forceDelete();
-            return redirect()->back()->with('success', 'Data orang tua berhasil dihapus secara permanent');
-        }
-    }
-
     public function ubah_foto($id)
     {
         $id = Crypt::decrypt($id);
