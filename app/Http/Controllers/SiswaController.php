@@ -47,24 +47,33 @@ class SiswaController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_siswa' => 'required|string|unique:siswa',
+            'nik' => 'required|string|unique:siswa',
             'nama' => 'required',
             'jk' => 'required',
-            'id_kelas' => 'required'
+            'id_kelas' => 'required',
+            'agama' => 'required',
+            'telp' => 'required',
+            'tmp_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'goldar' => 'required',
+            'alamat' => 'required'
         ]);
 
         if ($request->foto) {
             $foto = $request->foto;
             $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
             Siswa::create([
-                'id_siswa' => $request->no_induk,
+                'nik' => $request->nik,
                 'nis' => $request->nis,
                 'nama' => $request->nama,
                 'jk' => $request->jk,
                 'id_kelas' => $request->id_kelas,
+                'agama' => $request->agama,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
+                'goldar' => $request->goldar,
+                'alamat' => $request->alamat,
                 'foto' => 'uploads/siswa/' . $new_foto
             ]);
             $foto->move('uploads/siswa/', $new_foto);
@@ -74,15 +83,18 @@ class SiswaController extends Controller
             } else {
                 $foto = 'uploads/siswa/50271431012020_female.jpg';
             }
-            Guru::create([
-                'id_siswa' => $request->no_induk,
+            Siswa::create([
+                'nik' => $request->nik,
                 'nis' => $request->nis,
                 'nama' => $request->nama,
                 'jk' => $request->jk,
                 'id_kelas' => $request->id_kelas,
+                'agama' => $request->agama,
                 'telp' => $request->telp,
                 'tmp_lahir' => $request->tmp_lahir,
                 'tgl_lahir' => $request->tgl_lahir,
+                'goldar' => $request->goldar,
+                'alamat' => $request->alamat,
                 'foto' => $foto
             ]);
         }
@@ -127,28 +139,31 @@ class SiswaController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
+            'nik' => 'required',
             'nama' => 'required',
             'jk' => 'required',
-            'id_kelas' => 'required'
+            'id_kelas' => 'required',
+            'agama' => 'required',
+            'telp' => 'required',
+            'tmp_lahir' => 'required',
+            'tgl_lahir' => 'required',
+            'goldar' => 'required',
+            'alamat' => 'required'
         ]);
 
         $siswa = Siswa::findorfail($id);
-        $user = User::where('id_siswa', $siswa->id)->first();
-        if ($user) {
-            $user_data = [
-                'name' => $request->nama
-            ];
-            $user->update($user_data);
-        } else {
-        }
         $siswa_data = [
+            'nik' => $request->nik,
             'nis' => $request->nis,
             'nama' => $request->nama,
             'jk' => $request->jk,
             'id_kelas' => $request->id_kelas,
+            'agama' => $request->agama,
             'telp' => $request->telp,
             'tmp_lahir' => $request->tmp_lahir,
             'tgl_lahir' => $request->tgl_lahir,
+            'goldar' => $request->goldar,
+            'alamat' => $request->alamat
         ];
         $siswa->update($siswa_data);
 
@@ -164,55 +179,12 @@ class SiswaController extends Controller
     public function destroy($id)
     {
         $siswa = Siswa::findorfail($id);
-        $countUser = User::where('id_siswa', $siswa->id)->count();
-        if ($countUser >= 1) {
-            $user = User::where('id_siswa', $siswa->id)->first();
-            $siswa->delete();
-            $user->delete();
-            return redirect()->back()->with('warning', 'Data siswa berhasil dihapus! (Silahkan cek trash data siswa)');
-        } else {
-            $siswa->delete();
-            return redirect()->back()->with('warning', 'Data siswa berhasil dihapus! (Silahkan cek trash data siswa)');
+        if (!$siswa) {
+            return redirect()->back()->with('warning', 'Data siswa gagal dihapus!');
         }
+        $siswa->delete();
+        return redirect()->back()->with('warning', 'Data siswa berhasil dihapus!');
     }
-
-    public function trash()
-    {
-        $siswa = Siswa::onlyTrashed()->get();
-        return view('admin.siswa.trash', compact('siswa'));
-    }
-
-    public function restore($id)
-    {
-        $id = Crypt::decrypt($id);
-        $siswa = Siswa::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('id_siswa', $siswa->id)->count();
-        if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_siswa', $siswa->id)->first();
-            $siswa->restore();
-            $user->restore();
-            return redirect()->back()->with('info', 'Data siswa berhasil direstore! (Silahkan cek data siswa)');
-        } else {
-            $siswa->restore();
-            return redirect()->back()->with('info', 'Data siswa berhasil direstore! (Silahkan cek data siswa)');
-        }
-    }
-
-    public function kill($id)
-    {
-        $siswa = Siswa::withTrashed()->findorfail($id);
-        $countUser = User::withTrashed()->where('id_siswa', $siswa->id)->count();
-        if ($countUser >= 1) {
-            $user = User::withTrashed()->where('id_siswa', $siswa->id)->first();
-            $siswa->forceDelete();
-            $user->forceDelete();
-            return redirect()->back()->with('success', 'Data siswa berhasil dihapus secara permanent');
-        } else {
-            $siswa->forceDelete();
-            return redirect()->back()->with('success', 'Data siswa berhasil dihapus secara permanent');
-        }
-    }
-
     public function ubah_foto($id)
     {
         $id = Crypt::decrypt($id);
@@ -245,7 +217,7 @@ class SiswaController extends Controller
         foreach ($siswa as $val) {
             $newForm[] = array(
                 'kelas' => $val->kelas->nama_kelas,
-                'id_siswa' => $val->no_induk,
+                'nik' => $val->nik,
                 'nama' => $val->nama,
                 'jk' => $val->jk,
                 'foto' => $val->foto
@@ -290,15 +262,4 @@ class SiswaController extends Controller
         return redirect()->back()->with('success', 'Data Siswa Berhasil Diimport!');
     }
 
-    public function deleteAll()
-    {
-        $siswa = Siswa::all();
-        if ($siswa->count() >= 1) {
-            Siswa::whereNotNull('id')->delete();
-            Siswa::withTrashed()->whereNotNull('id')->forceDelete();
-            return redirect()->back()->with('success', 'Data table siswa berhasil dihapus!');
-        } else {
-            return redirect()->back()->with('warning', 'Data table siswa kosong!');
-        }
-    }
 }

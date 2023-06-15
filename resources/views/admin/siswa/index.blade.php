@@ -36,7 +36,7 @@
                                 <div class="card-body">
                                     <ul>
                                         <li>rows 1 = nama siswa</li>
-                                        <li>rows 2 = no induk siswa</li>
+                                        <li>rows 2 = nik</li>
                                         <li>rows 3 = jenis kelamin</li>
                                         <li>rows 4 = nama kelas</li>
                                     </ul>
@@ -117,8 +117,8 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="no_induk">Nomor Induk</label>
-                        <input type="text" id="no_induk" name="no_induk" onkeypress="return inputAngka(event)" class="form-control @error('no_induk') is-invalid @enderror">
+                        <label for="nik">Nomor Induk</label>
+                        <input type="text" id="nik" name="nik" onkeypress="return inputAngka(event)" class="form-control @error('nik') is-invalid @enderror">
                     </div>
                     <div class="form-group">
                         <label for="nama">Nama Siswa</label>

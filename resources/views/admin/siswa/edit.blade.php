@@ -20,8 +20,12 @@
           <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
-                    <label for="no_induk">Nomor Induk</label>
-                    <input type="text" id="no_induk" name="no_induk" value="{{ $siswa->no_induk }}" class="form-control" readonly>
+                    <label for="nik">NIK</label>
+                    <input type="text" id="nik" name="nik" value="{{ $siswa->nik }}" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="nis">NIS</label>
+                    <input type="text" id="nis" name="nis" onkeypress="return inputAngka(event)" value="{{ $siswa->nis }}" class="form-control @error('nis') is-invalid @enderror">
                 </div>
                 <div class="form-group">
                     <label for="nama">Nama Siswa</label>
@@ -47,11 +51,32 @@
                     <label for="tmp_lahir">Tempat Lahir</label>
                     <input type="text" id="tmp_lahir" name="tmp_lahir" value="{{ $siswa->tmp_lahir }}" class="form-control @error('tmp_lahir') is-invalid @enderror">
                 </div>
+                <div class="form-group">
+                    <label for="tgl_lahir">Tanggal Lahir</label>
+                    <input type="date" id="tgl_lahir" name="tgl_lahir" value="{{ $siswa->tgl_lahir }}" class="form-control @error('tgl_lahir') is-invalid @enderror">
+                </div>
+                
             </div>
             <div class="col-md-6">
+                 <div class="form-group">
+                    <label for="agama">Agama</label>
+                        <select id="agama" name="agama" class="select2bs4 form-control @error('jk') is-invalid @enderror">
+                            <option value="islam" <?= $siswa->agama === "islam" ? "selected" : "" ?>>Islam</option>
+                            <option value="kristen" <?= $siswa->agama === "kristen" ? "selected" : "" ?>>Kristen</option>
+                            <option value="katholik" <?= $siswa->agama === "katholik" ? "selected" : "" ?>>Katholik</option>
+                            <option value="budha" <?= $siswa->agama === "budha" ? "selected" : "" ?>>Budha</option>
+                            <option value="kong hu cu" <?= $siswa->agama === "kong hu cu" ? "selected" : "" ?>>Kong Hu Cu</option>
+                            <option value="hindu" <?= $siswa->agama === "hindu" ? "selected" : "" ?>>Hindu</option>
+                        </select>
+                </div>
                 <div class="form-group">
-                    <label for="nis">NIS</label>
-                    <input type="text" id="nis" name="nis" onkeypress="return inputAngka(event)" value="{{ $siswa->nis }}" class="form-control @error('nis') is-invalid @enderror">
+                <label for="goldar">Golongan Darah</label>
+                        <select id="goldar" name="goldar" class="select2bs4 form-control @error('goldar') is-invalid @enderror">
+                            <option value="A" <?= $siswa->goldar === "A" ? "selected" : "" ?>>A</option>
+                            <option value="B" <?= $siswa->goldar === "B" ? "selected" : "" ?>>B</option>
+                            <option value="AB" <?= $siswa->goldar === "AB" ? "selected" : "" ?>>AB</option>
+                            <option value="O" <?= $siswa->goldar === "O" ? "selected" : "" ?>>O</option>
+                        </select>
                 </div>
                 <div class="form-group">
                     <label for="id_kelas">Kelas</label>
@@ -67,12 +92,12 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="telp">Nomor Telpon/HP</label>
-                    <input type="text" id="telp" name="telp" value="{{ $siswa->telp }}" onkeypress="return inputAngka(event)" class="form-control @error('telp') is-invalid @enderror">
+                    <label for="telp">Alamat</label>
+                    <input type="text" id="alamat" name="alamat" value="{{ $siswa->alamat }}"  class="form-control @error('alamat') is-invalid @enderror">
                 </div>
                 <div class="form-group">
-                    <label for="tgl_lahir">Tanggal Lahir</label>
-                    <input type="date" id="tgl_lahir" name="tgl_lahir" value="{{ $siswa->tgl_lahir }}" class="form-control @error('tgl_lahir') is-invalid @enderror">
+                    <label for="telp">Nomor Telpon/HP</label>
+                    <input type="text" id="telp" name="telp" value="{{ $siswa->telp }}" onkeypress="return inputAngka(event)" class="form-control @error('telp') is-invalid @enderror">
                 </div>
             </div>
           </div>

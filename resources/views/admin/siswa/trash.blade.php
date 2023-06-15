@@ -16,7 +16,7 @@
                 <tr>
                     <th>No.</th>
                     <th>Nama Siswa</th>
-                    <th>Nomor Induk</th>
+                    <th>NIK</th>
                     <th>Kelas</th>
                     <th>Foto</th>
                     <th>Aksi</th>
@@ -27,7 +27,7 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->nama }}</td>
-                    <td>{{ $data->no_induk }}</td>
+                    <td>{{ $data->nik }}</td>
                     <td>{{ $data->kelas->nama_kelas }}</td>
                     <td>
                         <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('siswa.ubah-foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>

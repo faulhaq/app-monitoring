@@ -27,9 +27,10 @@ if (isset($_GET["back"]) && $_GET["back"] === "orang_tua") {
                 <div class="col-md-1 mb-4"></div>
                 <div class="col-md-7">
                     <h5 class="card-title card-text mb-2">Nama : {{ $siswa->nama }}</h5>
-                    <h5 class="card-title card-text mb-2">No. Induk : {{ $siswa->no_induk }}</h5>
+                    <h5 class="card-title card-text mb-2">NIK : {{ $siswa->nik }}</h5>
                     <h5 class="card-title card-text mb-2">NIS : {{ $siswa->nis }}</h5>
                     <h5 class="card-title card-text mb-2">Kelas : {{ $siswa->kelas->nama_kelas }}</h5>
+                    <h5 class="card-title card-text mb-2">No. Telepon : {{ $siswa->telp }}</h5>
                     @if ($siswa->jk == 'L')
                         <h5 class="card-title card-text mb-2">Jenis Kelamin : Laki-laki</h5>
                     @else
@@ -37,7 +38,9 @@ if (isset($_GET["back"]) && $_GET["back"] === "orang_tua") {
                     @endif
                     <h5 class="card-title card-text mb-2">Tempat Lahir : {{ $siswa->tmp_lahir }}</h5>
                     <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ date('l, d F Y', strtotime($siswa->tgl_lahir)) }}</h5>
-                    <h5 class="card-title card-text mb-2">No. Telepon : {{ $siswa->telp }}</h5>
+                    <h5 class="card-title card-text mb-2">Agama : {{ $siswa->agama }}</h5>
+                    <h5 class="card-title card-text mb-2">Golongan Darah : {{ $siswa->goldar }}</h5>
+                    <h5 class="card-title card-text mb-2">Alamat : {{ $siswa->alamat }}</h5>
                 </div>
             </div>
         </div>
