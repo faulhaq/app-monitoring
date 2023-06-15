@@ -136,7 +136,7 @@
                         <input type="text" id="tmp_lahir" name="tmp_lahir" class="form-control @error('tmp_lahir') is-invalid @enderror">
                     </div>
                     <div class="form-group">
-                        <label for="foto">File input</label>
+                        <label for="foto">File Foto</label>
                         <div class="input-group">
                             <div class="custom-file">
                                 <input type="file" name="foto" class="custom-file-input @error('foto') is-invalid @enderror" id="foto">

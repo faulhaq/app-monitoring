@@ -16,9 +16,6 @@ if (isset($_GET["back"]) && $_GET["back"] === "orang_tua") {
 ?>
 <div class="col-md-12">
     <div class="card">
-        <div class="card-header">
-            <a href="{{ $back_link }}" class="btn btn-default btn-sm"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
-        </div>
         <div class="card-body">
             <div class="row no-gutters ml-2 mb-2 mr-2">
                 <div class="col-md-4">
@@ -43,6 +40,9 @@ if (isset($_GET["back"]) && $_GET["back"] === "orang_tua") {
                     <h5 class="card-title card-text mb-2">Alamat : {{ $siswa->alamat }}</h5>
                 </div>
             </div>
+        </div>
+        <div class="card-footer">
+            <a href="{{ $back_link }}" class="btn btn-default btn-sm"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
         </div>
     </div>
 </div>
