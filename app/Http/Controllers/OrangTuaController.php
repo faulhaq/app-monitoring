@@ -296,4 +296,18 @@ class OrangTuaController extends Controller
             return redirect()->back()->with('warning', 'Data table orang tua kosong!');
         }
     }
+
+    public function show_anak()
+    {
+        $id_orang_tua = Auth::user()->id_orang_tua;
+        $siswa = OrangTua::get_list_anak($id_orang_tua);
+        return view('orang_tua.show_anak', compact('siswa'));
+    }
+
+    public function show_anak_detail($id)
+    {
+        $id = Crypt::decrypt($id);
+        $siswa = Siswa::findorfail($id);
+        return view('orang_tua.details', compact('siswa'));
+    }
 }

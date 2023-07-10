@@ -74,8 +74,9 @@ Route::middleware(['auth'])->group(function () {
         
     });
 
-    Route::middleware(['orang_tua'])->group(function () {
-        
+    Route::middleware([])->group(function () {
+        Route::get('/anak', 'OrangTuaController@show_anak')->name('orang_tua.show_anak');
+        Route::get('/anak/{id}', 'OrangTuaController@show_anak_detail')->name('orang_tua.show_anak_detail');
     });
 
     

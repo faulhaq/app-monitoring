@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2023 at 07:01 AM
+-- Generation Time: Jul 10, 2023 at 06:09 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -141,6 +141,15 @@ CREATE TABLE `orang_tua_siswa` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `orang_tua_siswa`
+--
+
+INSERT INTO `orang_tua_siswa` (`id`, `id_orang_tua`, `id_siswa`, `created_at`) VALUES
+(2, 5, 1, '2023-06-14 07:54:06'),
+(3, 6, 3, '2023-07-10 03:29:47'),
+(4, 6, 2, '2023-07-10 03:29:47');
+
 -- --------------------------------------------------------
 
 --
@@ -170,7 +179,7 @@ INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`) VALUE
 
 CREATE TABLE `siswa` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `no_induk` varchar(30) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nik` char(16) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nis` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -180,8 +189,8 @@ CREATE TABLE `siswa` (
   `agama` enum('islam','kristen','katholik','budha','kong hu cu','hindu') COLLATE utf8mb4_unicode_ci NOT NULL,
   `goldar` enum('A','B','AB','O') COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `foto` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `id_kelas` int(11) NOT NULL,
+  `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `id_kelas` bigint(20) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
@@ -191,8 +200,10 @@ CREATE TABLE `siswa` (
 -- Dumping data for table `siswa`
 --
 
-INSERT INTO `siswa` (`id`, `no_induk`, `nis`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `goldar`, `alamat`, `foto`, `id_kelas`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '123', '12345', 'paul', 'L', '08123456789', 'sragen', '2020-01-09', 'islam', NULL, '', 'uploads/siswa/08430509062023_logoyayasan.png', 2, '2023-06-08 22:43:08', '2023-06-08 22:45:19', NULL);
+INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `goldar`, `alamat`, `foto`, `id_kelas`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '123', '12345', 'paull', 'L', '08111111111', 'sragen', '2020-01-09', 'islam', NULL, 'sragen', 'uploads/siswa/08430509062023_logoyayasan.png', 3, '2023-06-08 22:43:08', '2023-06-14 19:01:05', NULL),
+(2, '5471085732965262', '10198', 'adi', 'L', NULL, 'jogja', '2023-07-10', 'islam', 'AB', 'jogja', 'qqqq', 2, NULL, NULL, NULL),
+(3, '13412456432657', '1536', 'nana', 'P', NULL, 'solo', '2023-07-01', 'islam', 'A', 'adsqad', 'qqqq', 3, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -220,8 +231,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'fCvP2cYdKMZu31GvTYnuJe07tmfauiS4r9dzojCcg57lUOfxfWjx1BQJFAHz', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
-(5, 'ibu', 'orangtua@gmail.com', NULL, '$2y$10$usXyaHZyg2JapPiuvZS7GeXxYVyQY9dCMcjjjoi6/w.aXqrzytn2S', 'OrangTua', NULL, 5, NULL, '2023-06-13 21:55:17', '2023-06-13 21:55:17', NULL);
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'PyU9wxGdRnvgiOIwhuUiCYI0O4IDxVqRoWCi16jR6rRdH6IxbY9pgXyZVIhs', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
+(5, 'ibu', 'orangtua@gmail.com', NULL, '$2y$10$usXyaHZyg2JapPiuvZS7GeXxYVyQY9dCMcjjjoi6/w.aXqrzytn2S', 'OrangTua', NULL, 5, 'MUHkYlL3titcHgIdwLz2tnu8BH7yUSzXsJOqCJ8l31gQxSyGPTIZxq2MQ4WN', '2023-06-13 21:55:17', '2023-06-13 21:55:17', NULL),
+(6, 'abc', 'abc@gmail.com', NULL, '$2y$10$tEy0FlDXRQv8N60QjBAwrO2pIsHoNWXapeYL8Wump3Gu5DQjOyFre', 'OrangTua', NULL, 6, 'fYbcKsvXltMifv0HUJE14XAP6tfTA2xq4x2PrOjnaJ8KjBAaRpZW9HgE3Kns', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -288,10 +300,11 @@ ALTER TABLE `pengumuman`
 --
 ALTER TABLE `siswa`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `no_induk` (`no_induk`,`nis`,`telp`),
+  ADD UNIQUE KEY `nik` (`nik`,`nis`,`telp`) USING BTREE,
   ADD KEY `agama` (`agama`),
   ADD KEY `goldar` (`goldar`),
-  ADD KEY `nama` (`nama`,`jk`,`tmp_lahir`,`tgl_lahir`,`id_kelas`);
+  ADD KEY `nama` (`nama`,`jk`,`tmp_lahir`,`tgl_lahir`,`id_kelas`),
+  ADD KEY `id_kelas` (`id_kelas`);
 ALTER TABLE `siswa` ADD FULLTEXT KEY `alamat` (`alamat`);
 
 --
@@ -335,7 +348,7 @@ ALTER TABLE `orang_tua`
 -- AUTO_INCREMENT for table `orang_tua_siswa`
 --
 ALTER TABLE `orang_tua_siswa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`
@@ -347,13 +360,13 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables
@@ -378,6 +391,12 @@ ALTER TABLE `kelas`
 ALTER TABLE `orang_tua_siswa`
   ADD CONSTRAINT `orang_tua_siswa_ibfk_1` FOREIGN KEY (`id_orang_tua`) REFERENCES `orang_tua` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `orang_tua_siswa_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `siswa`
+--
+ALTER TABLE `siswa`
+  ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`

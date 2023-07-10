@@ -15,7 +15,7 @@ class Siswa extends Model
 
     public function kelas()
     {
-        return $this->belongsTo('App\Kelas')->withDefault();
+        return $this->belongsTo('App\Kelas', 'id_kelas')->withDefault();
     }
 
     public static function getByOrangTuaId($id)
