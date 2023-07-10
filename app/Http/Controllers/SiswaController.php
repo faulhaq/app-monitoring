@@ -6,6 +6,7 @@ use Auth;
 use App\Siswa;
 use App\Kelas;
 use App\User;
+use App\OrangTua;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Str;
@@ -243,6 +244,13 @@ class SiswaController extends Controller
         $siswa = Siswa::where('id_kelas', $id)->OrderBy('nama', 'asc')->get();
         $kelas = Kelas::findorfail($id);
         return view('admin.siswa.show', compact('siswa', 'kelas'));
+    }
+
+    public function show_anak()
+    {
+        $id_orang_tua = Auth::user()->id_orang_tua;
+        $siswa = OrangTua::get_list_anak($id_orang_tua);
+        return view('admin.siswa.show', compact('siswa'));
     }
 
     public function export_excel()

@@ -1,10 +1,12 @@
 @extends('template_backend.home')
 @section('heading')
-  Data Siswa {{ $kelas->nama_kelas }}
+  Data Siswa <?= isset($kelas) ? $kelas->nama_kelas : ""; ?>
 @endsection
 @section('page')
   <li class="breadcrumb-item active"><a href="{{ route('siswa.index') }}">Siswa</a></li>
+  @if (isset($kelas))
   <li class="breadcrumb-item active">{{ $kelas->nama_kelas }}</li>
+  @endif
 @endsection
 @section('content')
 <div class="col-md-12">
@@ -48,7 +50,10 @@
           </table>
         </div>
         <div class="card-footer">
-            <a href="{{ route('siswa.index') }}" class="btn btn-default btn-sm"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
+<?php
+    $back_link = (Auth::user()->role === "OrangTua") ? route('home') : route('siswa.index');
+?>
+            <a href="{{ $back_link }}" class="btn btn-default btn-sm"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
         </div>
     </div>
     <!-- /.card -->

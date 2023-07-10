@@ -44,7 +44,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/guru/export_excel', 'GuruController@export_excel')->name('guru.export_excel');
         Route::post('/guru/import_excel', 'GuruController@import_excel')->name('guru.import_excel');
 
-        Route::resource('/siswa', 'SiswaController');
         Route::get('/siswa/kelas/{id}', 'SiswaController@kelas')->name('siswa.kelas');
         Route::get('/siswa/view/json', 'SiswaController@view');
         Route::get('/listsiswapdf/{id}', 'SiswaController@cetak_pdf');
@@ -66,19 +65,15 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/kelas', 'KelasController');
 
         Route::resource('/user', 'UserController');
-
-        
-
     });
     Route::middleware(['guru'])->group(function () {
         
     });
 
     Route::middleware([])->group(function () {
-        Route::get('/anak', 'OrangTuaController@show_anak')->name('orang_tua.show_anak');
-        Route::get('/anak/{id}', 'OrangTuaController@show_anak_detail')->name('orang_tua.show_anak_detail');
+        Route::get('/show_anak', 'SiswaController@show_anak')->name('orang_tua.show_anak');
     });
-
     
+    Route::resource('/siswa', 'SiswaController');
 });
 

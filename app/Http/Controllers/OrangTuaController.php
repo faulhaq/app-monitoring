@@ -310,4 +310,12 @@ class OrangTuaController extends Controller
         $siswa = Siswa::findorfail($id);
         return view('orang_tua.details', compact('siswa'));
     }
+
+    public function edit_anak_ortu($id)
+    {
+        $id = Crypt::decrypt($id);
+        $siswa = Siswa::findorfail($id);
+        $kelas = Kelas::all();
+        return view('admin.siswa.edit', compact('siswa', 'kelas'));
+    }
 }

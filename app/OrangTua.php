@@ -22,6 +22,7 @@ class OrangTua extends Model
                 ->join("siswa AS c", "c.id", "b.id_siswa")
                 ->select("c.*")
                 ->where("a.id", $id_orang_tua)
+                ->whereNull("c.deleted_at")
                 ->get();
     }
 }
