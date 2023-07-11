@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2023 at 06:09 AM
+-- Generation Time: Jul 11, 2023 at 08:18 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -90,6 +90,37 @@ INSERT INTO `kelas` (`id`, `nama_kelas`, `id_guru`, `created_at`, `updated_at`, 
 (1, '1', NULL, '2023-06-08 00:45:28', '2023-06-08 00:52:41', '2023-06-08 00:52:41'),
 (2, '2', NULL, '2023-06-08 00:48:20', '2023-06-08 00:48:20', NULL),
 (3, '1', NULL, '2023-06-08 22:46:01', '2023-06-08 22:46:01', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monitoring_rumah`
+--
+
+CREATE TABLE `monitoring_rumah` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `tipe` enum('yes_no','isian') NOT NULL,
+  `data` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`data`)),
+  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `created_at` datetime NOT NULL,
+  `deleted_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monitoring_rumah_data`
+--
+
+CREATE TABLE `monitoring_rumah_data` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_siswa` bigint(20) UNSIGNED NOT NULL,
+  `id_monitoring` bigint(20) UNSIGNED NOT NULL,
+  `jawaban` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`jawaban`)),
+  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `created_at` datetime NOT NULL,
+  `deleted_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -201,8 +232,8 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `goldar`, `alamat`, `foto`, `id_kelas`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '123', '12345', 'paull', 'L', '08111111111', 'sragen', '2020-01-09', 'islam', NULL, 'sragen', 'uploads/siswa/08430509062023_logoyayasan.png', 3, '2023-06-08 22:43:08', '2023-06-14 19:01:05', NULL),
-(2, '5471085732965262', '10198', 'adi', 'L', NULL, 'jogja', '2023-07-10', 'islam', 'AB', 'jogja', 'qqqq', 2, NULL, NULL, NULL),
+(1, '123', '12345', 'paul23', 'L', '08111111111', 'sragen', '2020-01-09', 'islam', NULL, 'sragen', 'uploads/siswa/08430509062023_logoyayasan.png', 3, '2023-06-08 22:43:08', '2023-07-09 21:19:38', NULL),
+(2, '5471085732965262', '10198', 'adi', 'L', NULL, 'jogja', '2023-07-10', 'islam', 'AB', 'jogja', 'qqqq', 2, NULL, '2023-07-09 21:33:24', NULL),
 (3, '13412456432657', '1536', 'nana', 'P', NULL, 'solo', '2023-07-01', 'islam', 'A', 'adsqad', 'qqqq', 3, NULL, NULL, NULL);
 
 -- --------------------------------------------------------
@@ -231,8 +262,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'PyU9wxGdRnvgiOIwhuUiCYI0O4IDxVqRoWCi16jR6rRdH6IxbY9pgXyZVIhs', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
-(5, 'ibu', 'orangtua@gmail.com', NULL, '$2y$10$usXyaHZyg2JapPiuvZS7GeXxYVyQY9dCMcjjjoi6/w.aXqrzytn2S', 'OrangTua', NULL, 5, 'MUHkYlL3titcHgIdwLz2tnu8BH7yUSzXsJOqCJ8l31gQxSyGPTIZxq2MQ4WN', '2023-06-13 21:55:17', '2023-06-13 21:55:17', NULL),
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'XL3Ha221yNldjfeQPHtkL26KGDHdRL1mTGXSTIrAzLYc8niiaKIixoexoOSq', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
+(5, 'ibu', 'orangtua@gmail.com', NULL, '$2y$10$usXyaHZyg2JapPiuvZS7GeXxYVyQY9dCMcjjjoi6/w.aXqrzytn2S', 'OrangTua', NULL, 5, '4ednyMnhkvvkoE2CIPmHLqZIybjqZ6OxGDM7awUIbd1z1Bg72Qcn4a61feVf', '2023-06-13 21:55:17', '2023-06-13 21:55:17', NULL),
 (6, 'abc', 'abc@gmail.com', NULL, '$2y$10$tEy0FlDXRQv8N60QjBAwrO2pIsHoNWXapeYL8Wump3Gu5DQjOyFre', 'OrangTua', NULL, 6, 'fYbcKsvXltMifv0HUJE14XAP6tfTA2xq4x2PrOjnaJ8KjBAaRpZW9HgE3Kns', NULL, NULL, NULL);
 
 --
@@ -269,6 +300,26 @@ ALTER TABLE `kelas`
   ADD PRIMARY KEY (`id`),
   ADD KEY `nama_kelas` (`nama_kelas`),
   ADD KEY `id_guru` (`id_guru`);
+
+--
+-- Indexes for table `monitoring_rumah`
+--
+ALTER TABLE `monitoring_rumah`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `tipe` (`tipe`),
+  ADD KEY `created_at` (`created_at`,`deleted_at`),
+  ADD KEY `created_by` (`created_by`);
+
+--
+-- Indexes for table `monitoring_rumah_data`
+--
+ALTER TABLE `monitoring_rumah_data`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `id_monitoring` (`id_monitoring`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `deleted_at` (`deleted_at`);
 
 --
 -- Indexes for table `orang_tua`
@@ -339,6 +390,18 @@ ALTER TABLE `kelas`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `monitoring_rumah`
+--
+ALTER TABLE `monitoring_rumah`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `monitoring_rumah_data`
+--
+ALTER TABLE `monitoring_rumah_data`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
@@ -384,6 +447,20 @@ ALTER TABLE `guru_siswa`
 --
 ALTER TABLE `kelas`
   ADD CONSTRAINT `kelas_ibfk_1` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monitoring_rumah`
+--
+ALTER TABLE `monitoring_rumah`
+  ADD CONSTRAINT `monitoring_rumah_ibfk_1` FOREIGN KEY (`created_by`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monitoring_rumah_data`
+--
+ALTER TABLE `monitoring_rumah_data`
+  ADD CONSTRAINT `monitoring_rumah_data_ibfk_1` FOREIGN KEY (`id_monitoring`) REFERENCES `monitoring_rumah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_rumah_data_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_rumah_data_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `orang_tua` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orang_tua_siswa`
