@@ -75,6 +75,12 @@
                                     <p>Data User</p>
                                 </a>
                             </li>
+                            <li class="nav-item">
+                                <a href="{{ route('monitoring_rumah.index') }}" class="nav-link" id="DataMonitoringRumah">
+                                    <i class="nav-icon fas fa-clipboard"></i>
+                                    <p>Monitoring Rumah</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     

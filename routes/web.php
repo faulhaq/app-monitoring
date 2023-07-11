@@ -65,6 +65,9 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/kelas', 'KelasController');
 
         Route::resource('/user', 'UserController');
+
+        Route::resource('/monitoring_rumah', 'MonitoringRumahController');
+
     });
     Route::middleware(['guru'])->group(function () {
         

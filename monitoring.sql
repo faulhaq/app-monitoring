@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2023 at 08:18 AM
+-- Generation Time: Jul 11, 2023 at 09:20 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -101,10 +101,18 @@ CREATE TABLE `monitoring_rumah` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `tipe` enum('yes_no','isian') NOT NULL,
   `data` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`data`)),
-  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `deleted_at` datetime NOT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_rumah`
+--
+
+INSERT INTO `monitoring_rumah` (`id`, `tipe`, `data`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'yes_no', '{\"q\":\"asdasdasd\",\"tipe\":\"yes_no\"}', NULL, '2023-07-11 06:52:30', '2023-07-11 07:19:34', '2023-07-11 07:19:34');
 
 -- --------------------------------------------------------
 
@@ -117,9 +125,10 @@ CREATE TABLE `monitoring_rumah_data` (
   `id_siswa` bigint(20) UNSIGNED NOT NULL,
   `id_monitoring` bigint(20) UNSIGNED NOT NULL,
   `jawaban` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`jawaban`)),
-  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `deleted_at` datetime NOT NULL
+  `updated_at` datetime DEFAULT NULL,
+  `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -264,7 +273,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'XL3Ha221yNldjfeQPHtkL26KGDHdRL1mTGXSTIrAzLYc8niiaKIixoexoOSq', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
 (5, 'ibu', 'orangtua@gmail.com', NULL, '$2y$10$usXyaHZyg2JapPiuvZS7GeXxYVyQY9dCMcjjjoi6/w.aXqrzytn2S', 'OrangTua', NULL, 5, '4ednyMnhkvvkoE2CIPmHLqZIybjqZ6OxGDM7awUIbd1z1Bg72Qcn4a61feVf', '2023-06-13 21:55:17', '2023-06-13 21:55:17', NULL),
-(6, 'abc', 'abc@gmail.com', NULL, '$2y$10$tEy0FlDXRQv8N60QjBAwrO2pIsHoNWXapeYL8Wump3Gu5DQjOyFre', 'OrangTua', NULL, 6, 'fYbcKsvXltMifv0HUJE14XAP6tfTA2xq4x2PrOjnaJ8KjBAaRpZW9HgE3Kns', NULL, NULL, NULL);
+(6, 'abc', 'abc@gmail.com', NULL, '$2y$10$tEy0FlDXRQv8N60QjBAwrO2pIsHoNWXapeYL8Wump3Gu5DQjOyFre', 'OrangTua', NULL, 6, 'ZjwGiD48SKhhLgcwseGcoj9UmImJAhkLoZC2k1IbMDTmGCvDafwECbas5uTV', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -308,7 +317,8 @@ ALTER TABLE `monitoring_rumah`
   ADD PRIMARY KEY (`id`),
   ADD KEY `tipe` (`tipe`),
   ADD KEY `created_at` (`created_at`,`deleted_at`),
-  ADD KEY `created_by` (`created_by`);
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `updated_at` (`updated_at`);
 
 --
 -- Indexes for table `monitoring_rumah_data`
@@ -319,7 +329,8 @@ ALTER TABLE `monitoring_rumah_data`
   ADD KEY `id_monitoring` (`id_monitoring`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`),
-  ADD KEY `deleted_at` (`deleted_at`);
+  ADD KEY `deleted_at` (`deleted_at`),
+  ADD KEY `updated_at` (`updated_at`);
 
 --
 -- Indexes for table `orang_tua`
@@ -393,7 +404,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `monitoring_rumah`
 --
 ALTER TABLE `monitoring_rumah`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `monitoring_rumah_data`
