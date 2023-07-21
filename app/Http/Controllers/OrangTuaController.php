@@ -14,6 +14,7 @@ use App\Exports\OrangTuaExport;
 use App\Imports\OrangTuaImport;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Controllers\Controller;
+use App\MonitoringRumah;
 
 class OrangTuaController extends Controller
 {
@@ -317,5 +318,46 @@ class OrangTuaController extends Controller
         $siswa = Siswa::findorfail($id);
         $kelas = Kelas::all();
         return view('admin.siswa.edit', compact('siswa', 'kelas'));
+    }
+
+    public function monitoring($id)
+    {
+        $id_siswa_encrypted = $id;
+        $id_siswa = Crypt::decrypt($id);
+        $siswa = Siswa::where("id", $id_siswa)->first();
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+        $per_yn = MonitoringRumah::get_per($siswa->id_kelas, $id_siswa, "yes_no");
+        $per_isian = MonitoringRumah::get_per($siswa->id_kelas, $id_siswa, "isian");
+
+        return view('orang_tua.monitoring', compact('id_siswa_encrypted', 'siswa', "per_yn", "per_isian"));
+    }
+
+    public function monitoring_simpan($id, Request $req)
+    {
+        $id_orang_tua = Auth::user()->id ?? NULL;
+        if (!$id_orang_tua) {
+            abort(404);
+            return;
+        }
+
+        $id_siswa = Crypt::decrypt($id);
+        $siswa = Siswa::where("id", $id_siswa)->first();
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+
+        if (isset($req->isian) && is_array($req->isian)) {
+            MonitoringRumah::simpan_jawaban($id_orang_tua, $id_siswa, $req->isian);
+        }
+
+        if (isset($req->yn) && is_array($req->yn)) {
+            MonitoringRumah::simpan_jawaban($id_orang_tua, $id_siswa, $req->yn);
+        }
+
+        return redirect(route('orang_tua.show_anak'));
     }
 }

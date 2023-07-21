@@ -40,4 +40,50 @@ class MonitoringRumah extends Model
         }
         return $ret;
     }
+
+    public static function get_per($id_kelas, $id_siswa, $type = NULL)
+    {
+        $ret = DB::table("monitoring_rumah as a")
+                ->leftJoin("monitoring_rumah_data as b", "a.id", "b.id_monitoring")
+                ->join("monitoring_rumah_kelas as c", "a.id", "c.id_monitoring")
+                ->where("c.id_kelas", $id_kelas)
+                ->where(function ($q) use ($id_siswa) {
+                    $q->where("b.id_siswa", $id_siswa)
+                      ->orWhereNull("b.id_siswa");
+                });
+        
+        if (is_string($type)) {
+            $ret = $ret->where("tipe", $type);
+        }
+
+        return $ret->get();
+    }
+
+    public static function simpan_jawaban($id_orang_tua, $id_siswa, $jawaban)
+    {
+        $ids = [];
+        foreach ($jawaban as $id_monitoring => $v) {
+            $ids[] = $id_monitoring;
+        }
+        DB::table("monitoring_rumah_data")
+            ->where("id_siswa", $id_siswa)
+            ->wherein("id_monitoring", $ids)
+            ->delete();
+
+        $data = [];
+        foreach ($jawaban as $id_monitoring => $v) {
+            if ($v === NULL)
+                continue;
+            $data[] = [
+                "id_siswa" => $id_siswa,
+                "id_monitoring" => $id_monitoring,
+                "jawaban" => $v,
+                "created_by" => $id_orang_tua,
+                "created_at" => date("Y-m-d H:i:s"),
+            ];
+        }
+
+        DB::table("monitoring_rumah_data")->insert($data);
+        return 0;
+    }
 }

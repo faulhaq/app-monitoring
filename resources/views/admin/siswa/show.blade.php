@@ -13,8 +13,10 @@
 $user = Auth::user();
 if ($user->role === "OrangTua") {
     $extra_back_link = "?back=show_anak";
+    $is_orang_tua = true;
 } else {
     $extra_back_link = "";
+    $is_orang_tua = false;
 }
 ?>
 <div class="col-md-12">
@@ -47,6 +49,9 @@ if ($user->role === "OrangTua") {
                             <form action="{{ route('siswa.destroy', $data->id) }}" method="post">
                                 @csrf
                                 @method('delete')
+                                @if ($is_orang_tua)
+                                    <a href="{{ route('orang_tua.monitoring', Crypt::encrypt($data->id)) . $extra_back_link }}" class="btn btn-primary btn-sm mt-2"><i class="nav-icon fas fa-clipboard"></i> &nbsp; Monitoring</a>
+                                @endif
                                 <a href="{{ route('siswa.show', Crypt::encrypt($data->id)) . $extra_back_link }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
                                 <a href="{{ route('siswa.edit', Crypt::encrypt($data->id)) . $extra_back_link }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>

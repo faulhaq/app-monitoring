@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 21, 2023 at 05:20 PM
+-- Generation Time: Jul 21, 2023 at 07:06 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -113,7 +113,14 @@ CREATE TABLE `monitoring_rumah` (
 
 INSERT INTO `monitoring_rumah` (`id`, `tipe`, `data`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'yes_no', '{\"q\":\"asdasdasd\",\"tipe\":\"yes_no\"}', NULL, '2023-07-11 06:52:30', '2023-07-11 07:19:34', '2023-07-11 07:19:34'),
-(2, 'yes_no', '{\"q\":\"apakah\",\"tipe\":\"yes_no\"}', NULL, '2023-07-21 15:08:59', '2023-07-21 15:08:59', NULL);
+(2, 'yes_no', '{\"q\":\"apakah\",\"tipe\":\"yes_no\"}', NULL, '2023-07-21 15:08:59', '2023-07-21 15:38:15', '2023-07-21 15:38:15'),
+(3, 'isian', '{\"q\":\"bagaimana\",\"tipe\":\"isian\"}', NULL, '2023-07-21 15:33:26', '2023-07-21 15:38:13', '2023-07-21 15:38:13'),
+(4, 'isian', '{\"q\":\"bagaimana\",\"tipe\":\"isian\"}', NULL, '2023-07-21 15:37:52', '2023-07-21 15:38:12', '2023-07-21 15:38:12'),
+(5, 'isian', '{\"q\":\"bagaimana\",\"tipe\":\"isian\"}', NULL, '2023-07-21 15:38:04', '2023-07-21 15:38:11', '2023-07-21 15:38:11'),
+(6, 'isian', '{\"q\":\"Halooooo\",\"tipe\":\"isian\"}', NULL, '2023-07-21 15:38:26', '2023-07-21 15:44:55', NULL),
+(7, 'yes_no', '{\"q\":\"aaabbb\",\"tipe\":\"yes_no\"}', NULL, '2023-07-21 15:46:23', '2023-07-21 15:46:31', NULL),
+(8, 'isian', '{\"q\":\"qwe\",\"tipe\":\"isian\"}', NULL, '2023-07-21 16:59:23', '2023-07-21 16:59:23', NULL),
+(9, 'isian', '{\"q\":\"asd\",\"tipe\":\"isian\"}', NULL, '2023-07-21 16:59:32', '2023-07-21 16:59:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -125,12 +132,25 @@ CREATE TABLE `monitoring_rumah_data` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `id_siswa` bigint(20) UNSIGNED NOT NULL,
   `id_monitoring` bigint(20) UNSIGNED NOT NULL,
-  `jawaban` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL CHECK (json_valid(`jawaban`)),
+  `jawaban` text CHARACTER SET utf8mb4 COLLATE utf8mb4_bin NOT NULL,
   `created_by` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_rumah_data`
+--
+
+INSERT INTO `monitoring_rumah_data` (`id`, `id_siswa`, `id_monitoring`, `jawaban`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(36, 2, 6, 'aaaaa', 6, '2023-07-21 17:04:46', NULL, NULL),
+(37, 2, 9, 'aku', 6, '2023-07-21 17:04:46', NULL, NULL),
+(38, 2, 7, 'y', 6, '2023-07-21 17:04:46', NULL, NULL),
+(39, 3, 5, 'abcddd', 6, '2023-07-21 17:04:54', NULL, NULL),
+(40, 3, 6, 'aaazazaz', 6, '2023-07-21 17:04:54', NULL, NULL),
+(41, 3, 8, 'asdfa', 6, '2023-07-21 17:04:54', NULL, NULL),
+(42, 3, 7, 'n', 6, '2023-07-21 17:04:54', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -142,9 +162,22 @@ CREATE TABLE `monitoring_rumah_kelas` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `id_monitoring` bigint(20) UNSIGNED NOT NULL,
   `id_kelas` bigint(20) UNSIGNED NOT NULL,
-  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `created_by` bigint(20) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_rumah_kelas`
+--
+
+INSERT INTO `monitoring_rumah_kelas` (`id`, `id_monitoring`, `id_kelas`, `created_by`, `created_at`) VALUES
+(1, 5, 3, 1, '2023-07-21 15:38:04'),
+(9, 6, 3, 1, '2023-07-21 16:23:12'),
+(10, 6, 2, 1, '2023-07-21 16:23:12'),
+(13, 7, 3, 1, '2023-07-21 16:23:45'),
+(14, 7, 2, 1, '2023-07-21 16:23:45'),
+(15, 8, 3, 1, '2023-07-21 16:59:23'),
+(16, 9, 2, 1, '2023-07-21 16:59:32');
 
 -- --------------------------------------------------------
 
@@ -286,9 +319,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'XL3Ha221yNldjfeQPHtkL26KGDHdRL1mTGXSTIrAzLYc8niiaKIixoexoOSq', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
+(1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'NPP5krH0eytlEDy9DHlL4G6AlFz4aKiJewziND4qlqonEl0ioN5fU6wbhEfl', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
 (5, 'ibu', 'orangtua@gmail.com', NULL, '$2y$10$usXyaHZyg2JapPiuvZS7GeXxYVyQY9dCMcjjjoi6/w.aXqrzytn2S', 'OrangTua', NULL, 5, 'aqhcfYjRFpjcJsauH0flAriyFrlJraBl5yTKQzv2C5LtHO1NqWtZ6sc7KZDh', '2023-06-13 21:55:17', '2023-06-13 21:55:17', NULL),
-(6, 'abc', 'abc@gmail.com', NULL, '$2y$10$tEy0FlDXRQv8N60QjBAwrO2pIsHoNWXapeYL8Wump3Gu5DQjOyFre', 'OrangTua', NULL, 6, 'ZjwGiD48SKhhLgcwseGcoj9UmImJAhkLoZC2k1IbMDTmGCvDafwECbas5uTV', NULL, NULL, NULL);
+(6, 'abc', 'abc@gmail.com', NULL, '$2y$10$tEy0FlDXRQv8N60QjBAwrO2pIsHoNWXapeYL8Wump3Gu5DQjOyFre', 'OrangTua', NULL, 6, 'RMtnKHv5UOsMrLCVqXtHUgPuZqs85tCOnx6qUKOVgsEPjVGSeZT14RMGFlNM', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -429,19 +462,19 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `monitoring_rumah`
 --
 ALTER TABLE `monitoring_rumah`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `monitoring_rumah_data`
 --
 ALTER TABLE `monitoring_rumah_data`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- AUTO_INCREMENT for table `monitoring_rumah_kelas`
 --
 ALTER TABLE `monitoring_rumah_kelas`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
