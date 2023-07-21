@@ -6,6 +6,7 @@ use Auth;
 use Illuminate\Http\Request;
 use App\MonitoringRumah;
 use Illuminate\Support\Facades\Crypt;
+use App\Kelas;
 
 class MonitoringRumahController extends Controller
 {
@@ -17,7 +18,8 @@ class MonitoringRumahController extends Controller
     public function index()
     {
         $monitoring = MonitoringRumah::get();
-        return view('admin.monitoring_rumah.index', compact('monitoring'));
+        $kelas = Kelas::orderBy("nama_kelas", "asc")->get();
+        return view('admin.monitoring_rumah.index', compact('monitoring', 'kelas'));
     }
 
     /**
@@ -43,15 +45,23 @@ class MonitoringRumahController extends Controller
             'data' => 'required',
         ]);
 
+        if ($request->tujuan_kelas) {
+            $tujuan_kelas = $request->tujuan_kelas;
+        } else {
+            $tujuan_kelas = [];
+        }
+
         $data = [
             "q" => $request->data,
             "tipe" => $request->tipe  
         ];
-        MonitoringRumah::create([
+
+        $ret = MonitoringRumah::create([
             "tipe" => $request->tipe,
             "data" => json_encode($data),
             "created_by" => Auth::user()->id_guru
         ]);
+        MonitoringRumah::add_tujuan_kelas($ret->id, $tujuan_kelas);
 
         return redirect()->back()->with('success', 'Data monitoring rumah berhasil ditambahkan!');
     }
@@ -77,7 +87,9 @@ class MonitoringRumahController extends Controller
     {
         $id = Crypt::decrypt($id);
         $monitoring = MonitoringRumah::findorfail($id);
-        return view('admin.monitoring_rumah.edit', compact('monitoring'));
+        $kelas = Kelas::orderBy("nama_kelas", "asc")->get();
+        $checked_kelas = MonitoringRumah::get_checked_kelas($id);
+        return view('admin.monitoring_rumah.edit', compact('monitoring', 'kelas', 'checked_kelas'));
     }
 
     /**
@@ -94,6 +106,12 @@ class MonitoringRumahController extends Controller
             'data' => 'required',
         ]);
 
+        if ($request->tujuan_kelas) {
+            $tujuan_kelas = $request->tujuan_kelas;
+        } else {
+            $tujuan_kelas = [];
+        }
+
         $data = [
             "q" => $request->data,
             "tipe" => $request->tipe  
@@ -105,6 +123,7 @@ class MonitoringRumahController extends Controller
             "tipe" => $request->tipe,
             "data" => json_encode($data)
         ]);
+        MonitoringRumah::add_tujuan_kelas($id, $tujuan_kelas);
         return redirect()->route('monitoring_rumah.index')->with('success', 'Data monitoring rumah berhasil diperbarui!');
     }
 
