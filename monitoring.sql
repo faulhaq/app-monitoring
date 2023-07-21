@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2023 at 09:20 AM
+-- Generation Time: Jul 21, 2023 at 05:20 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -112,7 +112,8 @@ CREATE TABLE `monitoring_rumah` (
 --
 
 INSERT INTO `monitoring_rumah` (`id`, `tipe`, `data`, `created_by`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'yes_no', '{\"q\":\"asdasdasd\",\"tipe\":\"yes_no\"}', NULL, '2023-07-11 06:52:30', '2023-07-11 07:19:34', '2023-07-11 07:19:34');
+(1, 'yes_no', '{\"q\":\"asdasdasd\",\"tipe\":\"yes_no\"}', NULL, '2023-07-11 06:52:30', '2023-07-11 07:19:34', '2023-07-11 07:19:34'),
+(2, 'yes_no', '{\"q\":\"apakah\",\"tipe\":\"yes_no\"}', NULL, '2023-07-21 15:08:59', '2023-07-21 15:08:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -129,6 +130,20 @@ CREATE TABLE `monitoring_rumah_data` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monitoring_rumah_kelas`
+--
+
+CREATE TABLE `monitoring_rumah_kelas` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_monitoring` bigint(20) UNSIGNED NOT NULL,
+  `id_kelas` bigint(20) UNSIGNED NOT NULL,
+  `created_by` bigint(20) UNSIGNED NOT NULL,
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -241,7 +256,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `telp`, `tmp_lahir`, `tgl_lahir`, `agama`, `goldar`, `alamat`, `foto`, `id_kelas`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '123', '12345', 'paul23', 'L', '08111111111', 'sragen', '2020-01-09', 'islam', NULL, 'sragen', 'uploads/siswa/08430509062023_logoyayasan.png', 3, '2023-06-08 22:43:08', '2023-07-09 21:19:38', NULL),
+(1, '123', '12345', 'paul', 'L', '08111111111', 'sragen', '2020-01-09', 'islam', NULL, 'sragen', 'uploads/siswa/08430509062023_logoyayasan.png', 3, '2023-06-08 22:43:08', '2023-07-21 08:06:46', '2023-07-21 08:06:46'),
 (2, '5471085732965262', '10198', 'adi', 'L', NULL, 'jogja', '2023-07-10', 'islam', 'AB', 'jogja', 'qqqq', 2, NULL, '2023-07-09 21:33:24', NULL),
 (3, '13412456432657', '1536', 'nana', 'P', NULL, 'solo', '2023-07-01', 'islam', 'A', 'adsqad', 'qqqq', 3, NULL, NULL, NULL);
 
@@ -272,7 +287,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `role`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Admin', 'admin@gmail.com', NULL, '$2y$10$c2HfpsvcWRt2.qoJ3zRSpOhUn201OewYpbPGTe0T4Alii2nlgTZmG', 'Admin', NULL, 0, 'XL3Ha221yNldjfeQPHtkL26KGDHdRL1mTGXSTIrAzLYc8niiaKIixoexoOSq', '2021-01-11 01:01:19', '2023-06-08 00:27:39', NULL),
-(5, 'ibu', 'orangtua@gmail.com', NULL, '$2y$10$usXyaHZyg2JapPiuvZS7GeXxYVyQY9dCMcjjjoi6/w.aXqrzytn2S', 'OrangTua', NULL, 5, '4ednyMnhkvvkoE2CIPmHLqZIybjqZ6OxGDM7awUIbd1z1Bg72Qcn4a61feVf', '2023-06-13 21:55:17', '2023-06-13 21:55:17', NULL),
+(5, 'ibu', 'orangtua@gmail.com', NULL, '$2y$10$usXyaHZyg2JapPiuvZS7GeXxYVyQY9dCMcjjjoi6/w.aXqrzytn2S', 'OrangTua', NULL, 5, 'aqhcfYjRFpjcJsauH0flAriyFrlJraBl5yTKQzv2C5LtHO1NqWtZ6sc7KZDh', '2023-06-13 21:55:17', '2023-06-13 21:55:17', NULL),
 (6, 'abc', 'abc@gmail.com', NULL, '$2y$10$tEy0FlDXRQv8N60QjBAwrO2pIsHoNWXapeYL8Wump3Gu5DQjOyFre', 'OrangTua', NULL, 6, 'ZjwGiD48SKhhLgcwseGcoj9UmImJAhkLoZC2k1IbMDTmGCvDafwECbas5uTV', NULL, NULL, NULL);
 
 --
@@ -331,6 +346,16 @@ ALTER TABLE `monitoring_rumah_data`
   ADD KEY `created_at` (`created_at`),
   ADD KEY `deleted_at` (`deleted_at`),
   ADD KEY `updated_at` (`updated_at`);
+
+--
+-- Indexes for table `monitoring_rumah_kelas`
+--
+ALTER TABLE `monitoring_rumah_kelas`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_monitoring` (`id_monitoring`),
+  ADD KEY `id_kelas` (`id_kelas`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `created_at` (`created_at`);
 
 --
 -- Indexes for table `orang_tua`
@@ -404,12 +429,18 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `monitoring_rumah`
 --
 ALTER TABLE `monitoring_rumah`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `monitoring_rumah_data`
 --
 ALTER TABLE `monitoring_rumah_data`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `monitoring_rumah_kelas`
+--
+ALTER TABLE `monitoring_rumah_kelas`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
@@ -472,6 +503,13 @@ ALTER TABLE `monitoring_rumah_data`
   ADD CONSTRAINT `monitoring_rumah_data_ibfk_1` FOREIGN KEY (`id_monitoring`) REFERENCES `monitoring_rumah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `monitoring_rumah_data_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `monitoring_rumah_data_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `orang_tua` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monitoring_rumah_kelas`
+--
+ALTER TABLE `monitoring_rumah_kelas`
+  ADD CONSTRAINT `monitoring_rumah_kelas_ibfk_1` FOREIGN KEY (`id_monitoring`) REFERENCES `monitoring_rumah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_rumah_kelas_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orang_tua_siswa`
