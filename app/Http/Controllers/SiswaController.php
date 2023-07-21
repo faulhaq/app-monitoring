@@ -168,6 +168,11 @@ class SiswaController extends Controller
         ];
         $siswa->update($siswa_data);
 
+        $user = Auth::user();
+        if ($user && $user->role === "OrangTua") {
+            return redirect()->route('orang_tua.show_anak');
+        }
+
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diperbarui!');
     }
 
