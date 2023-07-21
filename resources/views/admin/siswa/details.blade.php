@@ -5,15 +5,8 @@
   <li class="breadcrumb-item active">Details Siswa</li>
 @endsection
 @section('content')
-<?php
-if (isset($_GET["back"]) && $_GET["back"] === "orang_tua") {
-    $back_link = route("orang_tua.index");
-    $orang_tua = true;
-} else {
-    $back_link = route('siswa.kelas', Crypt::encrypt($siswa->id_kelas));
-    $orang_tua = false;
-}
-?>
+@include('admin.siswa.backlink')
+<?php generate_back_link($orang_tua, $back_link); ?>
 <div class="col-md-12">
     <div class="card">
         <div class="card-body">

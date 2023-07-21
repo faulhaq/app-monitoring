@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="card-footer">
-          <a href="{{ route('orang_tua.index') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
+          <a href="{{ route('orang_tua.show_anak') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
         </div>
     </div>
 </div>

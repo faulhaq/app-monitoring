@@ -9,6 +9,14 @@
   @endif
 @endsection
 @section('content')
+<?php
+$user = Auth::user();
+if ($user->role === "OrangTua") {
+    $extra_back_link = "?back=show_anak";
+} else {
+    $extra_back_link = "";
+}
+?>
 <div class="col-md-12">
     <div class="card">
         <!-- /.card-header -->
@@ -39,8 +47,8 @@
                             <form action="{{ route('siswa.destroy', $data->id) }}" method="post">
                                 @csrf
                                 @method('delete')
-                                <a href="{{ route('siswa.show', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
-                                <a href="{{ route('siswa.edit', Crypt::encrypt($data->id)) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                                <a href="{{ route('siswa.show', Crypt::encrypt($data->id)) . $extra_back_link }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
+                                <a href="{{ route('siswa.edit', Crypt::encrypt($data->id)) . $extra_back_link }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                             </form>
                         </td>

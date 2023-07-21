@@ -5,6 +5,8 @@
   <li class="breadcrumb-item active">Edit Siswa</li>
 @endsection
 @section('content')
+@include('admin.siswa.backlink')
+<?php generate_back_link($orang_tua, $back_link); ?>
 <div class="col-md-12">
     <!-- general form elements -->
     <div class="card card-primary">
@@ -105,7 +107,7 @@
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <a href="#" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
+          <a href="{{ $back_link }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
           <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Update</button>
         </div>
       </form>
