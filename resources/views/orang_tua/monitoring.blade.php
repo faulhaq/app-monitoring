@@ -1,6 +1,6 @@
 @extends('template_backend.home')
 @section('heading')
-  Data Anak
+  Data Monitoring Untuk Tanggal {{ date("d F Y") }}
 @endsection
 @section('page')
   <li class="breadcrumb-item active"><a href="{{ route('orang_tua.index') }}">Siswa</a></li>
@@ -12,7 +12,7 @@
         <div class="card-body">
             <form action="{{ route('orang_tua.monitoring.simpan', $id_siswa_encrypted) }}" method="POST">
                 @csrf
-                <h1>Y/N</h1>
+                <h1>Pilih Ya atau Tidak</h1>
                 <table class="table table-bordered table-striped table-hover">
                     <thead>
                         <tr>
