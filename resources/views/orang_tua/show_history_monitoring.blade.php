@@ -10,6 +10,12 @@
     <div class="card">
         <!-- /.card-header -->
         <div class="card-body">
+        <div class="col-md-2">
+            <div class="form-group">
+                <label for="tgl_history">Tanggal</label>
+                <input type="date" id="tgl_history" name="tgl_history" value="{{ $tanggal }}" class="form-control @error('tgl_history') is-invalid @enderror">
+            </div>
+        </div>
             <form action="{{ route('orang_tua.monitoring.simpan', $id_siswa_encrypted) }}" method="POST">
                 @csrf
                 <h1>Y/N</h1>
@@ -28,10 +34,7 @@
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $v->data->q }}</td>
-                            <td>
-                                <input type="radio" name="yn[{{$v->id_monitoring}}]" value="y"<?= $v->jawaban === "y" ? " checked" : "" ?>/> Ya<br/>
-                                <input type="radio" name="yn[{{$v->id_monitoring}}]" value="n"<?= $v->jawaban === "n" ? " checked" : "" ?>/> Tidak
-                            </td>
+                            <td>{{ $v->jawaban === "y" ? "Ya" : "Tidak" }}</td>
                         </tr>
                     @endforeach
                     </tbody>
@@ -53,16 +56,12 @@
                         <tr>
                             <td>{{ $i++ }}</td>
                             <td>{{ $v->data->q }}</td>
-                            <td>
-                                <textarea name="isian[{{$v->id_monitoring}}]">{{ $v->jawaban }}</textarea>
-                            </td>
+                            <td>{{ $v->jawaban }}</td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
-                <a href="{{ route('orang_tua.show_anak') }}" class="btn btn-default btn-sm"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
-                <button class="btn btn-primary">Simpan</button>
-                <a href="{{ route('orang_tua.show_history_monitoring', $id_siswa_encrypted) }}"><button type="button" style="float:right" class="btn btn-primary">History</button></a>
+                <a href="{{ route('orang_tua.monitoring', $id_siswa_encrypted) . '?back=show_anak' }}" class="btn btn-default btn-sm"><i class="nav-icon fas fa-arrow-left"></i> &nbsp; Kembali</a>
             </form>
         </div>
     </div>
@@ -73,5 +72,8 @@
         $("#MasterData").addClass("active");
         $("#liMasterData").addClass("menu-open");
         $("#DataOrangTua").addClass("active");
+        $('[type="date"]').change(function() {
+            window.location = "?tanggal=" + $(this).val();
+        });
     </script>
 @endsection

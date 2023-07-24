@@ -360,4 +360,25 @@ class OrangTuaController extends Controller
 
         return redirect(route('orang_tua.show_anak'));
     }
+
+    public function show_history_monitoring($id)
+    {
+        if (isset($_GET["tanggal"]) && is_string($_GET["tanggal"])) {
+            $tanggal = date("Y-m-d", strtotime($_GET["tanggal"]));
+        } else {
+            $tanggal = date("Y-m-d");
+        }
+
+        $id_siswa_encrypted = $id;
+        $id_siswa = Crypt::decrypt($id);
+        $siswa = Siswa::where("id", $id_siswa)->first();
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+        $per_yn = MonitoringRumah::get_per($siswa->id_kelas, $id_siswa, "yes_no", $tanggal);
+        $per_isian = MonitoringRumah::get_per($siswa->id_kelas, $id_siswa, "isian", $tanggal);
+
+        return view("orang_tua.show_history_monitoring", compact('id_siswa_encrypted', 'siswa', "per_yn", "per_isian", "tanggal"));
+    }
 }

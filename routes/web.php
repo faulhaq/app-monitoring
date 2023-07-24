@@ -77,6 +77,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/show_anak', 'SiswaController@show_anak')->name('orang_tua.show_anak');
         Route::get('/monitoring/{id}', 'OrangTuaController@monitoring')->name('orang_tua.monitoring');
         Route::post('/monitoring/{id}/simpan', 'OrangTuaController@monitoring_simpan')->name('orang_tua.monitoring.simpan');
+        Route::get('/show_history_monitoring/{id}', 'OrangTuaController@show_history_monitoring')->name('orang_tua.show_history_monitoring');
     });
     
     Route::resource('/siswa', 'SiswaController');

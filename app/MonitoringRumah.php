@@ -41,15 +41,19 @@ class MonitoringRumah extends Model
         return $ret;
     }
 
-    public static function get_per($id_kelas, $id_siswa, $type = NULL)
+    public static function get_per($id_kelas, $id_siswa, $type = NULL, $tanggal = NULL)
     {
         $ret = DB::table("monitoring_rumah as a")
                 ->leftJoin("monitoring_rumah_data as b", "a.id", "b.id_monitoring")
                 ->join("monitoring_rumah_kelas as c", "a.id", "c.id_monitoring")
                 ->where("c.id_kelas", $id_kelas)
-                ->where(function ($q) use ($id_siswa) {
-                    $q->where("b.id_siswa", $id_siswa)
-                      ->orWhereNull("b.id_siswa");
+                ->where(function ($q) use ($id_siswa, $tanggal) {
+                    $q = $q->where("b.id_siswa", $id_siswa);
+                    if (isset($tanggal)) {
+                        $q = $q->where("b.created_at", ">=", $tanggal." 00:00:00")
+                               ->where("b.created_at", "<=", $tanggal." 23:59:59");
+                    }
+                    $q->orWhereNull("b.id_siswa");
                 });
         
         if (is_string($type)) {
