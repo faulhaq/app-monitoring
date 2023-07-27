@@ -12,11 +12,11 @@
 */
 
 Auth::routes();
-Route::get('/login/cek_email/json', 'UserController@cek_email');
-Route::get('/login/cek_password/json', 'UserController@cek_password');
-Route::post('/cek-email', 'UserController@email')->name('cek-email')->middleware('guest');
-Route::get('/reset/password/{id}', 'UserController@password')->name('reset.password')->middleware('guest');
-Route::patch('/reset/password/update/{id}', 'UserController@update_password')->name('reset.password.update')->middleware('guest');
+// Route::get('/login/cek_email/json', 'UserController@cek_email');
+// Route::get('/login/cek_password/json', 'UserController@cek_password');
+// Route::post('/cek-email', 'UserController@email')->name('cek-email')->middleware('guest');
+// Route::get('/reset/password/{id}', 'UserController@password')->name('reset.password')->middleware('guest');
+// Route::patch('/reset/password/update/{id}', 'UserController@update_password')->name('reset.password.update')->middleware('guest');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -37,13 +37,21 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(["admin"])->prefix("master_data")->group(function () {
         Route::resource('/guru', 'GuruController');
-        Route::name("guru.")->group(function () {
-            Route::get("/export_excel")->name("export_excel");
-            Route::get("/import_excel")->name("import_excel");
-            Route::get("/ubah_foto/{id}")->name("ubah_foto");
+        Route::prefix("guru")->name("guru.")->group(function () {
+            Route::get("/export_excel", "GuruController@export_excel")->name("export_excel");
+            Route::get("/import_excel", "GuruController@import_excel")->name("import_excel");
+            Route::get("/ubah_foto/{id}", "GuruController@ubah_foto")->name("ubah_foto");
         });
+
         Route::resource('/siswa', 'SiswaController');
+
         Route::resource('/orang_tua', 'OrangTuaController');
+        Route::prefix("orang_tua")->name("orang_tua.")->group(function () {
+            Route::get("/export_excel", "OrangTuaController@export_excel")->name("export_excel");
+            Route::get("/import_excel", "OrangTuaController@import_excel")->name("import_excel");
+            Route::get("/ubah_foto/{id}", "OrangTuaController@ubah_foto")->name("ubah_foto");
+        });
+
         Route::resource('/kelas', 'KelasControler');
         Route::resource('/tahun_ajaran', 'TahunAjaranController');
         Route::resource('/user', 'UserController');
