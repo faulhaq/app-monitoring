@@ -64,6 +64,7 @@
                     <th>Nama</th>
                     <th>Jenis Kelamin</th>
                     <th>Agama</th>
+                    <th>Pend.</th>
                     <th>Status</th>
                     <th>Foto</th>
                     <th>Aksi</th>
@@ -77,23 +78,25 @@
                     <td>{{ $data->nip }}</td>
                     <td>{{ $data->nama }}</td>
                     <td>{{ $data->jk === "L" ? "Laki-laki" : "Perempuan" }}</td>
-                    <td>{{ $data->agama }}</td>
+                    <td>{{ $data->agama() }}</td>
+                    <td>{{ $data->pendidikan() }}</td>
                     <td>{{ $data->status === "aktif" ? "Aktif" : "Non-aktif" }}</td>
                     <td>
                         @if (is_null($data->foto))
                             Tidak ada foto
                         @else
-                            <a href="{{ asset($data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.ubah_foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
-                                <img src="{{ asset($data->foto) }}" width="130px" class="img-fluid mb-2">
+                            <a href="{{ asset('uploads/guru/'.$data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.ubah_foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
+                                <img src="{{ asset('uploads/guru/'.$data->foto) }}" width="130px" class="img-fluid mb-2">
                             </a>
                         @endif
                     </td>
                     <td>
-                        <form action="{{ route('guru.destroy', $data->id) }}" method="post">
+                        <?php $enc_id = Crypt::encrypt($data->id); ?>
+                        <form action="{{ route('guru.destroy', $enc_id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <a href="{{ route('guru.show', Crypt::encrypt($data->id)) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
-                            <a href="{{ route('guru.edit', Crypt::encrypt($data->id)) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                            <a href="{{ route('guru.show', $enc_id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
+                            <a href="{{ route('guru.edit', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
                             <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                         </form>
                     </td>
@@ -145,9 +148,7 @@
                         <label for="agama">Agama</label>
                         <select id="agama" name="agama" class="select2bs4 form-control @error('agama') is-invalid @enderror">
                             <option value="">-- Pilih Agama --</option>
-                            @foreach (FormWithRef::get_agama() as $v)
-                                <option value="{{ $v->id }}">{{ $v->nama }}</option>
-                            @endforeach
+                            <?= FormWithRef::get_agama(); ?>
                         </select>
                     </div>
                     <div class="form-group">
@@ -181,27 +182,21 @@
                         <label for="pendidikan">Pendidikan</label>
                         <select id="pendidikan" name="pendidikan" class="select2bs4 form-control @error('pendidikan') is-invalid @enderror">
                             <option value="">-- Pilih Pendidikan Terakhir --</option>
-                            @foreach (FormWithRef::get_pendidikan() as $v)
-                                <option value="{{ $v->id }}">{{ $v->nama }}</option>
-                            @endforeach
+                            <?= FormWithRef::get_pendidikan(); ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="goldar">Golongan Darah</label>
                         <select id="goldar" name="goldar" class="select2bs4 form-control @error('goldar') is-invalid @enderror">
                             <option value="">-- Pilih Golongan Darah --</option>
-                            @foreach (FormWithRef::get_goldar() as $v)
-                                <option value="{{ $v->id }}">{{ $v->nama }}</option>
-                            @endforeach
+                            <?= FormWithRef::get_goldar(); ?>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="pekerjaan">Pekerjaan</label>
-                        <select id="goldar" name="goldar" class="select2bs4 form-control @error('pekerjaan') is-invalid @enderror">
+                        <select id="pekerjaan" name="pekerjaan" class="select2bs4 form-control @error('pekerjaan') is-invalid @enderror">
                             <option value="">-- Pilih Pekerjaan --</option>
-                            @foreach (FormWithRef::get_pekerjaan() as $v)
-                                <option value="{{ $v->id }}">{{ $v->nama }}</option>
-                            @endforeach
+                            <?= FormWithRef::get_pekerjaan(); ?>
                         </select>
                     </div>
                 </div>

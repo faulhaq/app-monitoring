@@ -9,23 +9,33 @@ use App\Models\Ref\Goldar;
 
 class FormWithRef
 {
-    public static function get_agama()
+    private static function gen_drop_down($data, $selected_val = null)
     {
-        return Agama::get();
+        $ret = "";
+        foreach ($data as $v) {
+            $sel = (!is_null($selected_val) && $v->id == $selected_val) ? " selected" : "";
+            $ret .= "<option value=\"".e($v->id)."\"{$sel}>".e($v->nama)."</option>";
+        }
+        return $ret;
     }
 
-    public static function get_pendidikan()
+    public static function get_agama($selval = null)
     {
-        return Pendidikan::get();
+        return self::gen_drop_down(Agama::get(), $selval);
     }
 
-    public static function get_pekerjaan()
+    public static function get_pendidikan($selval = null)
     {
-        return Pekerjaan::get();
+        return self::gen_drop_down(Pendidikan::get(), $selval);
     }
 
-    public static function get_goldar()
+    public static function get_pekerjaan($selval = null)
     {
-        return Goldar::get();
+        return self::gen_drop_down(Pekerjaan::get(), $selval);
+    }
+
+    public static function get_goldar($selval = null)
+    {
+        return self::gen_drop_down(Goldar::get(), $selval);
     }
 }
