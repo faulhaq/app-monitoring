@@ -1,4 +1,4 @@
-@extends('template.home')
+@extends('template_backend.home')
 @section('heading', 'Dashboard')
 @section('page')
   <li class="breadcrumb-item active">Dashboard</li>
@@ -23,7 +23,14 @@
           </div>
         </div>
       </div>
-    </div>  
+    </div>
+
+    <?php $user = Auth::user(); ?>
+
+    @if ($user->role === 'OrangTua')
+      @include('orang_tua.index')
+    @endif
+  
 @endsection
 @section('script')
     <script>

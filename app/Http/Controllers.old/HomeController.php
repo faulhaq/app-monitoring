@@ -32,10 +32,28 @@ class HomeController extends Controller
     public function index()
     {
         $pengumuman = Pengumuman::first();
-        return view("home", compact("pengumuman"));
+        return view('home', compact('pengumuman'));
     }
 
     public function admin()
     {
+        $guru = Guru::count();
+        $gurulk = Guru::where('jk', 'L')->count();
+        $gurupr = Guru::where('jk', 'P')->count();
+        $siswa = Siswa::count();
+        $siswalk = Siswa::where('jk', 'L')->count();
+        $siswapr = Siswa::where('jk', 'P')->count();
+        $kelas = Kelas::count();
+        $user = User::count();
+        return view('admin.index', compact(
+            'guru',
+            'gurulk',
+            'gurupr',
+            'siswalk',
+            'siswapr',
+            'siswa',
+            'kelas',
+            'user'
+        ));
     }
 }
