@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2023 at 07:13 AM
+-- Generation Time: Jul 27, 2023 at 11:40 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -32,6 +32,13 @@ CREATE TABLE `agama` (
   `nama` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `agama`
+--
+
+INSERT INTO `agama` (`id`, `nama`) VALUES
+(1, 'Islam');
+
 -- --------------------------------------------------------
 
 --
@@ -42,6 +49,13 @@ CREATE TABLE `goldar` (
   `id` tinyint(3) UNSIGNED NOT NULL,
   `nama` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `goldar`
+--
+
+INSERT INTO `goldar` (`id`, `nama`) VALUES
+(1, 'A');
 
 -- --------------------------------------------------------
 
@@ -70,6 +84,15 @@ CREATE TABLE `guru` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `guru`
+--
+
+INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '1234567890098765', '119284928492848172', 'Guru AAAAA', 'L', 1, 1, 1, 1, '08123123123', 'Yogyakarta', '1992-10-10', 'Yogyakarta', NULL, 'aktif', '2023-07-27 08:11:21', '2023-07-27 08:32:12', NULL),
+(2, '3314110809010001', '196506061992032001', 'AAAAAAAAAAA', 'L', 1, 1, 1, 1, '08123456789', 'qqqq', '2023-07-05', 'Sragen', NULL, 'aktif', '2023-07-27 07:50:49', '2023-07-27 09:02:40', NULL),
+(3, '3314150809010005', '1244153465886765', 'Drs Mukhtar Ahmadi ,MPd.', 'L', 1, 1, 1, 1, '08623456789', 'qweqwe', '2023-07-08', 'Sragen', '2023_07_27__07_51_37_yayasan-removebg.png', 'aktif', '2023-07-27 07:51:37', '2023-07-27 07:58:06', '2023-07-27 07:58:06');
+
 -- --------------------------------------------------------
 
 --
@@ -86,6 +109,32 @@ CREATE TABLE `kelas` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kelas`
+--
+
+INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '1', 'A', 1, 1, '2023-07-27 08:12:15', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `kelas_siswa`
+--
+
+CREATE TABLE `kelas_siswa` (
+  `id` int(20) UNSIGNED NOT NULL,
+  `id_siswa` int(20) UNSIGNED NOT NULL,
+  `id_kelas` int(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kelas_siswa`
+--
+
+INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`) VALUES
+(1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -112,6 +161,14 @@ CREATE TABLE `orang_tua` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `orang_tua`
+--
+
+INSERT INTO `orang_tua` (`id`, `nik`, `nama`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '1234567890098765', 'Orang Tua AAAAAAA', 'L', 1, 1, 1, 1, '08111111111', 'Semarang', '1999-12-12', 'Semarang', NULL, '2023-07-27 07:39:37', '2023-07-27 08:58:38', NULL),
+(2, '3314150809011005', 'Orang Tua BBBBBBB', 'L', 1, 1, 1, 1, '081234567892', 'Sleman', '2023-07-01', 'Sragen', '2023_07_27__09_00_46_USDGROW.png', '2023-07-27 08:59:09', '2023-07-27 09:02:20', '2023-07-27 09:02:20');
+
 -- --------------------------------------------------------
 
 --
@@ -123,6 +180,13 @@ CREATE TABLE `pekerjaan` (
   `nama` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `pekerjaan`
+--
+
+INSERT INTO `pekerjaan` (`id`, `nama`) VALUES
+(1, 'Guru');
+
 -- --------------------------------------------------------
 
 --
@@ -133,6 +197,13 @@ CREATE TABLE `pendidikan` (
   `id` smallint(5) UNSIGNED NOT NULL,
   `nama` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pendidikan`
+--
+
+INSERT INTO `pendidikan` (`id`, `nama`) VALUES
+(1, 'S1');
 
 -- --------------------------------------------------------
 
@@ -148,6 +219,14 @@ CREATE TABLE `pengumuman` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pengumuman`
+--
+
+INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'qqq', 'halo', '2023-07-27 07:17:05', NULL, NULL),
+(2, 'qweqwe', 'halo test', '2023-07-27 07:17:05', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -174,6 +253,13 @@ CREATE TABLE `siswa` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `siswa`
+--
+
+INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '1634567890098765', '123123', 'Kevin', 'L', 1, 1, NULL, NULL, 'Solo', '2013-10-10', 'Solo', NULL, '2023-07-27 08:21:53', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -183,10 +269,37 @@ CREATE TABLE `siswa` (
 CREATE TABLE `tahun_ajaran` (
   `id` int(20) UNSIGNED NOT NULL,
   `tahun` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` enum('aktif','non-aktif') COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `tahun_ajaran`
+--
+
+INSERT INTO `tahun_ajaran` (`id`, `tahun`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '2022/2023', '2023-07-27 08:10:58', NULL, NULL),
+(3, '2023/2024', '2023-07-27 09:25:36', '2023-07-27 09:25:36', NULL),
+(4, '2024/2025', '2023-07-27 09:25:41', '2023-07-27 09:25:41', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tahun_ajaran_aktif`
+--
+
+CREATE TABLE `tahun_ajaran_aktif` (
+  `id` tinyint(3) UNSIGNED NOT NULL,
+  `id_tahun_ajaran` int(20) UNSIGNED NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `tahun_ajaran_aktif`
+--
+
+INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
+(4, 3);
 
 -- --------------------------------------------------------
 
@@ -206,6 +319,13 @@ CREATE TABLE `users` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, NULL, '2023-07-27 12:15:00', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -257,6 +377,14 @@ ALTER TABLE `kelas`
   ADD KEY `id_guru` (`id_guru`),
   ADD KEY `created_at` (`created_at`),
   ADD KEY `deleted_at` (`deleted_at`);
+
+--
+-- Indexes for table `kelas_siswa`
+--
+ALTER TABLE `kelas_siswa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `id_kelas` (`id_kelas`);
 
 --
 -- Indexes for table `orang_tua`
@@ -324,9 +452,15 @@ ALTER TABLE `siswa` ADD FULLTEXT KEY `alamat` (`alamat`);
 ALTER TABLE `tahun_ajaran`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `tahun` (`tahun`),
-  ADD KEY `status` (`status`),
   ADD KEY `created_at` (`created_at`),
   ADD KEY `deleted_at` (`deleted_at`);
+
+--
+-- Indexes for table `tahun_ajaran_aktif`
+--
+ALTER TABLE `tahun_ajaran_aktif`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_tahun_ajaran` (`id_tahun_ajaran`);
 
 --
 -- Indexes for table `users`
@@ -349,67 +483,79 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `agama`
 --
 ALTER TABLE `agama`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `goldar`
 --
 ALTER TABLE `goldar`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `kelas_siswa`
+--
+ALTER TABLE `kelas_siswa`
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`
 --
 ALTER TABLE `pekerjaan`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pendidikan`
 --
 ALTER TABLE `pendidikan`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`
 --
 ALTER TABLE `pengumuman`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `tahun_ajaran_aktif`
+--
+ALTER TABLE `tahun_ajaran_aktif`
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -432,6 +578,13 @@ ALTER TABLE `kelas`
   ADD CONSTRAINT `kelas_fk2` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `kelas_siswa`
+--
+ALTER TABLE `kelas_siswa`
+  ADD CONSTRAINT `kelas_siswa_fk1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kelas_siswa_fk2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
@@ -447,6 +600,12 @@ ALTER TABLE `siswa`
   ADD CONSTRAINT `siswa_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `siswa_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `siswa_fk3` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `tahun_ajaran_aktif`
+--
+ALTER TABLE `tahun_ajaran_aktif`
+  ADD CONSTRAINT `tahun_ajaran_aktif_fk1` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tahun_ajaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `users`

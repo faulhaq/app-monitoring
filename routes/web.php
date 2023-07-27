@@ -54,6 +54,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::resource('/kelas', 'KelasControler');
         Route::resource('/tahun_ajaran', 'TahunAjaranController');
+        Route::prefix("tahun_ajaran")->name("tahun_ajaran.")->group(function () {
+            Route::post("/aktifkan_tahun", "TahunAjaranController@aktifkan_tahun")->name("aktifkan_tahun");
+        });
         Route::resource('/user', 'UserController');
         Route::resource('/monitoring_rumah', 'MonitoringRumahController');
         Route::resource('/pengumuman', 'PengumumanController');

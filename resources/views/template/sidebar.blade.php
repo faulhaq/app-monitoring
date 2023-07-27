@@ -13,7 +13,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 @if (Auth::user()->role == 'admin')
                     <li class="nav-item">
-                        <a href="{{ route('home') }}" class="nav-link" id="Pengumuman">
+                        <a href="{{ route('home') }}" class="nav-link" id="Dashboard">
                             <i class="nav-icon fas fa-home"></i>
                             <p>Dashboard</p>
                         </a>
@@ -56,7 +56,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('tahun_ajaran.index') }}" class="nav-link" id="DataTahunAjaran">
                                     <i class="fas fa-home nav-icon"></i>
-                                    <p>Data Kelas</p>
+                                    <p>Data Tahun Ajaran</p>
                                 </a>
                             </li>
                             <li class="nav-item">
