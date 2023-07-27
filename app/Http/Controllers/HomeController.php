@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Guru;
-use App\Kelas;
-use App\Siswa;
+use App\Models\Master\Kelas;
+use App\Models\Master\Siswa;
+// use App\Siswa;
 use App\User;
 use App\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Master\OrangTua;
 
 class HomeController extends Controller
 {
