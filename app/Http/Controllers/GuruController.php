@@ -93,7 +93,14 @@ class GuruController extends Controller
      */
     public function show($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $guru = Guru::find($id);
+        if (!$guru) {
+            abort(404);
+            return;
+        }
+
+        return view("master_data.guru.show", compact("guru"));
     }
 
     /**
