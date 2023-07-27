@@ -143,14 +143,11 @@
                     </div>
                     <div class="form-group">
                         <label for="agama">Agama</label>
-                        <select id="agama" name="agama" class="select2bs4 form-control @error('jk') is-invalid @enderror">
+                        <select id="agama" name="agama" class="select2bs4 form-control @error('agama') is-invalid @enderror">
                             <option value="">-- Pilih Agama --</option>
-                            <option value="islam">Islam</option>
-                            <option value="kristen">Kristen</option>
-                            <option value="katholik">Katholik</option>
-                            <option value="budha">Budha</option>
-                            <option value="kong hu cu">Kong Hu Cu</option>
-                            <option value="hindu">Hindu</option>
+                            @foreach (FormWithRef::get_agama() as $v)
+                                <option value="{{ $v->id }}">{{ $v->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
@@ -184,28 +181,28 @@
                         <label for="pendidikan">Pendidikan</label>
                         <select id="pendidikan" name="pendidikan" class="select2bs4 form-control @error('pendidikan') is-invalid @enderror">
                             <option value="">-- Pilih Pendidikan Terakhir --</option>
-                            <option value="sd">SD</option>
-                            <option value="smp/sltp">SMP/SLTP</option>
-                            <option value="sma/smk">SMA/SMK</option>
-                            <option value="d1/d2/d3">D1/D2/D3</option>
-                            <option value="s1">S1</option>
-                            <option value="s2">S2</option>
-                            <option value="s3">S3</option>
+                            @foreach (FormWithRef::get_pendidikan() as $v)
+                                <option value="{{ $v->id }}">{{ $v->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="goldar">Golongan Darah</label>
-                        <select id="goldar" name="goldar" class="select2bs4 form-control @error('alamat') is-invalid @enderror">
+                        <select id="goldar" name="goldar" class="select2bs4 form-control @error('goldar') is-invalid @enderror">
                             <option value="">-- Pilih Golongan Darah --</option>
-                            <option value="A">A</option>
-                            <option value="B">B</option>
-                            <option value="AB">AB</option>
-                            <option value="O">O</option>
+                            @foreach (FormWithRef::get_goldar() as $v)
+                                <option value="{{ $v->id }}">{{ $v->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="pekerjaan">Pekerjaan</label>
-                        <input type="text" id="pekerjaan" name="pekerjaan" class="form-control @error('pekerjaan') is-invalid @enderror">
+                        <select id="goldar" name="goldar" class="select2bs4 form-control @error('pekerjaan') is-invalid @enderror">
+                            <option value="">-- Pilih Pekerjaan --</option>
+                            @foreach (FormWithRef::get_pekerjaan() as $v)
+                                <option value="{{ $v->id }}">{{ $v->nama }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
             </div>
