@@ -75,7 +75,8 @@
                         <select id="tahun" name="tahun" class="select2bs4 form-control @error('tahun') is-invalid @enderror">
                             <option value="">-- Pilih Tahun Ajaran --</option>
                             @foreach ($tahun_ajaran as $v)
-                                <option value="{{ $v->id }}">{{ $v->tahun }}</option>
+                                <?php $sel = ($v->status() === "Aktif") ? " selected" : ""; ?>
+                                <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->tahun }}</option>
                             @endforeach
                         </select>
                     </div>
