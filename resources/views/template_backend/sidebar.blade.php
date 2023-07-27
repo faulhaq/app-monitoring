@@ -11,7 +11,7 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                @if (Auth::user()->role == 'Admin' || Auth::user()->role == 'Operator')
+                @if (Auth::user()->role == 'admin')
                     <li class="nav-item has-treeview" id="liDashboard">
                         <a href="#" class="nav-link" id="Dashboard">
                             <i class="nav-icon fas fa-home"></i>
