@@ -51,7 +51,10 @@
                     <label for="tgl_lahir">Tanggal Lahir</label>
                     <input type="date" id="tgl_lahir" name="tgl_lahir" value="{{ $orang_tua->tgl_lahir }}" class="form-control @error('tgl_lahir') is-invalid @enderror">
                 </div>
-                
+                <div class="form-group">
+                    <label for="telp">Nomor Telpon/HP</label>
+                    <input type="text" id="telp" name="telp" value="{{ $orang_tua->telp }}" class="form-control @error('telp') is-invalid @enderror">
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="form-group">
@@ -85,10 +88,6 @@
                 <div class="form-group">
                     <label for="telp">Alamat</label>
                     <input type="text" id="alamat" name="alamat" value="{{ $orang_tua->alamat }}"  class="form-control @error('alamat') is-invalid @enderror">
-                </div>
-                <div class="form-group">
-                    <label for="telp">Nomor Telpon/HP</label>
-                    <input type="text" id="telp" name="telp" value="{{ $orang_tua->telp }}" class="form-control @error('telp') is-invalid @enderror">
                 </div>
                 <div class="form-group">
                     <label for="foto">File Foto</label>
