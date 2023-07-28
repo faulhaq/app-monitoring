@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2023 at 04:24 AM
+-- Generation Time: Jul 28, 2023 at 05:06 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -89,7 +89,7 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1234567890098765', '119284928492848172', 'Guru AAAAA', 'L', 1, 1, 1, 1, '08123123123', 'Yogyakarta', '1992-10-10', 'Yogyakarta', NULL, 'aktif', '2023-07-27 08:11:21', '2023-07-27 08:32:12', NULL),
+(1, '1234567890098765', '119284928492848172', 'Guru AAAAA', 'L', 1, 1, 1, 1, '08123123123', 'Yogyakarta', '1992-10-10', 'Yogyakarta', NULL, 'aktif', '2023-07-27 08:11:21', '2023-07-28 02:26:36', NULL),
 (2, '3314110809010001', '196506061992032001', 'AAAAAAAAAAA', 'L', 1, 1, 1, 1, '08123456789', 'qqqq', '2023-07-05', 'Sragen', NULL, 'aktif', '2023-07-27 07:50:49', '2023-07-27 09:02:40', NULL),
 (3, '3314150809010005', '1244153465886765', 'Drs Mukhtar Ahmadi ,MPd.', 'L', 1, 1, 1, 1, '08623456789', 'qweqwe', '2023-07-08', 'Sragen', '2023_07_27__07_51_37_yayasan-removebg.png', 'aktif', '2023-07-27 07:51:37', '2023-07-27 07:58:06', '2023-07-27 07:58:06');
 
@@ -115,7 +115,10 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1', 'A', 1, 1, '2023-07-27 08:12:15', NULL, NULL);
+(1, '1', 'A', 1, 1, '2023-07-27 08:12:15', NULL, NULL),
+(2, '1', 'A', 3, 1, '2023-07-28 02:49:50', '2023-07-28 02:49:50', NULL),
+(3, '5', 'A', 1, 2, '2023-07-28 03:04:16', '2023-07-28 03:06:15', NULL),
+(4, '2', 'e', 1, 2, '2023-07-28 03:05:53', '2023-07-28 03:06:03', NULL);
 
 -- --------------------------------------------------------
 
@@ -501,7 +504,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`

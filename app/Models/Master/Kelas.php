@@ -26,5 +26,13 @@ class Kelas extends Model
         return $this->belongsTo(TahunAjaran::class, "id_tahun_ajaran")->first();
     }
 
+    public static function get_kelas_aktif()
+    {
+        return self::select("kelas.*")
+                ->join("tahun_ajaran", "tahun_ajaran.id", "=", "kelas.id_tahun_ajaran")
+                ->join("tahun_ajaran_aktif", "tahun_ajaran.id", "=", "tahun_ajaran_aktif.id_tahun_ajaran")
+                ->get();
+    }
+
     protected $table = 'kelas';
 }
