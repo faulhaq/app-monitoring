@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2023 at 11:40 AM
+-- Generation Time: Jul 28, 2023 at 04:24 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -299,7 +299,7 @@ CREATE TABLE `tahun_ajaran_aktif` (
 --
 
 INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
-(4, 3);
+(9, 1);
 
 -- --------------------------------------------------------
 
@@ -325,7 +325,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, NULL, '2023-07-27 12:15:00', NULL, NULL);
+(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, '5C7fQGW5X8MwKWLFcto49zRbRaXF5lUlFdKl2QA8fHmYaGmQpKgGjI6do6BW', '2023-07-27 12:15:00', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -549,7 +549,7 @@ ALTER TABLE `tahun_ajaran`
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
 --
 ALTER TABLE `tahun_ajaran_aktif`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -574,7 +574,7 @@ ALTER TABLE `guru`
 -- Constraints for table `kelas`
 --
 ALTER TABLE `kelas`
-  ADD CONSTRAINT `kelas_fk1` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tahun_ajaran` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kelas_fk1` FOREIGN KEY (`id_tahun_ajaran`) REFERENCES `tahun_ajaran` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `kelas_fk2` FOREIGN KEY (`id_guru`) REFERENCES `guru` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --

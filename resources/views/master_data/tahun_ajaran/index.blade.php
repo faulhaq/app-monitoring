@@ -26,7 +26,6 @@
                     <th>Tahun</th>
                     <th>Status</th>
                     <th>Dibuat Pada</th>
-                    <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
@@ -36,16 +35,6 @@
                     <td>{{ $v->tahun }}</td>
                     <td>{{ $v->status() }}</td>
                     <td>{{ date("d F Y H:i:s", strtotime($v->created_at)) }}</td>
-                    <td>
-                        <?php $enc_id = Crypt::encrypt($v->id); ?>
-                        <form action="{{ route('orang_tua.destroy', $enc_id) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <a href="{{ route('orang_tua.show', $enc_id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
-                            <a href="{{ route('orang_tua.edit', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
-                            <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
-                        </form>
-                    </td>
                 </tr>
                 @endforeach
             </tbody>
