@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2023 at 05:06 AM
+-- Generation Time: Jul 28, 2023 at 06:34 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -129,15 +129,17 @@ INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `c
 CREATE TABLE `kelas_siswa` (
   `id` int(20) UNSIGNED NOT NULL,
   `id_siswa` int(20) UNSIGNED NOT NULL,
-  `id_kelas` int(20) UNSIGNED NOT NULL
+  `id_kelas` int(20) UNSIGNED NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `kelas_siswa`
 --
 
-INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`) VALUES
-(1, 1, 1);
+INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
+(9, 10, 3, '2023-07-28 04:33:47', '2023-07-28 04:34:01');
 
 -- --------------------------------------------------------
 
@@ -251,6 +253,8 @@ CREATE TABLE `siswa` (
   `tgl_lahir` date NOT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` enum('aktif','lulus','pindah') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `id_kelas_aktif` int(20) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -260,8 +264,8 @@ CREATE TABLE `siswa` (
 -- Dumping data for table `siswa`
 --
 
-INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1634567890098765', '123123', 'Kevin', 'L', 1, 1, NULL, NULL, 'Solo', '2013-10-10', 'Solo', NULL, '2023-07-27 08:21:53', NULL, NULL);
+INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `id_kelas_aktif`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(10, '3314110809010001', '12345', 'Angga', 'L', 1, 1, NULL, '08123456732', 'Sleman', '2023-06-29', 'Sragen', NULL, 'aktif', 3, '2023-07-28 04:33:47', '2023-07-28 04:34:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -387,7 +391,8 @@ ALTER TABLE `kelas`
 ALTER TABLE `kelas_siswa`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_siswa` (`id_siswa`),
-  ADD KEY `id_kelas` (`id_kelas`);
+  ADD KEY `id_kelas` (`id_kelas`),
+  ADD KEY `created_at` (`created_at`);
 
 --
 -- Indexes for table `orang_tua`
@@ -446,7 +451,9 @@ ALTER TABLE `siswa`
   ADD KEY `tmp_lahir` (`tmp_lahir`),
   ADD KEY `tgl_lahir` (`tgl_lahir`),
   ADD KEY `created_at` (`created_at`),
-  ADD KEY `deleted_at` (`deleted_at`);
+  ADD KEY `deleted_at` (`deleted_at`),
+  ADD KEY `id_kelas_aktif` (`id_kelas_aktif`),
+  ADD KEY `status` (`status`);
 ALTER TABLE `siswa` ADD FULLTEXT KEY `alamat` (`alamat`);
 
 --
@@ -510,7 +517,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -540,7 +547,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
@@ -602,7 +609,8 @@ ALTER TABLE `orang_tua`
 ALTER TABLE `siswa`
   ADD CONSTRAINT `siswa_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `siswa_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `siswa_fk3` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `siswa_fk3` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`id_kelas_aktif`) REFERENCES `kelas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tahun_ajaran_aktif`

@@ -6,20 +6,40 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Ref\Agama;
 use App\Models\Ref\Pendidikan;
+use App\Models\KelasSiswa;
+use DB;
 
 class Siswa extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['nik', 'nis', 'nama', 'jk', 'agama', 'goldar', 'pendidikan', 'telp', 'tmp_lahir', 'tgl_lahir', 'alamat', 'foto'];
+    protected $fillable = ['nik', 'nis', 'nama', 'jk', 'agama', 'goldar', 'pendidikan', 'telp', 'tmp_lahir', 'tgl_lahir', 'alamat', 'foto', 'id_kelas_aktif'];
 
     protected $table = "siswa";
 
+    public static function create_and_add_kelas($data)
+    {
+        $siswa = self::create($data + ["id_kelas_aktif" => $data["id_kelas"]]);
+        KelasSiswa::create([
+            "id_siswa" => $siswa->id,
+            "id_kelas" => $data["id_kelas"]
+        ]);
+        return $siswa;
+    }
+
+    public function update_data_dan_kelas($data)
+    {
+        $old_id_kelas = $this->id_kelas_aktif;
+        $this->update($data + ["id_kelas_aktif" => $data["id_kelas"]]);
+        $x = KelasSiswa::where("id_kelas", $old_id_kelas)
+            ->where("id_siswa", $this->id)
+            ->update(["id_kelas" => $data["id_kelas"]]);
+    }
+
     public function kelas()
     {
-        return $this->belongsToMany(Kelas::class, "kelas_siswa", "id_siswa", "id_kelas")
-                    ->join("tahun_ajaran", "tahun_ajaran.id", "kelas.id_tahun_ajaran")
-                    ->where("tahun_ajaran.status", "=", "aktif");
+        $ret = $this->belongsTo(Kelas::class, "id_kelas_aktif")->first();
+        return is_null($ret) ? (object) ["id" => 0, "tingkatan" => NULL, "nama" => NULL] : $ret;
     }
 
     public function agama()
