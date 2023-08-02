@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2023 at 07:19 AM
+-- Generation Time: Aug 02, 2023 at 02:10 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -37,7 +37,12 @@ CREATE TABLE `agama` (
 --
 
 INSERT INTO `agama` (`id`, `nama`) VALUES
-(1, 'Islam');
+(7, 'Budha'),
+(4, 'Hindu'),
+(1, 'Islam'),
+(6, 'Katholik'),
+(8, 'Kong Hu Cu'),
+(2, 'Kristen');
 
 -- --------------------------------------------------------
 
@@ -55,7 +60,10 @@ CREATE TABLE `goldar` (
 --
 
 INSERT INTO `goldar` (`id`, `nama`) VALUES
-(1, 'A');
+(1, 'A'),
+(4, 'AB'),
+(2, 'B'),
+(3, 'O');
 
 -- --------------------------------------------------------
 
@@ -172,7 +180,10 @@ CREATE TABLE `pekerjaan` (
 --
 
 INSERT INTO `pekerjaan` (`id`, `nama`) VALUES
-(1, 'Guru');
+(1, 'Guru'),
+(2, 'Polisi'),
+(4, 'Satpam'),
+(3, 'Tentara');
 
 -- --------------------------------------------------------
 
@@ -190,7 +201,18 @@ CREATE TABLE `pendidikan` (
 --
 
 INSERT INTO `pendidikan` (`id`, `nama`) VALUES
-(1, 'S1');
+(10, 'D1'),
+(11, 'D2'),
+(12, 'D3'),
+(8, 'MA'),
+(9, 'MTS'),
+(1, 'S1'),
+(2, 'S2'),
+(3, 'S3'),
+(7, 'SD'),
+(4, 'SMA'),
+(6, 'SMK'),
+(13, 'SMP');
 
 -- --------------------------------------------------------
 
@@ -478,13 +500,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `agama`
 --
 ALTER TABLE `agama`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `goldar`
 --
 ALTER TABLE `goldar`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `guru`
@@ -514,13 +536,13 @@ ALTER TABLE `orang_tua`
 -- AUTO_INCREMENT for table `pekerjaan`
 --
 ALTER TABLE `pekerjaan`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `pendidikan`
 --
 ALTER TABLE `pendidikan`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`
@@ -560,10 +582,10 @@ ALTER TABLE `users`
 -- Constraints for table `guru`
 --
 ALTER TABLE `guru`
-  ADD CONSTRAINT `guru_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `guru_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `guru_fk3` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaan` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `guru_fk4` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `guru_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `guru_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `guru_fk3` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaan` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `guru_fk4` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kelas`
@@ -583,18 +605,18 @@ ALTER TABLE `kelas_siswa`
 -- Constraints for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  ADD CONSTRAINT `orang_tua_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `orang_tua_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `orang_tua_fk3` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaan` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `orang_tua_fk4` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+  ADD CONSTRAINT `orang_tua_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `orang_tua_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `orang_tua_fk3` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaan` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `orang_tua_fk4` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `siswa`
 --
 ALTER TABLE `siswa`
-  ADD CONSTRAINT `siswa_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `siswa_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
-  ADD CONSTRAINT `siswa_fk3` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON DELETE RESTRICT ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_fk3` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`id_kelas_aktif`) REFERENCES `kelas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
