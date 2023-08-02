@@ -9,4 +9,6 @@ class Goldar extends Model
     protected $fillable = ['nama'];
 
     protected $table = 'goldar';
+
+    public $timestamps = false;
 }

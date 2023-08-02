@@ -9,4 +9,6 @@ class Pendidikan extends Model
     protected $fillable = ['nama'];
 
     protected $table = 'pendidikan';
+
+    public $timestamps = false;
 }

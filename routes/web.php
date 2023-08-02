@@ -35,6 +35,13 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/ubah-password', 'UserController@ubah_password')->name('ubah-password');
     });
 
+    Route::middleware(["admin"])->prefix("data_ref")->name("data_ref.")->group(function () {
+        Route::resource('/agama', 'RefAgamaController');
+        Route::resource('/goldar', 'RefGoldarController');
+        Route::resource('/pekerjaan', 'RefPekerjaanController');
+        Route::resource('/pendidikan', 'RefPendidikanController');
+    });
+
     Route::middleware(["admin"])->prefix("master_data")->group(function () {
         Route::prefix("guru")->name("guru.")->group(function () {
             Route::get("/export_excel", "GuruController@export_excel")->name("export_excel");

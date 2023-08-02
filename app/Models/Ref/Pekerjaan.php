@@ -9,4 +9,6 @@ class Pekerjaan extends Model
     protected $fillable = ['nama'];
 
     protected $table = 'pekerjaan';
+
+    public $timestamps = false;
 }

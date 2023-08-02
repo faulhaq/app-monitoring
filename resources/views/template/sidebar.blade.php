@@ -19,11 +19,56 @@
                         </a>
                     </li>
 
+                    <li class="nav-item has-treeview" id="liDataRef">
+                        <a href="#" class="nav-link" id="DataRef">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Data Ref
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-4">
+                            <li class="nav-item">
+                                <a href="{{ route('data_ref.agama.index') }}" class="nav-link" id="DataRefAgama">
+                                    <i class="fas fa-users nav-icon"></i>
+                                    <p>Data Agama</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-treeview ml-4">
+                            <li class="nav-item">
+                                <a href="{{ route('data_ref.goldar.index') }}" class="nav-link" id="DataRefGoldar">
+                                    <i class="fas fa-users nav-icon"></i>
+                                    <p>Data Golongan Darah</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-treeview ml-4">
+                            <li class="nav-item">
+                                <a href="{{ route('data_ref.pekerjaan.index') }}" class="nav-link" id="DataRefPekerjaan">
+                                    <i class="fas fa-users nav-icon"></i>
+                                    <p>Data Pekerjaan</p>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul class="nav nav-treeview ml-4">
+                            <li class="nav-item">
+                                <a href="{{ route('data_ref.pendidikan.index') }}" class="nav-link" id="DataRefPendidikan">
+                                    <i class="fas fa-users nav-icon"></i>
+                                    <p>Data Pendidikan</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item has-treeview" id="liMasterData">
                         <a href="#" class="nav-link" id="MasterData">
                             <i class="nav-icon fas fa-edit"></i>
                             <p>
-                                Master Data
+                                Data Master
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>

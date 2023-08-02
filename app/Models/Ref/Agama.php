@@ -9,4 +9,6 @@ class Agama extends Model
     protected $fillable = ['nama'];
 
     protected $table = 'agama';
+
+    public $timestamps = false;
 }
