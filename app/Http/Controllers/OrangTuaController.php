@@ -36,6 +36,7 @@ class OrangTuaController extends Controller
         $r->validate([
             'nik'           => 'required|digits:16'.$uq,
             'nama'          => 'required|max:255',
+            'email'         => 'required|max:255'.$uq,
             'jk'            => 'required|in:L,P',
             'agama'         => 'required',
             'tmp_lahir'     => 'required',
@@ -70,6 +71,7 @@ class OrangTuaController extends Controller
             'nik'        => $r->nik,
             'nip'        => $r->nip,
             'nama'       => $r->nama,
+            'email'      => $r->email,
             'jk'         => $r->jk,
             'agama'      => $r->agama,
             'tmp_lahir'  => $r->tmp_lahir,
@@ -140,6 +142,7 @@ class OrangTuaController extends Controller
             'nik'        => $r->nik,
             'nip'        => $r->nip,
             'nama'       => $r->nama,
+            'email'      => $r->email,
             'jk'         => $r->jk,
             'agama'      => $r->agama,
             'tmp_lahir'  => $r->tmp_lahir,

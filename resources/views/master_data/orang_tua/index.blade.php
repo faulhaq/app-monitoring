@@ -54,13 +54,14 @@
 		</div>
 
         <!-- /.card-header -->
-        <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped table-hover">
+        <div class="card-body" style="overflow-x: scroll">
+          <table class="table table-bordered table-striped table-hover" style="width: 100%">
             <thead>
                 <tr>
                     <th>No.</th>
                     <th>NIK</th>
                     <th>Nama</th>
+                    <th>Email</th>
                     <th>Jenis Kelamin</th>
                     <th>Agama</th>
                     <th>Pend.</th>
@@ -74,6 +75,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->nik }}</td>
                     <td>{{ $data->nama }}</td>
+                    <td>{{ $data->email }}</td>
                     <td>{{ $data->jk === "L" ? "Laki-laki" : "Perempuan" }}</td>
                     <td>{{ $data->agama() }}</td>
                     <td>{{ $data->pendidikan() }}</td>
@@ -129,6 +131,10 @@
                         <input type="text" id="nama" name="nama" class="form-control @error('nama') is-invalid @enderror">
                     </div>
                     <div class="form-group">
+                        <label for="email">Email Orang Tua</label>
+                        <input type="text" id="email" name="email" class="form-control @error('email') is-invalid @enderror">
+                    </div>
+                    <div class="form-group">
                         <label for="jk">Jenis Kelamin</label>
                         <select id="jk" name="jk" class="select2bs4 form-control @error('jk') is-invalid @enderror">
                             <option value="">-- Pilih Jenis Kelamin --</option>
@@ -159,8 +165,8 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="nis">Alamat</label>
-                        <input type="text" id="alamt" name="alamat" onkeypress="return inputAngka(event)" class="form-control @error('nis') is-invalid @enderror">
+                        <label for="alamat">Alamat</label>
+                        <input type="text" id="alamat" name="alamat" class="form-control @error('alamat') is-invalid @enderror">
                     </div>
                     <div class="form-group">
                         <label for="telp">Nomor Telpon/HP</label>

@@ -24,8 +24,12 @@
                     <input type="text" id="nik" name="nik" value="{{ $orang_tua->nik }}" class="form-control" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="nama">Nama Orang Tua</label>
+                    <label for="nama">Nama</label>
                     <input type="text" id="nama" name="nama" value="{{ $orang_tua->nama }}" class="form-control @error('nama') is-invalid @enderror">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" value="{{ $orang_tua->email }}" class="form-control @error('email') is-invalid @enderror">
                 </div>
                 <div class="form-group">
                     <label for="jk">Jenis Kelamin</label>
@@ -79,14 +83,14 @@
                     </select>
                     </div>
                 <div class="form-group">
-                    <label for="telp">Pekerjaan</label>
+                    <label for="pekerjaan">Pekerjaan</label>
                     <select id="pekerjaan" name="pekerjaan" class="select2bs4 form-control @error('pekerjaan') is-invalid @enderror">
                         <option value="">-- Pilih Pekerjaan --</option>
                         <?= FormWithRef::get_pekerjaan($orang_tua->pekerjaan); ?>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="telp">Alamat</label>
+                    <label for="alamat">Alamat</label>
                     <input type="text" id="alamat" name="alamat" value="{{ $orang_tua->alamat }}"  class="form-control @error('alamat') is-invalid @enderror">
                 </div>
                 <div class="form-group">

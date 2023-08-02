@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2023 at 06:34 AM
+-- Generation Time: Aug 02, 2023 at 05:52 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -68,6 +68,7 @@ CREATE TABLE `guru` (
   `nik` char(16) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nip` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
   `agama` tinyint(3) UNSIGNED NOT NULL,
   `goldar` tinyint(3) UNSIGNED NOT NULL,
@@ -88,10 +89,8 @@ CREATE TABLE `guru` (
 -- Dumping data for table `guru`
 --
 
-INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1234567890098765', '119284928492848172', 'Guru AAAAA', 'L', 1, 1, 1, 1, '08123123123', 'Yogyakarta', '1992-10-10', 'Yogyakarta', NULL, 'aktif', '2023-07-27 08:11:21', '2023-07-28 02:26:36', NULL),
-(2, '3314110809010001', '196506061992032001', 'AAAAAAAAAAA', 'L', 1, 1, 1, 1, '08123456789', 'qqqq', '2023-07-05', 'Sragen', NULL, 'aktif', '2023-07-27 07:50:49', '2023-07-27 09:02:40', NULL),
-(3, '3314150809010005', '1244153465886765', 'Drs Mukhtar Ahmadi ,MPd.', 'L', 1, 1, 1, 1, '08623456789', 'qweqwe', '2023-07-08', 'Sragen', '2023_07_27__07_51_37_yayasan-removebg.png', 'aktif', '2023-07-27 07:51:37', '2023-07-27 07:58:06', '2023-07-27 07:58:06');
+INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(4, '1234512345123451', '123123', 'Guru AAAAA', 'guru001@gmail.com', 'L', 1, 1, 1, 1, '081123123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__03_40_14_DSC_5596.JPG', 'aktif', '2023-08-02 03:36:45', '2023-08-02 03:40:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -110,16 +109,6 @@ CREATE TABLE `kelas` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `kelas`
---
-
-INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1', 'A', 1, 1, '2023-07-27 08:12:15', NULL, NULL),
-(2, '1', 'A', 3, 1, '2023-07-28 02:49:50', '2023-07-28 02:49:50', NULL),
-(3, '5', 'A', 1, 2, '2023-07-28 03:04:16', '2023-07-28 03:06:15', NULL),
-(4, '2', 'e', 1, 2, '2023-07-28 03:05:53', '2023-07-28 03:06:03', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -134,13 +123,6 @@ CREATE TABLE `kelas_siswa` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `kelas_siswa`
---
-
-INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(9, 10, 3, '2023-07-28 04:33:47', '2023-07-28 04:34:01');
-
 -- --------------------------------------------------------
 
 --
@@ -151,6 +133,7 @@ CREATE TABLE `orang_tua` (
   `id` int(20) UNSIGNED NOT NULL,
   `nik` char(16) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
   `agama` tinyint(3) UNSIGNED NOT NULL,
   `goldar` tinyint(3) UNSIGNED NOT NULL,
@@ -170,9 +153,8 @@ CREATE TABLE `orang_tua` (
 -- Dumping data for table `orang_tua`
 --
 
-INSERT INTO `orang_tua` (`id`, `nik`, `nama`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '1234567890098765', 'Orang Tua AAAAAAA', 'L', 1, 1, 1, 1, '08111111111', 'Semarang', '1999-12-12', 'Semarang', NULL, '2023-07-27 07:39:37', '2023-07-27 08:58:38', NULL),
-(2, '3314150809011005', 'Orang Tua BBBBBBB', 'L', 1, 1, 1, 1, '081234567892', 'Sleman', '2023-07-01', 'Sragen', '2023_07_27__09_00_46_USDGROW.png', '2023-07-27 08:59:09', '2023-07-27 09:02:20', '2023-07-27 09:02:20');
+INSERT INTO `orang_tua` (`id`, `nik`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(3, '1234512345123452', 'Kevin AAAA', 'orangtua@gmail.com', 'L', 1, 1, 1, 1, '081123123122', 'Solo', '2023-08-07', 'Solo', '2023_08_02__03_45_55_SS SCAM BOSSY ALPHA JR & PHILLIP.png', '2023-08-02 03:45:55', '2023-08-02 03:47:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -265,7 +247,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `id_kelas_aktif`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(10, '3314110809010001', '12345', 'Angga', 'L', 1, 1, NULL, '08123456732', 'Sleman', '2023-06-29', 'Sragen', NULL, 'aktif', 3, '2023-07-28 04:33:47', '2023-07-28 04:34:01', NULL);
+(10, '3314110809010001', '12345', 'Angga', 'L', 1, 1, NULL, '08123456732', 'Sleman', '2023-06-29', 'Sragen', NULL, 'aktif', NULL, '2023-07-28 04:33:47', '2023-07-28 04:34:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -358,6 +340,7 @@ ALTER TABLE `goldar`
 ALTER TABLE `guru`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD UNIQUE KEY `nip` (`nip`),
   ADD KEY `nama` (`nama`),
   ADD KEY `jk` (`jk`),
@@ -400,6 +383,7 @@ ALTER TABLE `kelas_siswa`
 ALTER TABLE `orang_tua`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`),
+  ADD UNIQUE KEY `email` (`email`),
   ADD KEY `nama` (`nama`),
   ADD KEY `jk` (`jk`),
   ADD KEY `agama` (`agama`),
@@ -505,7 +489,7 @@ ALTER TABLE `goldar`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -523,7 +507,7 @@ ALTER TABLE `kelas_siswa`
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`

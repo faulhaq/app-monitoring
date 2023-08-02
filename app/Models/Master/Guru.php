@@ -11,7 +11,7 @@ class Guru extends Model
     use SoftDeletes;
     use TraitRef;
 
-    protected $fillable = ['nik', 'nip', 'nama', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'agama', 'pendidikan', 'goldar', 'pekerjaan', 'alamat', 'foto'];
+    protected $fillable = ['nik', 'nip', 'nama', 'email', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'agama', 'pendidikan', 'goldar', 'pekerjaan', 'alamat', 'foto'];
 
     protected $table = 'guru';
 }

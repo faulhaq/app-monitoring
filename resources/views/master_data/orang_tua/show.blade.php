@@ -1,8 +1,8 @@
 @extends('template.home')
-@section('heading', 'Details Guru')
+@section('heading', 'Details Orang Tua')
 @section('page')
-  <li class="breadcrumb-item active"><a href="{{ route('orang_tua.index') }}">Guru</a></li>
-  <li class="breadcrumb-item active">Details Guru</li>
+  <li class="breadcrumb-item active"><a href="{{ route('orang_tua.index') }}">Orang Tua</a></li>
+  <li class="breadcrumb-item active">Details Orang Tua</li>
 @endsection
 @section('content')
 <div class="col-md-12">
@@ -20,6 +20,7 @@
                 <div class="col-md-7">
                     <h5 class="card-title card-text mb-2">NIK : {{ $orang_tua->nik }}</h5>
                     <h5 class="card-title card-text mb-2">Nama : {{ $orang_tua->nama }}</h5>
+                    <h5 class="card-title card-text mb-2">Email : {{ $orang_tua->email }}</h5>
                     <h5 class="card-title card-text mb-2">Jenis Kelamin : {{ $orang_tua->jk === "L" ? "Laki-laki" : "Perempuan" }}</h5>
                     <h5 class="card-title card-text mb-2">Agama : {{ $orang_tua->agama() }}</h5>
                     <h5 class="card-title card-text mb-2">Goldar : {{ $orang_tua->goldar() }}</h5>
@@ -44,6 +45,6 @@
     <script>
         $("#MasterData").addClass("active");
         $("#liMasterData").addClass("menu-open");
-        $("#DataGuru").addClass("active");
+        $("#DataOrangTua").addClass("active");
     </script>
 @endsection

@@ -32,6 +32,10 @@
                     <input type="text" id="nama" name="nama" value="{{ $guru->nama }}" class="form-control @error('nama') is-invalid @enderror">
                 </div>
                 <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" id="email" name="email" value="{{ $guru->email }}" class="form-control @error('email') is-invalid @enderror">
+                    </div>
+                <div class="form-group">
                     <label for="jk">Jenis Kelamin</label>
                     <select id="jk" name="jk" class="select2bs4 form-control @error('jk') is-invalid @enderror">
                         <option value="">-- Pilih Jenis Kelamin --</option>
@@ -87,7 +91,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="telp">Alamat</label>
+                    <label for="alamat">Alamat</label>
                     <input type="text" id="alamat" name="alamat" value="{{ $guru->alamat }}"  class="form-control @error('alamat') is-invalid @enderror">
                 </div>
                 <div class="form-group">

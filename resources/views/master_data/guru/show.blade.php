@@ -21,6 +21,7 @@
                     <h5 class="card-title card-text mb-2">NIK : {{ $guru->nik }}</h5>
                     <h5 class="card-title card-text mb-2">NIP : {{ $guru->nip }}</h5>
                     <h5 class="card-title card-text mb-2">Nama : {{ $guru->nama }}</h5>
+                    <h5 class="card-title card-text mb-2">Email : {{ $guru->email }}</h5>
                     <h5 class="card-title card-text mb-2">Jenis Kelamin : {{ $guru->jk === "L" ? "Laki-laki" : "Perempuan" }}</h5>
                     <h5 class="card-title card-text mb-2">Agama : {{ $guru->agama() }}</h5>
                     <h5 class="card-title card-text mb-2">Goldar : {{ $guru->goldar() }}</h5>

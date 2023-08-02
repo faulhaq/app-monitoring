@@ -12,7 +12,7 @@ class OrangTua extends Model
     use SoftDeletes;
     use TraitRef;
 
-    protected $fillable = ['nik', 'nama', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'agama', 'pendidikan', 'goldar', 'pekerjaan', 'alamat', 'foto'];
+    protected $fillable = ['nik', 'nama', 'email', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'agama', 'pendidikan', 'goldar', 'pekerjaan', 'alamat', 'foto'];
 
     protected $table = 'orang_tua';
 }
