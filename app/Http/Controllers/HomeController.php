@@ -7,7 +7,7 @@ use App\Models\Master\Kelas;
 use App\Models\Master\Siswa;
 // use App\Siswa;
 use App\User;
-use App\Pengumuman;
+use App\Models\Pengumuman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Master\OrangTua;
