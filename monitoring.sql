@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2023 at 02:10 PM
+-- Generation Time: Aug 02, 2023 at 02:22 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -116,6 +116,13 @@ CREATE TABLE `kelas` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kelas`
+--
+
+INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(5, '1', 'A', 1, 4, '2023-08-02 12:11:27', '2023-08-02 12:11:27', NULL);
 
 -- --------------------------------------------------------
 
@@ -234,8 +241,7 @@ CREATE TABLE `pengumuman` (
 --
 
 INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'qqq', 'halo', '2023-07-27 07:17:05', NULL, NULL),
-(2, 'qweqwe', 'halo test', '2023-07-27 07:17:05', NULL, NULL);
+(1, 'pengumuman', '', '2023-07-27 07:17:05', '2023-08-02 12:21:28', NULL);
 
 -- --------------------------------------------------------
 
@@ -518,7 +524,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`

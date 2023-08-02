@@ -19,7 +19,13 @@
         </div>
         <div class="card-body">
           <div class="tab-content p-0">
-            {!! $pengumuman->isi !!}
+            <?php
+            $isi = trim($pengumuman->isi);
+            if ($isi === "") {
+              $isi = "<h3>Tidak ada pengumuman!</h3>";
+            }
+            ?>
+            {!! $isi !!}
           </div>
         </div>
       </div>

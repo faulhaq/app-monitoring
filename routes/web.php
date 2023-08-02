@@ -79,6 +79,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/tahun_ajaran', 'TahunAjaranController');
         Route::resource('/user', 'UserController');
         Route::resource('/monitoring_rumah', 'MonitoringRumahController');
+    });
+
+    Route::middleware(["admin"])->group(function() {
+        Route::post('/admin/pengumuman/simpan', 'PengumumanController@simpan')->name('admin.pengumuman.simpan');
         Route::resource('/pengumuman', 'PengumumanController');
     });
 });
