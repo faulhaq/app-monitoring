@@ -31,6 +31,8 @@ class Kelas extends Model
         return self::select("kelas.*")
                 ->join("tahun_ajaran", "tahun_ajaran.id", "=", "kelas.id_tahun_ajaran")
                 ->join("tahun_ajaran_aktif", "tahun_ajaran.id", "=", "tahun_ajaran_aktif.id_tahun_ajaran")
+                ->orderBy("kelas.tingkatan", "asc")
+                ->orderBy("kelas.nama", "asc")
                 ->get();
     }
 

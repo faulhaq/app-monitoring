@@ -16,7 +16,7 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        $siswa = Siswa::get();
+        $siswa = Siswa::orderBy("nama", "asc")->get();
         $kelas = Kelas::get_kelas_aktif();
         return view("master_data.siswa.index", compact("siswa", "kelas"));
     }

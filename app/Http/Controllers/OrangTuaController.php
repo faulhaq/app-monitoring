@@ -16,7 +16,7 @@ class OrangTuaController extends Controller
      */
     public function index()
     {
-        $orang_tua = OrangTua::get();
+        $orang_tua = OrangTua::orderBy("nama", "asc")->get();
         return view("master_data.orang_tua.index", compact("orang_tua"));
     }
 
