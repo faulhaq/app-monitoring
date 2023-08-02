@@ -188,4 +188,15 @@ class GuruController extends Controller
         $guru->delete();
         return redirect()->route('guru.index')->with('success', 'Data guru berhasil dihapus!');
     }
+
+    public function get_list()
+    {
+        $guru = Guru::select(["guru.id", "guru.nik", "guru.nama", "guru.email"])
+                ->leftJoin("users", "guru.id", "users.id_guru")
+                ->whereNull("users.id_guru")
+                ->get();
+        return response()->json([
+            "data" => $guru
+        ]);
+    }
 }

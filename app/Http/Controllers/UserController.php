@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Auth;
-use App\User;
-use App\Guru;
-use App\OrangTua;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
+use App\User;
+use App\Models\Master\OrangTua;
+use App\Models\Master\Guru;
 
 class UserController extends Controller
 {
@@ -21,8 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $user = User::all();
-        $user = $user->groupBy('role');
-        return view('admin.user.index', compact('user'));
+        return view("master_data.user.index", compact("user"));
     }
 
     /**
@@ -32,61 +29,78 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        abort(404);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $r
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $r)
     {
-        $this->validate($request, [
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8|confirmed',
-            'role' => 'required',
+        $r->validate([
+            "role"       => "required|in:admin,guru,orang_tua",
+            "password"   => "required|min:8",
         ]);
 
-        // dd($request);
-        if ($request->role == 'Guru' || $request->role == 'WaliKelas') {
-            $guru = Guru::where('nik', $request->nik)->first();
-            if ($guru) {
-                User::create([
-                    'name' => $guru->nama,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                    'role' => $request->role,
-                    'id_guru' => $guru->id,
-                ]);
-                return redirect()->back()->with('success', 'Berhasil menambahkan user Guru baru!');
-            } else {
-                return redirect()->back()->with('error', 'Maaf User ini tidak terdaftar sebagai guru!');
-            }
-        } elseif ($request->role == 'OrangTua') {
-            $orang_tua = OrangTua::where('nik', $request->nik)->first();
-            if ($orang_tua) {
-                User::create([
-                    'name' => $orang_tua->nama,
-                    'email' => $request->email,
-                    'password' => Hash::make($request->password),
-                    'role' => $request->role,
-                    'id_orang_tua' => $orang_tua->id,
-                ]);
-                return redirect()->back()->with('success', 'Berhasil menambahkan user orang tua baru!');
-            } else {
-                return redirect()->back()->with('error', 'Maaf User ini tidak terdaftar sebagai orang tua!');
-            }
+        if ($r->role === "orang_tua") {
+            $r->validate(["id_fk_user" => "required"]);
+            return $this->store_orang_tua($r);
+        } else if ($r->role === "guru") {
+            $r->validate(["id_fk_user" => "required"]);
+            return $this->store_guru($r);
+        } else if ($r->role === "admin") {
+            $r->validate(["email" => "required"]);
+            return $this->store_admin($r);
         } else {
-            User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => Hash::make($request->password),
-                'role' => $request->role,
-            ]);
-            return redirect()->back()->with('success', 'Berhasil menambahkan user Admin baru!');
+            abort(404);
         }
+    }
+
+    public function store_admin(Request $r)
+    {
+        User::create([
+            "role"     => "admin",
+            "email"    => $r->email,
+            "password" => password_hash($r->password, PASSWORD_BCRYPT)
+        ]);
+        return redirect()->back()->with("success", "Berhasil membuat user admin!");
+    }
+
+    public function store_orang_tua(Request $r)
+    {
+        $orang_tua = OrangTua::find($r->id_fk_user);
+        if (!$orang_tua) {
+            return redirect()->back()->with('warning', 'Orang tua tidak ditemukan');
+        }
+
+        User::create([
+            "role"         => "orang_tua",
+            "email"        => $orang_tua->email,
+            "password"     => password_hash($r->password, PASSWORD_BCRYPT),
+            "id_orang_tua" => $orang_tua->id
+        ]);
+
+        return redirect()->back()->with("success", "Berhasil membuat user orang tua!");
+    }
+
+    public function store_guru(Request $r)
+    {
+        $guru = Guru::find($r->id_fk_user);
+        if (!$guru) {
+            return redirect()->back()->with('warning', 'Guru tidak ditemukan');
+        }
+
+        User::create([
+            "role"      => "guru",
+            "email"     => $guru->email,
+            "password"  => password_hash($r->password, PASSWORD_BCRYPT),
+            "id_guru"   => $guru->id
+        ]);
+
+        return redirect()->back()->with("success", "Berhasil membuat user guru!");
     }
 
     /**
@@ -98,13 +112,13 @@ class UserController extends Controller
     public function show($id)
     {
         $id = Crypt::decrypt($id);
-        if ($id == "Admin" && Auth::user()->role == "Operator") {
-            return redirect()->back()->with('warning', 'Maaf halaman ini hanya bisa di akses oleh Admin!');
-        } else {
-            $user = User::where('role', $id)->get();
-            $role = $user->groupBy('role');
-            return view('admin.user.show', compact('user', 'role'));
+        $user = User::find($id);
+        if (!$user) {
+            abort(404);
+            return;
         }
+
+        return view("master_data.user.show", compact("user"));
     }
 
     /**
@@ -115,7 +129,9 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        // 
+        $id = Crypt::decrypt($id);
+        $user = User::find($id);
+        return view("master_data.user.edit", compact("user"));
     }
 
     /**
@@ -125,9 +141,23 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $r, $id)
     {
-        // 
+        $r->validate([
+            "password" => "required|min:8",
+        ]);
+
+        $id = Crypt::decrypt($id);
+        $user = User::find($id);
+        if (!$user) {
+            abort(404);
+            return;
+        }
+
+        $user->update([
+            "password" => password_hash($r->password, PASSWORD_BCRYPT)
+        ]);
+        return redirect()->back()->with("success", "Berhasil mengubah data user!");
     }
 
     /**
@@ -138,216 +168,14 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::findorfail($id);
-        if ($user->role == 'Admin') {
-            if ($user->id == Auth::user()->id) {
-                $user->delete();
-                return redirect()->back()->with('warning', 'Data user berhasil dihapus!');
-            } else {
-                return redirect()->back()->with('error', 'Maaf user ini bukan milik anda!');
-            }
-        } elseif ($user->role == 'Operator') {
-            if ($user->id == Auth::user()->id || Auth::user()->role == 'Admin') {
-                $user->delete();
-                return redirect()->back()->with('warning', 'Data user berhasil dihapus!');
-            } else {
-                return redirect()->back()->with('error', 'Maaf user ini bukan milik anda!');
-            }
-        } else {
-            $user->delete();
-            return redirect()->back()->with('warning', 'Data user berhasil dihapus!');
-        }
-    }
-
-    public function email(Request $request)
-    {
-        $user = User::where('email', $request->email)->first();
-        $countUser = User::where('email', $request->email)->count();
-        if ($countUser >= 1) {
-            return redirect()->route('reset.password', Crypt::encrypt($user->id))->with('success', 'Email ini sudah terdaftar!');
-        } else {
-            return redirect()->back()->with('error', 'Maaf email ini belum terdaftar!');
-        }
-    }
-
-    public function password($id)
-    {
         $id = Crypt::decrypt($id);
-        $user = User::findorfail($id);
-        return view('auth.passwords.reset', compact('user'));
-    }
-
-    public function update_password(Request $request, $id)
-    {
-        $this->validate($request, [
-            'password' => 'required|string|min:8|confirmed'
-        ]);
-        $user = User::findorfail($id);
-        $user_data = [
-            'password' => Hash::make($request->password)
-        ];
-        $user->update($user_data);
-        return redirect()->route('login')->with('success', 'User berhasil diperbarui!');
-    }
-
-    public function profile()
-    {
-        return view('user.pengaturan');
-    }
-
-    public function ubah_profile(Request $request)
-    {
-        if ($request->role == 'Guru') {
-            $this->validate($request, [
-                'nama' => 'required',
-                'jk' => 'required',
-            ]);
-            $guru = Guru::where('id_card', Auth::user()->id_card)->first();
-            $user = User::where('id_card', Auth::user()->id_card)->first();
-            dd($user);
-            if ($user) {
-                $user_data = [
-                    'name' => $request->name
-                ];
-                $user->update($user_data);
-            } else {
-            }
-            $guru_data = [
-                'nama' => $request->name,
-                'jk' => $request->jk,
-                'telp' => $request->telp,
-                'tmp_lahir' => $request->tmp_lahir,
-                'tgl_lahir' => $request->tgl_lahir
-            ];
-            $guru->update($guru_data);
-            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
-        } elseif ($request->role == 'Siswa') {
-            $this->validate($request, [
-                'nama' => 'required',
-                'jk' => 'required',
-                'id_kelas' => 'required'
-            ]);
-            $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
-            $user = User::where('no_induk', Auth::user()->no_induk)->first();
-            if ($user) {
-                $user_data = [
-                    'name' => $request->name
-                ];
-                $user->update($user_data);
-            } else {
-            }
-            $siswa_data = [
-                'nis' => $request->nis,
-                'nama' => $request->name,
-                'jk' => $request->jk,
-                'id_kelas' => $request->id_kelas,
-                'telp' => $request->telp,
-                'tmp_lahir' => $request->tmp_lahir,
-                'tgl_lahir' => $request->tgl_lahir,
-            ];
-            $siswa->update($siswa_data);
-            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
-        } else {
-            $user = User::findorfail(Auth::user()->id);
-            $data_user = [
-                'name' => $request->name,
-            ];
-            $user->update($data_user);
-            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
+        $user = User::find($id);
+        if (!$user || $id == 1) {
+            abort(404);
+            return;
         }
-    }
-
-    public function edit_foto()
-    {
-        if (Auth::user()->role == 'Guru' || Auth::user()->role == 'Siswa') {
-            return view('user.foto');
-        } else {
-            return redirect()->back()->with('error', 'Not Found 404!');
-        }
-    }
-
-    public function ubah_foto(Request $request)
-    {
-        if ($request->role == 'Guru') {
-            $this->validate($request, [
-                'foto' => 'required'
-            ]);
-            $guru = Guru::where('id_card', Auth::user()->id_card)->first();
-            $foto = $request->foto;
-            $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
-            $guru_data = [
-                'foto' => 'uploads/guru/' . $new_foto,
-            ];
-            $foto->move('uploads/guru/', $new_foto);
-            $guru->update($guru_data);
-            return redirect()->route('profile')->with('success', 'Foto Profile anda berhasil diperbarui!');
-        } else {
-            $this->validate($request, [
-                'foto' => 'required'
-            ]);
-            $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
-            $foto = $request->foto;
-            $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
-            $siswa_data = [
-                'foto' => 'uploads/siswa/' . $new_foto,
-            ];
-            $foto->move('uploads/siswa/', $new_foto);
-            $siswa->update($siswa_data);
-            return redirect()->route('profile')->with('success', 'Foto Profile anda berhasil diperbarui!!');
-        }
-    }
-
-    public function edit_email()
-    {
-        return view('user.email');
-    }
-
-    public function ubah_email(Request $request)
-    {
-        $this->validate($request, [
-            'email' => 'required|string|email'
-        ]);
-        $user = User::findorfail(Auth::user()->id);
-        $cekUser = User::where('email', $request->email)->count();
-        if ($cekUser >= 1) {
-            return redirect()->back()->with('error', 'Maaf email ini sudah terdaftar!');
-        } else {
-            $user_email = [
-                'email' => $request->email,
-            ];
-            $user->update($user_email);
-            return redirect()->back()->with('success', 'Email anda berhasil diperbarui!');
-        }
-    }
-
-    public function edit_password()
-    {
-        return view('user.password');
-    }
-
-    public function ubah_password(Request $request)
-    {
-        $this->validate($request, [
-            'password' => 'required|string|min:8|confirmed'
-        ]);
-        $user = User::findorfail(Auth::user()->id);
-        if ($request->password_lama) {
-            if (Hash::check($request->password_lama, $user->password)) {
-                if ($request->password_lama == $request->password) {
-                    return redirect()->back()->with('error', 'Maaf password yang anda masukkan sama!');
-                } else {
-                    $user_password = [
-                        'password' => Hash::make($request->password),
-                    ];
-                    $user->update($user_password);
-                    return redirect()->back()->with('success', 'Password anda berhasil diperbarui!');
-                }
-            } else {
-                return redirect()->back()->with('error', 'Tolong masukkan password lama anda dengan benar!');
-            }
-        } else {
-            return redirect()->back()->with('error', 'Tolong masukkan password lama anda terlebih dahulu!');
-        }
+        $user->delete();
+        return redirect()->back()->with("success", "Berhasil menghapus data user!");
     }
 
     public function cek_email(Request $request)

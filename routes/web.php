@@ -36,39 +36,40 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(["admin"])->prefix("master_data")->group(function () {
-        Route::resource('/guru', 'GuruController');
         Route::prefix("guru")->name("guru.")->group(function () {
             Route::get("/export_excel", "GuruController@export_excel")->name("export_excel");
             Route::get("/import_excel", "GuruController@import_excel")->name("import_excel");
             Route::get("/ubah_foto/{id}", "GuruController@ubah_foto")->name("ubah_foto");
+            Route::get("/get_list", "GuruController@get_list")->name("get_list");
         });
+        Route::resource('/guru', 'GuruController');
 
-        Route::resource('/siswa', 'SiswaController');
         Route::prefix("siswa")->name("siswa.")->group(function () {
             Route::get("/export_excel", "SiswaController@export_excel")->name("export_excel");
             Route::get("/import_excel", "SiswaController@import_excel")->name("import_excel");
             Route::get("/ubah_foto/{id}", "SiswaController@ubah_foto")->name("ubah_foto");
         });
+        Route::resource('/siswa', 'SiswaController');
 
-        Route::resource('/orang_tua', 'OrangTuaController');
         Route::prefix("orang_tua")->name("orang_tua.")->group(function () {
             Route::get("/export_excel", "OrangTuaController@export_excel")->name("export_excel");
             Route::get("/import_excel", "OrangTuaController@import_excel")->name("import_excel");
             Route::get("/ubah_foto/{id}", "OrangTuaController@ubah_foto")->name("ubah_foto");
+            Route::get("/get_list", "OrangTuaController@get_list")->name("get_list");
         });
+        Route::resource('/orang_tua', 'OrangTuaController');
 
-        Route::resource('/kelas', 'KelasController');
         Route::prefix("kelas")->name("kelas.")->group(function () {
             Route::get("/export_excel", "KelasController@export_excel")->name("export_excel");
             Route::get("/import_excel", "KelasController@import_excel")->name("import_excel");
             Route::get("/ubah_foto/{id}", "KelasController@ubah_foto")->name("ubah_foto");
         });
+        Route::resource('/kelas', 'KelasController');
 
-        Route::resource('/tahun_ajaran', 'TahunAjaranController');
         Route::prefix("tahun_ajaran")->name("tahun_ajaran.")->group(function () {
             Route::post("/aktifkan_tahun", "TahunAjaranController@aktifkan_tahun")->name("aktifkan_tahun");
         });
-
+        Route::resource('/tahun_ajaran', 'TahunAjaranController');
         Route::resource('/user', 'UserController');
         Route::resource('/monitoring_rumah', 'MonitoringRumahController');
         Route::resource('/pengumuman', 'PengumumanController');

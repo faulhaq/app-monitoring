@@ -5,6 +5,8 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Master\OrangTua;
+use App\Models\Master\Guru;
 
 class User extends Authenticatable
 {
@@ -16,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role', 'id_guru', 'id_orang_tua'
+        'email', 'password', 'role', 'id_guru', 'id_orang_tua'
     ];
 
     /**
@@ -27,4 +29,17 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function nama()
+    {
+        if ($this->role === "admin") {
+            return "Admin";
+        } else if ($this->role === "orang_tua") {
+            return $this->belongsTo(OrangTua::class, "id_orang_tua")->first()->nama;
+        } else if ($this->role === "guru") {
+            return $this->belongsTo(Guru::class, "id_guru")->first()->nama;
+        }
+
+        return "";
+    }
 }

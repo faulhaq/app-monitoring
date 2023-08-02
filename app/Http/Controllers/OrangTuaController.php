@@ -187,4 +187,15 @@ class OrangTuaController extends Controller
         $orang_tua->delete();
         return redirect()->route('orang_tua.index')->with('success', 'Data orang tua berhasil dihapus!');
     }
+
+    public function get_list()
+    {
+        $orang_tua = OrangTua::select(["orang_tua.id", "orang_tua.nik", "orang_tua.nama", "orang_tua.email"])
+                        ->leftJoin("users", "orang_tua.id", "users.id_orang_tua")
+                        ->whereNull("users.id_orang_tua")
+                        ->get();
+        return response()->json([
+            "data" => $orang_tua
+        ]);
+    }
 }
