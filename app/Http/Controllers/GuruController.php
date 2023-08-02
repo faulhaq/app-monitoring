@@ -199,4 +199,31 @@ class GuruController extends Controller
             "data" => $guru
         ]);
     }
+
+    public function update_foto($id)
+    {
+        $id = Crypt::decrypt($id);
+        $guru = Guru::find($id);
+        if (!$guru) {
+            abort(404);
+            return;
+        }
+        return view('master_data.guru.update_foto', compact('guru'));
+    }
+
+    public function simpan_foto(Request $r, $id)
+    {
+        $id = Crypt::decrypt($id);
+        $guru = Guru::find($id);
+        if (!$guru) {
+            abort(404);
+            return;
+        }
+
+        $foto = $r->foto;
+        $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
+        $foto->move("uploads/guru/", $file_foto);
+        $guru->update(["foto" => $file_foto]);
+        return redirect()->route('guru.index')->with('success', 'Foto berhasil diupdate!');
+    }
 }

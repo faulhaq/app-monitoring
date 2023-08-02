@@ -87,7 +87,7 @@
                         @if (is_null($data->foto))
                             Tidak ada foto
                         @else
-                            <a href="{{ asset('uploads/guru/'.$data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.ubah_foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
+                            <a href="{{ asset('uploads/guru/'.$data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.update_foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Update Foto</a>'>
                                 <img src="{{ asset('uploads/guru/'.$data->foto) }}" width="130px" class="img-fluid mb-2">
                             </a>
                         @endif

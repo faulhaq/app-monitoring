@@ -57,6 +57,15 @@ class SiswaController extends Controller
     public function store(Request $r)
     {
         $this->validate_form_siswa($r);
+
+        if ($r->foto) {
+            $foto = $r->foto;
+            $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
+            $foto->move("uploads/siswa/", $file_foto);
+        } else {
+            $file_foto = NULL;
+        }
+
         Siswa::create_and_add_kelas([
             'nik'           => $r->nik,
             'nis'           => $r->nis,
@@ -70,6 +79,7 @@ class SiswaController extends Controller
             'pekerjaan'     => $r->pekerjaan ?? NULL,
             'goldar'        => $r->goldar ?? NULL,
             'id_kelas'      => $r->kelas,
+            'foto'          => $file_foto,
         ]);
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil ditambahkan!');
     }
@@ -121,6 +131,15 @@ class SiswaController extends Controller
         }
 
         $this->validate_form_siswa($r, false);
+
+        if ($r->foto) {
+            $foto = $r->foto;
+            $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
+            $foto->move("uploads/siswa/", $file_foto);
+        } else {
+            $file_foto = NULL;
+        }
+
         $siswa->update_data_dan_kelas([
             'nik'           => $r->nik,
             'nis'           => $r->nis,
@@ -134,6 +153,7 @@ class SiswaController extends Controller
             'pekerjaan'     => $r->pekerjaan ?? NULL,
             'goldar'        => $r->goldar ?? NULL,
             'id_kelas'      => $r->kelas,
+            'foto'          => $file_foto,
         ]);
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diubah!');
     }
@@ -146,6 +166,40 @@ class SiswaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $siswa = Siswa::find($id);
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+        $siswa->delete();
+        return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil dihapus!');
+    }
+
+    public function update_foto($id)
+    {
+        $id = Crypt::decrypt($id);
+        $siswa = Siswa::find($id);
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+        return view('master_data.siswa.update_foto', compact('siswa'));
+    }
+
+    public function simpan_foto(Request $r, $id)
+    {
+        $id = Crypt::decrypt($id);
+        $siswa = Siswa::find($id);
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+
+        $foto = $r->foto;
+        $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
+        $foto->move("uploads/siswa/", $file_foto);
+        $siswa->update(["foto" => $file_foto]);
+        return redirect()->route('siswa.index')->with('success', 'Foto berhasil diupdate!');
     }
 }

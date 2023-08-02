@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2023 at 02:22 PM
+-- Generation Time: Aug 02, 2023 at 02:41 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -98,7 +98,7 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(4, '1234512345123451', '123123', 'Guru AAAAA', 'guru001@gmail.com', 'L', 1, 1, 1, 1, '081123123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__03_40_14_DSC_5596.JPG', 'aktif', '2023-08-02 03:36:45', '2023-08-02 03:40:14', NULL);
+(4, '1234512345123451', '123123', 'Guru AAAAA', 'guru001@gmail.com', 'L', 1, 1, 1, 1, '081123123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__12_31_19_download (3).png', 'aktif', '2023-08-02 03:36:45', '2023-08-02 12:31:19', NULL);
 
 -- --------------------------------------------------------
 
@@ -137,6 +137,13 @@ CREATE TABLE `kelas_siswa` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kelas_siswa`
+--
+
+INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
+(10, 11, 5, '2023-08-02 12:40:08', '2023-08-02 12:40:08');
 
 -- --------------------------------------------------------
 
@@ -275,7 +282,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `id_kelas_aktif`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(10, '3314110809010001', '12345', 'Angga', 'L', 1, 1, NULL, '08123456732', 'Sleman', '2023-06-29', 'Sragen', NULL, 'aktif', NULL, '2023-07-28 04:33:47', '2023-07-28 04:34:01', NULL);
+(11, '3314110809010001', '3211111', 'Drs Mukhtar Ahmadi ,MPd.', 'L', 4, 4, NULL, '08123456732', 'bantul', '2023-08-02', 'Sragen', '2023_08_02__12_41_04_download (3).png', 'aktif', 5, '2023-08-02 12:40:08', '2023-08-02 12:41:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -530,7 +537,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -560,7 +567,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`

@@ -198,4 +198,31 @@ class OrangTuaController extends Controller
             "data" => $orang_tua
         ]);
     }
+
+    public function update_foto($id)
+    {
+        $id = Crypt::decrypt($id);
+        $orang_tua = OrangTua::find($id);
+        if (!$orang_tua) {
+            abort(404);
+            return;
+        }
+        return view('master_data.orang_tua.update_foto', compact('orang_tua'));
+    }
+
+    public function simpan_foto(Request $r, $id)
+    {
+        $id = Crypt::decrypt($id);
+        $orang_tua = OrangTua::find($id);
+        if (!$orang_tua) {
+            abort(404);
+            return;
+        }
+
+        $foto = $r->foto;
+        $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
+        $foto->move("uploads/orang_tua/", $file_foto);
+        $orang_tua->update(["foto" => $file_foto]);
+        return redirect()->route('orang_tua.index')->with('success', 'Foto berhasil diupdate!');
+    }
 }
