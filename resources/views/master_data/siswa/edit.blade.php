@@ -90,6 +90,13 @@
                     <input type="text" id="telp" name="telp" value="{{ $siswa->telp }}" class="form-control @error('telp') is-invalid @enderror">
                 </div>
                 <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" class="select2bs4 form-control @error('status') is-invalid @enderror" required>
+                        <option value="">-- Pilih Status --</option>
+                        <?= \App\Http\Controllers\SiswaController::status_drop_down($siswa->status) ?>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="foto">File Foto</label>
                     <div class="input-group">
                         <div class="custom-file">

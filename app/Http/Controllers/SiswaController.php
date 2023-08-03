@@ -44,6 +44,7 @@ class SiswaController extends Controller
             'alamat'        => 'required',
             'tgl_lahir'     => 'required',
             'kelas'         => 'required',
+            'status'        => 'required|in:non-aktif,aktif,lulus,pindah',
         ]);
 
     }
@@ -80,6 +81,7 @@ class SiswaController extends Controller
             'goldar'        => $r->goldar ?? NULL,
             'id_kelas'      => $r->kelas,
             'foto'          => $file_foto,
+            'status'        => $r->status
         ]);
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil ditambahkan!');
     }
@@ -92,7 +94,14 @@ class SiswaController extends Controller
      */
     public function show($id)
     {
-        //
+        $id = Crypt::decrypt($id);
+        $siswa = Siswa::find($id);
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+
+        return view("master_data.siswa.show", compact("siswa"));
     }
 
     /**
@@ -154,6 +163,7 @@ class SiswaController extends Controller
             'goldar'        => $r->goldar ?? NULL,
             'id_kelas'      => $r->kelas,
             'foto'          => $file_foto,
+            'status'        => $r->status
         ]);
         return redirect()->route('siswa.index')->with('success', 'Data siswa berhasil diubah!');
     }
@@ -201,5 +211,20 @@ class SiswaController extends Controller
         $foto->move("uploads/siswa/", $file_foto);
         $siswa->update(["foto" => $file_foto]);
         return redirect()->route('siswa.index')->with('success', 'Foto berhasil diupdate!');
+    }
+
+    public static function status_drop_down($selected = null)
+    {
+        $r = "";
+        $status = ['non-aktif', 'aktif', 'lulus', 'pindah'];
+        foreach ($status as $v) {
+            if ($v === $selected) {
+                $sel = " selected";
+            } else {
+                $sel = "";
+            }
+            $r .= "<option value=\"".e($v)."\"{$sel}>".e(ucwords($v))."</option>";
+        }
+        return $r;
     }
 }

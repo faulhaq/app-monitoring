@@ -64,6 +64,7 @@
                     <th>Kelas</th>
                     <th>Jenis Kelamin</th>
                     <th>Agama</th>
+                    <th>Status</th>
                     <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
@@ -78,6 +79,7 @@
                     <td>{{ $tmp_kelas->tingkatan.$tmp_kelas->nama }}</td>
                     <td>{{ $data->jk === "L" ? "Laki-laki" : "Perempuan" }}</td>
                     <td>{{ $data->agama() }}</td>
+                    <td>{{ $data->status() }}</td>
                     <td>
                         @if (is_null($data->foto))
                             Tidak ada foto
@@ -126,6 +128,10 @@
                         <input type="text" id="nik" name="nik" onkeypress="return inputAngka(event)" class="form-control @error('nik') is-invalid @enderror" required>
                     </div>
                     <div class="form-group">
+                        <label for="nis">NIS</label>
+                        <input type="text" id="nis" name="nis" onkeypress="return inputAngka(event)" class="form-control @error('nis') is-invalid @enderror" required>
+                    </div>
+                    <div class="form-group">
                         <label for="nama">Nama Siswa</label>
                         <input type="text" id="nama" name="nama" class="form-control @error('nama') is-invalid @enderror" required>
                     </div>
@@ -148,21 +154,8 @@
                         <label for="tmp_lahir">Tempat Lahir</label>
                         <input type="text" id="tmp_lahir" name="tmp_lahir" class="form-control @error('tmp_lahir') is-invalid @enderror" required>
                     </div>
-                    <div class="form-group">
-                        <label for="foto">File Foto</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" name="foto" class="custom-file-input @error('foto') is-invalid @enderror" id="foto">
-                                <label class="custom-file-label" for="foto">Choose file</label>
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="nis">NIS</label>
-                        <input type="text" id="nis" name="nis" onkeypress="return inputAngka(event)" class="form-control @error('nis') is-invalid @enderror" required>
-                    </div>
                     <div class="form-group">
                         <label for="nis">Alamat</label>
                         <input type="text" id="alamt" name="alamat" onkeypress="return inputAngka(event)" class="form-control @error('alamat') is-invalid @enderror" required>
@@ -190,6 +183,22 @@
                             <option value="">-- Pilih Golongan Darah --</option>
                             <?= FormWithRef::get_goldar(); ?>
                         </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status" class="select2bs4 form-control @error('status') is-invalid @enderror" required>
+                            <option value="">-- Pilih Status --</option>
+                            <?= \App\Http\Controllers\SiswaController::status_drop_down(); ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="foto">File Foto</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" name="foto" class="custom-file-input @error('foto') is-invalid @enderror" id="foto">
+                                <label class="custom-file-label" for="foto">Choose file</label>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

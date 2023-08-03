@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2023 at 02:51 PM
+-- Generation Time: Aug 03, 2023 at 01:55 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -148,7 +148,8 @@ CREATE TABLE `kelas_siswa` (
 --
 
 INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(10, 11, 5, '2023-08-02 12:40:08', '2023-08-02 12:40:08');
+(10, 11, 5, '2023-08-02 12:40:08', '2023-08-02 12:40:08'),
+(11, 14, 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41');
 
 -- --------------------------------------------------------
 
@@ -277,7 +278,7 @@ CREATE TABLE `siswa` (
   `tgl_lahir` date NOT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` enum('aktif','lulus','pindah') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('non-aktif','aktif','lulus','pindah') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'aktif',
   `id_kelas_aktif` int(20) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -291,7 +292,8 @@ CREATE TABLE `siswa` (
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `id_kelas_aktif`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (11, '3314110809010001', '3211111', 'Drs Mukhtar Ahmadi ,MPd.', 'L', 4, 4, NULL, '08123456732', 'bantul', '2023-08-02', 'Sragen', '2023_08_02__12_41_04_download (3).png', 'aktif', 5, '2023-08-02 12:40:08', '2023-08-02 12:41:04', NULL),
 (12, '3314113809010001', '3211121', 'BBBBBBBBBBBB', 'L', 4, 4, NULL, '081231456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'aktif', 5, '2023-08-02 12:40:08', '2023-08-02 12:46:34', NULL),
-(13, '3314913809010001', '3251121', 'AAAAAAAAAAAAAAAAA', 'L', 4, 4, NULL, '081432456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'aktif', 5, '2023-08-02 12:40:08', '2023-08-02 12:46:41', NULL);
+(13, '3314913809010001', '3251121', 'AAAAAAAAAAAAAAAAA', 'L', 4, 4, NULL, '081432456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'aktif', 5, '2023-08-02 12:40:08', '2023-08-02 12:46:41', NULL),
+(14, '3314110809010201', '32111113', 'Angga 2', 'L', 4, 4, NULL, '08123456733', 'surakarta', '2023-08-03', 'Sragen', NULL, 'aktif', 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -357,7 +359,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, '5C7fQGW5X8MwKWLFcto49zRbRaXF5lUlFdKl2QA8fHmYaGmQpKgGjI6do6BW', '2023-07-27 12:15:00', NULL),
+(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'izwq9zeRs03JBLmHvasHfkVfHCZoPEpZ27aX2gdwEHFHZomryCsIJMUGZYHE', '2023-07-27 12:15:00', NULL),
 (7, 'admin', 'admin2@gmail.com', '$2y$10$Z1fe57ZMbUdEcatOAFTuy.wxgeeRdGbBlvJRmipz/JUVjydEf4TG2', NULL, NULL, NULL, '2023-08-02 05:17:43', '2023-08-02 05:17:43'),
 (8, 'guru', 'guru001@gmail.com', '$2y$10$oEKuREHlzeoVbYXxnKl/ceTKm.Ma.8xbx8MV7XjW.iNqAtsvgpZru', 4, NULL, NULL, '2023-08-02 05:18:55', '2023-08-02 05:18:55'),
 (9, 'orang_tua', 'orangtua@gmail.com', '$2y$10$hUcmNzMOYktbeeQsglhP0u20UGWz.g3yWyywJMP5Tf7pF3rUFDkhm', NULL, 3, NULL, '2023-08-02 05:19:01', '2023-08-02 05:19:01');
@@ -546,7 +548,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -576,7 +578,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
