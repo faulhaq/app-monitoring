@@ -55,7 +55,22 @@
 
         <!-- /.card-header -->
         <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped table-hover">
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group">
+                        <label for="filter_tahun_ajaran">Filter Tahun Ajaran</label>
+                        <select id="filter_tahun_ajaran" name="filter_tahun_ajaran" class="select2bs4 form-control">
+                            <option value="all">Semua Tahun Ajaran</option>
+                            @foreach ($tahun_ajaran as $v)
+                                <?php $active = $id_tahun_ajaran_aktif == $v->id ? " (aktif)" : ""; ?>
+                                <?php $sel = $v->id == $ftahun_ajaran ? " selected" : ""; ?>
+                                <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->tahun.$active }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="example1" class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -150,9 +165,22 @@
   </div>
 @endsection
 @section('script')
-    <script>
-        $("#MasterData").addClass("active");
-        $("#liMasterData").addClass("menu-open");
-        $("#DataKelas").addClass("active");
-    </script>
+<script>
+    $("#MasterData").addClass("active");
+    $("#liMasterData").addClass("menu-open");
+    $("#DataKelas").addClass("active");
+
+    let ftahun_ajaran = $("#filter_tahun_ajaran");
+    function construct_query_string()
+    {
+        return "?ftahun_ajaran=" + encodeURIComponent(ftahun_ajaran.val());
+    }
+
+    function handle_filter_change()
+    {
+        window.location = construct_query_string();
+    }
+
+    ftahun_ajaran.change(handle_filter_change);
+</script>
 @endsection

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2023 at 02:41 PM
+-- Generation Time: Aug 03, 2023 at 02:54 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -124,7 +124,7 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(5, '1', 'A', 1, 4, '2023-08-02 12:11:27', '2023-08-02 12:11:27', NULL),
+(5, '1', 'A', 1, 6, '2023-08-02 12:11:27', '2023-08-03 12:54:11', NULL),
 (6, '2', 'B', 1, 5, '2023-08-02 12:50:44', '2023-08-02 12:50:44', NULL),
 (7, '1', 'C', 4, 5, '2023-08-02 12:51:27', '2023-08-03 12:28:32', NULL),
 (8, '2', 'D', 1, 6, '2023-08-02 12:51:42', '2023-08-02 12:51:42', NULL);
@@ -334,7 +334,7 @@ CREATE TABLE `tahun_ajaran_aktif` (
 --
 
 INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
-(11, 1);
+(13, 1);
 
 -- --------------------------------------------------------
 
@@ -590,7 +590,7 @@ ALTER TABLE `tahun_ajaran`
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
 --
 ALTER TABLE `tahun_ajaran_aktif`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `users`

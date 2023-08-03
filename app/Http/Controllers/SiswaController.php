@@ -19,7 +19,6 @@ class SiswaController extends Controller
     {
         $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
         $fstatus = is_string($_GET["fstatus"] ?? NULL) ? $_GET["fstatus"] : NULL;
-        $ftahun_ajaran = is_string($_GET["ftahun_ajaran"] ?? NULL) ? $_GET["ftahun_ajaran"] : NULL;
 
         $kelas = Kelas::get();
         $tahun_ajaran = TahunAjaran::get();

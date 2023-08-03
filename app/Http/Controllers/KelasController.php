@@ -17,10 +17,20 @@ class KelasController extends Controller
      */
     public function index()
     {
-        $kelas = Kelas::get_kelas_aktif();
         $tahun_ajaran = TahunAjaran::get();
         $guru = Guru::get();
-        return view("master_data.kelas.index", compact("kelas", "tahun_ajaran", "guru"));
+        $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
+        $ftahun_ajaran = is_string($_GET["ftahun_ajaran"] ?? NULL) ? $_GET["ftahun_ajaran"] : NULL;
+
+        if ($ftahun_ajaran && $ftahun_ajaran !== "all") {
+            $kelas = Kelas::where("id_tahun_ajaran", $ftahun_ajaran)->get();
+        } else {
+            $kelas = Kelas::get();
+        }
+
+        return view("master_data.kelas.index",
+                    compact("kelas", "tahun_ajaran", "guru", "ftahun_ajaran",
+                            "id_tahun_ajaran_aktif"));
     }
 
     /**
