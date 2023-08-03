@@ -38,13 +38,11 @@ class TahunAjaranController extends Controller
     public function store(Request $r)
     {
         $r->validate([
-            "tahun"  => "required|unique:tahun_ajaran",
-            "status" => "required|in:aktif,non-aktif"
+            "tahun"  => "required|unique:tahun_ajaran"
         ]);
 
         TahunAjaran::create([
-            "tahun"  => $r->tahun,
-            "status" => $r->status,
+            "tahun"  => $r->tahun
         ]);
         return redirect()->back()->with('success', 'Berhasil menambahkan data tahun ajaran!');
     }

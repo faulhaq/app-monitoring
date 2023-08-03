@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2023 at 03:24 PM
+-- Generation Time: Aug 03, 2023 at 03:49 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -129,7 +129,8 @@ INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `c
 (5, '1', 'A', 1, 6, '2023-08-02 12:11:27', '2023-08-03 12:54:11', NULL),
 (6, '2', 'B', 1, 5, '2023-08-02 12:50:44', '2023-08-02 12:50:44', NULL),
 (7, '1', 'C', 4, 5, '2023-08-02 12:51:27', '2023-08-03 12:28:32', NULL),
-(8, '2', 'D', 1, 6, '2023-08-02 12:51:42', '2023-08-02 12:51:42', NULL);
+(8, '2', 'D', 1, 6, '2023-08-02 12:51:42', '2023-08-02 12:51:42', NULL),
+(9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -153,7 +154,7 @@ INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_
 (10, 11, 5, '2023-08-02 12:40:08', '2023-08-02 12:40:08'),
 (11, 14, 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41'),
 (12, 16, 8, '2023-08-03 13:22:56', '2023-08-03 13:23:25'),
-(14, 15, 5, '2023-08-03 13:23:59', '2023-08-03 13:23:59');
+(14, 15, 6, '2023-08-03 13:23:59', '2023-08-03 13:25:43');
 
 -- --------------------------------------------------------
 
@@ -187,8 +188,9 @@ CREATE TABLE `orang_tua` (
 
 INSERT INTO `orang_tua` (`id`, `nik`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (3, '1234512345123452', 'CCCCCCC', 'orangtua@gmail.com', 'L', 1, 1, 1, 1, '081123123122', 'Solo', '2023-08-07', 'Solo', '2023_08_02__03_45_55_SS SCAM BOSSY ALPHA JR & PHILLIP.png', '2023-08-02 03:45:55', '2023-08-02 12:48:03', NULL),
-(4, '1234512444123452', 'BBBBBBBBBBBB', 'orangtua11@gmail.com', 'L', 1, 1, 1, 1, '081193123122', 'Solo', '2023-08-07', 'Solo', '2023_08_02__03_45_55_SS SCAM BOSSY ALPHA JR & PHILLIP.png', '2023-08-02 03:45:55', '2023-08-02 12:47:52', NULL),
-(5, '1234512345122452', 'Kevin AaAAA', 'orangtua22@gmail.com', 'L', 1, 1, 1, 1, '081523123122', 'Solo', '2023-08-07', 'Solo', '2023_08_02__03_45_55_SS SCAM BOSSY ALPHA JR & PHILLIP.png', '2023-08-02 03:45:55', '2023-08-02 03:47:10', NULL);
+(4, '1234512444123452', 'BBBBBBBBBBBB', 'orangtua11@gmail.com', 'L', 1, 1, 1, 1, '081193123122', 'Solo', '2023-08-07', 'Solo', '2023_08_03__13_26_04_Hanna-transformed.png', '2023-08-02 03:45:55', '2023-08-03 13:26:04', NULL),
+(5, '1234512345122452', 'Kevin AaAAA', 'orangtua22@gmail.com', 'L', 1, 1, 1, 1, '081523123122', 'Solo', '2023-08-07', 'Solo', '2023_08_02__03_45_55_SS SCAM BOSSY ALPHA JR & PHILLIP.png', '2023-08-02 03:45:55', '2023-08-02 03:47:10', NULL),
+(6, '3314150809050008', 'hanhan', 'antoni123@gmail.com', 'P', 1, 2, 1, 1, '085265345346', 'bantul', '2023-08-16', 'Sragen', '2023_08_03__13_27_05_bit.ly_PresensiRapat19Des.png', '2023-08-03 13:27:05', '2023-08-03 13:27:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -260,7 +262,7 @@ CREATE TABLE `pengumuman` (
 --
 
 INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'pengumuman', '', '2023-07-27 07:17:05', '2023-08-02 12:21:28', NULL);
+(1, 'pengumuman', 'halo', '2023-07-27 07:17:05', '2023-08-03 13:45:36', NULL);
 
 -- --------------------------------------------------------
 
@@ -298,7 +300,7 @@ INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendi
 (12, '3314113809010001', '3211121', 'BBBBBBBBBBBB', 'L', 4, 4, NULL, '081231456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'pindah', 5, '2023-08-02 12:40:08', '2023-08-03 12:21:20', NULL),
 (13, '3314913809010001', '3251121', 'AAAAAAAAAAAAAAAAA', 'L', 4, 4, NULL, '081432456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'lulus', 5, '2023-08-02 12:40:08', '2023-08-03 12:21:02', NULL),
 (14, '3314110809010201', '32111113', 'Angga 2', 'L', 4, 4, NULL, '08123456733', 'surakarta', '2023-08-03', 'Sragen', NULL, 'aktif', 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41', NULL),
-(15, '3314150800010005', '32154', 'Budha', 'P', 1, 1, NULL, '12312312312', 'bantull', '2023-07-30', 'Sragen', NULL, 'non-aktif', 5, '2023-08-03 13:18:27', '2023-08-03 13:23:59', NULL),
+(15, '3314150800010005', '32154', 'Budha', 'P', 1, 1, NULL, '12312312312', 'bantull', '2023-07-30', 'Sragen', NULL, 'non-aktif', 6, '2023-08-03 13:18:27', '2023-08-03 13:25:43', NULL),
 (16, '3314110809012001', '12345', 'Angga qqqqq', 'L', 4, 4, NULL, '08123456789', 'surakarta', '2023-08-10', 'Sragen', NULL, 'non-aktif', 8, '2023-08-03 13:22:20', '2023-08-03 13:23:25', NULL);
 
 -- --------------------------------------------------------
@@ -311,18 +313,20 @@ CREATE TABLE `tahun_ajaran` (
   `id` int(20) UNSIGNED NOT NULL,
   `tahun` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `deleted_at` datetime DEFAULT NULL
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `tahun_ajaran`
 --
 
-INSERT INTO `tahun_ajaran` (`id`, `tahun`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '2022/2023', '2023-07-27 08:10:58', NULL, NULL),
-(3, '2023/2024', '2023-07-27 09:25:36', '2023-07-27 09:25:36', NULL),
-(4, '2024/2025', '2023-07-27 09:25:41', '2023-07-27 09:25:41', NULL);
+INSERT INTO `tahun_ajaran` (`id`, `tahun`, `created_at`, `updated_at`) VALUES
+(1, '2022/2023', '2023-07-27 08:10:58', NULL),
+(3, '2023/2024', '2023-07-27 09:25:36', '2023-07-27 09:25:36'),
+(4, '2024/2025', '2023-07-27 09:25:41', '2023-07-27 09:25:41'),
+(5, '2026/2027', '2023-08-03 13:41:30', '2023-08-03 13:41:30'),
+(6, '2027/2028', '2023-08-03 13:42:55', '2023-08-03 13:42:55'),
+(7, '2028/2029', '2023-08-03 13:43:04', '2023-08-03 13:43:04');
 
 -- --------------------------------------------------------
 
@@ -340,7 +344,7 @@ CREATE TABLE `tahun_ajaran_aktif` (
 --
 
 INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
-(13, 1);
+(15, 1);
 
 -- --------------------------------------------------------
 
@@ -368,7 +372,8 @@ INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua
 (1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'izwq9zeRs03JBLmHvasHfkVfHCZoPEpZ27aX2gdwEHFHZomryCsIJMUGZYHE', '2023-07-27 12:15:00', NULL),
 (7, 'admin', 'admin2@gmail.com', '$2y$10$Z1fe57ZMbUdEcatOAFTuy.wxgeeRdGbBlvJRmipz/JUVjydEf4TG2', NULL, NULL, NULL, '2023-08-02 05:17:43', '2023-08-02 05:17:43'),
 (8, 'guru', 'guru001@gmail.com', '$2y$10$oEKuREHlzeoVbYXxnKl/ceTKm.Ma.8xbx8MV7XjW.iNqAtsvgpZru', 4, NULL, NULL, '2023-08-02 05:18:55', '2023-08-02 05:18:55'),
-(9, 'orang_tua', 'orangtua@gmail.com', '$2y$10$hUcmNzMOYktbeeQsglhP0u20UGWz.g3yWyywJMP5Tf7pF3rUFDkhm', NULL, 3, NULL, '2023-08-02 05:19:01', '2023-08-02 05:19:01');
+(9, 'orang_tua', 'orangtua@gmail.com', '$2y$10$hUcmNzMOYktbeeQsglhP0u20UGWz.g3yWyywJMP5Tf7pF3rUFDkhm', NULL, 3, NULL, '2023-08-02 05:19:01', '2023-08-02 05:19:01'),
+(10, 'orang_tua', 'antoni123@gmail.com', '$2y$10$awktK3TAIbWl9kpLBrNZhOvmzMjl/3zeoUSCXdzU16DJzqKEzVjy2', NULL, 6, NULL, '2023-08-03 13:43:42', '2023-08-03 13:45:27');
 
 --
 -- Indexes for dumped tables
@@ -500,8 +505,7 @@ ALTER TABLE `siswa` ADD FULLTEXT KEY `alamat` (`alamat`);
 ALTER TABLE `tahun_ajaran`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `tahun` (`tahun`),
-  ADD KEY `created_at` (`created_at`),
-  ADD KEY `deleted_at` (`deleted_at`);
+  ADD KEY `created_at` (`created_at`);
 
 --
 -- Indexes for table `tahun_ajaran_aktif`
@@ -548,7 +552,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`
@@ -560,7 +564,7 @@ ALTER TABLE `kelas_siswa`
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`
@@ -590,19 +594,19 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
 --
 ALTER TABLE `tahun_ajaran_aktif`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- Constraints for dumped tables

@@ -157,7 +157,7 @@ class UserController extends Controller
         $user->update([
             "password" => password_hash($r->password, PASSWORD_BCRYPT)
         ]);
-        return redirect()->back()->with("success", "Berhasil mengubah data user!");
+        return redirect(route("user.index"))->with("success", "Berhasil mengubah data user!");
     }
 
     /**

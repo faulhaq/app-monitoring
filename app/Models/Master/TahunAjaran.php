@@ -8,16 +8,15 @@ use DB;
 
 class TahunAjaran extends Model
 {
-    use SoftDeletes;
-
-    protected $fillable = ['tahun', 'status'];
+    protected $fillable = ['tahun'];
 
     protected $table = 'tahun_ajaran';
 
     private $id_aktif;
 
-    public function __construct()
+    public function __construct(...$va_args)
     {
+        parent::__construct(...$va_args);
         $sel = DB::table("tahun_ajaran_aktif")->select(["id_tahun_ajaran"])->first();
         if ($sel) {
             $this->id_aktif = $sel->id_tahun_ajaran;
@@ -34,7 +33,7 @@ class TahunAjaran extends Model
         $ret = DB::table("tahun_ajaran_aktif")
                 ->select(["id_tahun_ajaran"])
                 ->first();
-        
+
         if (!$ret) {
             return NULL;
         }

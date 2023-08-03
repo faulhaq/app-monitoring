@@ -95,7 +95,7 @@
           <form action="{{ route('tahun_ajaran.store') }}" method="post" enctype="multipart/form-data">
             @csrf
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md">
                     <div class="form-group">
                         <label for="tahun">Tahun Ajaran</label>
                         <select id="tahun" name="tahun" class="select2bs4 form-control @error('tahun') is-invalid @enderror">
@@ -104,16 +104,6 @@
                                 <?= $j = $i."/".($i+1); ?>
                                 <option value="{{ $j }}">{{ $j }}</option>
                             @endfor
-                        </select>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label for="status">Status</label>
-                        <select id="status" name="status" class="select2bs4 form-control @error('status') is-invalid @enderror">
-                            <option value="">-- Pilih Status --</option>
-                            <option value="aktif">Aktif</option>
-                            <option value="non-aktif">Non Aktif</option>
                         </select>
                     </div>
                 </div>
