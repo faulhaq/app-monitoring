@@ -55,7 +55,19 @@
 
         <!-- /.card-header -->
         <div class="card-body" style="overflow-x: scroll">
-          <table id="example1" class="table table-bordered table-striped table-hover" style="width: 100%">
+            <div class="row">
+                <div class="col-md">
+                    <div class="form-group">
+                        <label for="filter_status">Status</label>
+                        <select id="filter_status" name="filter_status" class="select2bs4 form-control">
+                            <option value="all">Semua Status</option>
+                            <option value="aktif"<?= $fstatus === "aktif" ? " selected" : "" ?>>Aktif</option>
+                            <option value="non-aktif"<?= $fstatus === "non-aktif" ? " selected" : "" ?>>Non Aktif</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table id="example1" class="table table-bordered table-striped table-hover" style="width: 100%">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -158,13 +170,8 @@
                         <input type="text" id="tmp_lahir" name="tmp_lahir" class="form-control @error('tmp_lahir') is-invalid @enderror">
                     </div>
                     <div class="form-group">
-                        <label for="foto">File Foto</label>
-                        <div class="input-group">
-                            <div class="custom-file">
-                                <input type="file" name="foto" class="custom-file-input @error('foto') is-invalid @enderror" id="foto">
-                                <label class="custom-file-label" for="foto">Choose file</label>
-                            </div>
-                        </div>
+                        <label for="tgl_lahir">Tanggal Lahir</label>
+                        <input type="date" id="tgl_lahir" name="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror">
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -179,10 +186,6 @@
                     <div class="form-group">
                         <label for="telp">Nomor Telpon/HP</label>
                         <input type="text" id="telp" name="telp" onkeypress="return inputAngka(event)" class="form-control @error('telp') is-invalid @enderror">
-                    </div>
-                    <div class="form-group">
-                        <label for="tgl_lahir">Tanggal Lahir</label>
-                        <input type="date" id="tgl_lahir" name="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror">
                     </div>
                     <div class="form-group">
                         <label for="pendidikan">Pendidikan</label>
@@ -205,6 +208,22 @@
                             <?= FormWithRef::get_pekerjaan(); ?>
                         </select>
                     </div>
+                    <div class="form-group">
+                        <label for="status">Status</label>
+                        <select id="status" name="status" class="select2bs4 form-control @error('status') is-invalid @enderror">
+                            <option value="aktif">Aktif</option>
+                            <option value="non-aktif">Non-aktif</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="foto">File Foto</label>
+                        <div class="input-group">
+                            <div class="custom-file">
+                                <input type="file" name="foto" class="custom-file-input @error('foto') is-invalid @enderror" id="foto">
+                                <label class="custom-file-label" for="foto">Choose file</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
           </div>
@@ -218,9 +237,22 @@
   </div>
 @endsection
 @section('script')
-    <script>
-        $("#MasterData").addClass("active");
-        $("#liMasterData").addClass("menu-open");
-        $("#DataGuru").addClass("active");
-    </script>
+<script>
+    $("#MasterData").addClass("active");
+    $("#liMasterData").addClass("menu-open");
+    $("#DataGuru").addClass("active");
+
+    let fstatus = $("#filter_status");
+    function construct_query_string()
+    {
+        return "?fstatus=" + encodeURIComponent(fstatus.val());
+    }
+
+    function handle_filter_change()
+    {
+        window.location = construct_query_string();
+    }
+
+    fstatus.change(handle_filter_change);
+</script>
 @endsection

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2023 at 02:54 PM
+-- Generation Time: Aug 03, 2023 at 03:08 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -87,7 +87,7 @@ CREATE TABLE `guru` (
   `tgl_lahir` date NOT NULL,
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `status` enum('aktif','non-aktif') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` enum('aktif','non-aktif') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'aktif',
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -100,7 +100,9 @@ CREATE TABLE `guru` (
 INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (4, '1234512345123451', '123123', 'Guru AAAAA', 'guru001@gmail.com', 'L', 1, 1, 1, 1, '081123123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__12_31_19_download (3).png', 'aktif', '2023-08-02 03:36:45', '2023-08-02 12:31:19', NULL),
 (5, '1234512345123453', '122123', 'Guru BBBBBBB', 'guru002@gmail.com', 'L', 1, 1, 1, 1, '083123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__12_31_19_download (3).png', 'aktif', '2023-08-02 03:36:45', '2023-08-02 12:31:19', NULL),
-(6, '1234512345122453', '121123', 'AAAAAAAAAA', 'guru003@gmail.com', 'L', 1, 1, 1, 1, '08344123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__12_31_19_download (3).png', 'aktif', '2023-08-02 03:36:45', '2023-08-02 12:44:58', NULL);
+(6, '1234512345122453', '121123', 'AAAAAAAAAA', 'guru003@gmail.com', 'L', 1, 1, 1, 1, '08344123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_03__12_58_13_Simulasi Forward Chaining Diagram.png', 'aktif', '2023-08-02 03:36:45', '2023-08-03 12:58:13', NULL),
+(7, '3314150809010009', '196481271994031004', 'Anton', 'anton@gmail.com', 'L', 1, 4, 1, 1, '081265345346', 'sragen', '2023-07-31', 'Sragen', '2023_08_03__13_01_21_Andhika-Saedya-transformed.png', 'aktif', '2023-08-03 13:01:21', '2023-08-03 13:01:21', NULL),
+(8, '3314150809010208', '124415322286765', 'Angga 123123', 'anton321@gmail.com', 'L', 4, 4, 2, 11, '081233456732', 'surakarta', '2023-08-16', 'Sragen 2', NULL, 'non-aktif', '2023-08-03 13:07:34', '2023-08-03 13:08:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -290,7 +292,7 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `id_kelas_aktif`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(11, '3314110809010001', '3211111', 'Drs Mukhtar Ahmadi ,MPd.', 'L', 4, 4, NULL, '08123456732', 'bantul', '2023-08-02', 'Sragen', '2023_08_02__12_41_04_download (3).png', 'aktif', 5, '2023-08-02 12:40:08', '2023-08-02 12:41:04', NULL),
+(11, '3314110809010001', '3211111', 'Drs Mukhtar Ahmadi ,MPd.', 'L', 4, 4, NULL, '08123456732', 'bantul', '2023-08-02', 'Sragen', '2023_08_03__12_59_54_Fat simul.png', 'aktif', 5, '2023-08-02 12:40:08', '2023-08-03 12:59:54', NULL),
 (12, '3314113809010001', '3211121', 'BBBBBBBBBBBB', 'L', 4, 4, NULL, '081231456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'pindah', 5, '2023-08-02 12:40:08', '2023-08-03 12:21:20', NULL),
 (13, '3314913809010001', '3251121', 'AAAAAAAAAAAAAAAAA', 'L', 4, 4, NULL, '081432456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'lulus', 5, '2023-08-02 12:40:08', '2023-08-03 12:21:02', NULL),
 (14, '3314110809010201', '32111113', 'Angga 2', 'L', 4, 4, NULL, '08123456733', 'surakarta', '2023-08-03', 'Sragen', NULL, 'aktif', 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41', NULL);
@@ -530,13 +532,13 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT for table `goldar`
 --
 ALTER TABLE `goldar`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -560,13 +562,13 @@ ALTER TABLE `orang_tua`
 -- AUTO_INCREMENT for table `pekerjaan`
 --
 ALTER TABLE `pekerjaan`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `pendidikan`
 --
 ALTER TABLE `pendidikan`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`

@@ -84,7 +84,7 @@
                     </select>
                     </div>
                 <div class="form-group">
-                    <label for="telp">Pekerjaan</label>
+                    <label for="pekerjaan">Pekerjaan</label>
                     <select id="pekerjaan" name="pekerjaan" class="select2bs4 form-control @error('pekerjaan') is-invalid @enderror">
                         <option value="">-- Pilih Pekerjaan --</option>
                         <?= FormWithRef::get_pekerjaan($guru->pekerjaan); ?>
@@ -97,6 +97,13 @@
                 <div class="form-group">
                     <label for="telp">Nomor Telpon/HP</label>
                     <input type="text" id="telp" name="telp" value="{{ $guru->telp }}" class="form-control @error('telp') is-invalid @enderror">
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <select id="status" name="status" class="select2bs4 form-control @error('status') is-invalid @enderror">
+                        <option value="aktif"<?= $guru->status === "aktif" ? " selected" : ""?>>Aktif</option>
+                        <option value="non-aktif"<?= $guru->status === "non-aktif" ? " selected" : ""?>>Non-aktif</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label for="foto">File Foto</label>

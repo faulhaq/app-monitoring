@@ -16,8 +16,15 @@ class GuruController extends Controller
      */
     public function index()
     {
-        $guru = Guru::orderBy("nama", "asc")->get();
-        return view("master_data.guru.index", compact("guru"));
+        $guru = Guru::orderBy("nama", "asc");
+        $fstatus = is_string($_GET["fstatus"] ?? NULL) ? $_GET["fstatus"] : NULL;
+
+        if ($fstatus && $fstatus !== "all") {
+            $guru = $guru->where("status", $fstatus);
+        }
+
+        $guru = $guru->get();
+        return view("master_data.guru.index", compact("guru", "fstatus"));
     }
 
     /**
@@ -42,11 +49,12 @@ class GuruController extends Controller
             'agama'         => 'required',
             'tmp_lahir'     => 'required',
             'alamat'        => 'required',
+            'status'        => 'required|in:aktif,non-aktif',
             'telp'          => 'required',
             'tgl_lahir'     => 'required',
             'pendidikan'    => 'required',
             'goldar'        => 'required',
-            'pekerjaan'     => 'required'
+            'pekerjaan'     => 'required',
         ]);
     }
 
@@ -82,7 +90,8 @@ class GuruController extends Controller
             'pendidikan' => $r->pendidikan,
             'goldar'     => $r->goldar,
             'pekerjaan'  => $r->pekerjaan,
-            'foto'       => $file_foto
+            'foto'       => $file_foto,
+            'status'     => $r->status
         ]);
         return redirect()->back()->with('success', 'Berhasil menambahkan data guru baru!');
     }
@@ -153,6 +162,7 @@ class GuruController extends Controller
             'pendidikan' => $r->pendidikan,
             'goldar'     => $r->goldar,
             'pekerjaan'  => $r->pekerjaan,
+            'status'     => $r->status
         ];
 
         if ($r->foto) {
