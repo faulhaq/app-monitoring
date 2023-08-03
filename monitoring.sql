@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2023 at 03:08 PM
+-- Generation Time: Aug 03, 2023 at 03:24 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -151,7 +151,9 @@ CREATE TABLE `kelas_siswa` (
 
 INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
 (10, 11, 5, '2023-08-02 12:40:08', '2023-08-02 12:40:08'),
-(11, 14, 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41');
+(11, 14, 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41'),
+(12, 16, 8, '2023-08-03 13:22:56', '2023-08-03 13:23:25'),
+(14, 15, 5, '2023-08-03 13:23:59', '2023-08-03 13:23:59');
 
 -- --------------------------------------------------------
 
@@ -295,7 +297,9 @@ INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendi
 (11, '3314110809010001', '3211111', 'Drs Mukhtar Ahmadi ,MPd.', 'L', 4, 4, NULL, '08123456732', 'bantul', '2023-08-02', 'Sragen', '2023_08_03__12_59_54_Fat simul.png', 'aktif', 5, '2023-08-02 12:40:08', '2023-08-03 12:59:54', NULL),
 (12, '3314113809010001', '3211121', 'BBBBBBBBBBBB', 'L', 4, 4, NULL, '081231456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'pindah', 5, '2023-08-02 12:40:08', '2023-08-03 12:21:20', NULL),
 (13, '3314913809010001', '3251121', 'AAAAAAAAAAAAAAAAA', 'L', 4, 4, NULL, '081432456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'lulus', 5, '2023-08-02 12:40:08', '2023-08-03 12:21:02', NULL),
-(14, '3314110809010201', '32111113', 'Angga 2', 'L', 4, 4, NULL, '08123456733', 'surakarta', '2023-08-03', 'Sragen', NULL, 'aktif', 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41', NULL);
+(14, '3314110809010201', '32111113', 'Angga 2', 'L', 4, 4, NULL, '08123456733', 'surakarta', '2023-08-03', 'Sragen', NULL, 'aktif', 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41', NULL),
+(15, '3314150800010005', '32154', 'Budha', 'P', 1, 1, NULL, '12312312312', 'bantull', '2023-07-30', 'Sragen', NULL, 'non-aktif', 5, '2023-08-03 13:18:27', '2023-08-03 13:23:59', NULL),
+(16, '3314110809012001', '12345', 'Angga qqqqq', 'L', 4, 4, NULL, '08123456789', 'surakarta', '2023-08-10', 'Sragen', NULL, 'non-aktif', 8, '2023-08-03 13:22:20', '2023-08-03 13:23:25', NULL);
 
 -- --------------------------------------------------------
 
@@ -550,7 +554,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -580,7 +584,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`

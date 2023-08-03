@@ -59,7 +59,6 @@ class SiswaController extends Controller
             'tmp_lahir'     => 'required',
             'alamat'        => 'required',
             'tgl_lahir'     => 'required',
-            'kelas'         => 'required',
             'status'        => 'required|in:non-aktif,aktif,lulus,pindah',
         ]);
 
@@ -95,7 +94,7 @@ class SiswaController extends Controller
             'telp'          => $r->telp ?? NULL,
             'pekerjaan'     => $r->pekerjaan ?? NULL,
             'goldar'        => $r->goldar ?? NULL,
-            'id_kelas'      => $r->kelas,
+            'id_kelas'      => empty($r->kelas) ? NULL : $r->kelas,
             'foto'          => $file_foto,
             'status'        => $r->status
         ]);
@@ -177,7 +176,7 @@ class SiswaController extends Controller
             'telp'          => $r->telp ?? NULL,
             'pekerjaan'     => $r->pekerjaan ?? NULL,
             'goldar'        => $r->goldar ?? NULL,
-            'id_kelas'      => $r->kelas,
+            'id_kelas'      => empty($r->kelas) ? NULL : $r->kelas,
             'foto'          => $file_foto,
             'status'        => $r->status
         ]);
