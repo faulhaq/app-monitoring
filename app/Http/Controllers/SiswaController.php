@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Master\Siswa;
 use App\Models\Master\Kelas;
+use App\Models\Master\TahunAjaran;
 use Illuminate\Support\Facades\Crypt;
 
 class SiswaController extends Controller
@@ -16,9 +17,25 @@ class SiswaController extends Controller
      */
     public function index()
     {
-        $siswa = Siswa::orderBy("nama", "asc")->get();
-        $kelas = Kelas::get_kelas_aktif();
-        return view("master_data.siswa.index", compact("siswa", "kelas"));
+        $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
+        $fstatus = is_string($_GET["fstatus"] ?? NULL) ? $_GET["fstatus"] : NULL;
+        $ftahun_ajaran = is_string($_GET["ftahun_ajaran"] ?? NULL) ? $_GET["ftahun_ajaran"] : NULL;
+
+        $kelas = Kelas::get();
+        $tahun_ajaran = TahunAjaran::get();
+        $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
+
+        $siswa = Siswa::select("*");
+        if ($fkelas && $fkelas !== "all") {
+            $siswa = $siswa->where("id_kelas_aktif", $fkelas);
+        }
+        if ($fstatus && $fstatus !== "all") {
+            $siswa = $siswa->where("status", $fstatus);
+        }
+        $siswa = $siswa->orderBy("nama", "asc")->get();
+        return view("master_data.siswa.index",
+                    compact("siswa", "kelas", "tahun_ajaran", "fkelas", "fstatus", "ftahun_ajaran",
+                            "id_tahun_ajaran_aktif"));
     }
 
     /**

@@ -55,7 +55,40 @@
 
         <!-- /.card-header -->
         <div class="card-body">
-          <table id="example1" class="table table-bordered table-striped table-hover">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="filter_kelas">Filter Kelas</label>
+                        <select id="filter_kelas" name="filter_kelas" class="select2bs4 form-control">
+                            <option value="all">Semua Kelas</option>
+                            @foreach ($kelas as $v)
+                                <?php $ta = $v->tahun_ajaran(); ?>
+                                @if ($ta->id == $id_tahun_ajaran_aktif)
+                                <?php $sel = $v->id == $fkelas ? " selected" : ""; ?>
+                                <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->tingkatan.$v->nama." (TA: {$ta->tahun})" }} (aktif)</option>
+                                @endif
+                            @endforeach
+                            @foreach ($kelas as $v)
+                                <?php $ta = $v->tahun_ajaran(); ?>
+                                @if ($ta->id != $id_tahun_ajaran_aktif)
+                                <?php $sel = $v->id == $fkelas ? " selected" : ""; ?>
+                                <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->tingkatan.$v->nama." (TA: {$ta->tahun})" }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="filter_status">Filter Status</label>
+                        <select id="filter_status" name="filter_status" class="select2bs4 form-control">
+                            <option value="all">Semua Status</option>
+                            <?= \App\Http\Controllers\SiswaController::status_drop_down($fstatus); ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                     <th>No.</th>
@@ -213,9 +246,26 @@
   </div>
 @endsection
 @section('script')
-    <script>
-        $("#MasterData").addClass("active");
-        $("#liMasterData").addClass("menu-open");
-        $("#DataSiswa").addClass("active");
-    </script>
+<script>
+    $("#MasterData").addClass("active");
+    $("#liMasterData").addClass("menu-open");
+    $("#DataSiswa").addClass("active");
+
+    let fkelas = $("#filter_kelas");
+    let fstatus = $("#filter_status");
+
+    function construct_query_string()
+    {
+        return "?fkelas=" + encodeURIComponent(fkelas.val()) +
+               "&fstatus=" + encodeURIComponent(fstatus.val());
+    }
+
+    function handle_filter_change()
+    {
+        window.location = construct_query_string();
+    }
+
+    fkelas.change(handle_filter_change);
+    fstatus.change(handle_filter_change);
+</script>
 @endsection

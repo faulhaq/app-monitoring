@@ -28,4 +28,17 @@ class TahunAjaran extends Model
     {
         return $this->id == $this->id_aktif ? "Aktif" : "Non-aktif";
     }
+
+    public static function get_id_tahun_ajaran_aktif()
+    {
+        $ret = DB::table("tahun_ajaran_aktif")
+                ->select(["id_tahun_ajaran"])
+                ->first();
+        
+        if (!$ret) {
+            return NULL;
+        }
+
+        return $ret->id_tahun_ajaran;
+    }
 }

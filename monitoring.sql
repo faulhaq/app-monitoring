@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2023 at 01:55 PM
+-- Generation Time: Aug 03, 2023 at 02:41 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -126,7 +126,7 @@ CREATE TABLE `kelas` (
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (5, '1', 'A', 1, 4, '2023-08-02 12:11:27', '2023-08-02 12:11:27', NULL),
 (6, '2', 'B', 1, 5, '2023-08-02 12:50:44', '2023-08-02 12:50:44', NULL),
-(7, '1', 'C', 1, 5, '2023-08-02 12:51:27', '2023-08-02 12:51:27', NULL),
+(7, '1', 'C', 4, 5, '2023-08-02 12:51:27', '2023-08-03 12:28:32', NULL),
 (8, '2', 'D', 1, 6, '2023-08-02 12:51:42', '2023-08-02 12:51:42', NULL);
 
 -- --------------------------------------------------------
@@ -291,8 +291,8 @@ CREATE TABLE `siswa` (
 
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `id_kelas_aktif`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (11, '3314110809010001', '3211111', 'Drs Mukhtar Ahmadi ,MPd.', 'L', 4, 4, NULL, '08123456732', 'bantul', '2023-08-02', 'Sragen', '2023_08_02__12_41_04_download (3).png', 'aktif', 5, '2023-08-02 12:40:08', '2023-08-02 12:41:04', NULL),
-(12, '3314113809010001', '3211121', 'BBBBBBBBBBBB', 'L', 4, 4, NULL, '081231456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'aktif', 5, '2023-08-02 12:40:08', '2023-08-02 12:46:34', NULL),
-(13, '3314913809010001', '3251121', 'AAAAAAAAAAAAAAAAA', 'L', 4, 4, NULL, '081432456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'aktif', 5, '2023-08-02 12:40:08', '2023-08-02 12:46:41', NULL),
+(12, '3314113809010001', '3211121', 'BBBBBBBBBBBB', 'L', 4, 4, NULL, '081231456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'pindah', 5, '2023-08-02 12:40:08', '2023-08-03 12:21:20', NULL),
+(13, '3314913809010001', '3251121', 'AAAAAAAAAAAAAAAAA', 'L', 4, 4, NULL, '081432456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'lulus', 5, '2023-08-02 12:40:08', '2023-08-03 12:21:02', NULL),
 (14, '3314110809010201', '32111113', 'Angga 2', 'L', 4, 4, NULL, '08123456733', 'surakarta', '2023-08-03', 'Sragen', NULL, 'aktif', 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41', NULL);
 
 -- --------------------------------------------------------
