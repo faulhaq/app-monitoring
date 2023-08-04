@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2023 at 03:49 PM
+-- Generation Time: Aug 04, 2023 at 12:44 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -113,7 +113,7 @@ INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jk`, `agama`, `goldar`
 CREATE TABLE `kelas` (
   `id` int(20) UNSIGNED NOT NULL,
   `tingkatan` enum('1','2','3','4','5','6') COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nama` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `nama` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `id_tahun_ajaran` int(20) UNSIGNED NOT NULL,
   `id_guru` int(20) UNSIGNED NOT NULL,
   `created_at` datetime NOT NULL,
@@ -126,7 +126,7 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(5, '1', 'A', 1, 6, '2023-08-02 12:11:27', '2023-08-03 12:54:11', NULL),
+(5, '1', 'AAAAA', 1, 6, '2023-08-02 12:11:27', '2023-08-04 09:49:19', NULL),
 (6, '2', 'B', 1, 5, '2023-08-02 12:50:44', '2023-08-02 12:50:44', NULL),
 (7, '1', 'C', 4, 5, '2023-08-02 12:51:27', '2023-08-03 12:28:32', NULL),
 (8, '2', 'D', 1, 6, '2023-08-02 12:51:42', '2023-08-02 12:51:42', NULL),
@@ -145,16 +145,6 @@ CREATE TABLE `kelas_siswa` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `kelas_siswa`
---
-
-INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(10, 11, 5, '2023-08-02 12:40:08', '2023-08-02 12:40:08'),
-(11, 14, 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41'),
-(12, 16, 8, '2023-08-03 13:22:56', '2023-08-03 13:23:25'),
-(14, 15, 6, '2023-08-03 13:23:59', '2023-08-03 13:25:43');
 
 -- --------------------------------------------------------
 
@@ -262,7 +252,7 @@ CREATE TABLE `pengumuman` (
 --
 
 INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'pengumuman', 'halo', '2023-07-27 07:17:05', '2023-08-03 13:45:36', NULL);
+(1, 'pengumuman', 'halo semuanya', '2023-07-27 07:17:05', '2023-08-04 03:01:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -285,7 +275,6 @@ CREATE TABLE `siswa` (
   `alamat` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `foto` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `status` enum('non-aktif','aktif','lulus','pindah') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'aktif',
-  `id_kelas_aktif` int(20) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
@@ -295,13 +284,8 @@ CREATE TABLE `siswa` (
 -- Dumping data for table `siswa`
 --
 
-INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `id_kelas_aktif`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(11, '3314110809010001', '3211111', 'Drs Mukhtar Ahmadi ,MPd.', 'L', 4, 4, NULL, '08123456732', 'bantul', '2023-08-02', 'Sragen', '2023_08_03__12_59_54_Fat simul.png', 'aktif', 5, '2023-08-02 12:40:08', '2023-08-03 12:59:54', NULL),
-(12, '3314113809010001', '3211121', 'BBBBBBBBBBBB', 'L', 4, 4, NULL, '081231456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'pindah', 5, '2023-08-02 12:40:08', '2023-08-03 12:21:20', NULL),
-(13, '3314913809010001', '3251121', 'AAAAAAAAAAAAAAAAA', 'L', 4, 4, NULL, '081432456732', 'bantul', '2023-08-02', 'Sragen', NULL, 'lulus', 5, '2023-08-02 12:40:08', '2023-08-03 12:21:02', NULL),
-(14, '3314110809010201', '32111113', 'Angga 2', 'L', 4, 4, NULL, '08123456733', 'surakarta', '2023-08-03', 'Sragen', NULL, 'aktif', 7, '2023-08-03 11:54:58', '2023-08-03 11:55:41', NULL),
-(15, '3314150800010005', '32154', 'Budha', 'P', 1, 1, NULL, '12312312312', 'bantull', '2023-07-30', 'Sragen', NULL, 'non-aktif', 6, '2023-08-03 13:18:27', '2023-08-03 13:25:43', NULL),
-(16, '3314110809012001', '12345', 'Angga qqqqq', 'L', 4, 4, NULL, '08123456789', 'surakarta', '2023-08-10', 'Sragen', NULL, 'non-aktif', 8, '2023-08-03 13:22:20', '2023-08-03 13:23:25', NULL);
+INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, '3314110809010001', '123453', 'Angga', 'L', 1, 1, NULL, '08123456789', 'surakarta', '2023-08-02', 'Sragen', NULL, 'aktif', '2023-08-04 09:58:55', '2023-08-04 09:58:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -326,7 +310,8 @@ INSERT INTO `tahun_ajaran` (`id`, `tahun`, `created_at`, `updated_at`) VALUES
 (4, '2024/2025', '2023-07-27 09:25:41', '2023-07-27 09:25:41'),
 (5, '2026/2027', '2023-08-03 13:41:30', '2023-08-03 13:41:30'),
 (6, '2027/2028', '2023-08-03 13:42:55', '2023-08-03 13:42:55'),
-(7, '2028/2029', '2023-08-03 13:43:04', '2023-08-03 13:43:04');
+(7, '2028/2029', '2023-08-03 13:43:04', '2023-08-03 13:43:04'),
+(8, '2029/2030', '2023-08-04 02:48:45', '2023-08-04 02:48:45');
 
 -- --------------------------------------------------------
 
@@ -344,7 +329,7 @@ CREATE TABLE `tahun_ajaran_aktif` (
 --
 
 INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
-(15, 1);
+(20, 1);
 
 -- --------------------------------------------------------
 
@@ -495,7 +480,6 @@ ALTER TABLE `siswa`
   ADD KEY `tgl_lahir` (`tgl_lahir`),
   ADD KEY `created_at` (`created_at`),
   ADD KEY `deleted_at` (`deleted_at`),
-  ADD KEY `id_kelas_aktif` (`id_kelas_aktif`),
   ADD KEY `status` (`status`);
 ALTER TABLE `siswa` ADD FULLTEXT KEY `alamat` (`alamat`);
 
@@ -558,7 +542,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -588,19 +572,19 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
 --
 ALTER TABLE `tahun_ajaran_aktif`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `users`
@@ -650,8 +634,7 @@ ALTER TABLE `orang_tua`
 ALTER TABLE `siswa`
   ADD CONSTRAINT `siswa_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `siswa_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `siswa_fk3` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `siswa_ibfk_1` FOREIGN KEY (`id_kelas_aktif`) REFERENCES `kelas` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `siswa_fk3` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tahun_ajaran_aktif`
