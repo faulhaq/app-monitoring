@@ -18,40 +18,6 @@ class Siswa extends Model
 
     protected $table = "siswa";
 
-    public static function create_and_add_kelas($data)
-    {
-        $siswa = self::create($data + ["id_kelas_aktif" => $data["id_kelas"]]);
-        if ($data["id_kelas"]) {
-            KelasSiswa::create([
-                "id_siswa" => $siswa->id,
-                "id_kelas" => $data["id_kelas"]
-            ]);
-        }
-        return $siswa;
-    }
-
-    public function update_data_dan_kelas($data)
-    {
-        $old_id_kelas = $this->id_kelas_aktif;
-        $this->update($data + ["id_kelas_aktif" => $data["id_kelas"]]);
-        $x = KelasSiswa::where("id_kelas", $old_id_kelas)->first();
-        if (!$x) {
-            if ($data["id_kelas"]) {
-                KelasSiswa::create([
-                    "id_siswa" => $this->id,
-                    "id_kelas" => $data["id_kelas"]
-                ]);
-            }
-        } else {
-            $q = KelasSiswa::where("id_kelas", $old_id_kelas)->where("id_siswa", $this->id);
-            if ($data["id_kelas"]) {
-                $q->update(["id_kelas" => $data["id_kelas"]]);
-            } else {
-                $q->delete();
-            }
-        }
-    }
-
     public function kelas()
     {
         $ret = $this->belongsTo(Kelas::class, "id_kelas_aktif")->first();
@@ -76,5 +42,12 @@ class Siswa extends Model
     public function status()
     {
         return ucwords($this->status);
+    }
+
+    public static function get_siswa_by_id_kelas($id_kelas)
+    {
+        return self::select(["siswa.*", "kelas_siswa.id_kelas", "kelas_siswa.id as id_kelas_siswa"])
+                ->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
+                ->where("kelas_siswa.id_kelas", $id_kelas);
     }
 }

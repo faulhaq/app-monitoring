@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Master\Kelas;
 use App\Models\Master\TahunAjaran;
 use App\Models\Master\Guru;
+use App\Models\Master\Siswa;
+use App\Models\KelasSiswa;
 use Illuminate\Support\Facades\Crypt;
 
 class KelasController extends Controller
@@ -140,5 +142,47 @@ class KelasController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function kelola($id)
+    {
+        $id = Crypt::decrypt($id);
+        $kelas = Kelas::find($id);
+        if (!$kelas) {
+            abort(404);
+            return;
+        }
+
+        $siswa = Siswa::get_siswa_by_id_kelas($id)->get();
+        return view("master_data.kelas.kelola", compact("kelas", "siswa"));
+    }
+
+    public function hapus_siswa($id_kelas, $id_siswa)
+    {
+        $enc_id_kelas = $id_kelas;
+        $id_kelas = Crypt::decrypt($id_kelas);
+        $id_siswa = Crypt::decrypt($id_siswa);
+
+        $kelas = Kelas::find($id_kelas);
+        if (!$kelas) {
+            abort(404);
+            return;
+        }
+    
+        $siswa = Siswa::get_siswa_by_id_kelas($kelas->id)
+                 ->where("siswa.id", $id_siswa)
+                 ->first();
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+
+        $kelas_siswa = KelasSiswa::find($siswa->id_kelas_siswa);
+        if (!$kelas_siswa) {
+            abort(404);
+            return;
+        }
+        $kelas_siswa->delete();
+        return redirect()->route('kelas.kelola', $enc_id_kelas)->with('success', 'Siswa berhasil dihapus dari kelas!');
     }
 }

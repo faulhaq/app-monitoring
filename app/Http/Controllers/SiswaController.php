@@ -82,7 +82,7 @@ class SiswaController extends Controller
             $file_foto = NULL;
         }
 
-        Siswa::create_and_add_kelas([
+        Siswa::create([
             'nik'           => $r->nik,
             'nis'           => $r->nis,
             'nama'          => $r->nama,
@@ -94,7 +94,6 @@ class SiswaController extends Controller
             'telp'          => $r->telp ?? NULL,
             'pekerjaan'     => $r->pekerjaan ?? NULL,
             'goldar'        => $r->goldar ?? NULL,
-            'id_kelas'      => empty($r->kelas) ? NULL : $r->kelas,
             'foto'          => $file_foto,
             'status'        => $r->status
         ]);
@@ -164,7 +163,7 @@ class SiswaController extends Controller
             $file_foto = NULL;
         }
 
-        $siswa->update_data_dan_kelas([
+        $siswa->update([
             'nik'           => $r->nik,
             'nis'           => $r->nis,
             'nama'          => $r->nama,
@@ -176,7 +175,6 @@ class SiswaController extends Controller
             'telp'          => $r->telp ?? NULL,
             'pekerjaan'     => $r->pekerjaan ?? NULL,
             'goldar'        => $r->goldar ?? NULL,
-            'id_kelas'      => empty($r->kelas) ? NULL : $r->kelas,
             'foto'          => $file_foto,
             'status'        => $r->status
         ]);

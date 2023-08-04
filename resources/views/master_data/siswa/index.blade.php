@@ -104,12 +104,11 @@
             </thead>
             <tbody>
                 @foreach ($siswa as $data)
-                <?php $tmp_kelas = $data->kelas(); ?>
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->nik }}</td>
                     <td>{{ $data->nama }}</td>
-                    <td>{{ $tmp_kelas->tingkatan.$tmp_kelas->nama }}</td>
+                    <td>{{ "" /* kelas */ }}</td>
                     <td>{{ $data->jk === "L" ? "Laki-laki" : "Perempuan" }}</td>
                     <td>{{ $data->agama() }}</td>
                     <td>{{ $data->status() }}</td>
@@ -200,15 +199,6 @@
                     <div class="form-group">
                         <label for="tgl_lahir">Tanggal Lahir</label>
                         <input type="date" id="tgl_lahir" name="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="kelas">Kelas</label>
-                        <select id="kelas" name="kelas" class="select2bs4 form-control @error('kelas') is-invalid @enderror">
-                            <option value="">-- Pilih Kelas --</option>
-                            @foreach ($kelas as $v)
-                                <option value="{{ $v->id }}">{{ $v->tingkatan.$v->nama }}</option>
-                            @endforeach
-                        </select>
                     </div>
                     <div class="form-group">
                         <label for="goldar">Golongan Darah</label>

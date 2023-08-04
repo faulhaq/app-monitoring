@@ -4,6 +4,7 @@ namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class Kelas extends Model
 {
@@ -24,6 +25,13 @@ class Kelas extends Model
     public function tahun_ajaran()
     {
         return $this->belongsTo(TahunAjaran::class, "id_tahun_ajaran")->first();
+    }
+
+    public function jumlah_siswa()
+    {
+        return self::join("kelas_siswa", "kelas.id", "kelas_siswa.id_kelas")
+                ->where("kelas.id", $this->id)
+                ->count(DB::raw("1"));
     }
 
     public static function get_kelas_aktif()

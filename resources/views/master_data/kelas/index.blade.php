@@ -77,6 +77,7 @@
                     <th>Nama</th>
                     <th>Tahun Ajaran</th>
                     <th>Wali Kelas</th>
+                    <th>Jumlah Siswa</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -87,6 +88,7 @@
                     <td>{{ $data->tingkatan.$data->nama }}</td>
                     <td>{{ $data->tahun_ajaran()->tahun }}</td>
                     <td>{{ $data->wali_kelas()->nama }}</td>
+                    <td>{{ $data->jumlah_siswa() }}</td>
                     <td>
                         <?php $enc_id = Crypt::encrypt($data->id); ?>
                         <form action="{{ route('kelas.destroy', $enc_id) }}" method="post">
@@ -94,6 +96,7 @@
                             @method('delete')
                             <a href="{{ route('kelas.show', $enc_id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
                             <a href="{{ route('kelas.edit', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                            <a href="{{ route('kelas.kelola', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Kelola</a>
                             <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                         </form>
                     </td>
@@ -162,7 +165,7 @@
       </div>
       </div>
     </div>
-  </div>
+</div>
 @endsection
 @section('script')
 <script>

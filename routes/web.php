@@ -73,6 +73,9 @@ Route::middleware(['auth'])->group(function () {
         Route::prefix("kelas")->name("kelas.")->group(function () {
             Route::get("/export_excel", "KelasController@export_excel")->name("export_excel");
             Route::get("/import_excel", "KelasController@import_excel")->name("import_excel");
+            Route::get("/kelola/{id}", "KelasController@kelola")->name("kelola");
+            Route::post("/kelola/{id}/tambah_siswa", "KelasController@kelola_tambah_siswa")->name("kelola.tambah_siswa");
+            Route::delete("/hapus_siswa/{id_kelas}/{id_siswa}", "KelasController@hapus_siswa")->name("hapus_siswa");
         });
         Route::resource('/kelas', 'KelasController');
 
