@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2023 at 12:44 PM
+-- Generation Time: Aug 09, 2023 at 05:24 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -146,6 +146,14 @@ CREATE TABLE `kelas_siswa` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `kelas_siswa`
+--
+
+INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
+(25, 1, 5, '2023-08-09 15:23:54', NULL),
+(26, 2, 5, '2023-08-09 15:23:54', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -285,7 +293,8 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '3314110809010001', '123453', 'Angga', 'L', 1, 1, NULL, '08123456789', 'surakarta', '2023-08-02', 'Sragen', NULL, 'aktif', '2023-08-04 09:58:55', '2023-08-04 09:58:55', NULL);
+(1, '3314110809010001', '123453', 'Angga', 'L', 1, 1, NULL, '08123456789', 'surakarta', '2023-08-02', 'Sragen', NULL, 'aktif', '2023-08-04 09:58:55', '2023-08-04 09:58:55', NULL),
+(2, '3314150809011009', '32111112', 'Budha', 'L', 7, 1, NULL, '08123444789', 'bantull', '2023-08-03', 'Sragen 2', NULL, 'non-aktif', '2023-08-09 13:56:56', '2023-08-09 13:56:56', NULL);
 
 -- --------------------------------------------------------
 
@@ -542,7 +551,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -572,7 +581,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`

@@ -185,4 +185,20 @@ class KelasController extends Controller
         $kelas_siswa->delete();
         return redirect()->route('kelas.kelola', $enc_id_kelas)->with('success', 'Siswa berhasil dihapus dari kelas!');
     }
+
+    public function kelola_tambah_siswa($id, Request $r)
+    {
+        $enc_id_kelas = $id;
+        $id_kelas = Crypt::decrypt($id);
+        $data = [];
+        foreach ($r->id_siswa as $id) {
+            $data[] = [
+                "id_siswa" => $id,
+                "id_kelas" => $id_kelas,
+                "created_at" => date("Y-m-d H:i:s")
+            ];
+        }
+        KelasSiswa::insert($data);
+        return redirect()->route('kelas.kelola', $enc_id_kelas)->with('success', 'Siswa berhasil ditambahkan!');
+    }
 }

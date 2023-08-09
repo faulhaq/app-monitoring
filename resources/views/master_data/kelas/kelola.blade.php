@@ -76,8 +76,7 @@ $enc_id_kelas = Crypt::encrypt($kelas->id);
                         <div class="col-md-12">
                             <div class="form-group" id="fg_siswa">
                                 <div style="margin-top: 10px">
-                                    <select name="id_siswa[]" class="form-control">
-                                        <option value="">-- Pilih Siswa --</option>
+                                    <select name="id_siswa[]" id="list-siswa-1" class="form-control list-siswa">
                                     </select>
                                 </div>
                             </div>
@@ -96,16 +95,99 @@ $enc_id_kelas = Crypt::encrypt($kelas->id);
 @endsection
 @section('script')
 <script>
+let list_siswa_no_kelas = [];
+let siswa_selected = {};
+let fg_siswa = $("#fg_siswa");
+let select_count = 1;
+
+function collect_selected_siswa()
+{
+  siswa_selected = {};
+  $(".list-siswa").each(function (k, v) {
+    v = $(v).val();
+    if (v == "")
+      return;
+    v = "x" + v;
+    siswa_selected[v] = 1;
+  });
+  console.log("collect", siswa_selected);
+}
+
+function construct_all_select_inputs()
+{
+  let r = "";
+  let i, k = 1, j = select_count;
+
+  for (i in siswa_selected) {
+    let id = i.substr(1);
+    r += construct_siswa_select(k++, id);
+    j--;
+  }
+
+  while (j--) {
+    r += construct_siswa_select(k++);
+  }
+  fg_siswa[0].innerHTML = r;
+  set_event_siswa();
+}
+
+function set_event_siswa()
+{
+  $(".list-siswa").change(function (e) {
+      collect_selected_siswa();
+      construct_all_select_inputs();
+  });
+}
+
+function create_select_input(id, k)
+{
+}
+
+function construct_siswa_options(sel_id = null)
+{
+    let arr = list_siswa_no_kelas;
+    let i, r = `<option value="">-- Pilih Siswa --</option>`;
+
+    for (i in arr) {
+        let v = arr[i];
+        if (sel_id === null && typeof siswa_selected["x" + v.id] != "undefined") {
+          continue;
+        }
+
+        if (sel_id !== null && sel_id != v.id)
+          continue;
+        let sel = (v.id == sel_id) ? " selected" : "";
+        r += `<option value="${v.id}"${sel}>(NIS: ${v.nis}) ${v.nama}</option>`;
+    }
+    return r;
+}
+
+function construct_siswa_select(i, sel_id = null)
+{
+    console.log(i, sel_id);
+    return `<div style="margin-top: 10px">` +
+              `<select name="id_siswa[]" id="list-siswa-${i}" class="form-control list-siswa">` +
+              construct_siswa_options(sel_id) +
+              `</select>` +
+            `</div>`;
+}
+
 $("#MasterData").addClass("active");
 $("#liMasterData").addClass("menu-open");
 $("#DataKelas").addClass("active");
 $("#tambah_siswa_btn").click(function () {
-    $("#fg_siswa")[0].innerHTML +=
-        '<div style="margin-top: 10px">' +
-            '<select name="id_siswa[]" class="form-control">' +
-                '<option value="">-- Pilih Siswa --</option>' +
-            '</select>' +
-        '</div>';
+    select_count++
+    construct_all_select_inputs();
 });
+$.ajax({
+    url: "{{ route('siswa.get_siswa_no_kelas') }}",
+    method: "GET",
+    success: function (data) {
+        list_siswa_no_kelas = data;
+        fg_siswa[0].innerHTML = construct_siswa_select(1);
+        set_event_siswa();
+    }
+});
+set_event_siswa();
 </script>
 @endsection

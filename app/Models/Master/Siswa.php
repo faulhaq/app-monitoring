@@ -50,4 +50,17 @@ class Siswa extends Model
                 ->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
                 ->where("kelas_siswa.id_kelas", $id_kelas);
     }
+
+    public static function get_siswa_no_kelas()
+    {
+        $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
+        $ret = DB::select("SELECT * FROM siswa AS so WHERE NOT EXISTS (
+            SELECT siswa.*, kelas_siswa.* FROM
+            siswa INNER JOIN kelas_siswa ON siswa.id = kelas_siswa.id_siswa
+                  INNER JOIN kelas ON kelas.id = kelas_siswa.id_kelas
+                  INNER JOIN tahun_ajaran ON tahun_ajaran.id = kelas.id_tahun_ajaran
+            WHERE siswa.id = so.id AND tahun_ajaran.id = ?
+         );", [$id_tahun_ajaran_aktif]);
+        return $ret;
+    }
 }

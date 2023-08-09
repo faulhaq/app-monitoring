@@ -240,4 +240,10 @@ class SiswaController extends Controller
         }
         return $r;
     }
+
+    public function get_siswa_no_kelas()
+    {
+        $siswa = Siswa::get_siswa_no_kelas();
+        return response()->json($siswa);
+    }
 }
