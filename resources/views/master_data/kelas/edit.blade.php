@@ -34,13 +34,7 @@
                 </div>
                 <div class="form-group">
                     <label for="tahun_ajaran">Tahun Ajaran</label>
-                    <select id="tahun_ajaran" name="tahun_ajaran" class="select2bs4 form-control @error('tahun_ajaran') is-invalid @enderror">
-                        <option value="">-- Pilih Tahun Ajaran --</option>
-                        @foreach ($tahun_ajaran as $v)
-                            <?php $sel = $kelas->tahun_ajaran()->id == $v->id ? " selected" : "" ?>
-                            <option value="{{ $v->id }}"<?= $sel ?>>{{ $v->tahun }}</option>
-                        @endforeach
-                    </select>
+                    <input type="tahun_ajaran" id="tahun_ajaran" name="tahun_ajaran" value="{{ $kelas->tahun_ajaran()->tahun }}" class="form-control" disabled="1">
                 </div>
                 <div class="form-group">
                     <label for="wali_kelas">Wali Kelas</label>

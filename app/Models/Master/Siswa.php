@@ -8,6 +8,8 @@ use App\Models\Ref\Agama;
 use App\Models\Ref\Goldar;
 use App\Models\Ref\Pendidikan;
 use App\Models\KelasSiswa;
+use App\Models\Master\TahunAjaran;
+use App\Models\Master\Kelas;
 use DB;
 
 class Siswa extends Model
@@ -20,8 +22,13 @@ class Siswa extends Model
 
     public function kelas()
     {
-        $ret = $this->belongsTo(Kelas::class, "id_kelas_aktif")->first();
-        return is_null($ret) ? (object) ["id" => 0, "tingkatan" => NULL, "nama" => NULL] : $ret;
+        $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
+        return self::select("kelas.*")
+                ->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
+                ->join("kelas", "kelas.id", "kelas_siswa.id_kelas")
+                ->where("kelas.id_tahun_ajaran", $id_tahun_ajaran_aktif)
+                ->where("siswa.id", $this->id)
+                ->first();
     }
 
     public function goldar()
@@ -51,16 +58,16 @@ class Siswa extends Model
                 ->where("kelas_siswa.id_kelas", $id_kelas);
     }
 
-    public static function get_siswa_no_kelas()
+    public static function get_siswa_no_kelas($id_kelas)
     {
-        $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
+        $kelas = Kelas::find($id_kelas);
         $ret = DB::select("SELECT * FROM siswa AS so WHERE NOT EXISTS (
             SELECT siswa.*, kelas_siswa.* FROM
             siswa INNER JOIN kelas_siswa ON siswa.id = kelas_siswa.id_siswa
                   INNER JOIN kelas ON kelas.id = kelas_siswa.id_kelas
                   INNER JOIN tahun_ajaran ON tahun_ajaran.id = kelas.id_tahun_ajaran
             WHERE siswa.id = so.id AND tahun_ajaran.id = ?
-         );", [$id_tahun_ajaran_aktif]);
+         );", [$kelas->id_tahun_ajaran]);
         return $ret;
     }
 }

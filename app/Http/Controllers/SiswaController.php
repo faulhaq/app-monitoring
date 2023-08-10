@@ -24,9 +24,10 @@ class SiswaController extends Controller
         $tahun_ajaran = TahunAjaran::get();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
 
-        $siswa = Siswa::select("*");
+        $siswa = Siswa::select("siswa.*");
         if ($fkelas && $fkelas !== "all") {
-            $siswa = $siswa->where("id_kelas_aktif", $fkelas);
+            $siswa = $siswa->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
+                        ->where("kelas_siswa.id_kelas", $fkelas);
         }
         if ($fstatus && $fstatus !== "all") {
             $siswa = $siswa->where("status", $fstatus);
@@ -241,9 +242,10 @@ class SiswaController extends Controller
         return $r;
     }
 
-    public function get_siswa_no_kelas()
+    public function get_siswa_no_kelas($id_kelas)
     {
-        $siswa = Siswa::get_siswa_no_kelas();
+        $id_kelas = Crypt::decrypt($id_kelas);
+        $siswa = Siswa::get_siswa_no_kelas($id_kelas);
         return response()->json($siswa);
     }
 }

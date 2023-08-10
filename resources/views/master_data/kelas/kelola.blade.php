@@ -154,8 +154,10 @@ function construct_siswa_options(sel_id = null)
           continue;
         }
 
-        if (sel_id !== null && sel_id != v.id)
+        if (sel_id !== null && typeof siswa_selected["x" + v.id] != "undefined" && sel_id != v.id) {
           continue;
+        }
+
         let sel = (v.id == sel_id) ? " selected" : "";
         r += `<option value="${v.id}"${sel}>(NIS: ${v.nis}) ${v.nama}</option>`;
     }
@@ -180,7 +182,7 @@ $("#tambah_siswa_btn").click(function () {
     construct_all_select_inputs();
 });
 $.ajax({
-    url: "{{ route('siswa.get_siswa_no_kelas') }}",
+    url: "{{ route('siswa.get_siswa_no_kelas', $enc_id_kelas) }}",
     method: "GET",
     success: function (data) {
         list_siswa_no_kelas = data;

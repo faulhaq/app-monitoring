@@ -112,7 +112,6 @@ class KelasController extends Controller
         $r->validate([
             "tingkatan"     => "required",
             "nama"          => "required",
-            "tahun_ajaran"  => "required",
             "wali_kelas"    => "required"
         ]);
 
@@ -127,7 +126,6 @@ class KelasController extends Controller
         $kelas->update([
             "tingkatan"        => $r->tingkatan,
             "nama"             => $r->nama,
-            "id_tahun_ajaran"  => $r->tahun_ajaran,
             "id_guru"          => $r->wali_kelas
         ]);
         return redirect()->route('kelas.index')->with('success', 'Data kelas berhasil diubah!');
@@ -146,6 +144,7 @@ class KelasController extends Controller
 
     public function kelola($id)
     {
+        $enc_id_kelas = $id;
         $id = Crypt::decrypt($id);
         $kelas = Kelas::find($id);
         if (!$kelas) {
@@ -154,7 +153,7 @@ class KelasController extends Controller
         }
 
         $siswa = Siswa::get_siswa_by_id_kelas($id)->get();
-        return view("master_data.kelas.kelola", compact("kelas", "siswa"));
+        return view("master_data.kelas.kelola", compact("kelas", "siswa", "enc_id_kelas"));
     }
 
     public function hapus_siswa($id_kelas, $id_siswa)
@@ -192,6 +191,8 @@ class KelasController extends Controller
         $id_kelas = Crypt::decrypt($id);
         $data = [];
         foreach ($r->id_siswa as $id) {
+            if (!$id)
+                continue;
             $data[] = [
                 "id_siswa" => $id,
                 "id_kelas" => $id_kelas,

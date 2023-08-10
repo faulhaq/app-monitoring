@@ -58,7 +58,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get("/update_foto/{id}", "SiswaController@update_foto")->name("update_foto");
             Route::get("/update_foto/{id}", "SiswaController@update_foto")->name("update_foto");
             Route::post("/simpan_foto/{id}", "SiswaController@simpan_foto")->name("simpan_foto");
-            Route::get("/get_siswa_no_kelas", "SiswaController@get_siswa_no_kelas")->name("get_siswa_no_kelas");
+            Route::get("/get_siswa_no_kelas/{id_kelas}", "SiswaController@get_siswa_no_kelas")->name("get_siswa_no_kelas");
         });
         Route::resource('/siswa', 'SiswaController');
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 09, 2023 at 05:24 PM
+-- Generation Time: Aug 10, 2023 at 09:47 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -102,7 +102,7 @@ INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jk`, `agama`, `goldar`
 (5, '1234512345123453', '122123', 'Guru BBBBBBB', 'guru002@gmail.com', 'L', 1, 1, 1, 1, '083123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__12_31_19_download (3).png', 'aktif', '2023-08-02 03:36:45', '2023-08-02 12:31:19', NULL),
 (6, '1234512345122453', '121123', 'AAAAAAAAAA', 'guru003@gmail.com', 'L', 1, 1, 1, 1, '08344123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_03__12_58_13_Simulasi Forward Chaining Diagram.png', 'aktif', '2023-08-02 03:36:45', '2023-08-03 12:58:13', NULL),
 (7, '3314150809010009', '196481271994031004', 'Anton', 'anton@gmail.com', 'L', 1, 4, 1, 1, '081265345346', 'sragen', '2023-07-31', 'Sragen', '2023_08_03__13_01_21_Andhika-Saedya-transformed.png', 'aktif', '2023-08-03 13:01:21', '2023-08-03 13:01:21', NULL),
-(8, '3314150809010208', '124415322286765', 'Angga 123123', 'anton321@gmail.com', 'L', 4, 4, 2, 11, '081233456732', 'surakarta', '2023-08-16', 'Sragen 2', NULL, 'non-aktif', '2023-08-03 13:07:34', '2023-08-03 13:08:10', NULL);
+(8, '3314150809010208', '124415322286765', 'Angga 123123', 'anton321@gmail.com', 'L', 4, 4, 2, 11, '081233456732', 'surakarta', '2023-08-16', 'Sragen 2', NULL, 'aktif', '2023-08-03 13:07:34', '2023-08-10 06:56:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -126,11 +126,12 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(5, '1', 'AAAAA', 1, 6, '2023-08-02 12:11:27', '2023-08-04 09:49:19', NULL),
+(5, '1', 'AAAAA', 6, 6, '2023-08-02 12:11:27', '2023-08-10 07:23:58', NULL),
 (6, '2', 'B', 1, 5, '2023-08-02 12:50:44', '2023-08-02 12:50:44', NULL),
-(7, '1', 'C', 4, 5, '2023-08-02 12:51:27', '2023-08-03 12:28:32', NULL),
+(7, '1', 'C', 1, 5, '2023-08-02 12:51:27', '2023-08-10 06:56:23', NULL),
 (8, '2', 'D', 1, 6, '2023-08-02 12:51:42', '2023-08-02 12:51:42', NULL),
-(9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL);
+(9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL),
+(10, '1', 'E', 3, 7, '2023-08-10 07:02:01', '2023-08-10 07:43:44', NULL);
 
 -- --------------------------------------------------------
 
@@ -151,8 +152,12 @@ CREATE TABLE `kelas_siswa` (
 --
 
 INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(25, 1, 5, '2023-08-09 15:23:54', NULL),
-(26, 2, 5, '2023-08-09 15:23:54', NULL);
+(28, 2, 6, '2023-08-10 07:33:48', NULL),
+(29, 1, 6, '2023-08-10 07:33:48', NULL),
+(34, 3, 5, '2023-08-10 07:35:19', NULL),
+(35, 3, 6, '2023-08-10 07:36:00', NULL),
+(36, 1, 5, '2023-08-10 07:42:39', NULL),
+(37, 1, 9, '2023-08-10 07:42:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -294,7 +299,8 @@ CREATE TABLE `siswa` (
 
 INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, '3314110809010001', '123453', 'Angga', 'L', 1, 1, NULL, '08123456789', 'surakarta', '2023-08-02', 'Sragen', NULL, 'aktif', '2023-08-04 09:58:55', '2023-08-04 09:58:55', NULL),
-(2, '3314150809011009', '32111112', 'Budha', 'L', 7, 1, NULL, '08123444789', 'bantull', '2023-08-03', 'Sragen 2', NULL, 'non-aktif', '2023-08-09 13:56:56', '2023-08-09 13:56:56', NULL);
+(2, '3314150809011009', '32111112', 'Budha', 'L', 7, 1, NULL, '08123444789', 'bantull', '2023-08-03', 'Sragen 2', NULL, 'non-aktif', '2023-08-09 13:56:56', '2023-08-09 13:56:56', NULL),
+(3, '3314150809010005', '123', 'paul', 'L', 1, 1, NULL, '081234532654', 'Sleman', '2023-07-30', 'Sragen', NULL, 'aktif', '2023-08-10 07:32:42', '2023-08-10 07:32:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -338,7 +344,7 @@ CREATE TABLE `tahun_ajaran_aktif` (
 --
 
 INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
-(20, 1);
+(22, 1);
 
 -- --------------------------------------------------------
 
@@ -545,13 +551,13 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -581,7 +587,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
@@ -593,7 +599,7 @@ ALTER TABLE `tahun_ajaran`
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
 --
 ALTER TABLE `tahun_ajaran_aktif`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `users`

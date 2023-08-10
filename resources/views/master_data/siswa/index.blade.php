@@ -104,11 +104,12 @@
             </thead>
             <tbody>
                 @foreach ($siswa as $data)
+                <?php $kelas = $data->kelas(); ?>
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->nik }}</td>
                     <td>{{ $data->nama }}</td>
-                    <td>{{ "" /* kelas */ }}</td>
+                    <td>{{ $kelas ? $kelas->tingkatan.$kelas->nama : "" }}</td>
                     <td>{{ $data->jk === "L" ? "Laki-laki" : "Perempuan" }}</td>
                     <td>{{ $data->agama() }}</td>
                     <td>{{ $data->status() }}</td>
