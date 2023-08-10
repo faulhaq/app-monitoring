@@ -94,9 +94,8 @@
                         <form action="{{ route('kelas.destroy', $enc_id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <a href="{{ route('kelas.show', $enc_id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
+                            <a href="{{ route('kelas.kelola', $enc_id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Kelola</a>
                             <a href="{{ route('kelas.edit', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
-                            <a href="{{ route('kelas.kelola', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Kelola</a>
                             <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                         </form>
                     </td>

@@ -1,17 +1,20 @@
 @extends('template.home')
-@section('heading', 'Data Kelas')
+@section('heading', 'Kelola Kelas')
 @section('page')
-  <li class="breadcrumb-item active">Data Kelas</li>
+  <li class="breadcrumb-item active">Kelola Kelas</li>
 @endsection
 @section('content')
 <?php
 $enc_id_kelas = Crypt::encrypt($kelas->id);
 ?>
 <div class="col-md-12">
+  <div class="card card-primary">
+    <div class="card-header">
+      <h3 class="card-title">Detail Kelas</h3>
+    </div>
     <div class="card">
       <div class="row" style="padding: 30px">
         <div class="col-md">
-          <h3>Detail Kelas</h3>
           <table>
             <tbody>
               <tr><td>Nama Kelas</td><td>:</td><td>{{ $kelas->tingkatan.$kelas->nama }}</td></tr>
@@ -55,8 +58,12 @@ $enc_id_kelas = Crypt::encrypt($kelas->id);
               @endforeach
             </tbody>
           </table>
+          <div class="card-footer">
+            <a href="{{ URL::previous() }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
+          </div>
         </div>
       </div>
+    </div>
   </div>
 </div>
 
