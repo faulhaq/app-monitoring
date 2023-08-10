@@ -52,6 +52,13 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::resource('/guru', 'GuruController');
 
+        Route::prefix("kk")->name("kk.")->group(function () {
+            Route::get("/export_excel", "KKController@export_excel")->name("export_excel");
+            Route::get("/import_excel", "KKController@import_excel")->name("import_excel");
+            Route::get("/get_list", "KKController@get_list")->name("get_list");
+        });
+        Route::resource('/kk', 'KKController');
+
         Route::prefix("siswa")->name("siswa.")->group(function () {
             Route::get("/export_excel", "SiswaController@export_excel")->name("export_excel");
             Route::get("/import_excel", "SiswaController@import_excel")->name("import_excel");

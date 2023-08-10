@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2023 at 09:47 AM
+-- Generation Time: Aug 10, 2023 at 11:13 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -147,17 +147,26 @@ CREATE TABLE `kelas_siswa` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `kelas_siswa`
+-- Table structure for table `kk`
 --
 
-INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(28, 2, 6, '2023-08-10 07:33:48', NULL),
-(29, 1, 6, '2023-08-10 07:33:48', NULL),
-(34, 3, 5, '2023-08-10 07:35:19', NULL),
-(35, 3, 6, '2023-08-10 07:36:00', NULL),
-(36, 1, 5, '2023-08-10 07:42:39', NULL),
-(37, 1, 9, '2023-08-10 07:42:59', NULL);
+CREATE TABLE `kk` (
+  `id` int(20) UNSIGNED NOT NULL,
+  `no_kk` char(16) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `kk`
+--
+
+INSERT INTO `kk` (`id`, `no_kk`, `updated_at`, `created_at`) VALUES
+(1, '1234567890123456', '2023-08-10 09:01:35', '2023-08-10 09:01:35'),
+(3, '1231211111111111', '2023-08-10 09:10:41', '2023-08-10 09:10:41');
 
 -- --------------------------------------------------------
 
@@ -167,6 +176,7 @@ INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_
 
 CREATE TABLE `orang_tua` (
   `id` int(20) UNSIGNED NOT NULL,
+  `id_kk` int(20) UNSIGNED NOT NULL,
   `nik` char(16) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -184,16 +194,6 @@ CREATE TABLE `orang_tua` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `orang_tua`
---
-
-INSERT INTO `orang_tua` (`id`, `nik`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(3, '1234512345123452', 'CCCCCCC', 'orangtua@gmail.com', 'L', 1, 1, 1, 1, '081123123122', 'Solo', '2023-08-07', 'Solo', '2023_08_02__03_45_55_SS SCAM BOSSY ALPHA JR & PHILLIP.png', '2023-08-02 03:45:55', '2023-08-02 12:48:03', NULL),
-(4, '1234512444123452', 'BBBBBBBBBBBB', 'orangtua11@gmail.com', 'L', 1, 1, 1, 1, '081193123122', 'Solo', '2023-08-07', 'Solo', '2023_08_03__13_26_04_Hanna-transformed.png', '2023-08-02 03:45:55', '2023-08-03 13:26:04', NULL),
-(5, '1234512345122452', 'Kevin AaAAA', 'orangtua22@gmail.com', 'L', 1, 1, 1, 1, '081523123122', 'Solo', '2023-08-07', 'Solo', '2023_08_02__03_45_55_SS SCAM BOSSY ALPHA JR & PHILLIP.png', '2023-08-02 03:45:55', '2023-08-02 03:47:10', NULL),
-(6, '3314150809050008', 'hanhan', 'antoni123@gmail.com', 'P', 1, 2, 1, 1, '085265345346', 'bantul', '2023-08-16', 'Sragen', '2023_08_03__13_27_05_bit.ly_PresensiRapat19Des.png', '2023-08-03 13:27:05', '2023-08-03 13:27:05', NULL);
 
 -- --------------------------------------------------------
 
@@ -275,6 +275,7 @@ INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`, `dele
 
 CREATE TABLE `siswa` (
   `id` int(20) UNSIGNED NOT NULL,
+  `id_kk` int(20) UNSIGNED NOT NULL,
   `nik` char(16) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nis` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -292,15 +293,6 @@ CREATE TABLE `siswa` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `siswa`
---
-
-INSERT INTO `siswa` (`id`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, '3314110809010001', '123453', 'Angga', 'L', 1, 1, NULL, '08123456789', 'surakarta', '2023-08-02', 'Sragen', NULL, 'aktif', '2023-08-04 09:58:55', '2023-08-04 09:58:55', NULL),
-(2, '3314150809011009', '32111112', 'Budha', 'L', 7, 1, NULL, '08123444789', 'bantull', '2023-08-03', 'Sragen 2', NULL, 'non-aktif', '2023-08-09 13:56:56', '2023-08-09 13:56:56', NULL),
-(3, '3314150809010005', '123', 'paul', 'L', 1, 1, NULL, '081234532654', 'Sleman', '2023-07-30', 'Sragen', NULL, 'aktif', '2023-08-10 07:32:42', '2023-08-10 07:32:42', NULL);
 
 -- --------------------------------------------------------
 
@@ -369,11 +361,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'izwq9zeRs03JBLmHvasHfkVfHCZoPEpZ27aX2gdwEHFHZomryCsIJMUGZYHE', '2023-07-27 12:15:00', NULL),
-(7, 'admin', 'admin2@gmail.com', '$2y$10$Z1fe57ZMbUdEcatOAFTuy.wxgeeRdGbBlvJRmipz/JUVjydEf4TG2', NULL, NULL, NULL, '2023-08-02 05:17:43', '2023-08-02 05:17:43'),
-(8, 'guru', 'guru001@gmail.com', '$2y$10$oEKuREHlzeoVbYXxnKl/ceTKm.Ma.8xbx8MV7XjW.iNqAtsvgpZru', 4, NULL, NULL, '2023-08-02 05:18:55', '2023-08-02 05:18:55'),
-(9, 'orang_tua', 'orangtua@gmail.com', '$2y$10$hUcmNzMOYktbeeQsglhP0u20UGWz.g3yWyywJMP5Tf7pF3rUFDkhm', NULL, 3, NULL, '2023-08-02 05:19:01', '2023-08-02 05:19:01'),
-(10, 'orang_tua', 'antoni123@gmail.com', '$2y$10$awktK3TAIbWl9kpLBrNZhOvmzMjl/3zeoUSCXdzU16DJzqKEzVjy2', NULL, 6, NULL, '2023-08-03 13:43:42', '2023-08-03 13:45:27');
+(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'izwq9zeRs03JBLmHvasHfkVfHCZoPEpZ27aX2gdwEHFHZomryCsIJMUGZYHE', '2023-07-27 12:15:00', NULL);
 
 --
 -- Indexes for dumped tables
@@ -437,12 +425,21 @@ ALTER TABLE `kelas_siswa`
   ADD KEY `created_at` (`created_at`);
 
 --
+-- Indexes for table `kk`
+--
+ALTER TABLE `kk`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `no_kk` (`no_kk`),
+  ADD KEY `created_at` (`created_at`);
+
+--
 -- Indexes for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`),
   ADD UNIQUE KEY `email` (`email`),
+  ADD KEY `id_kk` (`id_kk`),
   ADD KEY `nama` (`nama`),
   ADD KEY `jk` (`jk`),
   ADD KEY `agama` (`agama`),
@@ -485,6 +482,7 @@ ALTER TABLE `siswa`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`),
   ADD UNIQUE KEY `nis` (`nis`),
+  ADD KEY `id_kk` (`id_kk`),
   ADD KEY `nama` (`nama`),
   ADD KEY `jk` (`jk`),
   ADD KEY `agama` (`agama`),
@@ -557,13 +555,19 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kk`
+--
+ALTER TABLE `kk`
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`
@@ -587,7 +591,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
@@ -638,18 +642,20 @@ ALTER TABLE `kelas_siswa`
 -- Constraints for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  ADD CONSTRAINT `orang_tua_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `orang_tua_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `orang_tua_fk3` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaan` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `orang_tua_fk4` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `orang_tua_fk1` FOREIGN KEY (`id_kk`) REFERENCES `kk` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `orang_tua_fk2` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `orang_tua_fk3` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `orang_tua_fk4` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaan` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `orang_tua_fk5` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `siswa`
 --
 ALTER TABLE `siswa`
-  ADD CONSTRAINT `siswa_fk1` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `siswa_fk2` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `siswa_fk3` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `siswa_fk1` FOREIGN KEY (`id_kk`) REFERENCES `kk` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_fk2` FOREIGN KEY (`agama`) REFERENCES `agama` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_fk3` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `siswa_fk4` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `tahun_ajaran_aktif`

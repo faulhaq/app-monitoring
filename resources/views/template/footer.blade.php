@@ -89,6 +89,16 @@
         return true;
     }
 
+    function inputAngkaMax(e, max) {
+        if (e.target.value.length >= max)
+            return false;
+        var charCode = (e.which) ? e.which : event.keyCode
+        if (charCode > 31 && (charCode < 48 || charCode > 57)){
+            return false;
+        }
+        return true;
+    }
+
     function sikap(e) {
         var charCode = (e.which) ? e.which : event.keyCode
         if (charCode > 31 && (charCode < 49 || charCode > 52)){

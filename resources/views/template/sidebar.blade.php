@@ -73,11 +73,16 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview ml-4">
-                           
                             <li class="nav-item">
-                                <a href="{{ route('guru.index') }}" class="nav-link" id="DataGuru">
+                                <a href="{{ route('kk.index') }}" class="nav-link" id="DataKK">
                                     <i class="fas fa-users nav-icon"></i>
-                                    <p>Data Guru</p>
+                                    <p>Data Kartu Keluarga</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('orang_tua.index') }}" class="nav-link" id="DataOrangTua">
+                                    <i class="fas fa-users nav-icon"></i>
+                                    <p>Data Orang Tua</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -87,9 +92,9 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('orang_tua.index') }}" class="nav-link" id="DataOrangTua">
+                                <a href="{{ route('guru.index') }}" class="nav-link" id="DataGuru">
                                     <i class="fas fa-users nav-icon"></i>
-                                    <p>Data Orang Tua</p>
+                                    <p>Data Guru</p>
                                 </a>
                             </li>
                             <li class="nav-item">
