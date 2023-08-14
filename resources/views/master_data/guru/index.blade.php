@@ -71,15 +71,10 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>NIK</th>
-                    <th>NIP</th>
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Jenis Kelamin</th>
-                    <th>Agama</th>
-                    <th>Pend.</th>
                     <th>Status</th>
-                    <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -87,23 +82,10 @@
                 @foreach ($guru as $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->nik }}</td>
-                    <td>{{ $data->nip }}</td>
                     <td>{{ $data->nama }}</td>
                     <td>{{ $data->email }}</td>
                     <td>{{ $data->jk === "L" ? "Laki-laki" : "Perempuan" }}</td>
-                    <td>{{ $data->agama() }}</td>
-                    <td>{{ $data->pendidikan() }}</td>
                     <td>{{ $data->status === "aktif" ? "Aktif" : "Non-aktif" }}</td>
-                    <td>
-                        @if (is_null($data->foto))
-                            Tidak ada foto
-                        @else
-                            <a href="{{ asset('uploads/guru/'.$data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('guru.update_foto', Crypt::encrypt($data->id)) }}" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Update Foto</a>'>
-                                <img src="{{ asset('uploads/guru/'.$data->foto) }}" width="130px" class="img-fluid mb-2">
-                            </a>
-                        @endif
-                    </td>
                     <td>
                         <?php $enc_id = Crypt::encrypt($data->id); ?>
                         <form action="{{ route('guru.destroy', $enc_id) }}" method="post">

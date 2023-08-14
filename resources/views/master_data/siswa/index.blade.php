@@ -186,7 +186,7 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="nis">Alamat</label>
-                        <input type="text" id="alamt" name="alamat" onkeypress="return inputAngka(event)" class="form-control @error('alamat') is-invalid @enderror" required>
+                        <input type="text" id="alamt" name="alamat" class="form-control @error('alamat') is-invalid @enderror" required>
                     </div>
                     <div class="form-group">
                         <label for="telp">Nomor Telpon/HP</label>

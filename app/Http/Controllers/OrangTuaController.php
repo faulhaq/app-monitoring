@@ -157,7 +157,7 @@ class OrangTuaController extends Controller
         $id_kk = $id_kk->id;
 
         $data = [
-            'id_kk'      => $r->id_kk,
+            'id_kk'      => $id_kk,
             'nik'        => $r->nik,
             'nip'        => $r->nip,
             'nama'       => $r->nama,

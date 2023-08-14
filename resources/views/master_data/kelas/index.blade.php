@@ -74,7 +74,7 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Nama</th>
+                    <th>Kelas</th>
                     <th>Tahun Ajaran</th>
                     <th>Wali Kelas</th>
                     <th>Jumlah Siswa</th>

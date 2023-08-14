@@ -98,7 +98,7 @@
                     </div>
                     <div class="form-group" id="password_fg" style="display: none">
                         <label for="password">Password</label>
-                        <input autocomplete="off" type="password" id="password" name="password" class="form-control @error('password') is-invalid @enderror" required>
+                        <input autocomplete="off" type="text" value="{{ $gen_pass }}" id="password" name="password" class="form-control @error('password') is-invalid @enderror" readonly required>
                     </div>
                 </div>
             </div>
@@ -181,7 +181,7 @@ $("#role").change(function () {
     let role = $(this).val();
     $("#list_user_fg").hide();
     $("#email").val("");
-    $("#password").val("");
+    $("#password").val("{{ $gen_pass }}");
     efg.hide();
     pfg.hide();
     switch (role) {
@@ -198,11 +198,12 @@ $("#role").change(function () {
         efg.show();
         pfg.show();
         ei[0].disabled = false;
-        pi.val("");
         $("#list_user").removeAttr("required");
         break;
     }
 });
+
+pi.val("{{ $gen_pass }}");
 
 $("#list_user").change(function () {
     let id = $(this).val();
@@ -210,7 +211,6 @@ $("#list_user").change(function () {
     efg.show();
     $("#email").val(email);
     pfg.show();
-    pfg.val("");
 });
 
 </script>

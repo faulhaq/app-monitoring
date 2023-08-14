@@ -9,6 +9,17 @@ use App\User;
 use App\Models\Master\OrangTua;
 use App\Models\Master\Guru;
 
+function rstr(int $len)
+{
+    $r = "qwertyuiopasdfghjklzxcvbnm1234567890QWERTYUIOPASDFGHJKLZXCVBNM!@#$%^&*()";
+    $ret = "";
+    $clq = strlen($r);
+    for ($i = 0; $i < $len; $i++)
+        $ret .= $r[rand(0, $clq - 1)];
+
+    return $ret;
+}
+
 class UserController extends Controller
 {
     /**
@@ -19,7 +30,8 @@ class UserController extends Controller
     public function index()
     {
         $user = User::all();
-        return view("master_data.user.index", compact("user"));
+        $gen_pass = rstr(12);
+        return view("master_data.user.index", compact("user", "gen_pass"));
     }
 
     /**

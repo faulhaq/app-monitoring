@@ -74,7 +74,7 @@
                         </a>
                         <ul class="nav nav-treeview ml-4">
                             <li class="nav-item">
-                                <a href="{{ route('kk.index') }}" class="nav-link" id="DataKK">
+                                <a href="{{ route('kk.index') }}" class="nav-link" id="DataKartuKeluarga">
                                     <i class="fas fa-users nav-icon"></i>
                                     <p>Data Kartu Keluarga</p>
                                 </a>

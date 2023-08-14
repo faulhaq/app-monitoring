@@ -120,7 +120,7 @@
 <script>
     $("#MasterData").addClass("active");
     $("#liMasterData").addClass("menu-open");
-    $("#DataKK").addClass("active");
+    $("#DataKartuKeluarga").addClass("active");
 
     let fstatus = $("#filter_status");
     function construct_query_string()
