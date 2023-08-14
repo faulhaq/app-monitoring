@@ -28,6 +28,6 @@
     <script>
         $("#MasterData").addClass("active");
         $("#liMasterData").addClass("menu-open");
-        $("#DataGuru").addClass("active");
+        $("#DataUser").addClass("active");
     </script>
 @endsection
