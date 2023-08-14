@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 10, 2023 at 11:13 AM
+-- Generation Time: Aug 14, 2023 at 09:52 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -147,6 +147,14 @@ CREATE TABLE `kelas_siswa` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `kelas_siswa`
+--
+
+INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
+(1, 2, 5, '2023-08-14 07:36:08', NULL),
+(2, 2, 8, '2023-08-14 07:36:34', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -194,6 +202,14 @@ CREATE TABLE `orang_tua` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orang_tua`
+--
+
+INSERT INTO `orang_tua` (`id`, `id_kk`, `nik`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, '3314110809010001', 'Anton', 'anton@gmail.com', 'L', 7, 1, 2, 11, '08123456732', 'sragen', '2023-08-01', 'Sragen', NULL, '2023-08-14 07:40:49', '2023-08-14 07:40:49', NULL),
+(2, 1, '3314150809010809', 'abc', 'antoni@gmail.com', 'P', 1, 2, 1, 1, '08123456789', 'Sleman', '2023-07-30', 'Sragen', NULL, '2023-08-14 07:50:34', '2023-08-14 07:50:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -281,7 +297,7 @@ CREATE TABLE `siswa` (
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
   `agama` tinyint(3) UNSIGNED NOT NULL,
-  `goldar` tinyint(3) UNSIGNED NOT NULL,
+  `goldar` tinyint(3) UNSIGNED DEFAULT NULL,
   `pendidikan` smallint(5) UNSIGNED DEFAULT NULL,
   `telp` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `tmp_lahir` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -293,6 +309,14 @@ CREATE TABLE `siswa` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `siswa`
+--
+
+INSERT INTO `siswa` (`id`, `id_kk`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(2, 1, '3314110809010001', '123453', 'Angga', 'L', 4, 1, NULL, '08123456789', 'sragenn', '2023-08-10', 'Sragen', NULL, 'aktif', '2023-08-14 07:32:54', '2023-08-14 07:32:54', NULL),
+(3, 1, '3314150809010905', '321', 'paul', 'L', 1, NULL, NULL, NULL, 'sragen', '2023-07-30', 'Sragen 2', NULL, 'aktif', '2023-08-14 07:51:59', '2023-08-14 07:51:59', NULL);
 
 -- --------------------------------------------------------
 
@@ -336,7 +360,7 @@ CREATE TABLE `tahun_ajaran_aktif` (
 --
 
 INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
-(22, 1);
+(24, 1);
 
 -- --------------------------------------------------------
 
@@ -555,7 +579,7 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kk`
@@ -567,7 +591,7 @@ ALTER TABLE `kk`
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`
@@ -591,7 +615,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
@@ -603,7 +627,7 @@ ALTER TABLE `tahun_ajaran`
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
 --
 ALTER TABLE `tahun_ajaran_aktif`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `users`

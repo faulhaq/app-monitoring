@@ -92,13 +92,10 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>NIK</th>
                     <th>Nama</th>
                     <th>Kelas</th>
                     <th>Jenis Kelamin</th>
-                    <th>Agama</th>
                     <th>Status</th>
-                    <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -107,21 +104,10 @@
                 <?php $kelas = $data->kelas(); ?>
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->nik }}</td>
                     <td>{{ $data->nama }}</td>
                     <td>{{ $kelas ? $kelas->tingkatan.$kelas->nama : "" }}</td>
                     <td>{{ $data->jk === "L" ? "Laki-laki" : "Perempuan" }}</td>
-                    <td>{{ $data->agama() }}</td>
                     <td>{{ $data->status() }}</td>
-                    <td>
-                        @if (is_null($data->foto))
-                            Tidak ada foto
-                        @else
-                            <a href="{{ asset('uploads/siswa/'.$data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('siswa.update_foto', Crypt::encrypt($data->id)) }}" id="linkFotoSiswa" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
-                                <img src="{{ asset('uploads/siswa/'.$data->foto) }}" width="130px" class="img-fluid mb-2">
-                            </a>
-                        @endif
-                    </td>
                     <td>
                         <?php $enc_id = Crypt::encrypt($data->id); ?>
                         <form action="{{ route('siswa.destroy', $enc_id) }}" method="post">
@@ -156,6 +142,15 @@
             @csrf
             <div class="row">
                 <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="no_kk">No. KK</label>
+                        <select id="no_kk" name="no_kk" class="select2bs4 form-control @error('no_kk') is-invalid @enderror" required>
+                            <option value="">-- Pilih No KK --</option>
+                            @foreach ($kk as $v)
+                                <option value="{{ $v->no_kk }}">{{ $v->no_kk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="nik">NIK</label>
                         <input type="text" id="nik" name="nik" onkeypress="return inputAngka(event)" class="form-control @error('nik') is-invalid @enderror" required>

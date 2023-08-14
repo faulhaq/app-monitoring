@@ -59,13 +59,9 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>NIK</th>
                     <th>Nama</th>
                     <th>Email</th>
                     <th>Jenis Kelamin</th>
-                    <th>Agama</th>
-                    <th>Pend.</th>
-                    <th>Foto</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -73,21 +69,9 @@
                 @foreach ($orang_tua as $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $data->nik }}</td>
                     <td>{{ $data->nama }}</td>
                     <td>{{ $data->email }}</td>
                     <td>{{ $data->jk === "L" ? "Laki-laki" : "Perempuan" }}</td>
-                    <td>{{ $data->agama() }}</td>
-                    <td>{{ $data->pendidikan() }}</td>
-                    <td>
-                        @if (is_null($data->foto))
-                            Tidak ada foto
-                        @else
-                            <a href="{{ asset('uploads/orang_tua/'.$data->foto) }}" data-toggle="lightbox" data-title="Foto {{ $data->nama }}" data-gallery="gallery" data-footer='<a href="{{ route('orang_tua.update_foto', Crypt::encrypt($data->id)) }}" id="linkFotoOrangTua" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>'>
-                                <img src="{{ asset('uploads/orang_tua/'.$data->foto) }}" width="130px" class="img-fluid mb-2">
-                            </a>
-                        @endif
-                    </td>
                     <td>
                         <?php $enc_id = Crypt::encrypt($data->id); ?>
                         <form action="{{ route('orang_tua.destroy', $enc_id) }}" method="post">
@@ -122,6 +106,15 @@
             @csrf
             <div class="row">
                 <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="no_kk">No. KK</label>
+                        <select id="no_kk" name="no_kk" class="select2bs4 form-control @error('no_kk') is-invalid @enderror" required>
+                            <option value="">-- Pilih No KK --</option>
+                            @foreach ($kk as $v)
+                                <option value="{{ $v->no_kk }}">{{ $v->no_kk }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div class="form-group">
                         <label for="nik">NIK</label>
                         <input type="text" id="nik" name="nik" onkeypress="return inputAngka(event)" class="form-control @error('nik') is-invalid @enderror">

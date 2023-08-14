@@ -10,13 +10,14 @@ use App\Models\Ref\Pendidikan;
 use App\Models\KelasSiswa;
 use App\Models\Master\TahunAjaran;
 use App\Models\Master\Kelas;
+use App\Models\Master\KK;
 use DB;
 
 class Siswa extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['nik', 'nis', 'nama', 'jk', 'agama', 'goldar', 'pendidikan', 'telp', 'tmp_lahir', 'tgl_lahir', 'alamat', 'foto', 'status', 'id_kelas_aktif'];
+    protected $fillable = ['id_kk', 'nik', 'nis', 'nama', 'jk', 'agama', 'goldar', 'pendidikan', 'telp', 'tmp_lahir', 'tgl_lahir', 'alamat', 'foto', 'status', 'id_kelas_aktif'];
 
     protected $table = "siswa";
 
@@ -29,6 +30,11 @@ class Siswa extends Model
                 ->where("kelas.id_tahun_ajaran", $id_tahun_ajaran_aktif)
                 ->where("siswa.id", $this->id)
                 ->first();
+    }
+
+    public function kk()
+    {
+       return $this->belongsTo(KK::class, "id_kk")->first();
     }
 
     public function goldar()

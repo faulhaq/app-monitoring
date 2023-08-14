@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Master\OrangTua;
+use App\Models\Master\KK;
 use App\User;
 
 class OrangTuaController extends Controller
@@ -17,7 +18,8 @@ class OrangTuaController extends Controller
     public function index()
     {
         $orang_tua = OrangTua::orderBy("nama", "asc")->get();
-        return view("master_data.orang_tua.index", compact("orang_tua"));
+        $kk = KK::get();
+        return view("master_data.orang_tua.index", compact("kk", "orang_tua"));
     }
 
     /**
@@ -34,6 +36,7 @@ class OrangTuaController extends Controller
     {
         $uq = ($must_be_unique ? "|unique:orang_tua" : "");
         $r->validate([
+            'no_kk'         => 'required|digits:16',
             'nik'           => 'required|digits:16'.$uq,
             'nama'          => 'required|max:255',
             'email'         => 'required|max:255'.$uq,
@@ -59,6 +62,13 @@ class OrangTuaController extends Controller
     {
         $this->validate_form_orang_tua($r);
 
+        $id_kk = KK::where("no_kk", $r->no_kk)->first();
+        if (!$id_kk) {
+            abort(404);
+            return;
+        }
+        $id_kk = $id_kk->id;
+
         if ($r->foto) {
             $foto = $r->foto;
             $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
@@ -68,6 +78,7 @@ class OrangTuaController extends Controller
         }
 
         OrangTua::create([
+            'id_kk'      => $id_kk,
             'nik'        => $r->nik,
             'nip'        => $r->nip,
             'nama'       => $r->nama,
@@ -138,7 +149,15 @@ class OrangTuaController extends Controller
             return redirect()->back()->with('warning', 'Gagal mengubah data orang tua!');
         }
 
+        $id_kk = KK::where("no_kk", $r->no_kk)->first();
+        if (!$id_kk) {
+            abort(404);
+            return;
+        }
+        $id_kk = $id_kk->id;
+
         $data = [
+            'id_kk'      => $r->id_kk,
             'nik'        => $r->nik,
             'nip'        => $r->nip,
             'nama'       => $r->nama,

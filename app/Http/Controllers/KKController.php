@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Http\Request;
 use App\Models\Master\KK;
+use App\Models\Master\OrangTua;
+use App\Models\Master\Siswa;
 
 class KKController extends Controller
 {
@@ -58,7 +60,10 @@ class KKController extends Controller
             abort(404);
             return;
         }
-        return view("master_data.kk.show", compact("kk"));
+        $ayah = OrangTua::where("id_kk", $id_kk)->where("jk", "L")->first();
+        $ibu  = OrangTua::where("id_kk", $id_kk)->where("jk", "P")->get();
+        $anak = Siswa::where("id_kk", $id_kk)->get();
+        return view("master_data.kk.show", compact("ayah", "ibu", "anak", "kk"));
     }
 
     /**

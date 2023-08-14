@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Master\KK;
 use App\Models\Master\Siswa;
 use App\Models\Master\Kelas;
 use App\Models\Master\TahunAjaran;
@@ -33,9 +34,10 @@ class SiswaController extends Controller
             $siswa = $siswa->where("status", $fstatus);
         }
         $siswa = $siswa->orderBy("nama", "asc")->get();
+        $kk = KK::get();
         return view("master_data.siswa.index",
-                    compact("siswa", "kelas", "tahun_ajaran", "fkelas", "fstatus", "ftahun_ajaran",
-                            "id_tahun_ajaran_aktif"));
+                    compact("kk", "siswa", "kelas", "tahun_ajaran", "fkelas",
+                            "fstatus", "ftahun_ajaran", "id_tahun_ajaran_aktif"));
     }
 
     /**
@@ -52,6 +54,7 @@ class SiswaController extends Controller
     {
         $uq = ($must_be_unique ? "|unique:siswa" : "");
         $r->validate([
+            'no_kk'         => 'required|digits:16',
             'nik'           => 'required|digits:16|'.$uq,
             'nis'           => 'required'.$uq,
             'nama'          => 'required|max:255',
@@ -75,6 +78,13 @@ class SiswaController extends Controller
     {
         $this->validate_form_siswa($r);
 
+        $id_kk = KK::where("no_kk", $r->no_kk)->first();
+        if (!$id_kk) {
+            abort(404);
+            return;
+        }
+        $id_kk = $id_kk->id;
+
         if ($r->foto) {
             $foto = $r->foto;
             $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
@@ -84,6 +94,7 @@ class SiswaController extends Controller
         }
 
         Siswa::create([
+            'id_kk'         => $id_kk,
             'nik'           => $r->nik,
             'nis'           => $r->nis,
             'nama'          => $r->nama,
@@ -154,6 +165,13 @@ class SiswaController extends Controller
             return;
         }
 
+        $id_kk = KK::where("no_kk", $r->no_kk)->first();
+        if (!$id_kk) {
+            abort(404);
+            return;
+        }
+        $id_kk = $id_kk->id;
+
         $this->validate_form_siswa($r, false);
 
         if ($r->foto) {
@@ -165,6 +183,7 @@ class SiswaController extends Controller
         }
 
         $siswa->update([
+            'id_kk'         => $id_kk,
             'nik'           => $r->nik,
             'nis'           => $r->nis,
             'nama'          => $r->nama,

@@ -20,6 +20,10 @@
           <div class="row">
             <div class="col-md-6">
                 <div class="form-group">
+                    <label for="no_induk">No. KK</label>
+                    <input type="text" id="no_kk" name="no_kk" value="{{ $siswa->kk()->no_kk }}" class="form-control" readonly>
+                </div>
+                <div class="form-group">
                     <label for="no_induk">NIK</label>
                     <input type="text" id="nik" name="nik" value="{{ $siswa->nik }}" class="form-control" readonly>
                 </div>
@@ -62,16 +66,6 @@
                     <select id="agama" name="agama" class="select2bs4 form-control @error('agama') is-invalid @enderror" required>
                     <option value="">-- Pilih Agama --</option>
                         <?= FormWithRef::get_agama($siswa->agama); ?>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="kelas">Kelas</label>
-                    <select id="kelas" name="kelas" class="select2bs4 form-control @error('kelas') is-invalid @enderror">
-                        <option value="">-- Pilih Kelas --</option>
-                        @foreach ($kelas as $v)
-                            <?php $sel = ($siswa->kelas()->id === $v->id) ? " selected" : ""; ?>
-                            <option value="{{ $v->id }}"<?= $sel ?>>{{ $v->tingkatan.$v->nama }}</option>
-                        @endforeach
                     </select>
                 </div>
                 <div class="form-group">

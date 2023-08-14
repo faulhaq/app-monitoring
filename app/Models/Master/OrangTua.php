@@ -12,7 +12,12 @@ class OrangTua extends Model
     use SoftDeletes;
     use TraitRef;
 
-    protected $fillable = ['nik', 'nama', 'email', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'agama', 'pendidikan', 'goldar', 'pekerjaan', 'alamat', 'foto'];
+    protected $fillable = ['id_kk', 'nik', 'nama', 'email', 'jk', 'telp', 'tmp_lahir', 'tgl_lahir', 'agama', 'pendidikan', 'goldar', 'pekerjaan', 'alamat', 'foto'];
 
     protected $table = 'orang_tua';
+
+    public function kk()
+    {
+       return $this->belongsTo(KK::class, "id_kk")->first();
+    }
 }
