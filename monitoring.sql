@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2023 at 05:48 AM
+-- Generation Time: Aug 23, 2023 at 06:37 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -128,13 +128,9 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(5, '1', 'AAAAA', 6, 6, '2023-08-02 12:11:27', '2023-08-10 07:23:58', NULL),
-(6, '2', 'B', 1, 5, '2023-08-02 12:50:44', '2023-08-02 12:50:44', NULL),
-(7, '1', 'C', 1, 5, '2023-08-02 12:51:27', '2023-08-10 06:56:23', NULL),
-(8, '2', 'D', 1, 6, '2023-08-02 12:51:42', '2023-08-02 12:51:42', NULL),
+(8, '2', 'D', 1, 4, '2023-08-02 12:51:42', '2023-08-23 04:23:25', NULL),
 (9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL),
-(10, '1', 'E', 3, 7, '2023-08-10 07:02:01', '2023-08-10 07:43:44', NULL),
-(11, '1', 'B', 1, 8, '2023-08-14 08:17:30', '2023-08-14 08:17:30', NULL);
+(13, '1', 'A', 1, 4, '2023-08-23 04:35:48', '2023-08-23 04:37:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -155,19 +151,13 @@ CREATE TABLE `kelas_siswa` (
 --
 
 INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(1, 2, 5, '2023-08-14 07:36:08', NULL),
-(2, 2, 8, '2023-08-14 07:36:34', NULL),
-(3, 3, 6, '2023-08-14 08:17:43', NULL),
-(4, 4, 6, '2023-08-14 08:17:43', NULL),
-(6, 5, 8, '2023-08-23 03:42:21', NULL),
-(7, 6, 8, '2023-08-23 03:42:21', NULL),
 (8, 2, 9, '2023-08-23 03:46:23', NULL),
 (9, 5, 9, '2023-08-23 03:46:23', NULL),
 (10, 3, 9, '2023-08-23 03:46:23', NULL),
-(11, 4, 9, '2023-08-23 03:46:23', NULL),
-(12, 6, 9, '2023-08-23 03:46:23', NULL),
-(13, 3, 5, '2023-08-23 03:47:55', NULL),
-(14, 6, 5, '2023-08-23 03:47:55', NULL);
+(16, 5, 8, '2023-08-23 04:29:17', NULL),
+(17, 6, 8, '2023-08-23 04:33:09', NULL),
+(18, 2, 13, '2023-08-23 04:37:07', NULL),
+(20, 3, 13, '2023-08-23 04:37:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -408,8 +398,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'izwq9zeRs03JBLmHvasHfkVfHCZoPEpZ27aX2gdwEHFHZomryCsIJMUGZYHE', '2023-07-27 12:15:00', NULL),
-(11, 'guru', 'guru001@gmail.com', '$2y$10$v8eRy74if41hayPruulP5OiIKx4RfEbvmjwP8JUzH/iJzpL2srJBu', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-08-14 08:18:51');
+(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'yWWLMhRJHGiflzGA9DXFliW9OIb4qdqfEJJLhkNDoYuXBVC6jsgcy79yVHg9', '2023-07-27 12:15:00', NULL),
+(11, 'guru', 'guru001@gmail.com', '$2y$10$1OtCw2oVhV8AwQgfTh2Dlursg/9TVWIdXI3TQlfXX9A1VFbUWgUg6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-08-23 03:50:14');
 
 --
 -- Indexes for dumped tables
@@ -597,13 +587,13 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `kk`
@@ -683,8 +673,8 @@ ALTER TABLE `kelas`
 -- Constraints for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  ADD CONSTRAINT `kelas_siswa_fk1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `kelas_siswa_fk2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `kelas_siswa_fk1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON UPDATE CASCADE,
+  ADD CONSTRAINT `kelas_siswa_fk2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orang_tua`

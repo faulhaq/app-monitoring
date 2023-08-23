@@ -18,7 +18,6 @@
                             <p>Dashboard</p>
                         </a>
                     </li>
-
                     <li class="nav-item has-treeview" id="liDataRef">
                         <a href="#" class="nav-link" id="DataRef">
                             <i class="nav-icon fas fa-edit"></i>
@@ -130,45 +129,30 @@
                             <p>Pengumuman</p>
                         </a>
                     </li>
-                @elseif (Auth::user()->role == 'Guru' && Auth::user()->guru(Auth::user()->id_card))
-                    <li class="nav-item has-treeview">
-                        <a href="{{ route('home') }}" class="nav-link" id="Home">
-                            <i class="nav-icon fas fa-home"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    <li class="nav-item has-treeview" id="liNilaiGuru">
-                        <a href="#" class="nav-link" id="NilaiGuru">
-                            <i class="nav-icon fas fa-file-signature"></i>
+                @elseif (Auth::user()->role == 'guru')
+                    <li class="nav-item has-treeview" id="liMasterData">
+                        <a href="#" class="nav-link" id="MasterData">
+                            <i class="nav-icon fas fa-edit"></i>
                             <p>
-                                Nilai
+                                Data Master
                                 <i class="fas fa-angle-left right"></i>
                             </p>
                         </a>
                         <ul class="nav nav-treeview ml-4">
-                           
                             <li class="nav-item">
-                                <a href="{{ route('rapot.index') }}" class="nav-link" id="RapotGuru">
-                                    <i class="fas fa-file-alt nav-icon"></i>
-                                    <p>Entry Nilai Rapot</p>
+                                <a href="{{ route('kelas.index') }}" class="nav-link" id="DataKelas">
+                                    <i class="fas fa-home nav-icon"></i>
+                                    <p>Data Kelas</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ route('nilai.index') }}" class="nav-link" id="DesGuru">
-                                    <i class="fas fa-file-alt nav-icon"></i>
-                                    <p>Deskripsi Predikat</p>
+                                <a href="{{ route('monitoring_rumah.index') }}" class="nav-link" id="DataMonitoringRumah">
+                                    <i class="nav-icon fas fa-clipboard"></i>
+                                    <p>Monitoring Rumah</p>
                                 </a>
                             </li>
                         </ul>
                     </li>
-                @elseif (Auth::user()->role == 'Siswa' && Auth::user()->siswa(Auth::user()->no_induk))
-                    <li class="nav-item has-treeview">
-                        <a href="{{ url('/') }}" class="nav-link" id="Home">
-                            <i class="nav-icon fas fa-home"></i>
-                            <p>Dashboard</p>
-                        </a>
-                    </li>
-                    
                 @else
                     <li class="nav-item has-treeview">
                         <a href="{{ url('/') }}" class="nav-link" id="Home">

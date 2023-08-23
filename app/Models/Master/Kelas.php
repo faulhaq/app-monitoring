@@ -8,8 +8,6 @@ use DB;
 
 class Kelas extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = ['tingkatan', 'nama', 'id_tahun_ajaran', 'id_guru'];
 
     public function guru()

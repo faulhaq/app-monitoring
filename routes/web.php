@@ -35,14 +35,28 @@ Route::middleware(['auth'])->group(function () {
         Route::post('/ubah-password', 'UserController@ubah_password')->name('ubah-password');
     });
 
-    Route::middleware(["admin"])->prefix("data_ref")->name("data_ref.")->group(function () {
+    Route::middleware(["role:admin"])->prefix("data_ref")->name("data_ref.")->group(function () {
         Route::resource('/agama', 'RefAgamaController');
         Route::resource('/goldar', 'RefGoldarController');
         Route::resource('/pekerjaan', 'RefPekerjaanController');
         Route::resource('/pendidikan', 'RefPendidikanController');
     });
 
-    Route::middleware(["admin"])->prefix("master_data")->group(function () {
+    Route::middleware(["role:admin,guru"])->prefix("master_data")->group(function () {
+        Route::prefix("kelas")->name("kelas.")->group(function () {
+            Route::get("/export_excel", "KelasController@export_excel")->name("export_excel");
+            Route::get("/import_excel", "KelasController@import_excel")->name("import_excel");
+            Route::get("/kelola/{id}", "KelasController@kelola")->name("kelola");
+            Route::post("/kelola/{id}/tambah_siswa", "KelasController@kelola_tambah_siswa")->name("kelola.tambah_siswa");
+            Route::delete("/hapus_siswa/{id_kelas}/{id_siswa}", "KelasController@hapus_siswa")->name("hapus_siswa");
+        });
+        Route::resource('/kelas', 'KelasController');
+
+        Route::resource('/monitoring_rumah', 'MonitoringRumahController');
+        Route::get("/get_siswa_no_kelas/{id_kelas}", "SiswaController@get_siswa_no_kelas")->name("siswa.get_siswa_no_kelas");
+    });
+
+    Route::middleware(["role:admin"])->prefix("master_data")->group(function () {
         Route::prefix("guru")->name("guru.")->group(function () {
             Route::get("/export_excel", "GuruController@export_excel")->name("export_excel");
             Route::get("/import_excel", "GuruController@import_excel")->name("import_excel");
@@ -65,7 +79,6 @@ Route::middleware(['auth'])->group(function () {
             Route::get("/update_foto/{id}", "SiswaController@update_foto")->name("update_foto");
             Route::get("/update_foto/{id}", "SiswaController@update_foto")->name("update_foto");
             Route::post("/simpan_foto/{id}", "SiswaController@simpan_foto")->name("simpan_foto");
-            Route::get("/get_siswa_no_kelas/{id_kelas}", "SiswaController@get_siswa_no_kelas")->name("get_siswa_no_kelas");
         });
         Route::resource('/siswa', 'SiswaController');
 
@@ -78,24 +91,14 @@ Route::middleware(['auth'])->group(function () {
         });
         Route::resource('/orang_tua', 'OrangTuaController');
 
-        Route::prefix("kelas")->name("kelas.")->group(function () {
-            Route::get("/export_excel", "KelasController@export_excel")->name("export_excel");
-            Route::get("/import_excel", "KelasController@import_excel")->name("import_excel");
-            Route::get("/kelola/{id}", "KelasController@kelola")->name("kelola");
-            Route::post("/kelola/{id}/tambah_siswa", "KelasController@kelola_tambah_siswa")->name("kelola.tambah_siswa");
-            Route::delete("/hapus_siswa/{id_kelas}/{id_siswa}", "KelasController@hapus_siswa")->name("hapus_siswa");
-        });
-        Route::resource('/kelas', 'KelasController');
-
         Route::prefix("tahun_ajaran")->name("tahun_ajaran.")->group(function () {
             Route::post("/aktifkan_tahun", "TahunAjaranController@aktifkan_tahun")->name("aktifkan_tahun");
         });
         Route::resource('/tahun_ajaran', 'TahunAjaranController');
         Route::resource('/user', 'UserController');
-        Route::resource('/monitoring_rumah', 'MonitoringRumahController');
     });
 
-    Route::middleware(["admin"])->group(function() {
+    Route::middleware(["role:admin"])->group(function() {
         Route::post('/admin/pengumuman/simpan', 'PengumumanController@simpan')->name('admin.pengumuman.simpan');
         Route::resource('/pengumuman', 'PengumumanController');
     });

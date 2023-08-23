@@ -9,6 +9,7 @@ use App\Models\Master\Guru;
 use App\Models\Master\Siswa;
 use App\Models\KelasSiswa;
 use Illuminate\Support\Facades\Crypt;
+use Auth;
 
 class KelasController extends Controller
 {
@@ -53,6 +54,12 @@ class KelasController extends Controller
      */
     public function store(Request $r)
     {
+        $user = Auth::user();
+        if ($user->role !== "admin") {
+            abort(404);
+            return;
+        }
+
         $r->validate([
             "tingkatan"     => "required",
             "nama"          => "required",
@@ -77,7 +84,8 @@ class KelasController extends Controller
      */
     public function show($id)
     {
-        //
+        abort(404);
+        return;
     }
 
     /**
@@ -95,6 +103,14 @@ class KelasController extends Controller
             return;
         }
 
+        $user = Auth::user();
+        if ($user->role === "guru") {
+            if ($kelas->id_guru !== $user->id_guru) {
+                abort(404);
+                return;
+            }
+        }
+
         $tahun_ajaran = TahunAjaran::get();
         $guru = Guru::get();
         return view("master_data.kelas.edit", compact("kelas", "tahun_ajaran", "guru"));
@@ -109,6 +125,12 @@ class KelasController extends Controller
      */
     public function update(Request $r, $id)
     {
+        $user = Auth::user();
+        if ($user->role !== "admin") {
+            abort(404);
+            return;
+        }
+
         $r->validate([
             "tingkatan"     => "required",
             "nama"          => "required",
@@ -139,7 +161,20 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = Auth::user();
+        if ($user->role !== "admin") {
+            abort(404);
+            return;
+        }
+
+        $id_kelas = Crypt::decrypt($id);
+        $kelas = Kelas::find($id_kelas);
+        if (!$kelas) {
+            abort(404);
+            return;
+        }
+        $kelas->delete();
+        return redirect()->route('kelas.index')->with('success', 'Data kelas berhasil dihapus!');
     }
 
     public function kelola($id)
@@ -167,6 +202,14 @@ class KelasController extends Controller
             abort(404);
             return;
         }
+
+        $user = Auth::user();
+        if ($user->role === "guru") {
+            if ($kelas->id_guru !== $user->id_guru) {
+                abort(404);
+                return;
+            }
+        }
     
         $siswa = Siswa::get_siswa_by_id_kelas($kelas->id)
                  ->where("siswa.id", $id_siswa)
@@ -189,6 +232,21 @@ class KelasController extends Controller
     {
         $enc_id_kelas = $id;
         $id_kelas = Crypt::decrypt($id);
+
+        $kelas = Kelas::find($id_kelas);
+        if (!$kelas) {
+            abort(404);
+            return;
+        }
+
+        $user = Auth::user();
+        if ($user->role === "guru") {
+            if ($kelas->id_guru !== $user->id_guru) {
+                abort(404);
+                return;
+            }
+        }
+
         $data = [];
         foreach ($r->id_siswa as $id) {
             if (!$id)

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Guru;
 use App\Models\Master\Kelas;
 use App\Models\Master\Siswa;

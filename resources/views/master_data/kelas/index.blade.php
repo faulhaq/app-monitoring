@@ -4,8 +4,14 @@
   <li class="breadcrumb-item active">Data Kelas</li>
 @endsection
 @section('content')
+<?php
+$user = Auth::user();
+$role = $user->role;
+$id_guru = $user->id_guru;
+?>
 <div class="col-md-12">
     <div class="card">
+        @if ($role === "admin")
         <div class="card-header">
             <h3 class="card-title">
                 <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
@@ -17,6 +23,7 @@
                 </button>
             </h3>
         </div>
+        @endif
         <div class="modal fade" id="importExcel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 			<div class="modal-dialog" role="document">
 				<form method="post" action="{{ route('kelas.import_excel') }}" enctype="multipart/form-data">
@@ -95,8 +102,12 @@
                             @csrf
                             @method('delete')
                             <a href="{{ route('kelas.kelola', $enc_id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Kelola</a>
+                            @if ($role === "admin" || $data->id_guru === $id_guru)
                             <a href="{{ route('kelas.edit', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                            @endif
+                            @if ($role === "admin")
                             <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                            @endif
                         </form>
                     </td>
                 </tr>
