@@ -18,7 +18,8 @@
                 </div>
                 <div class="col-md-1 mb-4"></div>
                 <div class="col-md-7">
-                    <h5 class="card-title card-text mb-2">No. KK : {{ $orang_tua->kk()->no_kk }}</h5>
+                    <?php $enc_id = Crypt::encrypt($orang_tua->id_kk); ?>
+                    <h5 class="card-title card-text mb-2">No. KK : <a href="{{ route('kk.show', $enc_id) }}">{{ $orang_tua->kk()->no_kk }} </a></h5>
                     <h5 class="card-title card-text mb-2">NIK : {{ $orang_tua->nik }}</h5>
                     <h5 class="card-title card-text mb-2">Nama : {{ $orang_tua->nama }}</h5>
                     <h5 class="card-title card-text mb-2">Email : {{ $orang_tua->email }}</h5>
