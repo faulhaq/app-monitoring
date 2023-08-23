@@ -59,7 +59,7 @@ $enc_id_kelas = Crypt::encrypt($kelas->id);
             </tbody>
           </table>
           <div class="card-footer">
-            <a href="{{ URL::previous() }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
+            <a href="{{ route('kelas.index') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
           </div>
         </div>
       </div>

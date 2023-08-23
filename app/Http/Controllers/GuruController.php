@@ -42,7 +42,7 @@ class GuruController extends Controller
         $uq = ($must_be_unique ? "|unique:guru" : "");
         $r->validate([
             'nik'           => 'required|digits:16'.$uq,
-            'nip'           => 'required|max:30'.$uq,
+            'nip'           => 'max:30'.$uq,
             'nama'          => 'required|max:255',
             'email'         => 'required|max:255|'.$uq,
             'jk'            => 'required|in:L,P',
