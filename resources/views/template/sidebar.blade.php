@@ -124,6 +124,24 @@
                                     <p>Data User</p>
                                 </a>
                             </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item has-treeview" id="liMasterData">
+                        <a href="#" class="nav-link" id="MasterData">
+                            <i class="nav-icon fas fa-edit"></i>
+                            <p>
+                                Data Monitoring
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview ml-4">
+                            <li class="nav-item">
+                                <a href="{{ route('monitoring_rumah.index') }}" class="nav-link" id="DataMonitoringRumah">
+                                    <i class="nav-icon fas fa-clipboard"></i>
+                                    <p>Monitoring Sekolah</p>
+                                </a>
+                            </li>
                             <li class="nav-item">
                                 <a href="{{ route('monitoring_rumah.index') }}" class="nav-link" id="DataMonitoringRumah">
                                     <i class="nav-icon fas fa-clipboard"></i>

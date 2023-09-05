@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2023 at 06:31 AM
+-- Generation Time: Sep 05, 2023 at 06:38 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -191,6 +191,7 @@ CREATE TABLE `monitoring_doa` (
   `id_siswa` int(10) UNSIGNED NOT NULL,
   `doa` varchar(255) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
+  `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -206,6 +207,7 @@ CREATE TABLE `monitoring_hadits` (
   `id_siswa` int(10) UNSIGNED NOT NULL,
   `hadits` varchar(255) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
+  `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -221,6 +223,7 @@ CREATE TABLE `monitoring_mafudhot` (
   `id_siswa` int(10) UNSIGNED NOT NULL,
   `mafudhot` varchar(255) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
+  `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -237,6 +240,7 @@ CREATE TABLE `monitoring_tahfidz` (
   `id_surah` tinyint(3) UNSIGNED NOT NULL,
   `ayat` varchar(16) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
+  `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -254,6 +258,7 @@ CREATE TABLE `monitoring_tahsin` (
   `tipe` enum('iqro','juz') NOT NULL,
   `halaman` smallint(5) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
+  `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -686,6 +691,7 @@ ALTER TABLE `monitoring_doa`
   ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `doa` (`doa`),
   ADD KEY `lu` (`lu`),
+  ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`);
 
@@ -697,6 +703,7 @@ ALTER TABLE `monitoring_hadits`
   ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `hadits` (`hadits`),
   ADD KEY `lu` (`lu`),
+  ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`);
 
@@ -708,6 +715,7 @@ ALTER TABLE `monitoring_mafudhot`
   ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `mafudhot` (`mafudhot`),
   ADD KEY `lu` (`lu`),
+  ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`);
 
@@ -719,6 +727,7 @@ ALTER TABLE `monitoring_tahfidz`
   ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `id_surah` (`id_surah`),
   ADD KEY `lu` (`lu`),
+  ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`);
 
@@ -731,6 +740,7 @@ ALTER TABLE `monitoring_tahsin`
   ADD KEY `n` (`n`),
   ADD KEY `tipe` (`tipe`),
   ADD KEY `lu` (`lu`),
+  ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`);
 
