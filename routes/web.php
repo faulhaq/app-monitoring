@@ -40,6 +40,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/goldar', 'RefGoldarController');
         Route::resource('/pekerjaan', 'RefPekerjaanController');
         Route::resource('/pendidikan', 'RefPendidikanController');
+        Route::resource('/surah', 'RefSurahController');
     });
 
     Route::middleware(["role:admin,guru"])->prefix("master_data")->group(function () {

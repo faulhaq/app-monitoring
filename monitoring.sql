@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2023 at 06:37 AM
+-- Generation Time: Sep 05, 2023 at 06:12 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -129,8 +129,7 @@ CREATE TABLE `kelas` (
 
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (8, '2', 'D', 1, 4, '2023-08-02 12:51:42', '2023-08-23 04:23:25', NULL),
-(9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL),
-(13, '1', 'A', 1, 4, '2023-08-23 04:35:48', '2023-08-23 04:37:35', NULL);
+(9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL);
 
 -- --------------------------------------------------------
 
@@ -156,8 +155,7 @@ INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_
 (10, 3, 9, '2023-08-23 03:46:23', NULL),
 (16, 5, 8, '2023-08-23 04:29:17', NULL),
 (17, 6, 8, '2023-08-23 04:33:09', NULL),
-(18, 2, 13, '2023-08-23 04:37:07', NULL),
-(20, 3, 13, '2023-08-23 04:37:14', NULL);
+(21, 4, 8, '2023-08-23 07:03:24', NULL);
 
 -- --------------------------------------------------------
 
@@ -181,6 +179,22 @@ INSERT INTO `kk` (`id`, `no_kk`, `updated_at`, `created_at`) VALUES
 (3, '1231211111111111', '2023-08-10 09:10:41', '2023-08-10 09:10:41'),
 (5, '1231211111111146', '2023-08-14 08:15:06', '2023-08-14 08:15:06'),
 (6, '1231211111211146', '2023-08-23 03:36:31', '2023-08-23 03:36:31');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monitoring_tahsin`
+--
+
+CREATE TABLE `monitoring_tahsin` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_siswa` int(10) UNSIGNED NOT NULL,
+  `n` int(10) UNSIGNED NOT NULL,
+  `tipe` enum('iqro','juz') NOT NULL,
+  `lu` enum('lancar','ulang') NOT NULL,
+  `created_at` datetime NOT NULL,
+  `created_by` int(10) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -332,6 +346,138 @@ INSERT INTO `siswa` (`id`, `id_kk`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `surah`
+--
+
+CREATE TABLE `surah` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `nama` varchar(255) NOT NULL,
+  `jumlah_ayat` smallint(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `surah`
+--
+
+INSERT INTO `surah` (`id`, `nama`, `jumlah_ayat`) VALUES
+(1, 'Al-Fatiha', 7),
+(2, 'Al-Baqara', 286),
+(3, 'Aal-Imran', 200),
+(4, 'An-Nisaa\'', 176),
+(5, 'Al-Ma\'ida', 120),
+(6, 'Al-An\'am', 165),
+(7, 'Al-A\'raf', 206),
+(8, 'Al-Anfal', 75),
+(9, 'Al-Tawba', 129),
+(10, 'Yunus', 109),
+(11, 'Hud', 123),
+(12, 'Yusuf', 111),
+(13, 'Ar-Ra\'d', 43),
+(14, 'Ibrahim', 52),
+(15, 'Al-Hijr', 99),
+(16, 'An-Nahl', 128),
+(17, 'Al-Israa', 111),
+(18, 'Al-Kahf', 110),
+(19, 'Maryam', 98),
+(20, 'Ta-Ha', 135),
+(21, 'Al-Anbiya', 112),
+(22, 'Al-Hajj', 78),
+(23, 'Al-Muminun', 118),
+(24, 'An-Nur', 64),
+(25, 'Al-Furqan', 77),
+(26, 'Ash-Shuara', 227),
+(27, 'An-Naml', 93),
+(28, 'Al-Qasas', 88),
+(29, 'Al-Ankabut', 69),
+(30, 'Ar-Rum', 60),
+(31, 'Luqman', 34),
+(32, 'As-Sajdah', 30),
+(33, 'Al-Ahzab', 73),
+(34, 'Saba', 54),
+(35, 'Fatir', 45),
+(36, 'Yasin', 83),
+(37, 'As-Saffat', 182),
+(38, 'Sad', 88),
+(39, 'Az-Zumar', 75),
+(40, 'Ghafir', 85),
+(41, 'Fussilat', 54),
+(42, 'Ash-Shura', 53),
+(43, 'Az-Zukhruf', 89),
+(44, 'Ad-Dukhan', 59),
+(45, 'Al-Jathiya', 37),
+(46, 'Al-Ahqaf', 35),
+(47, 'Muhammad', 38),
+(48, 'Al-Fath', 29),
+(49, 'Al-Hujurat', 18),
+(50, 'Qaf', 45),
+(51, 'Az-Zariyat', 60),
+(52, 'At-Tur', 49),
+(53, 'An-Najm', 62),
+(54, 'Al-Qamar', 55),
+(55, 'Ar-Rahman', 78),
+(56, 'Al-Waqia', 96),
+(57, 'Al-Hadid', 29),
+(58, 'Al-Mujadilah', 22),
+(59, 'Al-Hashr', 24),
+(60, 'Al-Mumtahinah', 13),
+(61, 'As-Saff', 14),
+(62, 'Al-Jumu\'ah', 11),
+(63, 'Al-Munafiqun', 11),
+(64, 'At-Taghabun', 18),
+(65, 'At-Talaq', 12),
+(66, 'At-Tahrim', 12),
+(67, 'Al-Mulk', 30),
+(68, 'Al-Qalam', 52),
+(69, 'Al-Haqqah', 52),
+(70, 'Al-Ma\'arij', 44),
+(71, 'Nuh', 28),
+(72, 'Al-Jinn', 28),
+(73, 'Al-Muzzammil', 20),
+(74, 'Al-Muddaththir', 56),
+(75, 'Al-Qiyamah', 40),
+(76, 'Al-Insan', 31),
+(77, 'Al-Mursalat', 50),
+(78, 'An-Naba', 40),
+(79, 'An-Naziat', 46),
+(80, 'Abasa', 42),
+(81, 'At-Takwir', 29),
+(82, 'Al-Infitar', 19),
+(83, 'Al-Mutaffifin', 36),
+(84, 'Al-Inshiqaq', 25),
+(85, 'Al-Buruj', 22),
+(86, 'At-Tariq', 17),
+(87, 'Al-Ala', 19),
+(88, 'Al-Ghashiyah', 26),
+(89, 'Al-Fajr', 30),
+(90, 'Al-Balad', 20),
+(91, 'Ash-Shams', 15),
+(92, 'Al-Lail', 21),
+(93, 'Ad-Duha', 11),
+(94, 'Ash-Sharh', 8),
+(95, 'At-Tin', 8),
+(96, 'Al-Alaq', 19),
+(97, 'Al-Qadr', 5),
+(98, 'Al-Bayinah', 8),
+(99, 'Az-Zalzalah', 8),
+(100, 'Al-Adiyat', 11),
+(101, 'Al-Qariah', 11),
+(102, 'Al-Takathur', 8),
+(103, 'Al-Asr', 3),
+(104, 'Al-Humazah', 9),
+(105, 'Al-Fil', 5),
+(106, 'Quraish', 4),
+(107, 'Al-Ma\'un', 7),
+(108, 'Al-Kauthar', 3),
+(109, 'Al-Kafirun', 6),
+(110, 'An-Nasr', 3),
+(111, 'Al-Masad', 5),
+(112, 'Al-Ikhlas', 4),
+(113, 'Al-Falaq', 5),
+(114, 'An-Nas', 6);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `tahun_ajaran`
 --
 
@@ -471,6 +617,18 @@ ALTER TABLE `kk`
   ADD KEY `created_at` (`created_at`);
 
 --
+-- Indexes for table `monitoring_tahsin`
+--
+ALTER TABLE `monitoring_tahsin`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `n` (`n`),
+  ADD KEY `tipe` (`tipe`),
+  ADD KEY `lu` (`lu`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `id_siswa` (`id_siswa`);
+
+--
 -- Indexes for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
@@ -535,6 +693,14 @@ ALTER TABLE `siswa`
 ALTER TABLE `siswa` ADD FULLTEXT KEY `alamat` (`alamat`);
 
 --
+-- Indexes for table `surah`
+--
+ALTER TABLE `surah`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `nama` (`nama`),
+  ADD KEY `jumlah_ayat` (`jumlah_ayat`);
+
+--
 -- Indexes for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
@@ -593,13 +759,19 @@ ALTER TABLE `kelas`
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `kk`
 --
 ALTER TABLE `kk`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `monitoring_tahsin`
+--
+ALTER TABLE `monitoring_tahsin`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -630,6 +802,12 @@ ALTER TABLE `pengumuman`
 --
 ALTER TABLE `siswa`
   MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `surah`
+--
+ALTER TABLE `surah`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
@@ -675,6 +853,13 @@ ALTER TABLE `kelas`
 ALTER TABLE `kelas_siswa`
   ADD CONSTRAINT `kelas_siswa_fk1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `kelas_siswa_fk2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monitoring_tahsin`
+--
+ALTER TABLE `monitoring_tahsin`
+  ADD CONSTRAINT `monitoring_tahsin_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_tahsin_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orang_tua`

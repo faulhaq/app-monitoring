@@ -61,6 +61,16 @@
                                 </a>
                             </li>
                         </ul>
+
+                        <ul class="nav nav-treeview ml-4">
+                            <li class="nav-item">
+                                <a href="{{ route('data_ref.surah.index') }}" class="nav-link" id="DataRefSurah">
+                                    <i class="fas fa-users nav-icon"></i>
+                                    <p>Data Surah</p>
+                                </a>
+                            </li>
+                        </ul>
+
                     </li>
 
                     <li class="nav-item has-treeview" id="liMasterData">
