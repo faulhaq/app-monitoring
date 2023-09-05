@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2023 at 06:12 AM
+-- Generation Time: Sep 05, 2023 at 06:31 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -183,6 +183,67 @@ INSERT INTO `kk` (`id`, `no_kk`, `updated_at`, `created_at`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `monitoring_doa`
+--
+
+CREATE TABLE `monitoring_doa` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_siswa` int(10) UNSIGNED NOT NULL,
+  `doa` varchar(255) NOT NULL,
+  `lu` enum('lancar','ulang') NOT NULL,
+  `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monitoring_hadits`
+--
+
+CREATE TABLE `monitoring_hadits` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_siswa` int(10) UNSIGNED NOT NULL,
+  `hadits` varchar(255) NOT NULL,
+  `lu` enum('lancar','ulang') NOT NULL,
+  `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monitoring_mafudhot`
+--
+
+CREATE TABLE `monitoring_mafudhot` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_siswa` int(10) UNSIGNED NOT NULL,
+  `mafudhot` varchar(255) NOT NULL,
+  `lu` enum('lancar','ulang') NOT NULL,
+  `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monitoring_tahfidz`
+--
+
+CREATE TABLE `monitoring_tahfidz` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `id_siswa` int(10) UNSIGNED NOT NULL,
+  `id_surah` tinyint(3) UNSIGNED NOT NULL,
+  `ayat` varchar(16) NOT NULL,
+  `lu` enum('lancar','ulang') NOT NULL,
+  `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `monitoring_tahsin`
 --
 
@@ -191,9 +252,10 @@ CREATE TABLE `monitoring_tahsin` (
   `id_siswa` int(10) UNSIGNED NOT NULL,
   `n` int(10) UNSIGNED NOT NULL,
   `tipe` enum('iqro','juz') NOT NULL,
+  `halaman` smallint(5) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
-  `created_at` datetime NOT NULL,
-  `created_by` int(10) UNSIGNED DEFAULT NULL
+  `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -350,7 +412,7 @@ INSERT INTO `siswa` (`id`, `id_kk`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar
 --
 
 CREATE TABLE `surah` (
-  `id` int(10) UNSIGNED NOT NULL,
+  `id` tinyint(3) UNSIGNED NOT NULL,
   `nama` varchar(255) NOT NULL,
   `jumlah_ayat` smallint(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -617,16 +679,60 @@ ALTER TABLE `kk`
   ADD KEY `created_at` (`created_at`);
 
 --
+-- Indexes for table `monitoring_doa`
+--
+ALTER TABLE `monitoring_doa`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `doa` (`doa`),
+  ADD KEY `lu` (`lu`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `created_at` (`created_at`);
+
+--
+-- Indexes for table `monitoring_hadits`
+--
+ALTER TABLE `monitoring_hadits`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `hadits` (`hadits`),
+  ADD KEY `lu` (`lu`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `created_at` (`created_at`);
+
+--
+-- Indexes for table `monitoring_mafudhot`
+--
+ALTER TABLE `monitoring_mafudhot`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `mafudhot` (`mafudhot`),
+  ADD KEY `lu` (`lu`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `created_at` (`created_at`);
+
+--
+-- Indexes for table `monitoring_tahfidz`
+--
+ALTER TABLE `monitoring_tahfidz`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `id_surah` (`id_surah`),
+  ADD KEY `lu` (`lu`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `created_at` (`created_at`);
+
+--
 -- Indexes for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
   ADD PRIMARY KEY (`id`),
+  ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `n` (`n`),
   ADD KEY `tipe` (`tipe`),
   ADD KEY `lu` (`lu`),
   ADD KEY `created_by` (`created_by`),
-  ADD KEY `created_at` (`created_at`),
-  ADD KEY `id_siswa` (`id_siswa`);
+  ADD KEY `created_at` (`created_at`);
 
 --
 -- Indexes for table `orang_tua`
@@ -768,12 +874,6 @@ ALTER TABLE `kk`
   MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT for table `monitoring_tahsin`
---
-ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
@@ -807,7 +907,7 @@ ALTER TABLE `siswa`
 -- AUTO_INCREMENT for table `surah`
 --
 ALTER TABLE `surah`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran`
@@ -853,6 +953,35 @@ ALTER TABLE `kelas`
 ALTER TABLE `kelas_siswa`
   ADD CONSTRAINT `kelas_siswa_fk1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `kelas_siswa_fk2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monitoring_doa`
+--
+ALTER TABLE `monitoring_doa`
+  ADD CONSTRAINT `monitoring_doa_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_doa_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monitoring_hadits`
+--
+ALTER TABLE `monitoring_hadits`
+  ADD CONSTRAINT `monitoring_hadits_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_hadits_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monitoring_mafudhot`
+--
+ALTER TABLE `monitoring_mafudhot`
+  ADD CONSTRAINT `monitoring_mafudhot_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_mafudhot_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+
+--
+-- Constraints for table `monitoring_tahfidz`
+--
+ALTER TABLE `monitoring_tahfidz`
+  ADD CONSTRAINT `monitoring_tahfidz_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_tahfidz_ibfk_2` FOREIGN KEY (`id_surah`) REFERENCES `surah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_tahfidz_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `monitoring_tahsin`
