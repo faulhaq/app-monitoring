@@ -55,6 +55,15 @@ Route::middleware(['auth'])->group(function () {
         Route::get("/get_siswa_no_kelas/{id_kelas}", "SiswaController@get_siswa_no_kelas")->name("siswa.get_siswa_no_kelas");
     });
 
+    Route::middleware(["role:admin,guru,orang_tua"])->name("monitoring.")->prefix("monitoring")->group(function () {
+        Route::prefix("sekolah")->name("sekolah.")->group(function () {
+            Route::get("/", "MonitoringSekolahController@index")->name("index");
+        });
+        Route::prefix("rumah")->name("rumah.")->group(function () {
+            Route::get("/", "MonitoringRumahController@index");
+        });
+    });
+
     Route::middleware(["role:admin"])->prefix("master_data")->group(function () {
         Route::prefix("guru")->name("guru.")->group(function () {
             Route::get("/update_foto/{id}", "GuruController@update_foto")->name("update_foto");
