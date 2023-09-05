@@ -45,8 +45,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(["role:admin,guru"])->prefix("master_data")->group(function () {
         Route::prefix("kelas")->name("kelas.")->group(function () {
-            Route::get("/export_excel", "KelasController@export_excel")->name("export_excel");
-            Route::get("/import_excel", "KelasController@import_excel")->name("import_excel");
             Route::get("/kelola/{id}", "KelasController@kelola")->name("kelola");
             Route::post("/kelola/{id}/tambah_siswa", "KelasController@kelola_tambah_siswa")->name("kelola.tambah_siswa");
             Route::delete("/hapus_siswa/{id_kelas}/{id_siswa}", "KelasController@hapus_siswa")->name("hapus_siswa");
@@ -59,8 +57,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(["role:admin"])->prefix("master_data")->group(function () {
         Route::prefix("guru")->name("guru.")->group(function () {
-            Route::get("/export_excel", "GuruController@export_excel")->name("export_excel");
-            Route::get("/import_excel", "GuruController@import_excel")->name("import_excel");
             Route::get("/update_foto/{id}", "GuruController@update_foto")->name("update_foto");
             Route::post("/simpan_foto/{id}", "GuruController@simpan_foto")->name("simpan_foto");
             Route::get("/get_list", "GuruController@get_list")->name("get_list");
@@ -68,15 +64,11 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/guru', 'GuruController');
 
         Route::prefix("kk")->name("kk.")->group(function () {
-            Route::get("/export_excel", "KKController@export_excel")->name("export_excel");
-            Route::get("/import_excel", "KKController@import_excel")->name("import_excel");
             Route::get("/get_list", "KKController@get_list")->name("get_list");
         });
         Route::resource('/kk', 'KKController');
 
         Route::prefix("siswa")->name("siswa.")->group(function () {
-            Route::get("/export_excel", "SiswaController@export_excel")->name("export_excel");
-            Route::get("/import_excel", "SiswaController@import_excel")->name("import_excel");
             Route::get("/update_foto/{id}", "SiswaController@update_foto")->name("update_foto");
             Route::get("/update_foto/{id}", "SiswaController@update_foto")->name("update_foto");
             Route::post("/simpan_foto/{id}", "SiswaController@simpan_foto")->name("simpan_foto");
@@ -84,8 +76,6 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/siswa', 'SiswaController');
 
         Route::prefix("orang_tua")->name("orang_tua.")->group(function () {
-            Route::get("/export_excel", "OrangTuaController@export_excel")->name("export_excel");
-            Route::get("/import_excel", "OrangTuaController@import_excel")->name("import_excel");
             Route::get("/update_foto/{id}", "OrangTuaController@update_foto")->name("update_foto");
             Route::post("/simpan_foto/{id}", "OrangTuaController@simpan_foto")->name("simpan_foto");
             Route::get("/get_list", "OrangTuaController@get_list")->name("get_list");
