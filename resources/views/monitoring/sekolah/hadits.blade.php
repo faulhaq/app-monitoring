@@ -18,7 +18,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="filter_kelas">Filter Kelas</label>
+                        <label for="filter_kelas">Pilih Kelas</label>
                         <select id="filter_kelas" name="filter_kelas" class="select2bs4 form-control">
                             <option value="all">Semua Kelas</option>
                             @foreach ($kelas as $v)
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="filter_siswa">Filter Siswa</label>
+                        <label for="filter_siswa">Pilih Siswa</label>
                         <select id="filter_siswa" name="filter_siswa" class="select2bs4 form-control">
                             <option value="">Pilih Siswa</option>
                         </select>

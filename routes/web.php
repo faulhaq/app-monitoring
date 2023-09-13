@@ -60,7 +60,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get("/", "MonitoringSekolahController@index")->name("index");
 
             Route::get("/tahsin", "MonitoringSekolahController@tahsin")->name("tahsin");
-            Route::post("/tahsin/store", "MonitoringSekolahController@tahsin_store")->name("tahsin.store");
+            Route::post("/tahsin/store/{id_siswa}", "MonitoringSekolahController@tahsin_store")->name("tahsin.store");
+            Route::delete("/tahsin/delete/{id}", "MonitoringSekolahController@tahsin_destroy")->name("tahsin.destroy");
 
             Route::get("/tahfidz", "MonitoringSekolahController@tahfidz")->name("tahfidz");
             Route::post("/tahfidz/store", "MonitoringSekolahController@tahfidz_store")->name("tahfidz.store");

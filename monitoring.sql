@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2023 at 01:10 PM
+-- Generation Time: Sep 13, 2023 at 03:01 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -262,6 +262,13 @@ CREATE TABLE `monitoring_tahsin` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_tahsin`
+--
+
+INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
+(8, 4, 2, 'iqro', 18, 'lancar', 'sekolah', NULL, '2023-09-13 13:01:25');
 
 -- --------------------------------------------------------
 
@@ -882,6 +889,12 @@ ALTER TABLE `kelas_siswa`
 --
 ALTER TABLE `kk`
   MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `monitoring_tahsin`
+--
+ALTER TABLE `monitoring_tahsin`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`

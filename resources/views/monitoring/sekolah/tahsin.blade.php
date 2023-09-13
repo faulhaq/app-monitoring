@@ -4,21 +4,18 @@
   <li class="breadcrumb-item active">Data Tahsin</li>
 @endsection
 @section('content')
+<?php
+$has_siswa = false;
+?>
 <div class="col-md-12">
     <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
-                    <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Tahsin
-                </button>
-            </h3>  
-        </div>
+        
         <!-- /.card-header -->
         <div class="card-body">
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="filter_kelas">Filter Kelas</label>
+                        <label for="filter_kelas">Pilih Kelas</label>
                         <select id="filter_kelas" name="filter_kelas" class="select2bs4 form-control">
                             <option value="all">Semua Kelas</option>
                             @foreach ($kelas as $v)
@@ -40,12 +37,26 @@
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
-                        <label for="filter_siswa">Filter Siswa</label>
+                        <label for="filter_siswa">Pilih Siswa</label>
                         <select id="filter_siswa" name="filter_siswa" class="select2bs4 form-control">
                             <option value="">Pilih Siswa</option>
+                            @foreach ($siswa as $v)
+                                <?php $sel = $v->id == $fsiswa ? " selected" : ""; ?>
+                                <?php if ($v->id == $fsiswa) $has_siswa = true; ?>
+                                <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
+                @if ($has_siswa)
+                    <div style="margin-bottom: 10px;">
+                        <h3 class="card-title">
+                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Tahsin
+                            </button>
+                        </h3>
+                    </div>
+                @endif
             </div>
             <table id="example1" class="table table-bordered table-striped table-hover">
             <thead>
@@ -54,12 +65,29 @@
                     <th>Iqro/Juz</th>
                     <th>Halaman</th>
                     <th>Keterangan</th>
+                    <th>Dibuat oleh</th>
                     <th>Tanggal</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                
+                @foreach($tahsin as $v)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $v->tipe." ".$v->n }}</td>
+                        <td>{{ $v->halaman }}</td>
+                        <td>{{ $v->lu }}</td>
+                        <td>{{ $v->created_by ?? "Admin" }}</td>
+                        <td>{{ $v->created_at }}</td>
+                        <td>
+                            <form action="{{ route('monitoring.sekolah.tahsin.destroy', Crypt::encrypt($v->id)) }}" method="post">
+                                @method('delete')
+                                @csrf
+                                <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
           </table>
         </div>
@@ -67,6 +95,7 @@
     </div>
 </div>
 
+@if ($has_siswa)
 <!-- Extra large modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -78,10 +107,26 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.sekolah.tahsin.store') }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.sekolah.tahsin.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                        <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="n">Iqro'/Juz</label>
+                                <label for="lu">Tipe</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="tipe_iqro" name="tipe" value="iqro" required>
+                                    <label class="form-check-label" for="tipe_iqro">
+                                    Iqro'
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="tipe_juz" name="tipe" value="juz" required>
+                                    <label class="form-check-label" for="tipe_juz">
+                                    Juz
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="n">Iqro'/Juz (isi dengan angka)</label>
                                 <input type="text" id="n" name="n" onkeypress="return inputAngka(event)" class="form-control @error('n') is-invalid @enderror" required>
                             </div>
                             <div class="form-group">
@@ -116,6 +161,8 @@
         </div>
     </div>
 </div>
+@endif
+
 @endsection
 @section('script')
 <script>
@@ -124,12 +171,17 @@
     $("#DataMonitoringSekolah").addClass("active");
 
     let fkelas = $("#filter_kelas");
-    let fstatus = $("#filter_status");
+    let fsiswa = $("#filter_siswa");
 
     function construct_query_string()
     {
-        return "?fkelas=" + encodeURIComponent(fkelas.val()) +
-               "&fstatus=" + encodeURIComponent(fstatus.val());
+        let ret = "?fkelas=" + encodeURIComponent(fkelas.val());
+
+        if (fsiswa.val()) {
+            ret += "&fsiswa=" + encodeURIComponent(fsiswa.val());
+        }
+
+        return ret;
     }
 
     function handle_filter_change()
@@ -138,6 +190,6 @@
     }
 
     fkelas.change(handle_filter_change);
-    fstatus.change(handle_filter_change);
+    fsiswa.change(handle_filter_change);
 </script>
 @endsection
