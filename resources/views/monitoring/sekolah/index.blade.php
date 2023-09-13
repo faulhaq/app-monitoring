@@ -17,6 +17,7 @@
         </div>
     </div>
     <div class="col-lg-4 col-6">
+        <a href="{{ route('monitoring.sekolah.tahsin') }}">
         <div class="small-box bg-warning">
             <div class="inner" style="color: #FFFFFF;">
                 <h3> Monitoring Tahsin </h3>
@@ -26,8 +27,10 @@
                 <i class="fas fa-book nav-icon"></i>
             </div>
         </div>
+        </a>
     </div>
     <div class="col-lg-4 col-6">
+        <a href="{{ route('monitoring.sekolah.tahfidz') }}">
         <div class="small-box bg-success">
             <div class="inner">
                 <h3> Monitoring Tahfidz </h3>
@@ -40,6 +43,7 @@
     </div>
 
     <div class="col-lg-4 col-6">
+        <a href="{{ route('monitoring.sekolah.mahfudhot') }}">
         <div class="small-box bg-danger">
             <div class="inner">
                 <h3> Monitoring Mahfudhot </h3>
@@ -52,6 +56,7 @@
     </div>
 
     <div class="col-lg-4 col-6">
+        <a href="{{ route('monitoring.sekolah.hadits') }}">
         <div class="small-box bg-primary">
             <div class="inner">
                 <h3> Monitoring Hadits </h3>
@@ -64,6 +69,7 @@
     </div>
 
     <div class="col-lg-4 col-6">
+        <a href="{{ route('monitoring.sekolah.doa') }}">
         <div class="small-box bg-secondary">
             <div class="inner">
                 <h3> Monitoring Doa </h3>
@@ -80,6 +86,6 @@
     <script>
         $("#Monitoring").addClass("active");
         $("#liMonitoring").addClass("menu-open");
-        $("#DataMonitoringRumah").addClass("active");
+        $("#DataMonitoringSekolah").addClass("active");
     </script>
 @endsection

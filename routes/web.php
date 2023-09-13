@@ -58,6 +58,21 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(["role:admin,guru,orang_tua"])->name("monitoring.")->prefix("monitoring")->group(function () {
         Route::prefix("sekolah")->name("sekolah.")->group(function () {
             Route::get("/", "MonitoringSekolahController@index")->name("index");
+
+            Route::get("/tahsin", "MonitoringSekolahController@tahsin")->name("tahsin");
+            Route::post("/tahsin/store", "MonitoringSekolahController@tahsin_store")->name("tahsin.store");
+
+            Route::get("/tahfidz", "MonitoringSekolahController@tahfidz")->name("tahfidz");
+            Route::post("/tahfidz/store", "MonitoringSekolahController@tahfidz_store")->name("tahfidz.store");
+
+            Route::get("/doa", "MonitoringSekolahController@doa")->name("doa");
+            Route::post("/doa/store", "MonitoringSekolahController@doa_store")->name("doa.store");
+
+            Route::get("/hadits", "MonitoringSekolahController@hadits")->name("hadits");
+            Route::post("/hadits/store", "MonitoringSekolahController@hadits_store")->name("hadits.store");
+
+            Route::get("/mahfudhot", "MonitoringSekolahController@mahfudhot")->name("mahfudhot");
+            Route::post("/mahfudhot/store", "MonitoringSekolahController@mahfudhot_store")->name("mahfudhot.store");
         });
         Route::prefix("rumah")->name("rumah.")->group(function () {
             Route::get("/", "MonitoringRumahController@index");

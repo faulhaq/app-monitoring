@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 05, 2023 at 07:15 AM
+-- Generation Time: Sep 13, 2023 at 01:10 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -254,7 +254,7 @@ CREATE TABLE `monitoring_tahfidz` (
 CREATE TABLE `monitoring_tahsin` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `id_siswa` int(10) UNSIGNED NOT NULL,
-  `n` int(10) UNSIGNED NOT NULL,
+  `n` tinyint(3) UNSIGNED NOT NULL,
   `tipe` enum('iqro','juz') NOT NULL,
   `halaman` smallint(5) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
