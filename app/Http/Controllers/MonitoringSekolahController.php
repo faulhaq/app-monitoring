@@ -10,12 +10,26 @@ use App\Models\Master\Siswa;
 use App\Models\Master\Kelas;
 use App\Models\Master\TahunAjaran;
 use App\Models\Monitoring\Tahsin;
+use App\Models\Monitoring\Mahfudhot;
 
 class MonitoringSekolahController extends Controller
 {
     public function index()
     {
         return view("monitoring.sekolah.index");
+    }
+
+    public function get_created_by()
+    {
+        $user = Auth::user();
+        if ($user->role === "admin")
+            return NULL;
+
+        if ($user->role === "guru")
+            return $user->id_guru;
+
+        abort(404);
+        return NULL;
     }
 
     public function tahsin()
@@ -47,19 +61,6 @@ class MonitoringSekolahController extends Controller
         return view("monitoring.sekolah.tahsin",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
                             "tahsin", "siswa"));
-    }
-
-    public function get_created_by()
-    {
-        $user = Auth::user();
-        if ($user->role === "admin")
-            return NULL;
-
-        if ($user->role === "guru")
-            return $user->id_guru;
-
-        abort(404);
-        return NULL;
     }
 
     public function tahsin_destroy($id)
@@ -133,10 +134,88 @@ class MonitoringSekolahController extends Controller
     public function mahfudhot()
     {
         $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
+        $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
         $kelas = Kelas::get();
+
+        if ($fkelas && $fsiswa) {
+            if (!Siswa::find($fsiswa)) {
+                abort(404);
+                return;
+            }
+            $mahfudhot = Mahfudhot::where("id_siswa", $fsiswa)->orderBy("created_at", "desc")->get();
+        } else {
+            $mahfudhot = [];
+        }
+
+        if ($fkelas && $fkelas !== "all") {
+            $siswa = Siswa::select("siswa.*");
+            $siswa = $siswa->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
+                        ->where("kelas_siswa.id_kelas", $fkelas)
+                        ->get();
+        } else {
+            $siswa = [];
+        }
+
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.sekolah.mahfudhot",
-                    compact("kelas", "id_tahun_ajaran_aktif", "fkelas"));
+                    compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
+                            "mahfudhot", "siswa"));
+    }
+
+    public function mahfudhot_destroy($id)
+    {
+        $id = Crypt::decrypt($id);
+        if (!$id) {
+            abort(404);
+            return NULL;
+        }
+
+        $mahfudhot = Mahfudhot::find($id);
+        if (!$mahfudhot) {
+            abort(404);
+            return NULL;
+        }
+
+        $mahfudhot->delete();
+        $url = URL::previous();
+        return redirect($url)->with('success', 'Berhasil menghapus data mahfudhot!');
+    }
+
+    public function mahfudhot_store(Request $r, $id_siswa)
+    {
+        $r->validate([
+            "mahfudhot"  => "required",
+            "lu"         => "required|in:L,U",
+            "fkelas"     => "required"
+        ]);
+
+        $fkelas = Crypt::decrypt($r->fkelas);
+        if (!$fkelas) {
+            abort(404);
+            return;
+        }
+
+        $id_siswa = Crypt::decrypt($id_siswa);
+        if (!$id_siswa) {
+            abort(404);
+            return;
+        }
+
+        $siswa = Siswa::find($id_siswa);
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+
+        $created_by = $this->get_created_by();
+        Mahfudhot::store([
+            "id_siswa"   => $id_siswa,
+            "mahfudhot"  => $r->mahfudhot,
+            "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
+            "created_by" => $created_by
+        ]);
+        $url = route('monitoring.sekolah.mahfudhot')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        return redirect($url)->with('success', 'Berhasil menambahkan data mahfudhot!');
     }
 
     public function hadits()

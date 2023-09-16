@@ -73,7 +73,8 @@ Route::middleware(['auth'])->group(function () {
             Route::post("/hadits/store", "MonitoringSekolahController@hadits_store")->name("hadits.store");
 
             Route::get("/mahfudhot", "MonitoringSekolahController@mahfudhot")->name("mahfudhot");
-            Route::post("/mahfudhot/store", "MonitoringSekolahController@mahfudhot_store")->name("mahfudhot.store");
+            Route::post("/mahfudhot/store/{id_siswa}", "MonitoringSekolahController@mahfudhot_store")->name("mahfudhot.store");
+            Route::delete("/mahfudhot/delete/{id}", "MonitoringSekolahController@mahfudhot_destroy")->name("mahfudhot.destroy");
         });
         Route::prefix("rumah")->name("rumah.")->group(function () {
             Route::get("/", "MonitoringRumahController@index");

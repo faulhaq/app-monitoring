@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 13, 2023 at 03:01 PM
+-- Generation Time: Sep 16, 2023 at 09:47 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -129,7 +129,8 @@ CREATE TABLE `kelas` (
 
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (8, '2', 'D', 1, 4, '2023-08-02 12:51:42', '2023-08-23 04:23:25', NULL),
-(9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL);
+(9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL),
+(14, '3', 'D', 1, 6, '2023-09-15 03:28:21', '2023-09-15 03:28:21', NULL);
 
 -- --------------------------------------------------------
 
@@ -155,7 +156,9 @@ INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_
 (10, 3, 9, '2023-08-23 03:46:23', NULL),
 (16, 5, 8, '2023-08-23 04:29:17', NULL),
 (17, 6, 8, '2023-08-23 04:33:09', NULL),
-(21, 4, 8, '2023-08-23 07:03:24', NULL);
+(21, 4, 8, '2023-08-23 07:03:24', NULL),
+(22, 2, 14, '2023-09-15 03:30:10', NULL),
+(23, 3, 14, '2023-09-15 03:30:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -215,18 +218,26 @@ CREATE TABLE `monitoring_hadits` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `monitoring_mafudhot`
+-- Table structure for table `monitoring_mahfudhot`
 --
 
-CREATE TABLE `monitoring_mafudhot` (
+CREATE TABLE `monitoring_mahfudhot` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `id_siswa` int(10) UNSIGNED NOT NULL,
-  `mafudhot` varchar(255) NOT NULL,
+  `mahfudhot` varchar(255) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
   `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_mahfudhot`
+--
+
+INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `mahfudhot`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
+(2, 3, 'ad 23', 'lancar', 'sekolah', NULL, '2023-09-16 07:41:12'),
+(3, 3, 'qaa', 'ulang', 'sekolah', NULL, '2023-09-16 07:41:22');
 
 -- --------------------------------------------------------
 
@@ -268,7 +279,9 @@ CREATE TABLE `monitoring_tahsin` (
 --
 
 INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(8, 4, 2, 'iqro', 18, 'lancar', 'sekolah', NULL, '2023-09-13 13:01:25');
+(8, 4, 2, 'iqro', 18, 'lancar', 'sekolah', NULL, '2023-09-13 13:01:25'),
+(9, 4, 2, 'iqro', 100, 'lancar', 'sekolah', NULL, '2023-09-15 03:34:14'),
+(10, 3, 1, 'iqro', 15, 'ulang', 'sekolah', NULL, '2023-09-15 03:36:54');
 
 -- --------------------------------------------------------
 
@@ -575,7 +588,8 @@ INSERT INTO `tahun_ajaran` (`id`, `tahun`, `created_at`, `updated_at`) VALUES
 (7, '2028/2029', '2023-08-03 13:43:04', '2023-08-03 13:43:04'),
 (8, '2029/2030', '2023-08-04 02:48:45', '2023-08-04 02:48:45'),
 (9, '2030/2031', '2023-08-14 08:18:16', '2023-08-14 08:18:16'),
-(10, '2043/2044', '2023-08-23 03:42:49', '2023-08-23 03:42:49');
+(10, '2043/2044', '2023-08-23 03:42:49', '2023-08-23 03:42:49'),
+(11, '2037/2038', '2023-09-15 03:31:13', '2023-09-15 03:31:13');
 
 -- --------------------------------------------------------
 
@@ -593,7 +607,7 @@ CREATE TABLE `tahun_ajaran_aktif` (
 --
 
 INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
-(28, 1);
+(30, 1);
 
 -- --------------------------------------------------------
 
@@ -619,7 +633,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'yWWLMhRJHGiflzGA9DXFliW9OIb4qdqfEJJLhkNDoYuXBVC6jsgcy79yVHg9', '2023-07-27 12:15:00', NULL),
-(11, 'guru', 'guru001@gmail.com', '$2y$10$1OtCw2oVhV8AwQgfTh2Dlursg/9TVWIdXI3TQlfXX9A1VFbUWgUg6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-08-23 03:50:14');
+(11, 'guru', 'guru001@gmail.com', '$2y$10$1OtCw2oVhV8AwQgfTh2Dlursg/9TVWIdXI3TQlfXX9A1VFbUWgUg6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-08-23 03:50:14'),
+(12, 'orang_tua', 'anton@gmail.com', '$2y$10$QG0vR.SZozIW..f0J4mKFOy2vWUXxsRKvz4cmWpxH6iVMccNvrNRS', NULL, 1, NULL, '2023-09-15 03:32:00', '2023-09-15 03:32:00');
 
 --
 -- Indexes for dumped tables
@@ -715,12 +730,12 @@ ALTER TABLE `monitoring_hadits`
   ADD KEY `created_at` (`created_at`);
 
 --
--- Indexes for table `monitoring_mafudhot`
+-- Indexes for table `monitoring_mahfudhot`
 --
-ALTER TABLE `monitoring_mafudhot`
+ALTER TABLE `monitoring_mahfudhot`
   ADD PRIMARY KEY (`id`),
   ADD KEY `id_siswa` (`id_siswa`),
-  ADD KEY `mafudhot` (`mafudhot`),
+  ADD KEY `mafudhot` (`mahfudhot`),
   ADD KEY `lu` (`lu`),
   ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
@@ -876,13 +891,13 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `kk`
@@ -891,10 +906,16 @@ ALTER TABLE `kk`
   MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `monitoring_mahfudhot`
+--
+ALTER TABLE `monitoring_mahfudhot`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -936,19 +957,19 @@ ALTER TABLE `surah`
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
 --
 ALTER TABLE `tahun_ajaran_aktif`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- Constraints for dumped tables
@@ -992,11 +1013,11 @@ ALTER TABLE `monitoring_hadits`
   ADD CONSTRAINT `monitoring_hadits_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
--- Constraints for table `monitoring_mafudhot`
+-- Constraints for table `monitoring_mahfudhot`
 --
-ALTER TABLE `monitoring_mafudhot`
-  ADD CONSTRAINT `monitoring_mafudhot_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_mafudhot_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE `monitoring_mahfudhot`
+  ADD CONSTRAINT `monitoring_mahfudhot_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_mahfudhot_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `monitoring_tahfidz`

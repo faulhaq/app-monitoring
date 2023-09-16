@@ -4,15 +4,13 @@
   <li class="breadcrumb-item active">Data Mahfudhot</li>
 @endsection
 @section('content')
+
+<?php
+$has_siswa = false;
+?>
+
 <div class="col-md-12">
     <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
-                    <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Mahfudhot
-                </button>
-            </h3>  
-        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <div class="row">
@@ -43,9 +41,23 @@
                         <label for="filter_siswa">Pilih Siswa</label>
                         <select id="filter_siswa" name="filter_siswa" class="select2bs4 form-control">
                             <option value="">Pilih Siswa</option>
+                            @foreach ($siswa as $v)
+                                <?php $sel = $v->id == $fsiswa ? " selected" : ""; ?>
+                                <?php if ($v->id == $fsiswa) $has_siswa = true; ?>
+                                <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
+                @if ($has_siswa)
+                    <div style="margin-bottom: 10px;">
+                        <h3 class="card-title">
+                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Tahsin
+                            </button>
+                        </h3>
+                    </div>
+                @endif
             </div>
             <table id="example1" class="table table-bordered table-striped table-hover">
             <thead>
@@ -58,7 +70,22 @@
                 </tr>
             </thead>
             <tbody>
-                
+                @foreach($mahfudhot as $v)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $v->mahfudhot }}</td>
+                        <td>{{ $v->lu }}</td>
+                        <td>{{ $v->created_by ?? "Admin" }}</td>
+                        <td>{{ $v->created_at }}</td>
+                        <td>
+                            <form action="{{ route('monitoring.sekolah.mahfudhot.destroy', Crypt::encrypt($v->id)) }}" method="post">
+                                @method('delete')
+                                @csrf
+                                <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
           </table>
         </div>
@@ -66,22 +93,24 @@
     </div>
 </div>
 
+@if ($has_siswa)
 <!-- Extra large modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data MahfudhotSS</h4>
+                <h4 class="modal-title">Tambah Data Mahfudhot</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.sekolah.mahfudhot.store') }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.sekolah.mahfudhot.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                        <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label for="mahfudhot">Mahfudhot</label>
-                                <input type="text" id="mahfudhot" name="mahfudhot" onkeypress="return inputAngka(event)" class="form-control @error('mahfudhot') is-invalid @enderror" required>
+                                <input type="text" id="mahfudhot" name="mahfudhot" class="form-control @error('mahfudhot') is-invalid @enderror" required>
                             </div>
                             <div class="form-group">
                                 <label for="lu">Keterangan</label>
@@ -111,6 +140,8 @@
         </div>
     </div>
 </div>
+@endif
+
 @endsection
 @section('script')
 <script>
@@ -119,20 +150,29 @@
     $("#DataMonitoringSekolah").addClass("active");
 
     let fkelas = $("#filter_kelas");
-    let fstatus = $("#filter_status");
+    let fsiswa = $("#filter_siswa");
 
-    function construct_query_string()
+    function construct_query_string(rel_siswa)
     {
-        return "?fkelas=" + encodeURIComponent(fkelas.val()) +
-               "&fstatus=" + encodeURIComponent(fstatus.val());
+        let ret = "?fkelas=" + encodeURIComponent(fkelas.val());
+
+        if (fsiswa.val() && rel_siswa) {
+            ret += "&fsiswa=" + encodeURIComponent(fsiswa.val());
+        }
+        return ret;
     }
 
-    function handle_filter_change()
+    function handle_filter_change_kelas()
     {
-        window.location = construct_query_string();
+        window.location = construct_query_string(false);
     }
 
-    fkelas.change(handle_filter_change);
-    fstatus.change(handle_filter_change);
+    function handle_filter_change_siswa()
+    {
+        window.location = construct_query_string(true);
+    }
+
+    fkelas.change(handle_filter_change_kelas);
+    fsiswa.change(handle_filter_change_siswa);
 </script>
 @endsection

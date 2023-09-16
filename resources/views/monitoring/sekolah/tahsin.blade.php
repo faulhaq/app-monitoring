@@ -173,23 +173,27 @@ $has_siswa = false;
     let fkelas = $("#filter_kelas");
     let fsiswa = $("#filter_siswa");
 
-    function construct_query_string()
+    function construct_query_string(rel_siswa)
     {
         let ret = "?fkelas=" + encodeURIComponent(fkelas.val());
 
-        if (fsiswa.val()) {
+        if (fsiswa.val() && rel_siswa) {
             ret += "&fsiswa=" + encodeURIComponent(fsiswa.val());
         }
-
         return ret;
     }
 
-    function handle_filter_change()
+    function handle_filter_change_kelas()
     {
-        window.location = construct_query_string();
+        window.location = construct_query_string(false);
     }
 
-    fkelas.change(handle_filter_change);
-    fsiswa.change(handle_filter_change);
+    function handle_filter_change_siswa()
+    {
+        window.location = construct_query_string(true);
+    }
+
+    fkelas.change(handle_filter_change_kelas);
+    fsiswa.change(handle_filter_change_siswa);
 </script>
 @endsection
