@@ -53,7 +53,7 @@ $has_siswa = false;
                     <div style="margin-bottom: 10px;">
                         <h3 class="card-title">
                             <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Tahsin
+                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Mahfudhot
                             </button>
                         </h3>
                     </div>

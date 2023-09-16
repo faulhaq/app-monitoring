@@ -64,13 +64,16 @@ Route::middleware(['auth'])->group(function () {
             Route::delete("/tahsin/delete/{id}", "MonitoringSekolahController@tahsin_destroy")->name("tahsin.destroy");
 
             Route::get("/tahfidz", "MonitoringSekolahController@tahfidz")->name("tahfidz");
-            Route::post("/tahfidz/store", "MonitoringSekolahController@tahfidz_store")->name("tahfidz.store");
+            Route::post("/tahfidz/store/{id_siswa}", "MonitoringSekolahController@tahfidz_store")->name("tahfidz.store");
+            Route::delete("/tahfidz/delete/{id}", "MonitoringSekolahController@tahfidz_destroy")->name("tahfidz.destroy");
 
             Route::get("/doa", "MonitoringSekolahController@doa")->name("doa");
-            Route::post("/doa/store", "MonitoringSekolahController@doa_store")->name("doa.store");
+            Route::post("/doa/store/{id_siswa}", "MonitoringSekolahController@doa_store")->name("doa.store");
+            Route::delete("/doa/delete/{id}", "MonitoringSekolahController@doa_destroy")->name("doa.destroy");
 
             Route::get("/hadits", "MonitoringSekolahController@hadits")->name("hadits");
-            Route::post("/hadits/store", "MonitoringSekolahController@hadits_store")->name("hadits.store");
+            Route::post("/hadits/store/{id_siswa}", "MonitoringSekolahController@hadits_store")->name("hadits.store");
+            Route::delete("/hadits/delete/{id}", "MonitoringSekolahController@hadits_destroy")->name("hadits.destroy");
 
             Route::get("/mahfudhot", "MonitoringSekolahController@mahfudhot")->name("mahfudhot");
             Route::post("/mahfudhot/store/{id_siswa}", "MonitoringSekolahController@mahfudhot_store")->name("mahfudhot.store");

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2023 at 09:47 AM
+-- Generation Time: Sep 16, 2023 at 10:02 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -199,6 +199,14 @@ CREATE TABLE `monitoring_doa` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `monitoring_doa`
+--
+
+INSERT INTO `monitoring_doa` (`id`, `id_siswa`, `doa`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
+(3, 5, 'r5refsd', 'ulang', 'sekolah', NULL, '2023-09-16 08:01:57'),
+(4, 5, 'vas', 'lancar', 'sekolah', NULL, '2023-09-16 08:02:00');
+
 -- --------------------------------------------------------
 
 --
@@ -214,6 +222,14 @@ CREATE TABLE `monitoring_hadits` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_hadits`
+--
+
+INSERT INTO `monitoring_hadits` (`id`, `id_siswa`, `hadits`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
+(3, 4, 'afg', 'lancar', 'sekolah', NULL, '2023-09-16 07:56:22'),
+(4, 4, '3td', 'lancar', 'sekolah', NULL, '2023-09-16 07:56:25');
 
 -- --------------------------------------------------------
 
@@ -906,10 +922,28 @@ ALTER TABLE `kk`
   MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `monitoring_doa`
+--
+ALTER TABLE `monitoring_doa`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `monitoring_hadits`
+--
+ALTER TABLE `monitoring_hadits`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `monitoring_tahfidz`
+--
+ALTER TABLE `monitoring_tahfidz`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
