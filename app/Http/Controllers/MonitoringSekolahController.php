@@ -13,6 +13,7 @@ use App\Models\Monitoring\Tahsin;
 use App\Models\Monitoring\Mahfudhot;
 use App\Models\Monitoring\Hadits;
 use App\Models\Monitoring\Doa;
+use App\Models\Monitoring\Tahfidz;
 
 class MonitoringSekolahController extends Controller
 {
@@ -127,10 +128,90 @@ class MonitoringSekolahController extends Controller
     public function tahfidz()
     {
         $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
-        $kelas = Kelas::get();
+        $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
+        $kelas  = Kelas::get();
+
+        if ($fkelas && $fsiswa) {
+            if (!Siswa::find($fsiswa)) {
+                abort(404);
+                return;
+            }
+            $tahfidz = Tahfidz::where("id_siswa", $fsiswa)->orderBy("created_at", "desc")->get();
+        } else {
+            $tahfidz = [];
+        }
+
+        if ($fkelas && $fkelas !== "all") {
+            $siswa = Siswa::select("siswa.*");
+            $siswa = $siswa->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
+                        ->where("kelas_siswa.id_kelas", $fkelas)
+                        ->get();
+        } else {
+            $siswa = [];
+        }
+
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.sekolah.tahfidz",
-                    compact("kelas", "id_tahun_ajaran_aktif", "fkelas"));
+                    compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
+                            "tahfidz", "siswa"));
+    }
+
+    public function tahfidz_destroy($id)
+    {
+        $id = Crypt::decrypt($id);
+        if (!$id) {
+            abort(404);
+            return NULL;
+        }
+
+        $tahfidz = Tahfidz::find($id);
+        if (!$tahfidz) {
+            abort(404);
+            return NULL;
+        }
+
+        $tahfidz->delete();
+        $url = URL::previous();
+        return redirect($url)->with('success', 'Berhasil menghapus data tahfidz!');
+    }
+
+    public function tahfidz_store(Request $r, $id_siswa)
+    {
+        $r->validate([
+            "surah"      => "required",
+            "ayat"       => "required",
+            "lu"         => "required|in:L,U",
+            "fkelas"     => "required"
+        ]);
+
+        $fkelas = Crypt::decrypt($r->fkelas);
+        if (!$fkelas) {
+            abort(404);
+            return;
+        }
+
+        $id_siswa = Crypt::decrypt($id_siswa);
+        if (!$id_siswa) {
+            abort(404);
+            return;
+        }
+
+        $siswa = Siswa::find($id_siswa);
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+
+        $created_by = $this->get_created_by();
+        Tahfidz::store([
+            "id_siswa"   => $id_siswa,
+            "id_surah"   => $r->surah,
+            "ayat"       => $r->ayat,
+            "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
+            "created_by" => $created_by
+        ]);
+        $url = route('monitoring.sekolah.tahfidz')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        return redirect($url)->with('success', 'Berhasil menambahkan data tahfidz!');
     }
 
     public function mahfudhot()

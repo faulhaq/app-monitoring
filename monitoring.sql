@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 16, 2023 at 10:02 AM
+-- Generation Time: Sep 19, 2023 at 05:43 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -271,6 +271,14 @@ CREATE TABLE `monitoring_tahfidz` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_tahfidz`
+--
+
+INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
+(1, 4, 1, '1', 'lancar', 'sekolah', NULL, '2023-09-19 03:39:09'),
+(2, 4, 2, '12', 'ulang', 'sekolah', NULL, '2023-09-19 03:42:38');
 
 -- --------------------------------------------------------
 
@@ -943,7 +951,7 @@ ALTER TABLE `monitoring_mahfudhot`
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`

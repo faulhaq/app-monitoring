@@ -4,15 +4,13 @@
   <li class="breadcrumb-item active">Data Tahfidz</li>
 @endsection
 @section('content')
+
+<?php
+$has_siswa = false;
+?>
+
 <div class="col-md-12">
     <div class="card">
-        <div class="card-header">
-            <h3 class="card-title">
-                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
-                    <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Tahfidz
-                </button>
-            </h3>  
-        </div>
         <!-- /.card-header -->
         <div class="card-body">
             <div class="row">
@@ -43,15 +41,29 @@
                         <label for="filter_siswa">Pilih Siswa</label>
                         <select id="filter_siswa" name="filter_siswa" class="select2bs4 form-control">
                             <option value="">Pilih Siswa</option>
+                            @foreach ($siswa as $v)
+                                <?php $sel = $v->id == $fsiswa ? " selected" : ""; ?>
+                                <?php if ($v->id == $fsiswa) $has_siswa = true; ?>
+                                <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->nama }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
+                @if ($has_siswa)
+                    <div style="margin-bottom: 10px;">
+                        <h3 class="card-title">
+                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Tahfidz
+                            </button>
+                        </h3>
+                    </div>
+                @endif
             </div>
             <table id="example1" class="table table-bordered table-striped table-hover">
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Surat</th>
+                    <th>Surah</th>
                     <th>Ayat</th>
                     <th>Keterangan</th>
                     <th>Tanggal</th>
@@ -59,7 +71,23 @@
                 </tr>
             </thead>
             <tbody>
-                
+                @foreach($tahfidz as $v)
+                    <tr>
+                        <td>{{ $loop->iteration }}</td>
+                        <td>{{ $v->surah() }}</td>
+                        <td>{{ $v->ayat }}</td>
+                        <td>{{ $v->lu }}</td>
+                        <td>{{ $v->created_by ?? "Admin" }}</td>
+                        <td>{{ $v->created_at }}</td>
+                        <td>
+                            <form action="{{ route('monitoring.sekolah.tahfidz.destroy', Crypt::encrypt($v->id)) }}" method="post">
+                                @method('delete')
+                                @csrf
+                                <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                            </form>
+                        </td>
+                    </tr>
+                @endforeach
             </tbody>
           </table>
         </div>
@@ -67,6 +95,7 @@
     </div>
 </div>
 
+@if ($has_siswa)
 <!-- Extra large modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -78,15 +107,21 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.sekolah.tahfidz.store') }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.sekolah.tahfidz.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                        <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="surat">Surat</label>
-                                <input type="text" id="surat" name="surat" onkeypress="return inputAngka(event)" class="form-control @error('surat') is-invalid @enderror" required>
+                                <label for="surah">Surah</label>
+                                <select id="surah" name="surah" class="form-control @error('surah') is-invalid @enderror" required>
+                                    <option value="">-- Pilih Surah ---</option>
+                                    @foreach (\App\Models\Ref\Surah::all() as $s)
+                                        <option value="{{ $s->id }}">{{ $s->nama }}</option>
+                                    @endforeach
+                            </select>
                             </div>
                             <div class="form-group">
                                 <label for="ayat">Ayat</label>
-                                <input type="text" id="ayat" name="ayat" onkeypress="return inputAngka(event)" class="form-control @error('ayat') is-invalid @enderror" required>
+                                <input type="text" id="ayat" name="ayat" class="form-control @error('ayat') is-invalid @enderror" required>
                             </div>
                             <div class="form-group">
                                 <label for="lu">Keterangan</label>
@@ -116,6 +151,8 @@
         </div>
     </div>
 </div>
+@endif
+
 @endsection
 @section('script')
 <script>
@@ -124,20 +161,29 @@
     $("#DataMonitoringSekolah").addClass("active");
 
     let fkelas = $("#filter_kelas");
-    let fstatus = $("#filter_status");
+    let fsiswa = $("#filter_siswa");
 
-    function construct_query_string()
+    function construct_query_string(rel_siswa)
     {
-        return "?fkelas=" + encodeURIComponent(fkelas.val()) +
-               "&fstatus=" + encodeURIComponent(fstatus.val());
+        let ret = "?fkelas=" + encodeURIComponent(fkelas.val());
+
+        if (fsiswa.val() && rel_siswa) {
+            ret += "&fsiswa=" + encodeURIComponent(fsiswa.val());
+        }
+        return ret;
     }
 
-    function handle_filter_change()
+    function handle_filter_change_kelas()
     {
-        window.location = construct_query_string();
+        window.location = construct_query_string(false);
     }
 
-    fkelas.change(handle_filter_change);
-    fstatus.change(handle_filter_change);
+    function handle_filter_change_siswa()
+    {
+        window.location = construct_query_string(true);
+    }
+
+    fkelas.change(handle_filter_change_kelas);
+    fsiswa.change(handle_filter_change_siswa);
 </script>
 @endsection
