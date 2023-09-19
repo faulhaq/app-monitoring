@@ -1,16 +1,15 @@
 @extends('template.home')
-@section('heading', 'Data Doa')
+@section('heading', 'Data Tahsin')
 @section('page')
-  <li class="breadcrumb-item active">Data Doa</li>
+  <li class="breadcrumb-item active">Data Tahsin</li>
 @endsection
 @section('content')
-
 <?php
 $has_siswa = false;
 ?>
-
 <div class="col-md-12">
     <div class="card">
+        
         <!-- /.card-header -->
         <div class="card-body">
             <div class="row">
@@ -53,7 +52,7 @@ $has_siswa = false;
                     <div style="margin-bottom: 10px;">
                         <h3 class="card-title">
                             <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Doa
+                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Tahsin
                             </button>
                         </h3>
                     </div>
@@ -63,22 +62,25 @@ $has_siswa = false;
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Doa</th>
+                    <th>Iqro/Juz</th>
+                    <th>Halaman</th>
                     <th>Keterangan</th>
+                    <th>Dibuat oleh</th>
                     <th>Tanggal</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($doa as $v)
+                @foreach($tahsin as $v)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $v->doa }}</td>
+                        <td>{{ $v->tipe." ".$v->n }}</td>
+                        <td>{{ $v->halaman }}</td>
                         <td>{{ $v->lu }}</td>
                         <td>{{ $v->created_by ?? "Admin" }}</td>
                         <td>{{ $v->created_at }}</td>
                         <td>
-                            <form action="{{ route('monitoring.rumah.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
+                            <form action="{{ route('monitoring.rumah.tahsin.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
@@ -99,18 +101,37 @@ $has_siswa = false;
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Doa</h4>
+                <h4 class="modal-title">Tambah Data Tahsin</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.rumah.doa.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.rumah.tahsin.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
                         <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="doa">Doa</label>
-                                <input type="text" id="doa" name="doa" class="form-control @error('doa') is-invalid @enderror" required>
+                                <label for="lu">Tipe</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="tipe_iqro" name="tipe" value="iqro" required>
+                                    <label class="form-check-label" for="tipe_iqro">
+                                    Iqro'
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="tipe_juz" name="tipe" value="juz" required>
+                                    <label class="form-check-label" for="tipe_juz">
+                                    Juz
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="n">Iqro'/Juz (isi dengan angka)</label>
+                                <input type="text" id="n" name="n" onkeypress="return inputAngka(event)" class="form-control @error('n') is-invalid @enderror" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="halaman">Halaman</label>
+                                <input type="text" id="halaman" name="halaman" onkeypress="return inputAngka(event)" class="form-control @error('halaman') is-invalid @enderror" required>
                             </div>
                             <div class="form-group">
                                 <label for="lu">Keterangan</label>

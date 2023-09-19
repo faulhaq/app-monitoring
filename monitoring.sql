@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 19, 2023 at 05:43 AM
+-- Generation Time: Sep 19, 2023 at 06:01 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -253,7 +253,8 @@ CREATE TABLE `monitoring_mahfudhot` (
 
 INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `mahfudhot`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
 (2, 3, 'ad 23', 'lancar', 'sekolah', NULL, '2023-09-16 07:41:12'),
-(3, 3, 'qaa', 'ulang', 'sekolah', NULL, '2023-09-16 07:41:22');
+(3, 3, 'qaa', 'ulang', 'sekolah', NULL, '2023-09-16 07:41:22'),
+(4, 5, 'AWS', 'lancar', 'sekolah', NULL, '2023-09-19 03:49:25');
 
 -- --------------------------------------------------------
 
@@ -278,7 +279,9 @@ CREATE TABLE `monitoring_tahfidz` (
 
 INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
 (1, 4, 1, '1', 'lancar', 'sekolah', NULL, '2023-09-19 03:39:09'),
-(2, 4, 2, '12', 'ulang', 'sekolah', NULL, '2023-09-19 03:42:38');
+(2, 4, 2, '12', 'ulang', 'sekolah', NULL, '2023-09-19 03:42:38'),
+(4, 3, 3, '10-50', 'lancar', 'sekolah', NULL, '2023-09-19 03:57:14'),
+(5, 3, 1, '1-7', 'lancar', 'rumah', NULL, '2023-09-19 04:01:12');
 
 -- --------------------------------------------------------
 
@@ -305,7 +308,9 @@ CREATE TABLE `monitoring_tahsin` (
 INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
 (8, 4, 2, 'iqro', 18, 'lancar', 'sekolah', NULL, '2023-09-13 13:01:25'),
 (9, 4, 2, 'iqro', 100, 'lancar', 'sekolah', NULL, '2023-09-15 03:34:14'),
-(10, 3, 1, 'iqro', 15, 'ulang', 'sekolah', NULL, '2023-09-15 03:36:54');
+(10, 3, 1, 'iqro', 15, 'ulang', 'sekolah', NULL, '2023-09-15 03:36:54'),
+(11, 4, 1, 'iqro', 10, 'lancar', 'sekolah', NULL, '2023-09-19 03:54:28'),
+(12, 4, 1, 'iqro', 111, 'lancar', 'rumah', NULL, '2023-09-19 03:55:58');
 
 -- --------------------------------------------------------
 
@@ -945,19 +950,19 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`

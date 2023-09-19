@@ -50,8 +50,6 @@ Route::middleware(['auth'])->group(function () {
             Route::delete("/hapus_siswa/{id_kelas}/{id_siswa}", "KelasController@hapus_siswa")->name("hapus_siswa");
         });
         Route::resource('/kelas', 'KelasController');
-
-        Route::resource('/monitoring_rumah', 'MonitoringRumahController');
         Route::get("/get_siswa_no_kelas/{id_kelas}", "SiswaController@get_siswa_no_kelas")->name("siswa.get_siswa_no_kelas");
     });
 
@@ -80,8 +78,30 @@ Route::middleware(['auth'])->group(function () {
             Route::delete("/mahfudhot/delete/{id}", "MonitoringSekolahController@mahfudhot_destroy")->name("mahfudhot.destroy");
         });
         Route::prefix("rumah")->name("rumah.")->group(function () {
-            Route::get("/", "MonitoringRumahController@index");
+            Route::get("/", "MonitoringRumahController@index")->name("index");
+
+            Route::get("/tahsin", "MonitoringRumahController@tahsin")->name("tahsin");
+            Route::post("/tahsin/store/{id_siswa}", "MonitoringRumahController@tahsin_store")->name("tahsin.store");
+            Route::delete("/tahsin/delete/{id}", "MonitoringRumahController@tahsin_destroy")->name("tahsin.destroy");
+
+            Route::get("/tahfidz", "MonitoringRumahController@tahfidz")->name("tahfidz");
+            Route::post("/tahfidz/store/{id_siswa}", "MonitoringRumahController@tahfidz_store")->name("tahfidz.store");
+            Route::delete("/tahfidz/delete/{id}", "MonitoringRumahController@tahfidz_destroy")->name("tahfidz.destroy");
+
+            Route::get("/doa", "MonitoringRumahController@doa")->name("doa");
+            Route::post("/doa/store/{id_siswa}", "MonitoringRumahController@doa_store")->name("doa.store");
+            Route::delete("/doa/delete/{id}", "MonitoringRumahController@doa_destroy")->name("doa.destroy");
+
+            Route::get("/hadits", "MonitoringRumahController@hadits")->name("hadits");
+            Route::post("/hadits/store/{id_siswa}", "MonitoringRumahController@hadits_store")->name("hadits.store");
+            Route::delete("/hadits/delete/{id}", "MonitoringRumahController@hadits_destroy")->name("hadits.destroy");
+
+            Route::get("/mahfudhot", "MonitoringRumahController@mahfudhot")->name("mahfudhot");
+            Route::post("/mahfudhot/store/{id_siswa}", "MonitoringRumahController@mahfudhot_store")->name("mahfudhot.store");
+            Route::delete("/mahfudhot/delete/{id}", "MonitoringRumahController@mahfudhot_destroy")->name("mahfudhot.destroy");
         });
+
+        
     });
 
     Route::middleware(["role:admin"])->prefix("master_data")->group(function () {

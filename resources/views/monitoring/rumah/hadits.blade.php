@@ -1,7 +1,7 @@
 @extends('template.home')
-@section('heading', 'Data Doa')
+@section('heading', 'Data Hadits')
 @section('page')
-  <li class="breadcrumb-item active">Data Doa</li>
+  <li class="breadcrumb-item active">Data Hadits</li>
 @endsection
 @section('content')
 
@@ -53,7 +53,7 @@ $has_siswa = false;
                     <div style="margin-bottom: 10px;">
                         <h3 class="card-title">
                             <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Doa
+                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Hadits
                             </button>
                         </h3>
                     </div>
@@ -63,22 +63,22 @@ $has_siswa = false;
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Doa</th>
+                    <th>Hadits</th>
                     <th>Keterangan</th>
                     <th>Tanggal</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($doa as $v)
+                @foreach($hadits as $v)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $v->doa }}</td>
+                        <td>{{ $v->hadits }}</td>
                         <td>{{ $v->lu }}</td>
                         <td>{{ $v->created_by ?? "Admin" }}</td>
                         <td>{{ $v->created_at }}</td>
                         <td>
-                            <form action="{{ route('monitoring.rumah.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
+                            <form action="{{ route('monitoring.rumah.hadits.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
@@ -99,18 +99,18 @@ $has_siswa = false;
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Doa</h4>
+                <h4 class="modal-title">Tambah Data Hadits</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.rumah.doa.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.rumah.hadits.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
                         <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="doa">Doa</label>
-                                <input type="text" id="doa" name="doa" class="form-control @error('doa') is-invalid @enderror" required>
+                                <label for="hadits">Hadits</label>
+                                <input type="text" id="hadits" name="hadits" class="form-control @error('hadits') is-invalid @enderror" required>
                             </div>
                             <div class="form-group">
                                 <label for="lu">Keterangan</label>

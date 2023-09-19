@@ -78,7 +78,7 @@ $has_siswa = false;
                         <td>{{ $v->created_by ?? "Admin" }}</td>
                         <td>{{ $v->created_at }}</td>
                         <td>
-                            <form action="{{ route('monitoring.rumah.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
+                            <form action="{{ route('monitoring.sekolah.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
@@ -105,7 +105,7 @@ $has_siswa = false;
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.rumah.doa.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.sekolah.doa.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
                         <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -147,7 +147,7 @@ $has_siswa = false;
 <script>
     $("#Monitoring").addClass("active");
     $("#liMonitoring").addClass("menu-open");
-    $("#DataMonitoringRumah").addClass("active");
+    $("#DataMonitoringSekolah").addClass("active");
 
     let fkelas = $("#filter_kelas");
     let fsiswa = $("#filter_siswa");
