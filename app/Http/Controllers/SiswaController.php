@@ -78,12 +78,13 @@ class SiswaController extends Controller
     {
         $this->validate_form_siswa($r);
 
-        $id_kk = KK::where("no_kk", $r->no_kk)->first();
-        if (!$id_kk) {
-            abort(404);
-            return;
+        $kk = KK::where("no_kk", $r->no_kk)->first();
+        if (!$kk) {
+            $kk = KK::create([
+                "no_kk" => $r->no_kk
+            ]);
         }
-        $id_kk = $id_kk->id;
+        $id_kk = $kk->id;
 
         if ($r->foto) {
             $foto = $r->foto;

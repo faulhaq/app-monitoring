@@ -8,7 +8,9 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">
-                
+                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+                    <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Orang Tua
+                </button>
             </h3>
         </div>
         <!-- /.card-header -->
@@ -18,41 +20,27 @@
                 <tr>
                     <th>No.</th>
                     <th>Nama</th>
-                    <th>Ayah</th>
-                    <th>Ibu</th>
+                    <th>Email</th>
+                    <th>Jenis Kelamin</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($siswa as $data)
-                <?php $nr_ortu = 0; ?>
+                @foreach ($orang_tua as $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->nama }}</td>
-                    <td><?php
-                        $ayah = $data->ayah();
-                        if (count($ayah)) {
-                            echo e($ayah[0]->nama);
-                            $nr_ortu++;
-                        }
-                    ?></td>
-                    <td>
-                        <?php $i = 0;
-                        foreach ($data->ibu() as $ibu) {
-                            print (($i > 0) ? ", " : "") . e($ibu->nama);
-                            $i++;
-                            $nr_ortu++;
-                        }
-                        ?>
-                    </td>
+                    <td>{{ $data->email }}</td>
+                    <td>{{ $data->jk === "L" ? "Laki-laki" : "Perempuan" }}</td>
                     <td>
                         <?php $enc_id = Crypt::encrypt($data->id); ?>
-                        <a href="{{ route('orang_tua.list_orang_tua', $enc_id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
-                        @if ($nr_ortu < 2)
-                        <button onclick="$('#no_kk').val('{{ $data->kk()->no_kk }}')" type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
-                            <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Orang Tua
-                        </button>
-                        @endif
+                        <form action="{{ route('orang_tua.destroy', $enc_id) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <a href="{{ route('orang_tua.show', $enc_id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Detail</a>
+                            <a href="{{ route('orang_tua.edit', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                            <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                        </form>
                     </td>
                 </tr>
                 @endforeach
@@ -80,7 +68,12 @@
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="no_kk">No. KK</label>
-                        <input type="text" id="no_kk" name="no_kk" class="form-control @error('nik') is-invalid @enderror" readonly>
+                        <select id="no_kk" name="no_kk" class="select2bs4 form-control @error('no_kk') is-invalid @enderror" required>
+                            <option value="">-- Pilih No KK --</option>
+                            @foreach ($kk as $v)
+                                <option value="{{ $v->no_kk }}">{{ $v->no_kk }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="nik">NIK</label>

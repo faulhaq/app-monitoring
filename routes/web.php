@@ -128,6 +128,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get("/update_foto/{id}", "OrangTuaController@update_foto")->name("update_foto");
             Route::post("/simpan_foto/{id}", "OrangTuaController@simpan_foto")->name("simpan_foto");
             Route::get("/get_list", "OrangTuaController@get_list")->name("get_list");
+            Route::get("/list_orang_tua/{id_siswa}", "OrangTuaController@list_orang_tua")->name("list_orang_tua");
         });
         Route::resource('/orang_tua', 'OrangTuaController');
 

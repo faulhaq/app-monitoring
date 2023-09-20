@@ -102,9 +102,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="no_kk">No. KK</label>
-                                <select id="no_kk" name="no_kk" class="select2bs4 form-control @error('no_kk') is-invalid @enderror" required>
-                                    <option value="">-- Pilih No KK --</option> @foreach ($kk as $v) <option value="{{ $v->no_kk }}">{{ $v->no_kk }}</option> @endforeach
-                                </select>
+                                <input type="text" id="no_kk" name="no_kk" onkeypress="return inputAngka(event)" class="form-control @error('no_kk') is-invalid @enderror" required>
                             </div>
                             <div class="form-group">
                                 <label for="nik">NIK</label>

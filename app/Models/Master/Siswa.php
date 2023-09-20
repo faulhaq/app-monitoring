@@ -3,7 +3,6 @@
 namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Ref\Agama;
 use App\Models\Ref\Goldar;
 use App\Models\Ref\Pendidikan;
@@ -15,8 +14,6 @@ use DB;
 
 class Siswa extends Model
 {
-    use SoftDeletes;
-
     protected $fillable = ['id_kk', 'nik', 'nis', 'nama', 'jk', 'agama', 'goldar', 'pendidikan', 'telp', 'tmp_lahir', 'tgl_lahir', 'alamat', 'foto', 'status', 'id_kelas_aktif'];
 
     protected $table = "siswa";

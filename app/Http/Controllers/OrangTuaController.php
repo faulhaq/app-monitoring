@@ -23,6 +23,27 @@ class OrangTuaController extends Controller
         return view("master_data.orang_tua.index", compact("kk", "siswa"));
     }
 
+    public function list_orang_tua($id_siswa)
+    {
+        $id_siswa = Crypt::decrypt($id_siswa);
+        if (!$id_siswa) {
+            abort(404);
+            return;
+        }
+
+        $siswa = Siswa::find($id_siswa);
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+
+        $id_kk = $siswa->id_kk;
+        $orang_tua = OrangTua::where("id_kk", $id_kk)->get();
+        $kk = KK::get();
+        return view("master_data.orang_tua.list_orang_tua",
+                    compact("kk", "siswa", "orang_tua"));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

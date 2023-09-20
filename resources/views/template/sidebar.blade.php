@@ -85,7 +85,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('kk.index') }}" class="nav-link" id="DataKartuKeluarga">
                                     <i class="fas fa-users nav-icon"></i>
-                                    <p>Data Kartu Keluarga</p>
+                                    <p>Data Keluarga</p>
                                 </a>
                             </li>
                             <li class="nav-item">
