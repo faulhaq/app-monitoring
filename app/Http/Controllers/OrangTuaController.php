@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use App\Models\Master\OrangTua;
 use App\Models\Master\KK;
+use App\Models\Master\Siswa;
 use App\User;
 
 class OrangTuaController extends Controller
@@ -17,9 +18,9 @@ class OrangTuaController extends Controller
      */
     public function index()
     {
-        $orang_tua = OrangTua::orderBy("nama", "asc")->get();
+        $siswa = Siswa::get();
         $kk = KK::get();
-        return view("master_data.orang_tua.index", compact("kk", "orang_tua"));
+        return view("master_data.orang_tua.index", compact("kk", "siswa"));
     }
 
     /**

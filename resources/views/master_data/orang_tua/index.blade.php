@@ -20,18 +20,18 @@
                 <tr>
                     <th>No.</th>
                     <th>Nama</th>
-                    <th>Email</th>
-                    <th>Jenis Kelamin</th>
+                    <th>Ayah</th>
+                    <th>Ibu</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($orang_tua as $data)
+                @foreach ($siswa as $data)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $data->nama }}</td>
-                    <td>{{ $data->email }}</td>
-                    <td>{{ $data->jk === "L" ? "Laki-laki" : "Perempuan" }}</td>
+                    <td>{{ $data->ayah()[0]->nama ?? "" }}</td>
+                    <td>{{ $data->ibu()[0]->nama ?? "" }}</td>
                     <td>
                         <?php $enc_id = Crypt::encrypt($data->id); ?>
                         <form action="{{ route('orang_tua.destroy', $enc_id) }}" method="post">

@@ -76,4 +76,28 @@ class Siswa extends Model
          );", [$kelas->id_tahun_ajaran]);
         return $ret;
     }
+
+    public function ayah()
+    {
+        $ayah = DB::table("orang_tua")
+                    ->select("orang_tua.*")
+                    ->join("kk", "kk.id", "orang_tua.id_kk")
+                    ->join("siswa", "kk.id", "siswa.id_kk")
+                    ->where("siswa.id", $this->id)
+                    ->where("orang_tua.jk", "L")
+                    ->get();
+        return $ayah;
+    }
+
+    public function ibu()
+    {
+        $ibu = DB::table("orang_tua")
+                    ->select("orang_tua.*")
+                    ->join("kk", "kk.id", "orang_tua.id_kk")
+                    ->join("siswa", "kk.id", "siswa.id_kk")
+                    ->where("siswa.id", $this->id)
+                    ->where("orang_tua.jk", "P")
+                    ->get();
+        return $ibu;
+    }
 }
