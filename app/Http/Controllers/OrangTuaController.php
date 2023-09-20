@@ -157,12 +157,14 @@ class OrangTuaController extends Controller
 
         $siswa = Siswa::find($id["id_siswa"]);
         if (!$siswa) {
-            return NULL;
+            abort(404);
+            return;
         }
 
         $orang_tua = OrangTua::find($id["id_orang_tua"]);
         if (!$orang_tua) {
-            return NULL;
+            abort(404);
+            return;
         }
         return view("master_data.orang_tua.show", compact("orang_tua", "id", "siswa"));
     }
@@ -183,12 +185,14 @@ class OrangTuaController extends Controller
 
         $siswa = Siswa::find($id["id_siswa"]);
         if (!$siswa) {
-            return NULL;
+            abort(404);
+            return;
         }
 
         $orang_tua = OrangTua::find($id["id_orang_tua"]);
         if (!$orang_tua) {
-            return NULL;
+            abort(404);
+            return;
         }
         return view("master_data.orang_tua.edit", compact("orang_tua", "siswa", "id"));
     }
@@ -273,12 +277,14 @@ class OrangTuaController extends Controller
 
         $siswa = Siswa::find($id["id_siswa"]);
         if (!$siswa) {
-            return NULL;
+            abort(404);
+            return;
         }
 
         $orang_tua = OrangTua::find($id["id_orang_tua"]);
         if (!$orang_tua) {
-            return NULL;
+            abort(404);
+            return;
         }
 
         $user = User::where("id_orang_tua", $orang_tua->id);
