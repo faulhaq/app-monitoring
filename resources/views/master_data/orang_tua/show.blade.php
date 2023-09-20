@@ -5,6 +5,10 @@
   <li class="breadcrumb-item active">Details Orang Tua</li>
 @endsection
 @section('content')
+<?php $enc_id = Crypt::encrypt(json_encode([
+    "id_orang_tua" => $orang_tua->id,
+    "id_siswa"     => $siswa->id
+])); ?>
 <div class="col-md-12">
     <div class="card">
         <div class="card-body">
@@ -18,7 +22,6 @@
                 </div>
                 <div class="col-md-1 mb-4"></div>
                 <div class="col-md-7">
-                    <?php $enc_id = Crypt::encrypt($orang_tua->id_kk); ?>
                     <h5 class="card-title card-text mb-2">No. KK : <a href="{{ route('kk.show', $enc_id) }}">{{ $orang_tua->kk()->no_kk }} </a></h5>
                     <h5 class="card-title card-text mb-2">NIK : {{ $orang_tua->nik }}</h5>
                     <h5 class="card-title card-text mb-2">Nama : {{ $orang_tua->nama }}</h5>
@@ -36,9 +39,9 @@
             </div>
         </div>
         <div class="card-footer">
-            <a href="{{ route('orang_tua.index') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
-            <?php $enc_id = Crypt::encrypt($orang_tua->id); ?>
-            <a href="{{ route('orang_tua.edit', $enc_id) }}" class="btn btn-success"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>    
+            <?php $enc_id_siswa = Crypt::encrypt($id["id_siswa"]); ?>
+            <a href="{{ route('orang_tua.list_orang_tua', $enc_id_siswa) }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
+            <a href="{{ route('orang_tua.edit', $enc_id) }}" class="btn btn-success"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
         </div>
     </div>
 </div>

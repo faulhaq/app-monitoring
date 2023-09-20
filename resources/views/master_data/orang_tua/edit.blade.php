@@ -13,7 +13,11 @@
       </div>
       <!-- /.card-header -->
       <!-- form start -->
-      <form action="{{ route('orang_tua.update', Crypt::encrypt($orang_tua->id)) }}" method="post" enctype="multipart/form-data">
+      <?php $enc_id = Crypt::encrypt(json_encode([
+            "id_orang_tua" => $orang_tua->id,
+            "id_siswa"     => $siswa->id
+      ])); ?>
+      <form action="{{ route('orang_tua.update', $enc_id) }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('patch')
         <div class="card-body">
@@ -112,7 +116,8 @@
         <!-- /.card-body -->
 
         <div class="card-footer">
-          <a href="{{ URL::previous() }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
+        <?php $enc_id_siswa = Crypt::encrypt($id["id_siswa"]); ?>
+            <a href="{{ route('orang_tua.list_orang_tua', $enc_id_siswa) }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
           <button name="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Simpan</button>
         </div>
       </form>

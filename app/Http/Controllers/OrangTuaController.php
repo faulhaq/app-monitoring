@@ -119,6 +119,28 @@ class OrangTuaController extends Controller
         return redirect()->back()->with('success', 'Berhasil menambahkan data orang_tua baru!');
     }
 
+    private function decrypt_id($id)
+    {
+        $id = Crypt::decrypt($id);
+        if (!$id) {
+            return NULL;
+        }
+
+        $id = json_decode($id, true);
+        if (!$id) {
+            return NULL;
+        }
+
+        if (!isset($id["id_orang_tua"], $id["id_siswa"])) {
+            return NULL;
+        }
+
+        if (!is_integer($id["id_orang_tua"]) || !is_integer($id["id_siswa"])) {
+            return NULL;
+        }
+        return $id;
+    }
+
     /**
      * Display the specified resource.
      *
@@ -127,14 +149,22 @@ class OrangTuaController extends Controller
      */
     public function show($id)
     {
-        $id = Crypt::decrypt($id);
-        $orang_tua = OrangTua::find($id);
-        if (!$orang_tua) {
+        $id = $this->decrypt_id($id);
+        if (!$id) {
             abort(404);
             return;
         }
 
-        return view("master_data.orang_tua.show", compact("orang_tua"));
+        $siswa = Siswa::find($id["id_siswa"]);
+        if (!$siswa) {
+            return NULL;
+        }
+
+        $orang_tua = OrangTua::find($id["id_orang_tua"]);
+        if (!$orang_tua) {
+            return NULL;
+        }
+        return view("master_data.orang_tua.show", compact("orang_tua", "id", "siswa"));
     }
 
     /**
@@ -145,14 +175,22 @@ class OrangTuaController extends Controller
      */
     public function edit($id)
     {
-        $id = Crypt::decrypt($id);
-        $orang_tua = OrangTua::find($id);
-        if (!$orang_tua) {
+        $id = $this->decrypt_id($id);
+        if (!$id) {
             abort(404);
             return;
         }
 
-        return view("master_data.orang_tua.edit", compact("orang_tua"));
+        $siswa = Siswa::find($id["id_siswa"]);
+        if (!$siswa) {
+            return NULL;
+        }
+
+        $orang_tua = OrangTua::find($id["id_orang_tua"]);
+        if (!$orang_tua) {
+            return NULL;
+        }
+        return view("master_data.orang_tua.edit", compact("orang_tua", "siswa", "id"));
     }
 
     /**
@@ -165,10 +203,22 @@ class OrangTuaController extends Controller
     public function update(Request $r, $id)
     {
         $this->validate_form_orang_tua($r, false);
-        $id = Crypt::decrypt($id);
-        $orang_tua = OrangTua::find($id);
+        $id = $this->decrypt_id($id);
+        if (!$id) {
+            abort(404);
+            return;
+        }
+
+        $siswa = Siswa::find($id["id_siswa"]);
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+
+        $orang_tua = OrangTua::find($id["id_orang_tua"]);
         if (!$orang_tua) {
-            return redirect()->back()->with('warning', 'Gagal mengubah data orang tua!');
+            abort(404);
+            return;
         }
 
         $id_kk = KK::where("no_kk", $r->no_kk)->first();
@@ -203,7 +253,8 @@ class OrangTuaController extends Controller
         }
 
         $orang_tua->update($data);
-        return redirect()->route('orang_tua.index')->with('success', 'Data orang tua berhasil diubah!');
+        $enc_id_siswa = Crypt::encrypt($id["id_siswa"]);
+        return redirect()->route('orang_tua.list_orang_tua', $enc_id_siswa)->with('success', 'Data orang tua berhasil diubah!');
     }
 
     /**
@@ -214,10 +265,20 @@ class OrangTuaController extends Controller
      */
     public function destroy($id)
     {
-        $id = Crypt::decrypt($id);
-        $orang_tua = OrangTua::find($id);
+        $id = $this->decrypt_id($id);
+        if (!$id) {
+            abort(404);
+            return;
+        }
+
+        $siswa = Siswa::find($id["id_siswa"]);
+        if (!$siswa) {
+            return NULL;
+        }
+
+        $orang_tua = OrangTua::find($id["id_orang_tua"]);
         if (!$orang_tua) {
-            return redirect()->back()->with('warning', 'Gagal menghapus data orang tua!');
+            return NULL;
         }
 
         $user = User::where("id_orang_tua", $orang_tua->id);
