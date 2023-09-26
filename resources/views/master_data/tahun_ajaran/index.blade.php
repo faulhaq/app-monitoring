@@ -34,7 +34,7 @@
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $v->tahun }}</td>
                     <td>{{ $v->status() }}</td>
-                    <td>{{ date("d F Y H:i:s", strtotime($v->created_at)) }}</td>
+                    <td>{{ fix_id_dt($v->created_at) }}</td>
                 </tr>
                 @endforeach
             </tbody>

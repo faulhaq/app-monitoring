@@ -52,4 +52,25 @@ $app->singleton(
 |
 */
 
+function fix_id_dt($str)
+{
+    $bulan = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember"
+    ];
+
+    $time = strtotime($str) + 3600*7;
+    return date("d", $time)." ".$bulan[(int)date("m", $time) - 1]." ".date("Y", $time)." ".date("H:i:s", $time);
+}
+
 return $app;

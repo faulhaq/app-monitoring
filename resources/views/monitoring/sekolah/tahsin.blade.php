@@ -87,7 +87,7 @@ $has_siswa = false;
                         <td>{{ $v->halaman }}</td>
                         <td>{{ $v->lu }}</td>
                         <td>{{ $v->created_by ?? "Admin" }}</td>
-                        <td>{{ $v->created_at }}</td>
+                        <td>{{ fix_id_dt($v->created_at) }}</td>
                         <td>
                             <form action="{{ route('monitoring.sekolah.tahsin.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')

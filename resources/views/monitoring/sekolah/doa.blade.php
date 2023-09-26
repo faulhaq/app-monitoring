@@ -74,6 +74,7 @@ $has_siswa = false;
                     <th>No.</th>
                     <th>Doa</th>
                     <th>Keterangan</th>
+                    <th>Dibuat Oleh</th>
                     <th>Tanggal</th>
                     <th>Aksi</th>
                 </tr>
@@ -85,7 +86,7 @@ $has_siswa = false;
                         <td>{{ $v->doa }}</td>
                         <td>{{ $v->lu }}</td>
                         <td>{{ $v->created_by ?? "Admin" }}</td>
-                        <td>{{ $v->created_at }}</td>
+                        <td>{{ fix_id_dt(fix_id_dt($v->created_at)) }}</td>
                         <td>
                             <form action="{{ route('monitoring.sekolah.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')

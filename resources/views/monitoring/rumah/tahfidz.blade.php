@@ -75,6 +75,7 @@ $has_siswa = false;
                     <th>Surah</th>
                     <th>Ayat</th>
                     <th>Keterangan</th>
+                    <th>Dibuat Oleh</th>
                     <th>Tanggal</th>
                     <th>Aksi</th>
                 </tr>
@@ -87,7 +88,7 @@ $has_siswa = false;
                         <td>{{ $v->ayat }}</td>
                         <td>{{ $v->lu }}</td>
                         <td>{{ $v->created_by ?? "Admin" }}</td>
-                        <td>{{ $v->created_at }}</td>
+                        <td>{{ fix_id_dt($v->created_at) }}</td>
                         <td>
                             <form action="{{ route('monitoring.rumah.tahfidz.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')

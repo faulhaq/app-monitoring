@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 20, 2023 at 05:46 AM
+-- Generation Time: Sep 26, 2023 at 08:38 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -130,7 +130,8 @@ CREATE TABLE `kelas` (
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (8, '2', 'D', 1, 4, '2023-08-02 12:51:42', '2023-08-23 04:23:25', NULL),
 (9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL),
-(14, '3', 'D', 1, 6, '2023-09-15 03:28:21', '2023-09-15 03:28:21', NULL);
+(14, '3', NULL, 1, 6, '2023-09-15 03:28:21', '2023-09-26 04:00:32', NULL),
+(15, '1', NULL, 1, 9, '2023-09-26 03:59:13', '2023-09-26 03:59:13', NULL);
 
 -- --------------------------------------------------------
 
@@ -205,7 +206,8 @@ CREATE TABLE `monitoring_doa` (
 
 INSERT INTO `monitoring_doa` (`id`, `id_siswa`, `doa`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
 (3, 5, 'r5refsd', 'ulang', 'sekolah', NULL, '2023-09-16 08:01:57'),
-(4, 5, 'vas', 'lancar', 'sekolah', NULL, '2023-09-16 08:02:00');
+(4, 5, 'vas', 'lancar', 'sekolah', NULL, '2023-09-16 08:02:00'),
+(5, 5, 'anc', 'ulang', 'rumah', NULL, '2023-09-23 01:12:38');
 
 -- --------------------------------------------------------
 
@@ -230,7 +232,8 @@ CREATE TABLE `monitoring_hadits` (
 INSERT INTO `monitoring_hadits` (`id`, `id_siswa`, `hadits`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
 (3, 4, 'afg', 'lancar', 'sekolah', NULL, '2023-09-16 07:56:22'),
 (4, 4, '3td', 'lancar', 'sekolah', NULL, '2023-09-16 07:56:25'),
-(5, 4, 'abc', 'lancar', 'rumah', NULL, '2023-09-19 04:17:30');
+(5, 4, 'abc', 'lancar', 'rumah', NULL, '2023-09-19 04:17:30'),
+(6, 5, 'abc', 'lancar', 'sekolah', NULL, '2023-09-23 01:12:24');
 
 -- --------------------------------------------------------
 
@@ -256,7 +259,8 @@ INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `mahfudhot`, `lu`, `lokasi
 (2, 3, 'ad 23', 'lancar', 'sekolah', NULL, '2023-09-16 07:41:12'),
 (3, 3, 'qaa', 'ulang', 'sekolah', NULL, '2023-09-16 07:41:22'),
 (4, 5, 'AWS', 'lancar', 'sekolah', NULL, '2023-09-19 03:49:25'),
-(5, 4, 'ABC', 'lancar', 'rumah', NULL, '2023-09-19 04:04:11');
+(5, 4, 'ABC', 'lancar', 'rumah', NULL, '2023-09-19 04:04:11'),
+(6, 5, 'abc', 'lancar', 'sekolah', NULL, '2023-09-23 01:12:09');
 
 -- --------------------------------------------------------
 
@@ -284,7 +288,8 @@ INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `l
 (2, 4, 2, '12', 'ulang', 'sekolah', NULL, '2023-09-19 03:42:38'),
 (4, 3, 3, '10-50', 'lancar', 'sekolah', NULL, '2023-09-19 03:57:14'),
 (5, 3, 1, '1-7', 'lancar', 'rumah', NULL, '2023-09-19 04:01:12'),
-(6, 5, 4, '1', 'lancar', 'sekolah', NULL, '2023-09-19 04:07:36');
+(6, 5, 4, '1', 'lancar', 'sekolah', NULL, '2023-09-19 04:07:36'),
+(7, 5, 49, '1-20', 'lancar', 'sekolah', NULL, '2023-09-23 01:11:17');
 
 -- --------------------------------------------------------
 
@@ -315,7 +320,11 @@ INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`,
 (11, 4, 1, 'iqro', 10, 'lancar', 'sekolah', NULL, '2023-09-19 03:54:28'),
 (12, 4, 1, 'iqro', 111, 'lancar', 'rumah', NULL, '2023-09-19 03:55:58'),
 (13, 6, 1, 'iqro', 123, 'lancar', 'rumah', NULL, '2023-09-19 04:07:59'),
-(14, 2, 1, 'iqro', 123, 'lancar', 'sekolah', NULL, '2023-09-19 04:17:16');
+(14, 2, 1, 'iqro', 123, 'lancar', 'sekolah', NULL, '2023-09-19 04:17:16'),
+(15, 5, 1, 'iqro', 123, 'lancar', 'sekolah', NULL, '2023-09-21 10:40:04'),
+(16, 6, 1, 'iqro', 10, 'lancar', 'sekolah', NULL, '2023-09-23 01:08:22'),
+(17, 5, 1, 'iqro', 123, 'lancar', 'rumah', NULL, '2023-09-23 01:08:41'),
+(18, 5, 1, 'iqro', 2131, 'lancar', 'sekolah', NULL, '2023-09-26 03:54:32');
 
 -- --------------------------------------------------------
 
@@ -350,8 +359,9 @@ CREATE TABLE `orang_tua` (
 INSERT INTO `orang_tua` (`id`, `id_kk`, `nik`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`) VALUES
 (1, 3, '1634567890098765', 'Ayah', 'ayah@gmail.com', 'L', 1, 1, 1, 1, '081231231234', 'solo', '2023-09-01', 'solo', NULL, '2023-09-20 04:28:44', NULL),
 (2, 3, '1214215621212313', 'Ibu', 'ibu@gmail.com', 'P', 1, 2, 1, 1, '089274517442', 'solo', '2023-09-02', 'solo', NULL, '2023-09-20 04:28:44', NULL),
-(4, 1, '3314110809910001', 'Ayah Angga', 'ayahangga@gmail.com', 'L', 1, 1, 4, 10, '08123156732', 'Solo', '2023-09-01', 'Solo', '2023_09_20__03_07_20_Andhika-Saedya-transformed.png', '2023-09-20 03:07:20', '2023-09-20 03:07:20'),
-(6, 1, '3314150809018605', 'Ibu Angga', 'ibuangga@gmail.com', 'P', 1, 1, 1, 10, '081265345141', 'sragen', '2023-09-01', 'Solo', NULL, '2023-09-20 03:24:12', '2023-09-20 03:24:12');
+(4, 1, '3314110809910001', 'Ayah', 'ayahangga@gmail.com', 'L', 1, 1, 1, 10, '08123156732', 'Solo', '2023-09-01', 'Solo', '2023_09_20__03_07_20_Andhika-Saedya-transformed.png', '2023-09-20 03:07:20', '2023-09-23 00:59:54'),
+(6, 1, '3314150809018605', 'Ibu 1', 'ibuangga@gmail.com', 'P', 1, 3, 4, 10, '081265345141', 'sragen', '2023-09-01', 'Solo', NULL, '2023-09-20 03:24:12', '2023-09-23 00:59:59'),
+(7, 1, '3314150853678005', 'Ibu 2', 'Ibuuuu@gmail.com', 'P', 1, 3, 1, 11, '08115856732', 'sragen', '2023-08-27', 'Solo', NULL, '2023-09-20 03:55:00', '2023-09-23 01:00:04');
 
 -- --------------------------------------------------------
 
@@ -621,7 +631,9 @@ INSERT INTO `tahun_ajaran` (`id`, `tahun`, `created_at`, `updated_at`) VALUES
 (8, '2029/2030', '2023-08-04 02:48:45', '2023-08-04 02:48:45'),
 (9, '2030/2031', '2023-08-14 08:18:16', '2023-08-14 08:18:16'),
 (10, '2043/2044', '2023-08-23 03:42:49', '2023-08-23 03:42:49'),
-(11, '2037/2038', '2023-09-15 03:31:13', '2023-09-15 03:31:13');
+(11, '2037/2038', '2023-09-15 03:31:13', '2023-09-15 03:31:13'),
+(12, '2031/2032', '2023-09-26 06:24:25', '2023-09-26 06:24:25'),
+(13, '2032/2033', '2023-09-26 06:25:15', '2023-09-26 06:25:15');
 
 -- --------------------------------------------------------
 
@@ -921,7 +933,7 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`
@@ -939,37 +951,37 @@ ALTER TABLE `kk`
 -- AUTO_INCREMENT for table `monitoring_doa`
 --
 ALTER TABLE `monitoring_doa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `monitoring_hadits`
 --
 ALTER TABLE `monitoring_hadits`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`
@@ -1005,7 +1017,7 @@ ALTER TABLE `surah`
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
