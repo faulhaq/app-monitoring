@@ -29,7 +29,7 @@
                     <h5 class="card-title card-text mb-2">Pendidikan : {{ $guru->pendidikan() }}</h5>
                     <h5 class="card-title card-text mb-2">No. Telepon : {{ $guru->telp }}</h5>
                     <h5 class="card-title card-text mb-2">Tempat Lahir : {{ $guru->tmp_lahir }}</h5>
-                    <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ date('l, d F Y', strtotime($guru->tgl_lahir)) }}</h5>
+                    <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ fix_id_d($guru->tgl_lahir) }}</h5>
                     <h5 class="card-title card-text mb-2">Alamat : {{ $guru->alamat }}</h5>
                     <h5 class="card-title card-text mb-2">Status : {{ $guru->status === "aktif" ? "Aktif" : "Non-aktif" }}</h5> 
                 </div>

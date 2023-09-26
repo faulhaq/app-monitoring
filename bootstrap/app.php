@@ -52,6 +52,27 @@ $app->singleton(
 |
 */
 
+function fix_id_d($str)
+{
+    $bulan = [
+        "Januari",
+        "Februari",
+        "Maret",
+        "April",
+        "Mei",
+        "Juni",
+        "Juli",
+        "Agustus",
+        "September",
+        "Oktober",
+        "November",
+        "Desember"
+    ];
+
+    $time = strtotime($str);
+    return date("d", $time)." ".$bulan[(int)date("m", $time) - 1]." ".date("Y", $time);
+}
+
 function fix_id_dt($str)
 {
     $bulan = [

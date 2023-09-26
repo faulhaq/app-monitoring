@@ -33,7 +33,7 @@
                     <h5 class="card-title card-text mb-2">Pendidikan : {{ $orang_tua->pendidikan() }}</h5>
                     <h5 class="card-title card-text mb-2">No. Telepon : {{ $orang_tua->telp }}</h5>
                     <h5 class="card-title card-text mb-2">Tempat Lahir : {{ $orang_tua->tmp_lahir }}</h5>
-                    <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ date('l, d F Y', strtotime($orang_tua->tgl_lahir)) }}</h5>
+                    <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ fix_id_d($orang_tua->tgl_lahir) }}</h5>
                     <h5 class="card-title card-text mb-2">Alamat : {{ $orang_tua->alamat }}</h5> 
                 </div>
             </div>
