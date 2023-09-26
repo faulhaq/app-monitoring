@@ -62,7 +62,6 @@ class KelasController extends Controller
 
         $r->validate([
             "tingkatan"     => "required",
-            "nama"          => "required",
             "tahun_ajaran"  => "required",
             "wali_kelas"    => "required"
         ]);
@@ -133,7 +132,6 @@ class KelasController extends Controller
 
         $r->validate([
             "tingkatan"     => "required",
-            "nama"          => "required",
             "wali_kelas"    => "required"
         ]);
 
