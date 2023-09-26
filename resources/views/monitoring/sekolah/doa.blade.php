@@ -50,12 +50,21 @@ $has_siswa = false;
                     </div>
                 </div>
                 @if ($has_siswa)
-                    <div style="margin-bottom: 10px;">
-                        <h3 class="card-title">
-                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Doa
-                            </button>
-                        </h3>
+                    <div class="col-md" style="margin-bottom: 10px;">
+                        <div class="card-header">
+                            <?php $kelas = $sel_siswa->kelas(); ?>
+                            <?php $wali_kelas = $kelas->wali_kelas(); ?>
+                            <h5 class="card-title card-text mb-2">Nama Siswa : {{ $sel_siswa->nama }}</h5>
+                            <h5 class="card-title card-text mb-2">Kelas : {{ $kelas->tingkatan.$kelas->nama }}</h5>
+                            <h5 class="card-title card-text mb-2">Wali Kelas : {{ " (NIP : {$wali_kelas->nip}) {$wali_kelas->nama}" }}</h5>
+                        </div>
+                        <div class="card-header">
+                            <h3 class="card-title">
+                                <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                    <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Doa
+                                </button>
+                            </h3>
+                        </div>
                     </div>
                 @endif
             </div>
@@ -78,7 +87,7 @@ $has_siswa = false;
                         <td>{{ $v->created_by ?? "Admin" }}</td>
                         <td>{{ $v->created_at }}</td>
                         <td>
-                            <form action="{{ route('monitoring.rumah.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
+                            <form action="{{ route('monitoring.sekolah.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
@@ -105,7 +114,7 @@ $has_siswa = false;
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.rumah.doa.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.sekolah.doa.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
                         <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -147,7 +156,7 @@ $has_siswa = false;
 <script>
     $("#Monitoring").addClass("active");
     $("#liMonitoring").addClass("menu-open");
-    $("#DataMonitoringRumah").addClass("active");
+    $("#DataMonitoringSekolah").addClass("active");
 
     let fkelas = $("#filter_kelas");
     let fsiswa = $("#filter_siswa");

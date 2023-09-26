@@ -42,7 +42,8 @@ class MonitoringRumahController extends Controller
         $kelas = Kelas::get();
 
         if ($fkelas && $fsiswa) {
-            if (!Siswa::find($fsiswa)) {
+            $sel_siswa = Siswa::find($fsiswa);
+            if (!$sel_siswa) {
                 abort(404);
                 return;
             }
@@ -50,6 +51,7 @@ class MonitoringRumahController extends Controller
                             ->where("id_siswa", $fsiswa)
                             ->orderBy("created_at", "desc")->get();
         } else {
+            $sel_siswa = NULL;
             $tahsin = [];
         }
 
@@ -65,7 +67,7 @@ class MonitoringRumahController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.rumah.tahsin",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                            "tahsin", "siswa"));
+                            "tahsin", "siswa", "sel_siswa"));
     }
 
     public function tahsin_destroy($id)
@@ -135,7 +137,8 @@ class MonitoringRumahController extends Controller
         $kelas  = Kelas::get();
 
         if ($fkelas && $fsiswa) {
-            if (!Siswa::find($fsiswa)) {
+            $sel_siswa = Siswa::find($fsiswa);
+            if (!$sel_siswa) {
                 abort(404);
                 return;
             }
@@ -143,6 +146,7 @@ class MonitoringRumahController extends Controller
                             ->where("id_siswa", $fsiswa)
                             ->orderBy("created_at", "desc")->get();
         } else {
+            $sel_siswa = NULL;
             $tahfidz = [];
         }
 
@@ -158,7 +162,7 @@ class MonitoringRumahController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.rumah.tahfidz",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                            "tahfidz", "siswa"));
+                            "tahfidz", "siswa", "sel_siswa"));
     }
 
     public function tahfidz_destroy($id)
@@ -227,7 +231,8 @@ class MonitoringRumahController extends Controller
         $kelas = Kelas::get();
 
         if ($fkelas && $fsiswa) {
-            if (!Siswa::find($fsiswa)) {
+            $sel_siswa = Siswa::find($fsiswa);
+            if (!$sel_siswa) {
                 abort(404);
                 return;
             }
@@ -235,6 +240,7 @@ class MonitoringRumahController extends Controller
                                 ->where("id_siswa", $fsiswa)
                                 ->orderBy("created_at", "desc")->get();
         } else {
+            $sel_siswa = NULL;
             $mahfudhot = [];
         }
 
@@ -250,7 +256,7 @@ class MonitoringRumahController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.rumah.mahfudhot",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                            "mahfudhot", "siswa"));
+                            "mahfudhot", "siswa", "sel_siswa"));
     }
 
     public function mahfudhot_destroy($id)
@@ -317,7 +323,8 @@ class MonitoringRumahController extends Controller
         $kelas = Kelas::get();
 
         if ($fkelas && $fsiswa) {
-            if (!Siswa::find($fsiswa)) {
+            $sel_siswa = Siswa::find($fsiswa);
+            if (!$sel_siswa) {
                 abort(404);
                 return;
             }
@@ -325,6 +332,7 @@ class MonitoringRumahController extends Controller
                             ->where("id_siswa", $fsiswa)
                             ->orderBy("created_at", "desc")->get();
         } else {
+            $sel_siswa = NULL;
             $hadits = [];
         }
 
@@ -340,7 +348,7 @@ class MonitoringRumahController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.rumah.hadits",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                            "hadits", "siswa"));
+                            "hadits", "siswa", "sel_siswa"));
     }
 
     public function hadits_destroy($id)
@@ -407,7 +415,8 @@ class MonitoringRumahController extends Controller
         $kelas = Kelas::get();
 
         if ($fkelas && $fsiswa) {
-            if (!Siswa::find($fsiswa)) {
+            $sel_siswa = Siswa::find($fsiswa);
+            if (!$sel_siswa) {
                 abort(404);
                 return;
             }
@@ -415,6 +424,7 @@ class MonitoringRumahController extends Controller
                     ->where("id_siswa", $fsiswa)
                     ->orderBy("created_at", "desc")->get();
         } else {
+            $sel_siswa = NULL;
             $doa = [];
         }
 
@@ -430,7 +440,7 @@ class MonitoringRumahController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.rumah.doa",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                            "doa", "siswa"));
+                            "doa", "siswa", "sel_siswa"));
     }
 
     public function doa_destroy($id)
