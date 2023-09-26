@@ -37,10 +37,10 @@
                         }
                     ?></td>
                     <td>
-                        <?php $i = 0;
-                        foreach ($data->ibu() as $ibu) {
-                            print (($i > 0) ? ", " : "") . e($ibu->nama);
-                            $i++;
+                        <?php 
+                        $ibu = $data->ibu();
+                        if (count($ibu)) {
+                            echo e($ibu[0]->nama);
                             $nr_ortu++;
                         }
                         ?>

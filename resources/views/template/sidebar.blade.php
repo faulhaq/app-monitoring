@@ -82,12 +82,12 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview ml-4">
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                                 <a href="{{ route('kk.index') }}" class="nav-link" id="DataKartuKeluarga">
                                     <i class="fas fa-users nav-icon"></i>
                                     <p>Data Keluarga</p>
                                 </a>
-                            </li>
+                            </li> -->
                             <li class="nav-item">
                                 <a href="{{ route('orang_tua.index') }}" class="nav-link" id="DataOrangTua">
                                     <i class="fas fa-users nav-icon"></i>

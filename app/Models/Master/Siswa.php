@@ -21,12 +21,17 @@ class Siswa extends Model
     public function kelas()
     {
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
-        return self::select("kelas.*")
+        $kelas = self::select("kelas.*")
                 ->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
                 ->join("kelas", "kelas.id", "kelas_siswa.id_kelas")
                 ->where("kelas.id_tahun_ajaran", $id_tahun_ajaran_aktif)
                 ->where("siswa.id", $this->id)
                 ->first();
+        if (!$kelas) {
+            return NULL;
+        }
+
+        return Kelas::find($kelas->id);
     }
 
     public function kk()

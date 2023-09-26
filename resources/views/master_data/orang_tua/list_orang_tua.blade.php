@@ -7,6 +7,13 @@
 <div class="col-md-12">
     <div class="card">
         <div class="card-header">
+            <?php $kelas = $siswa->kelas(); ?>
+            <?php $wali_kelas = $kelas->wali_kelas(); ?>
+            <h5 class="card-title card-text mb-2">Nama Siswa : {{ $siswa->nama }}</h5>
+            <h5 class="card-title card-text mb-2">Kelas : {{ $kelas->tingkatan.$kelas->nama }}</h5>
+            <h5 class="card-title card-text mb-2">Wali Kelas : {{ " (NIP : {$wali_kelas->nip}) {$wali_kelas->nama}" }}</h5>
+        </div>
+        <div class="card-header">
             <h3 class="card-title">
                 <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
                     <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Orang Tua
