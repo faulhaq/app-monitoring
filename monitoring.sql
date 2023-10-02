@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2023 at 09:28 AM
+-- Generation Time: Oct 02, 2023 at 10:46 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -200,6 +200,16 @@ CREATE TABLE `monitoring_doa` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `monitoring_doa`
+--
+
+INSERT INTO `monitoring_doa` (`id`, `id_siswa`, `doa`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
+(1, 4, 'vas', 'lancar', 'rumah', 13, '2023-10-02 08:31:41'),
+(2, 4, 'abc', 'lancar', 'sekolah', 11, '2023-10-02 10:42:45'),
+(3, 2, 'vas', 'lancar', 'rumah', 14, '2023-10-02 08:46:03'),
+(4, 3, 'anc', 'lancar', 'rumah', 14, '2023-10-02 08:46:09');
+
 -- --------------------------------------------------------
 
 --
@@ -232,6 +242,13 @@ CREATE TABLE `monitoring_mahfudhot` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `monitoring_mahfudhot`
+--
+
+INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `mahfudhot`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
+(1, 4, 'abc', 'lancar', 'rumah', 13, '2023-10-02 08:31:30');
+
 -- --------------------------------------------------------
 
 --
@@ -248,6 +265,13 @@ CREATE TABLE `monitoring_tahfidz` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_tahfidz`
+--
+
+INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
+(1, 5, 3, '12', 'lancar', 'sekolah', 11, '2023-10-02 07:53:27');
 
 -- --------------------------------------------------------
 
@@ -266,6 +290,13 @@ CREATE TABLE `monitoring_tahsin` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_tahsin`
+--
+
+INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
+(1, 5, 12, 'iqro', 123, 'lancar', 'sekolah', 11, '2023-10-02 07:37:16');
 
 -- --------------------------------------------------------
 
@@ -300,7 +331,7 @@ CREATE TABLE `orang_tua` (
 INSERT INTO `orang_tua` (`id`, `id_kk`, `nik`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`) VALUES
 (1, 3, '1634567890098765', 'Ayah', 'ayah@gmail.com', 'L', 1, 1, 1, 1, '081231231234', 'solo', '2023-09-01', 'solo', NULL, '2023-09-20 04:28:44', NULL),
 (2, 3, '1214215621212313', 'Ibu', 'ibu@gmail.com', 'P', 1, 2, 1, 1, '089274517442', 'solo', '2023-09-02', 'solo', NULL, '2023-09-20 04:28:44', NULL),
-(4, 1, '3314110809910001', 'Ayah', 'ayahangga@gmail.com', 'L', 1, 1, 1, 10, '08123156732', 'Solo', '2023-09-01', 'Solo', '2023_09_20__03_07_20_Andhika-Saedya-transformed.png', '2023-09-20 03:07:20', '2023-09-23 00:59:54'),
+(4, 1, '3314110809910001', 'Ayahe angga', 'ayahangga@gmail.com', 'L', 1, 1, 1, 10, '08123156732', 'Solo', '2023-09-01', 'Solo', '2023_09_20__03_07_20_Andhika-Saedya-transformed.png', '2023-09-20 03:07:20', '2023-10-02 08:05:15'),
 (6, 1, '3314150809018605', 'Ibu 1', 'ibuangga@gmail.com', 'P', 1, 3, 4, 10, '081265345141', 'sragen', '2023-09-01', 'Solo', NULL, '2023-09-20 03:24:12', '2023-09-23 00:59:59'),
 (7, 1, '3314150853678005', 'Ibu 2', 'Ibuuuu@gmail.com', 'P', 1, 3, 1, 11, '08115856732', 'sragen', '2023-08-27', 'Solo', NULL, '2023-09-20 03:55:00', '2023-09-23 01:00:04');
 
@@ -617,9 +648,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'bhKbfRG2j2oNkrR1TAtCNsw2FJ7dRPIBv43tkgT7rwnZSHlh7wk3N5mlcHyM', '2023-07-27 12:15:00', NULL),
+(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'BxOGmnBiX5IHmSEcJrlD848BTcpzrqaAIIw97AXqY7he5Z7yjbsKWVREbE0U', '2023-07-27 12:15:00', NULL),
 (11, 'guru', 'guru001@gmail.com', '$2y$10$nkbNg2CuYC1XctKjmTDLQenw2efFdjEmS.I3xR1twt3j5tWt2k3e6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-10-02 07:20:26'),
-(12, 'orang_tua', 'anton@gmail.com', '$2y$10$QG0vR.SZozIW..f0J4mKFOy2vWUXxsRKvz4cmWpxH6iVMccNvrNRS', NULL, 1, NULL, '2023-09-15 03:32:00', '2023-09-15 03:32:00');
+(13, 'orang_tua', 'ayah@gmail.com', '$2y$10$ZJQjennnqoePQv3YbTDtv./X95CbZ9nFXzRG8S5ZI3HtQJPbY43ne', NULL, 1, NULL, '2023-10-02 08:04:32', '2023-10-02 08:04:40'),
+(14, 'orang_tua', 'ayahangga@gmail.com', '$2y$10$Mu6GmYhKo.n3G5xaY0jYSekvRuraMLvwl//pHahrM4cBHeTvdP3BW', NULL, 4, NULL, '2023-10-02 08:05:40', '2023-10-02 08:05:48');
 
 --
 -- Indexes for dumped tables
@@ -892,7 +924,7 @@ ALTER TABLE `kk`
 -- AUTO_INCREMENT for table `monitoring_doa`
 --
 ALTER TABLE `monitoring_doa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `monitoring_hadits`
@@ -904,19 +936,19 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -970,7 +1002,7 @@ ALTER TABLE `tahun_ajaran_aktif`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

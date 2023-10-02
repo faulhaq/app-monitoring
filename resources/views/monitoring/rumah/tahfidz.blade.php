@@ -17,7 +17,7 @@ $add_title = "Tambah Data Tahfidz";
         <!-- /.card-header -->
         <div class="card-body">
             <div class="row">
-                @include('monitoring.rumah.search_bar')
+                @include('monitoring.search_bar')
             </div>
             <table id="example1" class="table table-bordered table-striped table-hover">
             <thead>

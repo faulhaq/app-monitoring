@@ -35,11 +35,55 @@ class MonitoringSekolahController extends Controller
         return NULL;
     }
 
+    private function get_kelas($user)
+    {
+        if ($user->role !== "orang_tua")
+            return Kelas::get();
+
+        return NULL;
+    }
+
+    /*
+     * Pengisian variable $siswa terdapat 2 kondisi:
+     * 1. Ketika $user->role !== "orang_tua":
+     *    Tampilkan semua siswa (hanya ketika $fkelas !== "all").
+     * 
+     * 2. Ketika $user->role === "orang_tua":
+     *    Tampilkan semua siswa yang memiliki id_kk sama dengan
+     *    orang tua.
+     */
+    private function get_siswa($fkelas, $user)
+    {
+        if (($fkelas && $fkelas !== "all") || $user->role === "orang_tua") {
+            $siswa = Siswa::select("siswa.*");
+
+            if ($user->role !== "orang_tua") {
+                $siswa = $siswa
+                        ->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
+                        ->where("kelas_siswa.id_kelas", $fkelas);
+            }
+
+            if ($user->role === "orang_tua") {
+                $siswa = $siswa
+                            ->join("kk", "kk.id", "siswa.id_kk")
+                            ->join("orang_tua", "kk.id", "orang_tua.id_kk")
+                            ->join("users", "orang_tua.id", "users.id_orang_tua")
+                            ->where("users.id", $user->id);
+            }
+
+            $siswa = $siswa->get();
+        } else {
+            $siswa = [];
+        }
+        return $siswa;
+    }
+
     public function tahsin()
     {
         $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
         $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
-        $kelas = Kelas::get();
+        $user = Auth::user();
+        $kelas = $this->get_kelas($user);
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -55,14 +99,7 @@ class MonitoringSekolahController extends Controller
             $tahsin = [];
         }
 
-        if ($fkelas && $fkelas !== "all") {
-            $siswa = Siswa::select("siswa.*");
-            $siswa = $siswa->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
-                        ->where("kelas_siswa.id_kelas", $fkelas)
-                        ->get();
-        } else {
-            $siswa = [];
-        }
+        $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.sekolah.tahsin",
@@ -134,7 +171,8 @@ class MonitoringSekolahController extends Controller
     {
         $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
         $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
-        $kelas  = Kelas::get();
+        $user = Auth::user();
+        $kelas = $this->get_kelas($user);
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -150,14 +188,7 @@ class MonitoringSekolahController extends Controller
             $tahfidz = [];
         }
 
-        if ($fkelas && $fkelas !== "all") {
-            $siswa = Siswa::select("siswa.*");
-            $siswa = $siswa->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
-                        ->where("kelas_siswa.id_kelas", $fkelas)
-                        ->get();
-        } else {
-            $siswa = [];
-        }
+        $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.sekolah.tahfidz",
@@ -228,7 +259,8 @@ class MonitoringSekolahController extends Controller
     {
         $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
         $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
-        $kelas = Kelas::get();
+        $user = Auth::user();
+        $kelas = $this->get_kelas($user);
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -244,14 +276,7 @@ class MonitoringSekolahController extends Controller
             $mahfudhot = [];
         }
 
-        if ($fkelas && $fkelas !== "all") {
-            $siswa = Siswa::select("siswa.*");
-            $siswa = $siswa->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
-                        ->where("kelas_siswa.id_kelas", $fkelas)
-                        ->get();
-        } else {
-            $siswa = [];
-        }
+        $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.sekolah.mahfudhot",
@@ -320,7 +345,8 @@ class MonitoringSekolahController extends Controller
     {
         $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
         $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
-        $kelas = Kelas::get();
+        $user = Auth::user();
+        $kelas = $this->get_kelas($user);
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -336,14 +362,7 @@ class MonitoringSekolahController extends Controller
             $hadits = [];
         }
 
-        if ($fkelas && $fkelas !== "all") {
-            $siswa = Siswa::select("siswa.*");
-            $siswa = $siswa->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
-                        ->where("kelas_siswa.id_kelas", $fkelas)
-                        ->get();
-        } else {
-            $siswa = [];
-        }
+        $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.sekolah.hadits",
@@ -412,7 +431,8 @@ class MonitoringSekolahController extends Controller
     {
         $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
         $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
-        $kelas = Kelas::get();
+        $user = Auth::user();
+        $kelas = $this->get_kelas($user);
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -428,14 +448,7 @@ class MonitoringSekolahController extends Controller
             $doa = [];
         }
 
-        if ($fkelas && $fkelas !== "all") {
-            $siswa = Siswa::select("siswa.*");
-            $siswa = $siswa->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
-                        ->where("kelas_siswa.id_kelas", $fkelas)
-                        ->get();
-        } else {
-            $siswa = [];
-        }
+        $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.sekolah.doa",
