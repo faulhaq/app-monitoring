@@ -15,6 +15,8 @@
                     @include('template.sidebar_list_admin')
                 @elseif (Auth::user()->role == 'guru')
                     @include('template.sidebar_list_guru')
+                @elseif (Auth::user()->role == 'orang_tua')
+                    @include('template.sidebar_list_orang_tua')
                 @else
                     <li class="nav-item has-treeview">
                         <a href="{{ url('/') }}" class="nav-link" id="Home">
