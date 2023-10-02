@@ -7,6 +7,9 @@
 
 <?php
 $has_siswa = false;
+$user = Auth::user();
+$allow_edit = in_array($user->role, ["guru", "admin"]);
+
 ?>
 
 <div class="col-md-12">
@@ -58,6 +61,7 @@ $has_siswa = false;
                             <h5 class="card-title card-text mb-2">Kelas : {{ $kelas->tingkatan.$kelas->nama }}</h5>
                             <h5 class="card-title card-text mb-2">Wali Kelas : {{ " (NIP : {$wali_kelas->nip}) {$wali_kelas->nama}" }}</h5>
                         </div>
+                        @if ($allow_edit)
                         <div class="card-header">
                             <h3 class="card-title">
                                 <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
@@ -65,6 +69,7 @@ $has_siswa = false;
                                 </button>
                             </h3>
                         </div>
+                        @endif
                     </div>
                 @endif
             </div>
@@ -88,11 +93,13 @@ $has_siswa = false;
                         <td>{{ $v->created_by() }}</td>
                         <td>{{ fix_id_dt(fix_id_dt($v->created_at)) }}</td>
                         <td>
+                            @if ($allow_edit)
                             <form action="{{ route('monitoring.sekolah.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                             </form>
+                            @endif
                         </td>
                     </tr>
                 @endforeach
