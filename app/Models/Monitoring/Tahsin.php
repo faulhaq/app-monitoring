@@ -2,10 +2,13 @@
 
 namespace App\Models\Monitoring;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 class Tahsin extends Model
 {
+    use CreatedByTrait;
+
     protected $fillable = ['id_siswa', 'n', 'tipe', 'halaman', 'lu', 'lokasi', 'created_by'];
 
     protected $table = 'monitoring_tahsin';
@@ -19,10 +22,5 @@ class Tahsin extends Model
         }
 
         return static::insert($arg);
-    }
-
-    public function created_by()
-    {
-        return $this->belongsTo(Guru::class, "id_guru")->first();
     }
 }

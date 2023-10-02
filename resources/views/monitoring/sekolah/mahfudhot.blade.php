@@ -85,7 +85,7 @@ $has_siswa = false;
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $v->mahfudhot }}</td>
                         <td>{{ $v->lu }}</td>
-                        <td>{{ $v->created_by ?? "Admin" }}</td>
+                        <td>{{ $v->created_by() }}</td>
                         <td>{{ fix_id_dt($v->created_at) }}</td>
                         <td>
                             <form action="{{ route('monitoring.sekolah.mahfudhot.destroy', Crypt::encrypt($v->id)) }}" method="post">

@@ -29,7 +29,7 @@ class MonitoringSekolahController extends Controller
             return NULL;
 
         if ($user->role === "guru")
-            return $user->id_guru;
+            return $user->id;
 
         abort(404);
         return NULL;

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Doa extends Model
 {
+    use CreatedByTrait;
+
     protected $fillable = ['id_siswa', 'doa', 'lu', 'lokasi', 'created_by'];
 
     protected $table = 'monitoring_doa';

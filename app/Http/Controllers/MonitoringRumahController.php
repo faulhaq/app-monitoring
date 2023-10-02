@@ -28,8 +28,8 @@ class MonitoringRumahController extends Controller
         if ($user->role === "admin")
             return NULL;
 
-        if ($user->role === "guru")
-            return $user->id_guru;
+        if ($user->role === "orang_tua")
+            return $user->id;
 
         abort(404);
         return NULL;
