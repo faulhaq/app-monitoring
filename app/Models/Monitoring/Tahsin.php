@@ -20,4 +20,9 @@ class Tahsin extends Model
 
         return static::insert($arg);
     }
+
+    public function created_by()
+    {
+        return $this->belongsTo(Guru::class, "id_guru")->first();
+    }
 }

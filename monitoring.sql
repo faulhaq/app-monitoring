@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 27, 2023 at 06:20 AM
+-- Generation Time: Oct 02, 2023 at 09:28 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -200,15 +200,6 @@ CREATE TABLE `monitoring_doa` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `monitoring_doa`
---
-
-INSERT INTO `monitoring_doa` (`id`, `id_siswa`, `doa`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(3, 5, 'r5refsd', 'ulang', 'sekolah', NULL, '2023-09-16 08:01:57'),
-(4, 5, 'vas', 'lancar', 'sekolah', NULL, '2023-09-16 08:02:00'),
-(5, 5, 'anc', 'ulang', 'rumah', NULL, '2023-09-23 01:12:38');
-
 -- --------------------------------------------------------
 
 --
@@ -225,16 +216,6 @@ CREATE TABLE `monitoring_hadits` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `monitoring_hadits`
---
-
-INSERT INTO `monitoring_hadits` (`id`, `id_siswa`, `hadits`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(3, 4, 'afg', 'lancar', 'sekolah', NULL, '2023-09-16 07:56:22'),
-(4, 4, '3td', 'lancar', 'sekolah', NULL, '2023-09-16 07:56:25'),
-(5, 4, 'abc', 'lancar', 'rumah', NULL, '2023-09-19 04:17:30'),
-(6, 5, 'abc', 'lancar', 'sekolah', NULL, '2023-09-23 01:12:24');
-
 -- --------------------------------------------------------
 
 --
@@ -250,17 +231,6 @@ CREATE TABLE `monitoring_mahfudhot` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `monitoring_mahfudhot`
---
-
-INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `mahfudhot`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(2, 3, 'ad 23', 'lancar', 'sekolah', NULL, '2023-09-16 07:41:12'),
-(3, 3, 'qaa', 'ulang', 'sekolah', NULL, '2023-09-16 07:41:22'),
-(4, 5, 'AWS', 'lancar', 'sekolah', NULL, '2023-09-19 03:49:25'),
-(5, 4, 'ABC', 'lancar', 'rumah', NULL, '2023-09-19 04:04:11'),
-(6, 5, 'abc', 'lancar', 'sekolah', NULL, '2023-09-23 01:12:09');
 
 -- --------------------------------------------------------
 
@@ -279,18 +249,6 @@ CREATE TABLE `monitoring_tahfidz` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `monitoring_tahfidz`
---
-
-INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(1, 4, 1, '1', 'lancar', 'sekolah', NULL, '2023-09-19 03:39:09'),
-(2, 4, 2, '12', 'ulang', 'sekolah', NULL, '2023-09-19 03:42:38'),
-(4, 3, 3, '10-50', 'lancar', 'sekolah', NULL, '2023-09-19 03:57:14'),
-(5, 3, 1, '1-7', 'lancar', 'rumah', NULL, '2023-09-19 04:01:12'),
-(6, 5, 4, '1', 'lancar', 'sekolah', NULL, '2023-09-19 04:07:36'),
-(7, 5, 49, '1-20', 'lancar', 'sekolah', NULL, '2023-09-23 01:11:17');
-
 -- --------------------------------------------------------
 
 --
@@ -308,23 +266,6 @@ CREATE TABLE `monitoring_tahsin` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `monitoring_tahsin`
---
-
-INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(8, 4, 2, 'iqro', 18, 'lancar', 'sekolah', NULL, '2023-09-13 13:01:25'),
-(9, 4, 2, 'iqro', 100, 'lancar', 'sekolah', NULL, '2023-09-15 03:34:14'),
-(10, 3, 1, 'iqro', 15, 'ulang', 'sekolah', NULL, '2023-09-15 03:36:54'),
-(11, 4, 1, 'iqro', 10, 'lancar', 'sekolah', NULL, '2023-09-19 03:54:28'),
-(12, 4, 1, 'iqro', 111, 'lancar', 'rumah', NULL, '2023-09-19 03:55:58'),
-(13, 6, 1, 'iqro', 123, 'lancar', 'rumah', NULL, '2023-09-19 04:07:59'),
-(14, 2, 1, 'iqro', 123, 'lancar', 'sekolah', NULL, '2023-09-19 04:17:16'),
-(15, 5, 1, 'iqro', 123, 'lancar', 'sekolah', NULL, '2023-09-21 10:40:04'),
-(16, 6, 1, 'iqro', 10, 'lancar', 'sekolah', NULL, '2023-09-23 01:08:22'),
-(17, 5, 1, 'iqro', 123, 'lancar', 'rumah', NULL, '2023-09-23 01:08:41'),
-(18, 5, 1, 'iqro', 2131, 'lancar', 'sekolah', NULL, '2023-09-26 03:54:32');
 
 -- --------------------------------------------------------
 
@@ -433,7 +374,7 @@ CREATE TABLE `pengumuman` (
 --
 
 INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'pengumuman', 'halo semuanya', '2023-07-27 07:17:05', '2023-08-04 03:01:40', NULL);
+(1, 'pengumuman', 'halo gaisss', '2023-07-27 07:17:05', '2023-09-27 04:22:10', NULL);
 
 -- --------------------------------------------------------
 
@@ -676,8 +617,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'yWWLMhRJHGiflzGA9DXFliW9OIb4qdqfEJJLhkNDoYuXBVC6jsgcy79yVHg9', '2023-07-27 12:15:00', NULL),
-(11, 'guru', 'guru001@gmail.com', '$2y$10$1OtCw2oVhV8AwQgfTh2Dlursg/9TVWIdXI3TQlfXX9A1VFbUWgUg6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-08-23 03:50:14'),
+(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'bhKbfRG2j2oNkrR1TAtCNsw2FJ7dRPIBv43tkgT7rwnZSHlh7wk3N5mlcHyM', '2023-07-27 12:15:00', NULL),
+(11, 'guru', 'guru001@gmail.com', '$2y$10$nkbNg2CuYC1XctKjmTDLQenw2efFdjEmS.I3xR1twt3j5tWt2k3e6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-10-02 07:20:26'),
 (12, 'orang_tua', 'anton@gmail.com', '$2y$10$QG0vR.SZozIW..f0J4mKFOy2vWUXxsRKvz4cmWpxH6iVMccNvrNRS', NULL, 1, NULL, '2023-09-15 03:32:00', '2023-09-15 03:32:00');
 
 --
@@ -951,31 +892,31 @@ ALTER TABLE `kk`
 -- AUTO_INCREMENT for table `monitoring_doa`
 --
 ALTER TABLE `monitoring_doa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `monitoring_hadits`
 --
 ALTER TABLE `monitoring_hadits`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -1091,8 +1032,7 @@ ALTER TABLE `monitoring_tahfidz`
 -- Constraints for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  ADD CONSTRAINT `monitoring_tahsin_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_tahsin_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `guru` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `monitoring_tahsin_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `orang_tua`
