@@ -41,6 +41,7 @@ $add_title = "Tambah Data Doa";
                         <td>{{ fix_id_dt(fix_id_dt($v->created_at)) }}</td>
                         <td>
                             @if ($allow_edit)
+                            <form action="{{ route('monitoring.keagamaan.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
