@@ -1,20 +1,19 @@
 @extends('template.home')
-@section('heading', 'Data Tahfidz')
+@section('heading', 'Data Tahsin')
 @section('page')
-  <li class="breadcrumb-item active">Data Tahfidz</li>
+  <li class="breadcrumb-item active">Data Tahsin</li>
 @endsection
 @section('content')
-
 <?php
 $has_siswa = false;
 $user = Auth::user();
 $allow_edit = in_array($user->role, ["guru", "admin"]);
-$add_title = "Tambah Data Tahfidz";
+$add_title = "Tambah Data Tahsin";
 
 ?>
-
 <div class="col-md-12">
     <div class="card">
+        
         <!-- /.card-header -->
         <div class="card-body">
             <div class="row">
@@ -24,26 +23,26 @@ $add_title = "Tambah Data Tahfidz";
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Surah</th>
-                    <th>Ayat</th>
+                    <th>Iqro/Juz</th>
+                    <th>Halaman</th>
                     <th>Keterangan</th>
-                    <th>Dibuat Oleh</th>
+                    <th>Dibuat oleh</th>
                     <th>Tanggal</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach($tahfidz as $v)
+                @foreach($tahsin as $v)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $v->surah() }}</td>
-                        <td>{{ $v->ayat }}</td>
+                        <td>{{ $v->tipe." ".$v->n }}</td>
+                        <td>{{ $v->halaman }}</td>
                         <td>{{ $v->lu }}</td>
                         <td>{{ $v->created_by() }}</td>
                         <td>{{ fix_id_dt($v->created_at) }}</td>
                         <td>
                             @if ($allow_edit)
-                            <form action="{{ route('monitoring.sekolah.tahfidz.destroy', Crypt::encrypt($v->id)) }}" method="post">
+                            <form action="{{ route('monitoring.keagamaan.tahsin.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
@@ -64,27 +63,37 @@ $add_title = "Tambah Data Tahfidz";
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Tahfidz</h4>
+                <h4 class="modal-title">Tambah Data Tahsin</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.sekolah.tahfidz.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.keagamaan.tahsin.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
                         <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="surah">Surah</label>
-                                <select id="surah" name="surah" class="form-control @error('surah') is-invalid @enderror" required>
-                                    <option value="">-- Pilih Surah ---</option>
-                                    @foreach (\App\Models\Ref\Surah::all() as $s)
-                                        <option value="{{ $s->id }}">{{ $s->nama }}</option>
-                                    @endforeach
-                            </select>
+                                <label for="lu">Tipe</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="tipe_iqro" name="tipe" value="iqro" required>
+                                    <label class="form-check-label" for="tipe_iqro">
+                                    Iqro'
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="tipe_juz" name="tipe" value="juz" required>
+                                    <label class="form-check-label" for="tipe_juz">
+                                    Juz
+                                    </label>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="ayat">Ayat</label>
-                                <input type="text" id="ayat" name="ayat" class="form-control @error('ayat') is-invalid @enderror" required>
+                                <label for="n">Iqro'/Juz (isi dengan angka)</label>
+                                <input type="text" id="n" name="n" onkeypress="return inputAngka(event)" class="form-control @error('n') is-invalid @enderror" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="halaman">Halaman</label>
+                                <input type="text" id="halaman" name="halaman" onkeypress="return inputAngka(event)" class="form-control @error('halaman') is-invalid @enderror" required>
                             </div>
                             <div class="form-group">
                                 <label for="lu">Keterangan</label>

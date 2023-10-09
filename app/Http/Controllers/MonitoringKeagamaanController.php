@@ -15,11 +15,11 @@ use App\Models\Monitoring\Hadits;
 use App\Models\Monitoring\Doa;
 use App\Models\Monitoring\Tahfidz;
 
-class MonitoringSekolahController extends Controller
+class MonitoringKeagamaanController extends Controller
 {
     public function index()
     {
-        return view("monitoring.sekolah.index");
+        return view("monitoring.keagamaan.index");
     }
 
     public function get_created_by()
@@ -102,7 +102,7 @@ class MonitoringSekolahController extends Controller
         $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
-        return view("monitoring.sekolah.tahsin",
+        return view("monitoring.keagamaan.tahsin",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
                             "tahsin", "siswa", "sel_siswa"));
     }
@@ -163,7 +163,7 @@ class MonitoringSekolahController extends Controller
             "lokasi"     => "sekolah",
             "created_by" => $created_by
         ]);
-        $url = route('monitoring.sekolah.tahsin')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        $url = route('monitoring.keagamaan.tahsin')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
         return redirect($url)->with('success', 'Berhasil menambahkan data tahsin!');
     }
 
@@ -191,7 +191,7 @@ class MonitoringSekolahController extends Controller
         $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
-        return view("monitoring.sekolah.tahfidz",
+        return view("monitoring.keagamaan.tahfidz",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
                             "tahfidz", "siswa", "sel_siswa"));
     }
@@ -251,7 +251,7 @@ class MonitoringSekolahController extends Controller
             "lokasi"     => "sekolah",
             "created_by" => $created_by
         ]);
-        $url = route('monitoring.sekolah.tahfidz')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        $url = route('monitoring.keagamaan.tahfidz')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
         return redirect($url)->with('success', 'Berhasil menambahkan data tahfidz!');
     }
 
@@ -279,7 +279,7 @@ class MonitoringSekolahController extends Controller
         $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
-        return view("monitoring.sekolah.mahfudhot",
+        return view("monitoring.keagamaan.mahfudhot",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
                             "mahfudhot", "siswa", "sel_siswa"));
     }
@@ -337,7 +337,7 @@ class MonitoringSekolahController extends Controller
             "lokasi"     => "sekolah",
             "created_by" => $created_by
         ]);
-        $url = route('monitoring.sekolah.mahfudhot')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        $url = route('monitoring.keagamaan.mahfudhot')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
         return redirect($url)->with('success', 'Berhasil menambahkan data mahfudhot!');
     }
 
@@ -365,7 +365,7 @@ class MonitoringSekolahController extends Controller
         $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
-        return view("monitoring.sekolah.hadits",
+        return view("monitoring.keagamaan.hadits",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
                             "hadits", "siswa", "sel_siswa"));
     }
@@ -423,7 +423,7 @@ class MonitoringSekolahController extends Controller
             "lokasi"     => "sekolah",
             "created_by" => $created_by
         ]);
-        $url = route('monitoring.sekolah.hadits')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        $url = route('monitoring.keagamaan.hadits')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
         return redirect($url)->with('success', 'Berhasil menambahkan data hadits!');
     }
 
@@ -451,7 +451,7 @@ class MonitoringSekolahController extends Controller
         $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
-        return view("monitoring.sekolah.doa",
+        return view("monitoring.keagamaan.doa",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
                             "doa", "siswa", "sel_siswa"));
     }
@@ -509,7 +509,7 @@ class MonitoringSekolahController extends Controller
             "lokasi"     => "sekolah",
             "created_by" => $created_by
         ]);
-        $url = route('monitoring.sekolah.doa')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        $url = route('monitoring.keagamaan.doa')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
         return redirect($url)->with('success', 'Berhasil menambahkan data doa!');
     }
 

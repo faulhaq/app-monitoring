@@ -1,7 +1,7 @@
 @extends('template.home')
-@section('heading', 'Data Hadits')
+@section('heading', 'Data Mahfudhot')
 @section('page')
-  <li class="breadcrumb-item active">Data Hadits</li>
+  <li class="breadcrumb-item active">Data Mahfudhot</li>
 @endsection
 @section('content')
 
@@ -9,7 +9,7 @@
 $has_siswa = false;
 $user = Auth::user();
 $allow_edit = in_array($user->role, ["guru", "admin"]);
-$add_title = "Tambah Data Hadits";
+$add_title = "Tambah Data Mahfudhot";
 
 ?>
 
@@ -24,7 +24,7 @@ $add_title = "Tambah Data Hadits";
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Hadits</th>
+                    <th>Mahfudhot</th>
                     <th>Keterangan</th>
                     <th>Dibuat Oleh</th>
                     <th>Tanggal</th>
@@ -32,16 +32,16 @@ $add_title = "Tambah Data Hadits";
                 </tr>
             </thead>
             <tbody>
-                @foreach($hadits as $v)
+                @foreach($mahfudhot as $v)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $v->hadits }}</td>
+                        <td>{{ $v->mahfudhot }}</td>
                         <td>{{ $v->lu }}</td>
                         <td>{{ $v->created_by() }}</td>
                         <td>{{ fix_id_dt($v->created_at) }}</td>
                         <td>
                             @if ($allow_edit)
-                            <form action="{{ route('monitoring.sekolah.hadits.destroy', Crypt::encrypt($v->id)) }}" method="post">
+                            <form action="{{ route('monitoring.keagamaan.mahfudhot.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
@@ -62,18 +62,18 @@ $add_title = "Tambah Data Hadits";
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Hadits</h4>
+                <h4 class="modal-title">Tambah Data Mahfudhot</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.sekolah.hadits.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.keagamaan.mahfudhot.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
                         <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="hadits">Hadits</label>
-                                <input type="text" id="hadits" name="hadits" class="form-control @error('hadits') is-invalid @enderror" required>
+                                <label for="mahfudhot">Mahfudhot</label>
+                                <input type="text" id="mahfudhot" name="mahfudhot" class="form-control @error('mahfudhot') is-invalid @enderror" required>
                             </div>
                             <div class="form-group">
                                 <label for="lu">Keterangan</label>

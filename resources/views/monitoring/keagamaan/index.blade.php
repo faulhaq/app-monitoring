@@ -17,7 +17,7 @@
         </div>
     </div> -->
     <div class="col-lg-4 col-6">
-        <a href="{{ route('monitoring.sekolah.tahsin') }}">
+        <a href="{{ route('monitoring.keagamaan.tahsin') }}">
         <div class="small-box bg-warning">
             <div class="inner" style="color: #FFFFFF;">
                 <h3> Monitoring Tahsin </h3>
@@ -30,7 +30,7 @@
         </a>
     </div>
     <div class="col-lg-4 col-6">
-        <a href="{{ route('monitoring.sekolah.tahfidz') }}">
+        <a href="{{ route('monitoring.keagamaan.tahfidz') }}">
         <div class="small-box bg-success">
             <div class="inner">
                 <h3> Monitoring Tahfidz </h3>
@@ -43,7 +43,7 @@
     </div>
 
     <div class="col-lg-4 col-6">
-        <a href="{{ route('monitoring.sekolah.mahfudhot') }}">
+        <a href="{{ route('monitoring.keagamaan.mahfudhot') }}">
         <div class="small-box bg-danger">
             <div class="inner">
                 <h3> Monitoring Mahfudhot </h3>
@@ -56,7 +56,7 @@
     </div>
 
     <div class="col-lg-4 col-6">
-        <a href="{{ route('monitoring.sekolah.hadits') }}">
+        <a href="{{ route('monitoring.keagamaan.hadits') }}">
         <div class="small-box bg-primary">
             <div class="inner">
                 <h3> Monitoring Hadits </h3>
@@ -69,7 +69,7 @@
     </div>
 
     <div class="col-lg-4 col-6">
-        <a href="{{ route('monitoring.sekolah.doa') }}">
+        <a href="{{ route('monitoring.keagamaan.doa') }}">
         <div class="small-box bg-secondary">
             <div class="inner">
                 <h3> Monitoring Doa </h3>

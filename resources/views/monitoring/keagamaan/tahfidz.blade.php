@@ -1,7 +1,7 @@
 @extends('template.home')
-@section('heading', 'Data Mahfudhot')
+@section('heading', 'Data Tahfidz')
 @section('page')
-  <li class="breadcrumb-item active">Data Mahfudhot</li>
+  <li class="breadcrumb-item active">Data Tahfidz</li>
 @endsection
 @section('content')
 
@@ -9,7 +9,7 @@
 $has_siswa = false;
 $user = Auth::user();
 $allow_edit = in_array($user->role, ["guru", "admin"]);
-$add_title = "Tambah Data Mahfudhot";
+$add_title = "Tambah Data Tahfidz";
 
 ?>
 
@@ -24,7 +24,8 @@ $add_title = "Tambah Data Mahfudhot";
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Mahfudhot</th>
+                    <th>Surah</th>
+                    <th>Ayat</th>
                     <th>Keterangan</th>
                     <th>Dibuat Oleh</th>
                     <th>Tanggal</th>
@@ -32,16 +33,17 @@ $add_title = "Tambah Data Mahfudhot";
                 </tr>
             </thead>
             <tbody>
-                @foreach($mahfudhot as $v)
+                @foreach($tahfidz as $v)
                     <tr>
                         <td>{{ $loop->iteration }}</td>
-                        <td>{{ $v->mahfudhot }}</td>
+                        <td>{{ $v->surah() }}</td>
+                        <td>{{ $v->ayat }}</td>
                         <td>{{ $v->lu }}</td>
                         <td>{{ $v->created_by() }}</td>
                         <td>{{ fix_id_dt($v->created_at) }}</td>
                         <td>
                             @if ($allow_edit)
-                            <form action="{{ route('monitoring.sekolah.mahfudhot.destroy', Crypt::encrypt($v->id)) }}" method="post">
+                            <form action="{{ route('monitoring.keagamaan.tahfidz.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
@@ -62,18 +64,27 @@ $add_title = "Tambah Data Mahfudhot";
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Mahfudhot</h4>
+                <h4 class="modal-title">Tambah Data Tahfidz</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.sekolah.mahfudhot.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.keagamaan.tahfidz.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
                         <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label for="mahfudhot">Mahfudhot</label>
-                                <input type="text" id="mahfudhot" name="mahfudhot" class="form-control @error('mahfudhot') is-invalid @enderror" required>
+                                <label for="surah">Surah</label>
+                                <select id="surah" name="surah" class="form-control @error('surah') is-invalid @enderror" required>
+                                    <option value="">-- Pilih Surah ---</option>
+                                    @foreach (\App\Models\Ref\Surah::all() as $s)
+                                        <option value="{{ $s->id }}">{{ $s->nama }}</option>
+                                    @endforeach
+                            </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="ayat">Ayat</label>
+                                <input type="text" id="ayat" name="ayat" class="form-control @error('ayat') is-invalid @enderror" required>
                             </div>
                             <div class="form-group">
                                 <label for="lu">Keterangan</label>

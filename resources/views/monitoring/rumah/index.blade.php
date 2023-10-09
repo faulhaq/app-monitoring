@@ -8,8 +8,8 @@
     <div class="col-lg-4 col-6">
         <div class="small-box bg-info">
             <div class="inner">
-                <h3> Monitoring Kegiatan </h3>
-                <p>Kegiatan</p>
+                <h3> Monitoring Harian </h3>
+                <p>Kegiatan Harian</p>
             </div>
             <div class="icon">
                 <i class="fas fa-book nav-icon"></i>

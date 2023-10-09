@@ -123,15 +123,15 @@
     </a>
     <ul class="nav nav-treeview ml-4">
         <li class="nav-item">
-            <a href="{{ route('monitoring.sekolah.index') }}" class="nav-link" id="DataMonitoringSekolah">
+            <a href="{{ route('monitoring.keagamaan.index') }}" class="nav-link" id="DataMonitoringSekolah">
                 <i class="nav-icon fas fa-clipboard"></i>
-                <p>Monitoring Sekolah</p>
+                <p>Monitoring Keagamaan</p>
             </a>
         </li>
         <li class="nav-item">
             <a href="{{ route('monitoring.rumah.index') }}" class="nav-link" id="DataMonitoringRumah">
                 <i class="nav-icon fas fa-clipboard"></i>
-                <p>Monitoring Rumah</p>
+                <p>Monitoring Harian</p>
             </a>
         </li>
     </ul>

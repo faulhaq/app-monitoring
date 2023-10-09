@@ -41,7 +41,6 @@ $add_title = "Tambah Data Doa";
                         <td>{{ fix_id_dt(fix_id_dt($v->created_at)) }}</td>
                         <td>
                             @if ($allow_edit)
-                            <form action="{{ route('monitoring.sekolah.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @method('delete')
                                 @csrf
                                 <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
@@ -68,7 +67,7 @@ $add_title = "Tambah Data Doa";
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('monitoring.sekolah.doa.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
+                <form action="{{ route('monitoring.keagamaan.doa.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
                         <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
                         <div class="col-md-12">
                             <div class="form-group">
