@@ -120,7 +120,7 @@ $add_title = "Tambah Data Tahfidz";
 <script>
     $("#Monitoring").addClass("active");
     $("#liMonitoring").addClass("menu-open");
-    $("#DataMonitoringSekolah").addClass("active");
+    $("#DataMonitoringKeagamaan").addClass("active");
 
     let fkelas = $("#filter_kelas");
     let fsiswa = $("#filter_siswa");

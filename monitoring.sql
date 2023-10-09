@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 02, 2023 at 10:46 AM
+-- Generation Time: Oct 09, 2023 at 10:08 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -271,7 +271,10 @@ CREATE TABLE `monitoring_tahfidz` (
 --
 
 INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(1, 5, 3, '12', 'lancar', 'sekolah', 11, '2023-10-02 07:53:27');
+(1, 5, 3, '12', 'lancar', 'sekolah', 11, '2023-10-02 07:53:27'),
+(4, 2, 2, '1-100', 'lancar', 'sekolah', NULL, '2023-10-07 06:29:22'),
+(5, 2, 3, '1-10', 'lancar', 'rumah', 14, '2023-10-07 06:49:06'),
+(6, 4, 1, '1', 'lancar', 'sekolah', 11, '2023-10-09 08:07:22');
 
 -- --------------------------------------------------------
 
@@ -296,7 +299,10 @@ CREATE TABLE `monitoring_tahsin` (
 --
 
 INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(1, 5, 12, 'iqro', 123, 'lancar', 'sekolah', 11, '2023-10-02 07:37:16');
+(1, 5, 12, 'iqro', 123, 'lancar', 'sekolah', 11, '2023-10-02 07:37:16'),
+(3, 5, 123, 'iqro', 123, 'lancar', 'sekolah', 11, '2023-10-09 07:06:27'),
+(4, 4, 1, 'iqro', 10, 'lancar', 'sekolah', 11, '2023-10-09 07:57:28'),
+(5, 4, 1, 'iqro', 3, 'lancar', 'sekolah', 11, '2023-10-09 07:57:35');
 
 -- --------------------------------------------------------
 
@@ -648,7 +654,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'BxOGmnBiX5IHmSEcJrlD848BTcpzrqaAIIw97AXqY7he5Z7yjbsKWVREbE0U', '2023-07-27 12:15:00', NULL),
+(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'DbGiLfajnvP3q07Sk4P2fL8pDDxoDuQbHfjXCv5tzcr7GCAaYbCvZG78s3O3', '2023-07-27 12:15:00', NULL),
 (11, 'guru', 'guru001@gmail.com', '$2y$10$nkbNg2CuYC1XctKjmTDLQenw2efFdjEmS.I3xR1twt3j5tWt2k3e6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-10-02 07:20:26'),
 (13, 'orang_tua', 'ayah@gmail.com', '$2y$10$ZJQjennnqoePQv3YbTDtv./X95CbZ9nFXzRG8S5ZI3HtQJPbY43ne', NULL, 1, NULL, '2023-10-02 08:04:32', '2023-10-02 08:04:40'),
 (14, 'orang_tua', 'ayahangga@gmail.com', '$2y$10$Mu6GmYhKo.n3G5xaY0jYSekvRuraMLvwl//pHahrM4cBHeTvdP3BW', NULL, 4, NULL, '2023-10-02 08:05:40', '2023-10-02 08:05:48');
@@ -942,13 +948,13 @@ ALTER TABLE `monitoring_mahfudhot`
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`

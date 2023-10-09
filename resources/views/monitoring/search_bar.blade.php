@@ -1,3 +1,4 @@
+
 @if (!is_null($kelas))
 <div class="col-md-6">
     <div class="form-group">
@@ -35,6 +36,8 @@
     </div>
 </div>
 @else
+
+@if (!($user->role === "orang_tua" && isset($siswa) && count($siswa) == 1))
 <div class="col-md-12">
     <div class="form-group">
         <label for="filter_siswa">Pilih Siswa</label>
@@ -48,6 +51,9 @@
         </select>
     </div>
 </div>
+@else
+<?php $has_siswa = (count($siswa) > 0); ?>
+@endif
 @endif
 
 @if ($has_siswa)

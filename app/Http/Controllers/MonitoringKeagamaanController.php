@@ -84,6 +84,8 @@ class MonitoringKeagamaanController extends Controller
         $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
         $user = Auth::user();
         $kelas = $this->get_kelas($user);
+        $siswa = $this->get_siswa($fkelas, $user);
+        
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -97,9 +99,10 @@ class MonitoringKeagamaanController extends Controller
         } else {
             $sel_siswa = NULL;
             $tahsin = [];
+            if ($user->role === "orang_tua" && count($siswa) == 1) {
+                return redirect(route("monitoring.keagamaan.tahsin")."?fkelas=-1&fsiswa={$siswa[0]->id}");
+            }
         }
-
-        $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.tahsin",
@@ -173,6 +176,7 @@ class MonitoringKeagamaanController extends Controller
         $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
         $user = Auth::user();
         $kelas = $this->get_kelas($user);
+        $siswa = $this->get_siswa($fkelas, $user);
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -186,9 +190,10 @@ class MonitoringKeagamaanController extends Controller
         } else {
             $sel_siswa = NULL;
             $tahfidz = [];
+            if ($user->role === "orang_tua" && count($siswa) == 1) {
+                return redirect(route("monitoring.keagamaan.tahfidz")."?fkelas=-1&fsiswa={$siswa[0]->id}");
+            }
         }
-
-        $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.tahfidz",
@@ -261,6 +266,7 @@ class MonitoringKeagamaanController extends Controller
         $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
         $user = Auth::user();
         $kelas = $this->get_kelas($user);
+        $siswa = $this->get_siswa($fkelas, $user);
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -274,9 +280,10 @@ class MonitoringKeagamaanController extends Controller
         } else {
             $sel_siswa = NULL;
             $mahfudhot = [];
+            if ($user->role === "orang_tua" && count($siswa) == 1) {
+                return redirect(route("monitoring.keagamaan.mahfudhot")."?fkelas=-1&fsiswa={$siswa[0]->id}");
+            }
         }
-
-        $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.mahfudhot",
@@ -347,6 +354,7 @@ class MonitoringKeagamaanController extends Controller
         $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
         $user = Auth::user();
         $kelas = $this->get_kelas($user);
+        $siswa = $this->get_siswa($fkelas, $user);
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -360,9 +368,10 @@ class MonitoringKeagamaanController extends Controller
         } else {
             $sel_siswa = NULL;
             $hadits = [];
+            if ($user->role === "orang_tua" && count($siswa) == 1) {
+                return redirect(route("monitoring.keagamaan.hadits")."?fkelas=-1&fsiswa={$siswa[0]->id}");
+            }
         }
-
-        $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.hadits",
@@ -433,6 +442,7 @@ class MonitoringKeagamaanController extends Controller
         $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
         $user = Auth::user();
         $kelas = $this->get_kelas($user);
+        $siswa = $this->get_siswa($fkelas, $user);
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -446,9 +456,10 @@ class MonitoringKeagamaanController extends Controller
         } else {
             $sel_siswa = NULL;
             $doa = [];
+            if ($user->role === "orang_tua" && count($siswa) == 1) {
+                return redirect(route("monitoring.keagamaan.doa")."?fkelas=-1&fsiswa={$siswa[0]->id}");
+            }
         }
-
-        $siswa = $this->get_siswa($fkelas, $user);
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.doa",

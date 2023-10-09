@@ -86,6 +86,6 @@
     <script>
         $("#Monitoring").addClass("active");
         $("#liMonitoring").addClass("menu-open");
-        $("#DataMonitoringSekolah").addClass("active");
+        $("#DataMonitoringKeagamaan").addClass("active");
     </script>
 @endsection
