@@ -5,7 +5,7 @@
   <li class="breadcrumb-item active">Dashboard</li>
 @endsection
 @section('content')
-    <div class="col-lg-4 col-6">
+    <!-- <div class="col-lg-4 col-6">
         <div class="small-box bg-info">
             <div class="inner">
                 <h3> Monitoring Kegiatan </h3>
@@ -15,7 +15,7 @@
                 <i class="fas fa-book nav-icon"></i>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="col-lg-4 col-6">
         <a href="{{ route('monitoring.sekolah.tahsin') }}">
         <div class="small-box bg-warning">

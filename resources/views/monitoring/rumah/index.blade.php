@@ -16,7 +16,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-4 col-6">
+    <!-- <div class="col-lg-4 col-6">
         <a href="{{ route('monitoring.rumah.tahsin') }}">
         <div class="small-box bg-warning">
             <div class="inner" style="color: #FFFFFF;">
@@ -79,7 +79,7 @@
                 <i class="fas fa-book nav-icon"></i>
             </div>
         </div>
-    </div>
+    </div> -->
 
 @endsection
 @section('script')
