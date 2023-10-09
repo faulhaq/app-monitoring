@@ -14,9 +14,9 @@
     </a>
     <ul class="nav nav-treeview ml-4">
         <li class="nav-item">
-            <a href="{{ route('monitoring.keagamaan.index') }}" class="nav-link" id="DataMonitoringSekolah">
+            <a href="{{ route('monitoring.keagamaan.index') }}" class="nav-link" id="DataMonitoringKeagamaan">
                 <i class="nav-icon fas fa-clipboard"></i>
-                <p>Monitoring Keagamaan</p>
+                <p style="font-size:15px;">Monitoring Keagamaan</p>
             </a>
         </li>
         <li class="nav-item">
