@@ -8,7 +8,7 @@ class Doa extends Model
 {
     use CreatedByTrait;
 
-    protected $fillable = ['id_siswa', 'doa', 'lu', 'lokasi', 'created_by'];
+    protected $fillable = ['id_siswa', 'doa', 'lu', 'created_by'];
 
     protected $table = 'monitoring_doa';
 

@@ -9,7 +9,7 @@ class Tahfidz extends Model
 {
     use CreatedByTrait;
     
-    protected $fillable = ['id_siswa', 'id_surah', 'ayat', 'lu', 'lokasi', 'created_by'];
+    protected $fillable = ['id_siswa', 'id_surah', 'ayat', 'lu', 'created_by'];
 
     protected $table = 'monitoring_tahfidz';
 

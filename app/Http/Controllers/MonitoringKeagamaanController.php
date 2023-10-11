@@ -93,8 +93,7 @@ class MonitoringKeagamaanController extends Controller
                 abort(404);
                 return;
             }
-            $tahsin = Tahsin::where("lokasi", "sekolah")
-                            ->where("id_siswa", $fsiswa)
+            $tahsin = Tahsin::where("id_siswa", $fsiswa)
                             ->orderBy("created_at", "desc")->get();
         } else {
             $sel_siswa = NULL;
@@ -163,7 +162,6 @@ class MonitoringKeagamaanController extends Controller
             "n"          => $r->n,
             "halaman"    => $r->halaman,
             "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
-            "lokasi"     => "sekolah",
             "created_by" => $created_by
         ]);
         $url = route('monitoring.keagamaan.tahsin')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
@@ -184,9 +182,8 @@ class MonitoringKeagamaanController extends Controller
                 abort(404);
                 return;
             }
-            $tahfidz = Tahfidz::where("lokasi", "sekolah")
-                            ->where("id_siswa", $fsiswa)
-                            ->orderBy("created_at", "desc")->get();
+            $tahfidz = Tahfidz::where("id_siswa", $fsiswa)
+                                ->orderBy("created_at", "desc")->get();
         } else {
             $sel_siswa = NULL;
             $tahfidz = [];
@@ -253,7 +250,6 @@ class MonitoringKeagamaanController extends Controller
             "id_surah"   => $r->surah,
             "ayat"       => $r->ayat,
             "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
-            "lokasi"     => "sekolah",
             "created_by" => $created_by
         ]);
         $url = route('monitoring.keagamaan.tahfidz')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
@@ -274,8 +270,7 @@ class MonitoringKeagamaanController extends Controller
                 abort(404);
                 return;
             }
-            $mahfudhot = Mahfudhot::where("lokasi", "sekolah")
-                                ->where("id_siswa", $fsiswa)
+            $mahfudhot = Mahfudhot::where("id_siswa", $fsiswa)
                                 ->orderBy("created_at", "desc")->get();
         } else {
             $sel_siswa = NULL;
@@ -341,7 +336,6 @@ class MonitoringKeagamaanController extends Controller
             "id_siswa"   => $id_siswa,
             "mahfudhot"  => $r->mahfudhot,
             "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
-            "lokasi"     => "sekolah",
             "created_by" => $created_by
         ]);
         $url = route('monitoring.keagamaan.mahfudhot')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
@@ -362,8 +356,7 @@ class MonitoringKeagamaanController extends Controller
                 abort(404);
                 return;
             }
-            $hadits = Hadits::where("lokasi", "sekolah")
-                            ->where("id_siswa", $fsiswa)
+            $hadits = Hadits::where("id_siswa", $fsiswa)
                             ->orderBy("created_at", "desc")->get();
         } else {
             $sel_siswa = NULL;
@@ -429,7 +422,6 @@ class MonitoringKeagamaanController extends Controller
             "id_siswa"   => $id_siswa,
             "hadits"  => $r->hadits,
             "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
-            "lokasi"     => "sekolah",
             "created_by" => $created_by
         ]);
         $url = route('monitoring.keagamaan.hadits')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
@@ -450,9 +442,8 @@ class MonitoringKeagamaanController extends Controller
                 abort(404);
                 return;
             }
-            $doa = Doa::where("lokasi", "sekolah")
-                    ->where("id_siswa", $fsiswa)
-                    ->orderBy("created_at", "desc")->get();
+            $doa = Doa::where("id_siswa", $fsiswa)
+                        ->orderBy("created_at", "desc")->get();
         } else {
             $sel_siswa = NULL;
             $doa = [];
@@ -517,7 +508,6 @@ class MonitoringKeagamaanController extends Controller
             "id_siswa"   => $id_siswa,
             "doa"        => $r->doa,
             "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
-            "lokasi"     => "sekolah",
             "created_by" => $created_by
         ]);
         $url = route('monitoring.keagamaan.doa')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;

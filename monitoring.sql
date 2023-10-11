@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 09, 2023 at 10:08 AM
+-- Generation Time: Oct 11, 2023 at 09:26 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -195,20 +195,9 @@ CREATE TABLE `monitoring_doa` (
   `id_siswa` int(10) UNSIGNED NOT NULL,
   `doa` varchar(255) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
-  `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `monitoring_doa`
---
-
-INSERT INTO `monitoring_doa` (`id`, `id_siswa`, `doa`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(1, 4, 'vas', 'lancar', 'rumah', 13, '2023-10-02 08:31:41'),
-(2, 4, 'abc', 'lancar', 'sekolah', 11, '2023-10-02 10:42:45'),
-(3, 2, 'vas', 'lancar', 'rumah', 14, '2023-10-02 08:46:03'),
-(4, 3, 'anc', 'lancar', 'rumah', 14, '2023-10-02 08:46:09');
 
 -- --------------------------------------------------------
 
@@ -221,7 +210,6 @@ CREATE TABLE `monitoring_hadits` (
   `id_siswa` int(10) UNSIGNED NOT NULL,
   `hadits` varchar(255) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
-  `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -237,17 +225,9 @@ CREATE TABLE `monitoring_mahfudhot` (
   `id_siswa` int(10) UNSIGNED NOT NULL,
   `mahfudhot` varchar(255) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
-  `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `monitoring_mahfudhot`
---
-
-INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `mahfudhot`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(1, 4, 'abc', 'lancar', 'rumah', 13, '2023-10-02 08:31:30');
 
 -- --------------------------------------------------------
 
@@ -261,20 +241,9 @@ CREATE TABLE `monitoring_tahfidz` (
   `id_surah` tinyint(3) UNSIGNED NOT NULL,
   `ayat` varchar(16) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
-  `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `monitoring_tahfidz`
---
-
-INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(1, 5, 3, '12', 'lancar', 'sekolah', 11, '2023-10-02 07:53:27'),
-(4, 2, 2, '1-100', 'lancar', 'sekolah', NULL, '2023-10-07 06:29:22'),
-(5, 2, 3, '1-10', 'lancar', 'rumah', 14, '2023-10-07 06:49:06'),
-(6, 4, 1, '1', 'lancar', 'sekolah', 11, '2023-10-09 08:07:22');
 
 -- --------------------------------------------------------
 
@@ -289,20 +258,9 @@ CREATE TABLE `monitoring_tahsin` (
   `tipe` enum('iqro','juz') NOT NULL,
   `halaman` smallint(5) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
-  `lokasi` enum('sekolah','rumah') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `monitoring_tahsin`
---
-
-INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `lokasi`, `created_by`, `created_at`) VALUES
-(1, 5, 12, 'iqro', 123, 'lancar', 'sekolah', 11, '2023-10-02 07:37:16'),
-(3, 5, 123, 'iqro', 123, 'lancar', 'sekolah', 11, '2023-10-09 07:06:27'),
-(4, 4, 1, 'iqro', 10, 'lancar', 'sekolah', 11, '2023-10-09 07:57:28'),
-(5, 4, 1, 'iqro', 3, 'lancar', 'sekolah', 11, '2023-10-09 07:57:35');
 
 -- --------------------------------------------------------
 
@@ -736,7 +694,6 @@ ALTER TABLE `monitoring_doa`
   ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `doa` (`doa`),
   ADD KEY `lu` (`lu`),
-  ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`);
 
@@ -748,7 +705,6 @@ ALTER TABLE `monitoring_hadits`
   ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `hadits` (`hadits`),
   ADD KEY `lu` (`lu`),
-  ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`);
 
@@ -760,7 +716,6 @@ ALTER TABLE `monitoring_mahfudhot`
   ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `mafudhot` (`mahfudhot`),
   ADD KEY `lu` (`lu`),
-  ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`);
 
@@ -772,7 +727,6 @@ ALTER TABLE `monitoring_tahfidz`
   ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `id_surah` (`id_surah`),
   ADD KEY `lu` (`lu`),
-  ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`);
 
@@ -785,7 +739,6 @@ ALTER TABLE `monitoring_tahsin`
   ADD KEY `n` (`n`),
   ADD KEY `tipe` (`tipe`),
   ADD KEY `lu` (`lu`),
-  ADD KEY `lokasi` (`lokasi`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `created_at` (`created_at`);
 
@@ -930,7 +883,7 @@ ALTER TABLE `kk`
 -- AUTO_INCREMENT for table `monitoring_doa`
 --
 ALTER TABLE `monitoring_doa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `monitoring_hadits`
@@ -942,19 +895,19 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`

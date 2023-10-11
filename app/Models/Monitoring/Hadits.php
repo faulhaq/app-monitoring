@@ -8,7 +8,7 @@ class Hadits extends Model
 {
     use CreatedByTrait;
     
-    protected $fillable = ['id_siswa', 'hadits', 'lu', 'lokasi', 'created_by'];
+    protected $fillable = ['id_siswa', 'hadits', 'lu', 'created_by'];
 
     protected $table = 'monitoring_hadits';
 
