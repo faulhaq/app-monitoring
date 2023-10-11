@@ -1,3 +1,7 @@
+<?php
+$user = Auth::user();
+?>
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
@@ -11,11 +15,11 @@
         <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                @if (Auth::user()->role == 'admin')
+                @if ($user->role == 'admin')
                     @include('template.sidebar_list_admin')
-                @elseif (Auth::user()->role == 'guru')
+                @elseif ($user->role == 'guru')
                     @include('template.sidebar_list_guru')
-                @elseif (Auth::user()->role == 'orang_tua')
+                @elseif ($user->role == 'orang_tua')
                     @include('template.sidebar_list_orang_tua')
                 @else
                     <li class="nav-item has-treeview">

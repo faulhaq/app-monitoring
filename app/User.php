@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,5 +42,19 @@ class User extends Authenticatable
         }
 
         return "";
+    }
+
+    public function isWaliKelas()
+    {
+        if ($this->role !== "guru") {
+            return false;
+        }
+
+        $ret = DB::table("users")
+                ->join("guru", "guru.id", "users.id_guru")
+                ->join("kelas", "guru.id", "kelas.id_guru")
+                ->where("users.id", $this->id)
+                ->first();
+        return (bool)$ret;
     }
 }

@@ -37,11 +37,13 @@
                 <p style="font-size:15px;">Monitoring Keagamaan</p>
             </a>
         </li>
+        @if ($user->isWaliKelas())
         <li class="nav-item">
             <a href="{{ route('monitoring.harian.index') }}" class="nav-link" id="DataMonitoringHarian">
                 <i class="nav-icon fas fa-clipboard"></i>
                 <p>Monitoring Harian</p>
             </a>
         </li>
+        @endif
     </ul>
 </li>
