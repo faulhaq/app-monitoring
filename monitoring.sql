@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 11, 2023 at 09:26 AM
+-- Generation Time: Oct 17, 2023 at 05:57 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -196,6 +196,8 @@ CREATE TABLE `monitoring_doa` (
   `doa` varchar(255) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `feedback` text DEFAULT NULL,
+  `feedback_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -211,6 +213,8 @@ CREATE TABLE `monitoring_hadits` (
   `hadits` varchar(255) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `feedback` text DEFAULT NULL,
+  `feedback_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -226,6 +230,8 @@ CREATE TABLE `monitoring_mahfudhot` (
   `mahfudhot` varchar(255) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `feedback` text DEFAULT NULL,
+  `feedback_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -242,6 +248,8 @@ CREATE TABLE `monitoring_tahfidz` (
   `ayat` varchar(16) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `feedback` text DEFAULT NULL,
+  `feedback_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -259,6 +267,8 @@ CREATE TABLE `monitoring_tahsin` (
   `halaman` smallint(5) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `feedback` text DEFAULT NULL,
+  `feedback_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -612,10 +622,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'DbGiLfajnvP3q07Sk4P2fL8pDDxoDuQbHfjXCv5tzcr7GCAaYbCvZG78s3O3', '2023-07-27 12:15:00', NULL),
+(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'NCHeuBLdsOdAChoHY9EX6F0NfPDoEg4pDTrY3R7gSETPl5tt8b1buLBRwqRA', '2023-07-27 12:15:00', NULL),
 (11, 'guru', 'guru001@gmail.com', '$2y$10$nkbNg2CuYC1XctKjmTDLQenw2efFdjEmS.I3xR1twt3j5tWt2k3e6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-10-02 07:20:26'),
 (13, 'orang_tua', 'ayah@gmail.com', '$2y$10$ZJQjennnqoePQv3YbTDtv./X95CbZ9nFXzRG8S5ZI3HtQJPbY43ne', NULL, 1, NULL, '2023-10-02 08:04:32', '2023-10-02 08:04:40'),
-(14, 'orang_tua', 'ayahangga@gmail.com', '$2y$10$Mu6GmYhKo.n3G5xaY0jYSekvRuraMLvwl//pHahrM4cBHeTvdP3BW', NULL, 4, NULL, '2023-10-02 08:05:40', '2023-10-02 08:05:48');
+(14, 'orang_tua', 'ayahangga@gmail.com', '$2y$10$Mu6GmYhKo.n3G5xaY0jYSekvRuraMLvwl//pHahrM4cBHeTvdP3BW', NULL, 4, NULL, '2023-10-02 08:05:40', '2023-10-02 08:05:48'),
+(15, 'guru', 'anton321@gmail.com', '$2y$10$H1BWv0t5xAlygmqVM27WyOJfmc6/rOufNZnUeOAG0x61Vv0RMXH2e', 8, NULL, NULL, '2023-10-11 07:48:20', '2023-10-17 03:47:12');
 
 --
 -- Indexes for dumped tables
@@ -695,7 +706,9 @@ ALTER TABLE `monitoring_doa`
   ADD KEY `doa` (`doa`),
   ADD KEY `lu` (`lu`),
   ADD KEY `created_by` (`created_by`),
-  ADD KEY `created_at` (`created_at`);
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `feedback_by` (`feedback_by`);
+ALTER TABLE `monitoring_doa` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
 -- Indexes for table `monitoring_hadits`
@@ -706,7 +719,9 @@ ALTER TABLE `monitoring_hadits`
   ADD KEY `hadits` (`hadits`),
   ADD KEY `lu` (`lu`),
   ADD KEY `created_by` (`created_by`),
-  ADD KEY `created_at` (`created_at`);
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `feedback_by` (`feedback_by`);
+ALTER TABLE `monitoring_hadits` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
 -- Indexes for table `monitoring_mahfudhot`
@@ -717,7 +732,9 @@ ALTER TABLE `monitoring_mahfudhot`
   ADD KEY `mafudhot` (`mahfudhot`),
   ADD KEY `lu` (`lu`),
   ADD KEY `created_by` (`created_by`),
-  ADD KEY `created_at` (`created_at`);
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `feedback_by` (`feedback_by`);
+ALTER TABLE `monitoring_mahfudhot` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
 -- Indexes for table `monitoring_tahfidz`
@@ -728,7 +745,9 @@ ALTER TABLE `monitoring_tahfidz`
   ADD KEY `id_surah` (`id_surah`),
   ADD KEY `lu` (`lu`),
   ADD KEY `created_by` (`created_by`),
-  ADD KEY `created_at` (`created_at`);
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `feedback_by` (`feedback_by`);
+ALTER TABLE `monitoring_tahfidz` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
 -- Indexes for table `monitoring_tahsin`
@@ -740,7 +759,9 @@ ALTER TABLE `monitoring_tahsin`
   ADD KEY `tipe` (`tipe`),
   ADD KEY `lu` (`lu`),
   ADD KEY `created_by` (`created_by`),
-  ADD KEY `created_at` (`created_at`);
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `feedback_by` (`feedback_by`);
+ALTER TABLE `monitoring_tahsin` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
 -- Indexes for table `orang_tua`
@@ -961,7 +982,7 @@ ALTER TABLE `tahun_ajaran_aktif`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Constraints for dumped tables
@@ -995,21 +1016,24 @@ ALTER TABLE `kelas_siswa`
 --
 ALTER TABLE `monitoring_doa`
   ADD CONSTRAINT `monitoring_doa_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_doa_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `monitoring_doa_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_doa_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `monitoring_hadits`
 --
 ALTER TABLE `monitoring_hadits`
   ADD CONSTRAINT `monitoring_hadits_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_hadits_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `monitoring_hadits_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_hadits_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
   ADD CONSTRAINT `monitoring_mahfudhot_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_mahfudhot_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `monitoring_mahfudhot_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_mahfudhot_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `monitoring_tahfidz`
@@ -1017,14 +1041,16 @@ ALTER TABLE `monitoring_mahfudhot`
 ALTER TABLE `monitoring_tahfidz`
   ADD CONSTRAINT `monitoring_tahfidz_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `monitoring_tahfidz_ibfk_2` FOREIGN KEY (`id_surah`) REFERENCES `surah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_tahfidz_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `monitoring_tahfidz_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_tahfidz_ibfk_4` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
   ADD CONSTRAINT `monitoring_tahsin_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_tahsin_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `monitoring_tahsin_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_tahsin_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
 
 --
 -- Constraints for table `orang_tua`
