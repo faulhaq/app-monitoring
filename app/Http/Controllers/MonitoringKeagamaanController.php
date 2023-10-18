@@ -14,9 +14,73 @@ use App\Models\Monitoring\Mahfudhot;
 use App\Models\Monitoring\Hadits;
 use App\Models\Monitoring\Doa;
 use App\Models\Monitoring\Tahfidz;
+use App\Models\Master\OrangTua;
+use App\Models\Master\Guru;
 
 class MonitoringKeagamaanController extends Controller
 {
+    public function store_feedback(Request $r)
+    {
+        $r->validate([
+            "tipe_monitoring" => "required|in:tahsin,mahfudhot,hadits,doa,tahfidz",
+            "data_id"         => "required|integer",
+            "feedback"        => "required",
+        ]);
+
+        $user = Auth::user();
+        $data = NULL;
+        if ($user->role === "orang_tua") {
+            $orang_tua = OrangTua::find($user->id_orang_tua);
+            if (!$orang_tua) {
+                abort(404);
+                return;
+            }
+
+            $feedback_by = $orang_tua->id;
+            if ($r->tipe_monitoring === "tahsin") {
+                $data = Tahsin::find($r->data_id);
+            } else if ($r->tipe_monitoring === "mahfudhot") {
+                $data = Mahfudhot::find($r->data_id);
+            } else if ($r->tipe_monitoring === "hadits") {
+                $data = Hadits::find($r->data_id);
+            } else if ($r->tipe_monitoring === "doa") {
+                $data = Doa::find($r->data_id);
+            } else if ($r->tipe_monitoring === "tahfidz") {
+                $data = Tahfidz::find($r->data_id);
+            } else {
+                abort(404);
+                return;
+            }
+
+        } else if ($user->role === "guru") {
+            $guru = OrangTua::find($user->id_guru);
+            if (!$guru) {
+                abort(404);
+                return;
+            }
+
+            $feedback_by = $guru->id;
+
+            // TODO(): Handle monitoring harian.
+
+        } else {
+            abort(404);
+            return;
+        }
+
+        if (!$data) {
+            abort(404);
+            return;
+        }
+
+        $data->update([
+            "feedback_by" => $feedback_by,
+            "feedback"    => $r->feedback
+        ]);
+
+        return redirect(URL::previous())->with('success', 'Berhasil mengirimkan feedback');
+    }
+
     public function index()
     {
         return view("monitoring.keagamaan.index");

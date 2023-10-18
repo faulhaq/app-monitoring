@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2023 at 05:57 AM
+-- Generation Time: Oct 18, 2023 at 07:57 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -102,7 +102,7 @@ INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jk`, `agama`, `goldar`
 (5, '1234512345123453', '122123', 'Guru BBBBBBB', 'guru002@gmail.com', 'L', 1, 1, 1, 1, '083123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__12_31_19_download (3).png', 'aktif', '2023-08-02 03:36:45', '2023-08-02 12:31:19', NULL),
 (6, '1234512345122453', '121123', 'AAAAAAAAAA', 'guru003@gmail.com', 'L', 1, 1, 1, 1, '08344123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_03__12_58_13_Simulasi Forward Chaining Diagram.png', 'aktif', '2023-08-02 03:36:45', '2023-08-03 12:58:13', NULL),
 (7, '3314150809010009', '196481271994031004', 'Anton', 'anton@gmail.com', 'L', 1, 4, 1, 1, '081265345346', 'sragen', '2023-07-31', 'Sragen', '2023_08_03__13_01_21_Andhika-Saedya-transformed.png', 'aktif', '2023-08-03 13:01:21', '2023-08-03 13:01:21', NULL),
-(8, '3314150809010208', '124415322286765', 'Angga 123123', 'anton321@gmail.com', 'L', 4, 4, 2, 11, '081233456732', 'surakarta', '2023-08-16', 'Sragen 2', NULL, 'non-aktif', '2023-08-03 13:07:34', '2023-09-20 03:39:52', NULL),
+(8, '3314150809010208', '124415322286765', 'Angga 123123', 'anton321@gmail.com', 'L', 4, 4, 2, 11, '081233456732', 'surakarta', '2023-08-16', 'Sragen 2', NULL, 'aktif', '2023-08-03 13:07:34', '2023-10-18 04:34:54', NULL),
 (9, '3314150807654205', '196506061992032001', 'AWEfsg', 'syifaulhaq008@gmail.com', 'L', 1, 1, 1, 1, '086234567895', 'sragenn', '2023-07-30', 'srageh', NULL, 'aktif', '2023-08-23 03:44:46', '2023-08-23 03:44:46', NULL),
 (10, '3314145739010001', NULL, 'fuog', 'alexr23@gmail.com', 'L', 1, 1, 1, 1, '088765345346', 'bantul', '2023-08-02', 'grogol', NULL, 'aktif', '2023-08-23 03:45:46', '2023-08-23 03:45:46', NULL);
 
@@ -253,6 +253,13 @@ CREATE TABLE `monitoring_tahfidz` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `monitoring_tahfidz`
+--
+
+INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
+(1, 4, 3, '123', 'lancar', NULL, 'terimakasih', 1, '2023-10-18 05:54:35');
+
 -- --------------------------------------------------------
 
 --
@@ -271,6 +278,14 @@ CREATE TABLE `monitoring_tahsin` (
   `feedback_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_tahsin`
+--
+
+INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
+(2, 4, 1, 'iqro', 10, 'lancar', NULL, 'abcd', 1, '2023-10-18 04:51:29'),
+(3, 4, 1, 'iqro', 1, 'lancar', NULL, 'asdfasdfasdf', 1, '2023-10-18 05:13:11');
 
 -- --------------------------------------------------------
 
@@ -922,13 +937,13 @@ ALTER TABLE `monitoring_mahfudhot`
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`

@@ -10,7 +10,7 @@ $has_siswa = false;
 $user = Auth::user();
 $allow_edit = in_array($user->role, ["guru", "admin"]);
 $add_title = "Tambah Data Mahfudhot";
-
+$tipe_monitoring = "mahfudhot";
 ?>
 
 <div class="col-md-12">
@@ -40,13 +40,17 @@ $add_title = "Tambah Data Mahfudhot";
                         <td>{{ $v->created_by() }}</td>
                         <td>{{ fix_id_dt($v->created_at) }}</td>
                         <td>
-                            @if ($allow_edit)
                             <form action="{{ route('monitoring.keagamaan.mahfudhot.destroy', Crypt::encrypt($v->id)) }}" method="post">
-                                @method('delete')
-                                @csrf
-                                <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                                @if ($allow_edit)
+                                    @method('delete')
+                                    @csrf
+                                    <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
+                                @endif
+                                <?php $feedback_by = $v->feedback_by(); ?>
+                                @if ($user->role === "orang_tua" || $feedback_by)
+                                    <a onclick="handle_user_feedback(this);" user-data-id="{{ $v->id }}" user-feedback-by="{{ e($feedback_by) }}" user-feedback="{{ e($v->feedback) }}" data-toggle="modal" data-target=".show-feedback" style="color: white; cursor: pointer;" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-comment-alt"></i> &nbsp; Feedback</a>
+                                @endif
                             </form>
-                            @endif
                         </td>
                     </tr>
                 @endforeach
@@ -56,6 +60,8 @@ $add_title = "Tambah Data Mahfudhot";
         <!-- /.card-body -->
     </div>
 </div>
+
+@include('monitoring.user_feedback')
 
 <!-- Extra large modal -->
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">

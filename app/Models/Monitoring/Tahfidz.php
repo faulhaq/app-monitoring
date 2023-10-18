@@ -4,12 +4,13 @@ namespace App\Models\Monitoring;
 
 use App\Models\Ref\Surah;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Master\OrangTua;
 
 class Tahfidz extends Model
 {
     use CreatedByTrait;
     
-    protected $fillable = ['id_siswa', 'id_surah', 'ayat', 'lu', 'created_by'];
+    protected $fillable = ['id_siswa', 'id_surah', 'ayat', 'lu', 'feedback', 'feedback_by', 'created_by'];
 
     protected $table = 'monitoring_tahfidz';
 
@@ -27,5 +28,17 @@ class Tahfidz extends Model
     public function surah()
     {
         return $this->belongsTo(Surah::class, "id_surah")->first()->nama ?? NULL;
+    }
+
+    public function feedback_by()
+    {
+        if (!$this->feedback_by)
+            return NULL;
+
+        $orang_tua = OrangTua::find($this->feedback_by);
+        if (!$orang_tua)
+            return NULL;
+
+        return $orang_tua->nama;
     }
 }

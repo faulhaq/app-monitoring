@@ -54,6 +54,8 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::middleware(["role:admin,guru,orang_tua"])->name("monitoring.")->prefix("monitoring")->group(function () {
+        Route::post("/store_feedback", "MonitoringKeagamaanController@store_feedback")->name("store_feedback");
+
         Route::prefix("keagamaan")->name("keagamaan.")->group(function () {
             Route::get("/", "MonitoringKeagamaanController@index")->name("index");
 
