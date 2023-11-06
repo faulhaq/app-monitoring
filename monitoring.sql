@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2023 at 07:57 AM
+-- Generation Time: Nov 06, 2023 at 07:37 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -43,6 +43,47 @@ INSERT INTO `agama` (`id`, `nama`) VALUES
 (6, 'Katholik'),
 (8, 'Kong Hu Cu'),
 (2, 'Kristen');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_harian_isian`
+--
+
+CREATE TABLE `data_harian_isian` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `pertanyaan` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Master data monitoring harian isian';
+
+--
+-- Dumping data for table `data_harian_isian`
+--
+
+INSERT INTO `data_harian_isian` (`id`, `pertanyaan`, `created_at`, `updated_at`) VALUES
+(1, 'abc ?', '2023-11-06 06:29:42', '2023-11-06 06:29:42'),
+(2, 'Monitoring adalah pemantauan yang dapat dijelaskan sebagai kesadaran tentang apa yang ingin diketahui, pemantauan berkadar tingkat tinggi dilakukan agar dapat membuat pengukuran melalui waktu yang menunjukkan pergerakan ke arah tujuan atau menjauh dari itu.', '2023-11-06 06:32:12', '2023-11-06 06:32:12');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `data_harian_yn`
+--
+
+CREATE TABLE `data_harian_yn` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `pertanyaan` text NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Master data monitoring harian yn/pilihan';
+
+--
+-- Dumping data for table `data_harian_yn`
+--
+
+INSERT INTO `data_harian_yn` (`id`, `pertanyaan`, `created_at`, `updated_at`) VALUES
+(1, 'Monitoring adalah proses rutin pengumpulan data dan pengukuran kemajuan atas objektif program, memantau perubahan yang fokus pada proses dan keluaran.', '2023-11-06 06:37:18', '2023-11-06 06:37:18');
 
 -- --------------------------------------------------------
 
@@ -235,6 +276,13 @@ CREATE TABLE `monitoring_mahfudhot` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `monitoring_mahfudhot`
+--
+
+INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `mahfudhot`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
+(1, 4, 'abc', 'lancar', 11, 'oke', 1, '2023-10-21 06:31:09');
+
 -- --------------------------------------------------------
 
 --
@@ -258,7 +306,9 @@ CREATE TABLE `monitoring_tahfidz` (
 --
 
 INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(1, 4, 3, '123', 'lancar', NULL, 'terimakasih', 1, '2023-10-18 05:54:35');
+(1, 4, 3, '123', 'lancar', NULL, 'terimakasih', 1, '2023-10-18 05:54:35'),
+(2, 4, 2, '1-100', 'lancar', 11, 'terimakasih banyak', 1, '2023-10-21 06:27:57'),
+(3, 4, 1, '1', 'lancar', 11, 'makasih pak', 1, '2023-11-06 05:53:02');
 
 -- --------------------------------------------------------
 
@@ -285,7 +335,9 @@ CREATE TABLE `monitoring_tahsin` (
 
 INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
 (2, 4, 1, 'iqro', 10, 'lancar', NULL, 'abcd', 1, '2023-10-18 04:51:29'),
-(3, 4, 1, 'iqro', 1, 'lancar', NULL, 'asdfasdfasdf', 1, '2023-10-18 05:13:11');
+(3, 4, 1, 'iqro', 1, 'lancar', NULL, 'asdfasdfasdf', 1, '2023-10-18 05:13:11'),
+(4, 5, 1, 'iqro', 12, 'lancar', 15, NULL, NULL, '2023-10-21 06:11:42'),
+(5, 4, 1, 'iqro', 10, 'lancar', 11, 'terimakasih', 1, '2023-11-06 05:49:58');
 
 -- --------------------------------------------------------
 
@@ -637,7 +689,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'NCHeuBLdsOdAChoHY9EX6F0NfPDoEg4pDTrY3R7gSETPl5tt8b1buLBRwqRA', '2023-07-27 12:15:00', NULL),
+(1, 'admin', 'admin@gmail.com', '$2y$10$W5v5GzmFnQwSAAETT4ls1OKho2joKUg74A.2/RufKP8ZRfJpeqcWO', NULL, NULL, 'gSbeK8ThJqjMRKzbIZkuymaFbjSFCHeT0LaaMGSnsUQyKENXr6u6R495x9Or', '2023-07-27 12:15:00', NULL),
 (11, 'guru', 'guru001@gmail.com', '$2y$10$nkbNg2CuYC1XctKjmTDLQenw2efFdjEmS.I3xR1twt3j5tWt2k3e6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-10-02 07:20:26'),
 (13, 'orang_tua', 'ayah@gmail.com', '$2y$10$ZJQjennnqoePQv3YbTDtv./X95CbZ9nFXzRG8S5ZI3HtQJPbY43ne', NULL, 1, NULL, '2023-10-02 08:04:32', '2023-10-02 08:04:40'),
 (14, 'orang_tua', 'ayahangga@gmail.com', '$2y$10$Mu6GmYhKo.n3G5xaY0jYSekvRuraMLvwl//pHahrM4cBHeTvdP3BW', NULL, 4, NULL, '2023-10-02 08:05:40', '2023-10-02 08:05:48'),
@@ -653,6 +705,24 @@ INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua
 ALTER TABLE `agama`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nama` (`nama`);
+
+--
+-- Indexes for table `data_harian_isian`
+--
+ALTER TABLE `data_harian_isian`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `updated_at` (`updated_at`);
+ALTER TABLE `data_harian_isian` ADD FULLTEXT KEY `pertanyaan` (`pertanyaan`);
+
+--
+-- Indexes for table `data_harian_yn`
+--
+ALTER TABLE `data_harian_yn`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `updated_at` (`updated_at`);
+ALTER TABLE `data_harian_yn` ADD FULLTEXT KEY `pertanyaan` (`pertanyaan`);
 
 --
 -- Indexes for table `goldar`
@@ -886,6 +956,18 @@ ALTER TABLE `agama`
   MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
+-- AUTO_INCREMENT for table `data_harian_isian`
+--
+ALTER TABLE `data_harian_isian`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `data_harian_yn`
+--
+ALTER TABLE `data_harian_yn`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `goldar`
 --
 ALTER TABLE `goldar`
@@ -931,19 +1013,19 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`

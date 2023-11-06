@@ -105,6 +105,18 @@
             </a>
         </li>
         <li class="nav-item">
+            <a href="{{ route('harian_isian.index') }}" class="nav-link" id="DataHarianIsian">
+                <i class="nav-icon fas fa-clipboard"></i>
+                <p>Data Harian Isian</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('harian_yn.index') }}" class="nav-link" id="DataHarianYn">
+                <i class="nav-icon fas fa-clipboard"></i>
+                <p>Data Harian Yn</p>
+            </a>
+        </li>
+        <li class="nav-item">
             <a href="{{ route('user.index') }}" class="nav-link" id="DataUser">
                 <i class="fas fa-user-plus nav-icon"></i>
                 <p>Data User</p>
