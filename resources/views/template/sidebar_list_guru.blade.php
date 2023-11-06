@@ -4,22 +4,11 @@
         <p>Dashboard</p>
     </a>
 </li>
-<li class="nav-item has-treeview" id="liMasterData">
-    <a href="#" class="nav-link" id="MasterData">
-        <i class="nav-icon fas fa-edit"></i>
-        <p>
-            Data Master
-            <i class="fas fa-angle-left right"></i>
-        </p>
+<li class="nav-item">
+    <a href="{{ route('kelas.index') }}" class="nav-link" id="DataKelas">
+        <i class="fas fa-home nav-icon"></i>
+        <p>Data Kelas</p>
     </a>
-    <ul class="nav nav-treeview ml-4">
-        <li class="nav-item">
-            <a href="{{ route('kelas.index') }}" class="nav-link" id="DataKelas">
-                <i class="fas fa-home nav-icon"></i>
-                <p>Data Kelas</p>
-            </a>
-        </li>
-    </ul>
 </li>
 
 <li class="nav-item has-treeview" id="liMonitoring">
