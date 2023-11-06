@@ -202,11 +202,9 @@ class KelasController extends Controller
         }
 
         $user = Auth::user();
-        if ($user->role === "guru") {
-            if ($kelas->id_guru !== $user->id_guru) {
-                abort(404);
-                return;
-            }
+        if ($user->role !== "admin") {
+            abort(404);
+            return;
         }
     
         $siswa = Siswa::get_siswa_by_id_kelas($kelas->id)
@@ -238,11 +236,9 @@ class KelasController extends Controller
         }
 
         $user = Auth::user();
-        if ($user->role === "guru") {
-            if ($kelas->id_guru !== $user->id_guru) {
-                abort(404);
-                return;
-            }
+        if ($user->role !== "admin") {
+            abort(404);
+            return;
         }
 
         $data = [];

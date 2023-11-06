@@ -24,7 +24,7 @@ $id_guru = $user->id_guru;
               <tr><td>Wali Kelas</td><td>:</td><td>{{ $kelas->wali_kelas()->nama }}</td></tr>
               <tr><td>Tahun Ajaran</td><td>:</td><td>{{ $kelas->tahun_ajaran()->tahun }}</td></tr>
               <tr><td>Jumlah Siswa</td><td>:</td><td>{{ $kelas->jumlah_siswa() }}</td></tr>
-              @if ($role === "admin" || $kelas->id_guru === $id_guru)
+              @if ($role === "admin")
               <tr><td><button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Tambah Siswa</button></td></tr>
               @endif
             </tbody>
@@ -56,7 +56,7 @@ $id_guru = $user->id_guru;
                     <form action="{{ route('kelas.hapus_siswa', [$enc_id_kelas, $enc_id_siswa]) }}" method="post">
                       @csrf
                       @method('delete')
-                      @if ($role === "admin" || $kelas->id_guru === $id_guru)
+                      @if ($role === "admin")
                       <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                       @endif
                     </form>

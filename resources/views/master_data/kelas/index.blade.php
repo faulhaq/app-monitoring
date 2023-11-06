@@ -62,7 +62,7 @@ $id_guru = $user->id_guru;
                             @csrf
                             @method('delete')
                             <a href="{{ route('kelas.kelola', $enc_id) }}" class="btn btn-info btn-sm mt-2"><i class="nav-icon fas fa-id-card"></i> &nbsp; Kelola</a>
-                            @if ($role === "admin" || $data->id_guru === $id_guru)
+                            @if ($role === "admin")
                             <a href="{{ route('kelas.edit', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
                             @endif
                             @if ($role === "admin")
