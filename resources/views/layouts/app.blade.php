@@ -9,14 +9,14 @@
   <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
   <link rel="stylesheet" href="{{ asset('plugins/toastr/toastr.min.css') }}">
   <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
-  <link rel="shrotcut icon" href="{{ asset('img/logoyayasan.png') }}">
+  <link rel="shrotcut icon" href="{{ asset('img/logomi.png') }}">
 </head>
 <body class="hold-transition login-page" style="background-image: url('{{ asset("img/wallup.jpg") }}'); background-size: cover; background-attachment: fixed;">
   <div class="login-box">
 
     <!-- LOGO DIATAS LOGIN -->
     <div class="login-logo">
-      <img src="{{ asset('img/logoyayasan.png') }}" width="50%" alt="">
+      <img src="{{ asset('img/logomi.png') }}" width="50%" alt="">
     </div>
 
 
@@ -31,7 +31,7 @@
 
     <footer style="color: white;">
       <marquee>
-          <strong>Copyright &copy; <script>document.write(new Date().getFullYear());</script> <img src="{{ asset('img/logoyayasan.png') }}" width="5%" alt=""> MI Nurrohmah Bina Insani. </strong>
+          <strong>Copyright &copy; <script>document.write(new Date().getFullYear());</script> <img src="{{ asset('img/logomi.png') }}" width="5%" alt=""> MI Nurrohmah Bina Insani. </strong>
       </marquee>
     </footer>
   </div>
