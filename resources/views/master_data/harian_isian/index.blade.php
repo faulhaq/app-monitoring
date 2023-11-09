@@ -17,15 +17,16 @@
         <div class="card-body" style="overflow-x: scroll">
             <div class="row">
                 <div class="col-md">
-                    
                 </div>
             </div>
             <table id="example1" class="table table-bordered table-striped table-hover" style="width: 100%">
             <thead>
                 <tr>
                     <th>No.</th>
+                    <th>Status</th>
                     <th>Pertanyaan</th>
                     <th>Dibuat Pada</th>
+                    <th>Kelas</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -33,14 +34,16 @@
                 @foreach ($harian as $v)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
+                    <td>{{ $v->status }}</td>
                     <td>{{ $v->pertanyaan }}</td>
                     <td>{{ $v->created_at }}</td>
+                    <td>{{ $v->get_list_kelas_view() }}</td>
                     <td>
                         <?php $enc_id = Crypt::encrypt($v->id); ?>
-                        <form action="{{ route('guru.destroy', $enc_id) }}" method="post">
+                        <form action="{{ route('harian_isian.destroy', $enc_id) }}" method="post">
                             @csrf
                             @method('delete')
-                            <a href="{{ route('guru.edit', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
+                            <a href="{{ route('harian_isian.edit', $enc_id) }}" class="btn btn-success btn-sm mt-2"><i class="nav-icon fas fa-edit"></i> &nbsp; Edit</a>
                             <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
                         </form>
                     </td>
@@ -69,11 +72,24 @@
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="status" value="aktif" id="flexCheckDefault" checked/>
+                                    <label class="form-check-label" for="flexCheckDefault">
+                                        Aktif
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
                                 <label for="pertanyaan">Pertanyaan</label>
                                 <textarea id="pertanyaan" name="pertanyaan" class="form-control @error('pertanyaan') is-invalid @enderror" required></textarea>
                             </div>
                         </div>
                     </div>
+                    @include('master_data.harian_tujuan')
                     <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-default" data-dismiss="modal"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</button>
                         <button type="submit" class="btn btn-primary"><i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan</button>
