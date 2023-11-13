@@ -44,6 +44,11 @@ class User extends Authenticatable
         return "";
     }
 
+    public function guru()
+    {
+        return Guru::find($this->id_guru);
+    }
+
     public function isWaliKelas()
     {
         if ($this->role !== "guru") {

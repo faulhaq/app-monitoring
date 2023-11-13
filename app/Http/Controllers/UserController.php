@@ -196,33 +196,69 @@ class UserController extends Controller
         return view('user.pengaturan');
     }
 
-    public function ubah_profile(Request $request)
+    public function edit_profile()
     {
-        if ($request->role == 'Guru') {
-            $this->validate($request, [
-                'nama' => 'required',
-                'jk' => 'required',
-            ]);
-            $guru = Guru::where('id_card', Auth::user()->id_card)->first();
-            $user = User::where('id_card', Auth::user()->id_card)->first();
-            dd($user);
-            if ($user) {
-                $user_data = [
-                    'name' => $request->name
-                ];
-                $user->update($user_data);
-            } else {
+        return view("user.profile");
+    }
+
+    public function validate_form_guru(Request $r, bool $must_be_unique = true)
+    {
+        $uq = ($must_be_unique ? "|unique:guru" : "");
+        $r->validate([
+            'nik'           => 'required|digits:16'.$uq,
+            'nip'           => 'max:30'.$uq,
+            'nama'          => 'required|max:255',
+            'email'         => 'required|max:255|'.$uq,
+            'jk'            => 'required|in:L,P',
+            'agama'         => 'required',
+            'tmp_lahir'     => 'required',
+            'alamat'        => 'required',
+            'status'        => 'required|in:aktif,non-aktif',
+            'telp'          => 'required',
+            'tgl_lahir'     => 'required',
+            'pendidikan'    => 'required',
+            'goldar'        => 'required',
+            'pekerjaan'     => 'required',
+        ]);
+    }
+
+    public function ubah_profile(Request $r)
+    {
+        $user = Auth::user();
+        if ($user->role == 'guru') {
+            $this->validate_form_guru($r, false);
+            $guru = $user->guru();
+            if (!$guru) {
+                return redirect()->back()->with('warning', 'Gagal mengubah data guru!');
             }
-            $guru_data = [
-                'nama' => $request->name,
-                'jk' => $request->jk,
-                'telp' => $request->telp,
-                'tmp_lahir' => $request->tmp_lahir,
-                'tgl_lahir' => $request->tgl_lahir
+
+            $data = [
+                'nik'        => $r->nik,
+                'nip'        => $r->nip,
+                'nama'       => $r->nama,
+                'email'      => $r->email,
+                'jk'         => $r->jk,
+                'agama'      => $r->agama,
+                'tmp_lahir'  => $r->tmp_lahir,
+                'alamat'     => $r->alamat,
+                'telp'       => $r->telp,
+                'tgl_lahir'  => $r->tgl_lahir,
+                'pendidikan' => $r->pendidikan,
+                'goldar'     => $r->goldar,
+                'pekerjaan'  => $r->pekerjaan,
+                'status'     => $r->status
             ];
-            $guru->update($guru_data);
-            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
-        } elseif ($request->role == 'Siswa') {
+
+            if ($r->foto) {
+                $foto = $r->foto;
+                $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
+                $foto->move("uploads/guru/", $file_foto);
+                $data["foto"] = $file_foto;
+            }
+
+            $guru->update($data);
+            return redirect()->back()->with('success', 'Data guru berhasil diubah!');
+        } elseif ($r->role == 'Siswa') {
             $this->validate($request, [
                 'nama' => 'required',
                 'jk' => 'required',
@@ -269,7 +305,7 @@ class UserController extends Controller
 
     public function ubah_foto(Request $request)
     {
-        if ($request->role == 'Guru') {
+        if ($request->role == 'guru') {
             $this->validate($request, [
                 'foto' => 'required'
             ]);
