@@ -57,4 +57,15 @@ class User extends Authenticatable
                 ->first();
         return (bool)$ret;
     }
+
+    public function role()
+    {
+        if ($this->role === "admin") {
+            return "Admin";
+        } else if ($this->role === "orang_tua") {
+            return "Orang Tua";
+        } else if ($this->role === "guru") {
+            return "Guru";
+        }
+    }
 }

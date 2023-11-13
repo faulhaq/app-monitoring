@@ -1,5 +1,5 @@
 @extends('template.home')
-@section('heading', 'Dashboard')
+@section('heading', 'Dashboard '.Auth::user()->role())
 @section('page')
   <li class="breadcrumb-item active">Dashboard</li>
 @endsection
