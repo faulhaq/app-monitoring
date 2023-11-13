@@ -1,4 +1,4 @@
-@extends('template_backend.home')
+@extends('template.home')
 @section('heading', 'Ubah Foto')
 @section('page')
   <li class="breadcrumb-item active"><a href="{{ route('guru.index') }}">Guru</a></li>

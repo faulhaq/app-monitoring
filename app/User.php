@@ -68,4 +68,18 @@ class User extends Authenticatable
             return "Guru";
         }
     }
+
+    public function name()
+    {
+        if ($this->role === "admin") {
+            return "Admin {$this->id}";
+        } else if ($this->role === "orang_tua") {
+            $ret = DB::table("orang_tua")->where("id", $this->id_orang_tua);
+        } else if ($this->role === "guru") {
+            $ret = DB::table("guru")->where("id", $this->id_guru);
+        }
+
+        $ret = $ret->limit(1)->first();
+        return $ret->nama ?? "";
+    }
 }

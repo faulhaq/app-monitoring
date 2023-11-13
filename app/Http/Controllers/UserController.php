@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Models\Master\OrangTua;
 use App\Models\Master\Guru;
+use Auth;
 
 function rstr(int $len)
 {

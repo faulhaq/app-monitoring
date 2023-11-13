@@ -1,4 +1,4 @@
-@extends('template_backend.home')
+@extends('template.home')
 @section('heading', 'Edit Profile')
 @section('page')
   <li class="breadcrumb-item active"><a href="{{ route('profile') }}">Pengaturan</a></li>
