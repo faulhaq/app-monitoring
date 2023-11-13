@@ -50,7 +50,7 @@ $tipe_monitoring = "hadits";
                                 @if ($user->role === "orang_tua" || $feedback_by)
                                     <?php
                                         if (empty($v->feedback))
-                                            $class = "btn-info";
+                                            $class = "btn-secondary";
                                         else
                                             $class = "btn-success";
                                     ?>
