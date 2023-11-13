@@ -190,6 +190,166 @@ class UserController extends Controller
         return redirect()->back()->with("success", "Berhasil menghapus data user!");
     }
 
+    public function profile()
+    {
+        return view('user.pengaturan');
+    }
+
+    public function ubah_profile(Request $request)
+    {
+        if ($request->role == 'Guru') {
+            $this->validate($request, [
+                'nama' => 'required',
+                'jk' => 'required',
+            ]);
+            $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+            $user = User::where('id_card', Auth::user()->id_card)->first();
+            dd($user);
+            if ($user) {
+                $user_data = [
+                    'name' => $request->name
+                ];
+                $user->update($user_data);
+            } else {
+            }
+            $guru_data = [
+                'nama' => $request->name,
+                'jk' => $request->jk,
+                'telp' => $request->telp,
+                'tmp_lahir' => $request->tmp_lahir,
+                'tgl_lahir' => $request->tgl_lahir
+            ];
+            $guru->update($guru_data);
+            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
+        } elseif ($request->role == 'Siswa') {
+            $this->validate($request, [
+                'nama' => 'required',
+                'jk' => 'required',
+                'id_kelas' => 'required'
+            ]);
+            $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
+            $user = User::where('no_induk', Auth::user()->no_induk)->first();
+            if ($user) {
+                $user_data = [
+                    'name' => $request->name
+                ];
+                $user->update($user_data);
+            } else {
+            }
+            $siswa_data = [
+                'nis' => $request->nis,
+                'nama' => $request->name,
+                'jk' => $request->jk,
+                'id_kelas' => $request->id_kelas,
+                'telp' => $request->telp,
+                'tmp_lahir' => $request->tmp_lahir,
+                'tgl_lahir' => $request->tgl_lahir,
+            ];
+            $siswa->update($siswa_data);
+            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
+        } else {
+            $user = User::findorfail(Auth::user()->id);
+            $data_user = [
+                'name' => $request->name,
+            ];
+            $user->update($data_user);
+            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
+        }
+    }
+
+    public function edit_foto()
+    {
+        if (Auth::user()->role == 'Guru' || Auth::user()->role == 'Siswa') {
+            return view('user.foto');
+        } else {
+            return redirect()->back()->with('error', 'Not Found 404!');
+        }
+    }
+
+    public function ubah_foto(Request $request)
+    {
+        if ($request->role == 'Guru') {
+            $this->validate($request, [
+                'foto' => 'required'
+            ]);
+            $guru = Guru::where('id_card', Auth::user()->id_card)->first();
+            $foto = $request->foto;
+            $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
+            $guru_data = [
+                'foto' => 'uploads/guru/' . $new_foto,
+            ];
+            $foto->move('uploads/guru/', $new_foto);
+            $guru->update($guru_data);
+            return redirect()->route('profile')->with('success', 'Foto Profile anda berhasil diperbarui!');
+        } else {
+            $this->validate($request, [
+                'foto' => 'required'
+            ]);
+            $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
+            $foto = $request->foto;
+            $new_foto = date('s' . 'i' . 'H' . 'd' . 'm' . 'Y') . "_" . $foto->getClientOriginalName();
+            $siswa_data = [
+                'foto' => 'uploads/siswa/' . $new_foto,
+            ];
+            $foto->move('uploads/siswa/', $new_foto);
+            $siswa->update($siswa_data);
+            return redirect()->route('profile')->with('success', 'Foto Profile anda berhasil diperbarui!!');
+        }
+    }
+
+    public function edit_email()
+    {
+        return view('user.email');
+    }
+
+    public function ubah_email(Request $request)
+    {
+        $this->validate($request, [
+            'email' => 'required|string|email'
+        ]);
+        $user = User::findorfail(Auth::user()->id);
+        $cekUser = User::where('email', $request->email)->count();
+        if ($cekUser >= 1) {
+            return redirect()->back()->with('error', 'Maaf email ini sudah terdaftar!');
+        } else {
+            $user_email = [
+                'email' => $request->email,
+            ];
+            $user->update($user_email);
+            return redirect()->back()->with('success', 'Email anda berhasil diperbarui!');
+        }
+    }
+
+    public function edit_password()
+    {
+        return view('user.password');
+    }
+
+    public function ubah_password(Request $request)
+    {
+        $this->validate($request, [
+            'password' => 'required|string|min:8|confirmed'
+        ]);
+        $user = User::findorfail(Auth::user()->id);
+        if ($request->password_lama) {
+            if (Hash::check($request->password_lama, $user->password)) {
+                if ($request->password_lama == $request->password) {
+                    return redirect()->back()->with('error', 'Maaf password yang anda masukkan sama!');
+                } else {
+                    $user_password = [
+                        'password' => Hash::make($request->password),
+                    ];
+                    $user->update($user_password);
+                    return redirect()->back()->with('success', 'Password anda berhasil diperbarui!');
+                }
+            } else {
+                return redirect()->back()->with('error', 'Tolong masukkan password lama anda dengan benar!');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Tolong masukkan password lama anda terlebih dahulu!');
+        }
+    }
+
     public function cek_email(Request $request)
     {
         $countUser = User::where('email', $request->email)->count();

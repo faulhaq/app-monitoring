@@ -1,4 +1,4 @@
-@extends('template_backend.home')
+@extends('template.home')
 @section('heading', 'Profile')
 @section('page')
   <li class="breadcrumb-item active">User Profile</li>
