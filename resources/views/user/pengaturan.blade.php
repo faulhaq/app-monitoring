@@ -80,7 +80,7 @@ $name = $user->name();
                     <hr>
 
                     <strong><i class="far fa-calendar mr-1"></i> Tanggal Lahir</strong>
-                    <p class="text-muted">{{ date('l, d F Y', strtotime($guru->tgl_lahir)) }}</p>
+                    <p class="text-muted">{{ fix_id_d($guru->tgl_lahir) }}</p>
                     <hr>
 
                     <strong><i class="fas fa-phone mr-1"></i> No Telepon</strong>
