@@ -23,39 +23,56 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-md">
+                    <div class="form-group">
+                        <label for="tanggal">Tanggal</label>
+                        <input type="date" id="tanggal" name="tanggal" value="{{ $ftanggal }}" class="form-control @error('tanggal') is-invalid @enderror" required>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="card">
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md">
-                    <h3>Isian</h3>
+        <form action="{{ route('monitoring.harian.simpan_jawaban') }}" method="POST">
+            @csrf
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md">
+                        <h3>Isian</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Pertanyaan</th>
+                                <th>Jawaban</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($harian as $v)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $v->pertanyaan }}</td>
+                                    <td><textarea name="jawaban_{{ $v->id }}" class="form-control @error('pertanyaan') is-invalid @enderror">{{ $v->jawaban }}</textarea></td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <button class="btn btn-primary">Simpan Jawaban</button>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md">
-                    <table id="example1" class="table table-bordered table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <th>No.</th>
-                            <th>Pertanyaan</th>
-                            <th>Jawaban</th>
-                            <th>Aksi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($harian as $v)
-                            <tr>
-                                <td>{{ $loop->iteration }}</td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                    </table>
-                </div>
-          </div>
-        </div>
+        </form>
         <!-- /.card-body -->
     </div>
 </div>
@@ -117,32 +134,22 @@
 <script>
     $("#Monitoring").addClass("active");
     $("#liMonitoring").addClass("menu-open");
-    $("#DataMonitoringKeagamaan").addClass("active");
+    $("#DataMonitoringHarian").addClass("active");
 
-    let fkelas = $("#filter_kelas");
-    let fsiswa = $("#filter_siswa");
+    let ftanggal = $("#tanggal");
 
-    function construct_query_string(rel_siswa)
+    function reload_page()
     {
-        let ret = "?fkelas=" + encodeURIComponent(fkelas.val());
+        let url = "";
 
-        if (fsiswa.val() && rel_siswa) {
-            ret += "&fsiswa=" + encodeURIComponent(fsiswa.val());
-        }
-        return ret;
+        url += "?ftanggal=" + ftanggal[0].value;
+
+        window.location = url;
     }
 
-    function handle_filter_change_kelas()
-    {
-        window.location = construct_query_string(false);
-    }
+    ftanggal[0].addEventListener("change", function () {
+        reload_page();
+    });
 
-    function handle_filter_change_siswa()
-    {
-        window.location = construct_query_string(true);
-    }
-
-    fkelas.change(handle_filter_change_kelas);
-    fsiswa.change(handle_filter_change_siswa);
 </script>
 @endsection

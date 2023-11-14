@@ -18,8 +18,23 @@ class MonitoringHarianController extends Controller
         return view("monitoring.harian.index");
     }
 
+    public function simpan_jawaban(Request $r)
+    {
+        foreach ($_POST as $k => $v) {
+            if (substr($k, 0, 8) !== "jawaban_")
+                continue;
+            if (!is_string($k))
+                continue;
+            $id = substr($k, 8);
+            if (!is_numeric($id))
+                continue;
+            var_dump($id, $v);
+        }
+    }
+
     private function form_isi_orang_tua($user)
     {
+        $ftanggal = isset($_GET["ftanggal"]) ? date("Y-m-d", strtotime($_GET["ftanggal"])) : date("Y-m-d");
         $orang_tua = $user->orang_tua();
         if (!$orang_tua) {
             abort(404);
@@ -28,11 +43,12 @@ class MonitoringHarianController extends Controller
 
         $siswa = $orang_tua->get_all_anak();
         if (count($siswa) === 1) {
-            $harian = HarianIsian::where("id_siswa", $siswa[0]->id);
+            $harian = HarianIsian::get_data_siswa_by_tanggal($siswa[0]->id, $ftanggal);
         } else {
             $harian = [];
         }
-        return view("monitoring.harian.harian_orang_tua", compact("siswa", "harian"));
+
+        return view("monitoring.harian.harian_orang_tua", compact("siswa", "harian", "ftanggal"));
     }
 
     public function form_isi()
