@@ -21,14 +21,18 @@ $checked = $harian->status === "aktif" ? " checked" : "";
         @method('patch')
         <div class="card-body">
           <div class="row">
+            <div class="col-md">
+                <div class="form-group">
+                      <label for="tgl_mulai">Tanggal Mulai</label>
+                      <input type="date" id="tgl_mulai" value="{{ $harian->tgl_mulai }}" name="tgl_mulai" class="form-control @error('tgl_mulai') is-invalid @enderror" required>
+                  </div>
+              </div>
+          </div>
+          <div class="row">
               <div class="col-md">
                   <div class="form-group">
-                      <div class="form-check">
-                          <input class="form-check-input" type="checkbox" name="status" value="aktif" id="flexCheckDefault" {!! $checked !!}/>
-                          <label class="form-check-label" for="flexCheckDefault">
-                              Aktif
-                          </label>
-                      </div>
+                      <label for="tgl_selesai">Tanggal Selesai</label>
+                      <input type="date" id="tgl_selesai" value="{{ $harian->tgl_selesai }}" name="tgl_selesai" class="form-control @error('tgl_selesai') is-invalid @enderror" required>
                   </div>
               </div>
           </div>

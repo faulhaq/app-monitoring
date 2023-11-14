@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class HarianIsian extends Model
 {
 
-    protected $fillable = ['status', 'pertanyaan', 'created_at'];
+    protected $fillable = ['status', 'pertanyaan', 'tgl_mulai', 'tgl_selesai', 'created_at'];
 
     protected $table = 'data_harian_isian';
 

@@ -39,7 +39,9 @@ class HarianIsianController extends Controller
     public function store(Request $r)
     {
         $r->validate([
-            "pertanyaan"    => 'required'
+            "pertanyaan"  => 'required',
+            "tgl_mulai"   => 'required',
+            "tgl_selesai" => 'required'
         ]);
 
         if ($r->tujuan_kelas) {
@@ -52,15 +54,10 @@ class HarianIsianController extends Controller
             }
         }
 
-        if (!isset($r->status) || $r->status !== "aktif") {
-            $status = "non-aktif";
-        } else {
-            $status = "aktif";
-        }
-
         $harian = HarianIsian::create([
-            "status"     => $status,
-            "pertanyaan" => $r->pertanyaan
+            "pertanyaan"  => $r->pertanyaan,
+            "tgl_mulai"   => $r->tgl_mulai,
+            "tgl_selesai" => $r->tgl_selesai
         ]);
         HarianIsian::apply_kelas($harian->id, $r->tujuan_kelas);
         return redirect()->back()->with('success', 'Berhasil menambahkan data harian isian baru!');
@@ -111,14 +108,10 @@ class HarianIsianController extends Controller
     public function update(Request $r, $id)
     {
         $r->validate([
-            "pertanyaan" => 'required'
+            "pertanyaan"  => 'required',
+            "tgl_mulai"   => 'required',
+            "tgl_selesai" => 'required'
         ]);
-
-        if (!isset($r->status) || $r->status !== "aktif") {
-            $status = "non-aktif";
-        } else {
-            $status = "aktif";
-        }
 
         $id_data = Crypt::decrypt($id);
         if (!$id_data) {
@@ -133,8 +126,9 @@ class HarianIsianController extends Controller
         }
 
         $harian->update([
-            "status"     => $status,
-            "pertanyaan" => $r->pertanyaan
+            "pertanyaan" => $r->pertanyaan,
+            "tgl_mulai"   => $r->tgl_mulai,
+            "tgl_selesai" => $r->tgl_selesai
         ]);
         HarianIsian::apply_kelas($harian->id, $r->tujuan_kelas);
         return redirect(route("harian_isian.index"))->with('success', 'Berhasil mengubah data harian isian!');

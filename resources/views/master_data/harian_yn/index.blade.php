@@ -23,8 +23,9 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>Status</th>
                     <th>Pertanyaan</th>
+                    <th>Tanggal Mulai</th>
+                    <th>Tanggal Selesai</th>
                     <th>Dibuat Pada</th>
                     <th>Kelas</th>
                     <th>Aksi</th>
@@ -34,9 +35,10 @@
                 @foreach ($harian as $v)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $v->status }}</td>
                     <td>{{ $v->pertanyaan }}</td>
-                    <td>{{ $v->created_at }}</td>
+                    <td>{{ fix_id_d($v->tgl_mulai) }}</td>
+                    <td>{{ fix_id_d($v->tgl_selesai) }}</td>
+                    <td>{{ fix_id_dt($v->created_at) }}</td>
                     <td>{{ $v->get_list_kelas_view() }}</td>
                     <td>
                         <?php $enc_id = Crypt::encrypt($v->id); ?>
@@ -72,12 +74,16 @@
                     <div class="row">
                         <div class="col-md">
                             <div class="form-group">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="status" value="aktif" id="flexCheckDefault" checked/>
-                                    <label class="form-check-label" for="flexCheckDefault">
-                                        Aktif
-                                    </label>
-                                </div>
+                                <label for="tgl_mulai">Tanggal Mulai</label>
+                                <input type="date" id="tgl_mulai" name="tgl_mulai" class="form-control @error('tgl_mulai') is-invalid @enderror" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="tgl_selesai">Tanggal Selesai</label>
+                                <input type="date" id="tgl_selesai" name="tgl_selesai" class="form-control @error('tgl_selesai') is-invalid @enderror" required>
                             </div>
                         </div>
                     </div>

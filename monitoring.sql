@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2023 at 08:38 AM
+-- Generation Time: Nov 14, 2023 at 08:53 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -52,8 +52,9 @@ INSERT INTO `agama` (`id`, `nama`) VALUES
 
 CREATE TABLE `data_harian_isian` (
   `id` int(10) UNSIGNED NOT NULL,
-  `status` enum('aktif','non-aktif') NOT NULL DEFAULT 'aktif',
   `pertanyaan` text NOT NULL,
+  `tgl_mulai` date NOT NULL,
+  `tgl_selesai` date NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Master data monitoring harian isian';
@@ -62,8 +63,8 @@ CREATE TABLE `data_harian_isian` (
 -- Dumping data for table `data_harian_isian`
 --
 
-INSERT INTO `data_harian_isian` (`id`, `status`, `pertanyaan`, `created_at`, `updated_at`) VALUES
-(13, 'aktif', 'Sudah makan belum?', '2023-11-14 06:52:33', '2023-11-14 06:52:33');
+INSERT INTO `data_harian_isian` (`id`, `pertanyaan`, `tgl_mulai`, `tgl_selesai`, `created_at`, `updated_at`) VALUES
+(14, 'Siapa nama Anda?', '2023-11-14', '2023-11-30', '2023-11-14 07:46:18', '2023-11-14 07:50:02');
 
 -- --------------------------------------------------------
 
@@ -82,9 +83,8 @@ CREATE TABLE `data_harian_isian_kelas` (
 --
 
 INSERT INTO `data_harian_isian_kelas` (`id`, `id_data`, `id_kelas`) VALUES
-(31, 13, 15),
-(32, 13, 8),
-(33, 13, 14);
+(36, 14, 15),
+(37, 14, 8);
 
 -- --------------------------------------------------------
 
@@ -94,8 +94,9 @@ INSERT INTO `data_harian_isian_kelas` (`id`, `id_data`, `id_kelas`) VALUES
 
 CREATE TABLE `data_harian_yn` (
   `id` int(10) UNSIGNED NOT NULL,
-  `status` enum('aktif','non-aktif') NOT NULL DEFAULT 'aktif',
   `pertanyaan` text NOT NULL,
+  `tgl_mulai` date NOT NULL,
+  `tgl_selesai` date NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Master data monitoring harian yn/pilihan';
@@ -104,8 +105,8 @@ CREATE TABLE `data_harian_yn` (
 -- Dumping data for table `data_harian_yn`
 --
 
-INSERT INTO `data_harian_yn` (`id`, `status`, `pertanyaan`, `created_at`, `updated_at`) VALUES
-(6, 'non-aktif', 'aaaaa', '2023-11-09 06:08:51', '2023-11-09 06:11:30');
+INSERT INTO `data_harian_yn` (`id`, `pertanyaan`, `tgl_mulai`, `tgl_selesai`, `created_at`, `updated_at`) VALUES
+(7, 'Sudah makan belum?', '2023-11-15', '2023-11-24', '2023-11-14 07:52:20', '2023-11-14 07:53:35');
 
 -- --------------------------------------------------------
 
@@ -124,7 +125,8 @@ CREATE TABLE `data_harian_yn_kelas` (
 --
 
 INSERT INTO `data_harian_yn_kelas` (`id`, `id_data`, `id_kelas`) VALUES
-(19, 6, 15);
+(22, 7, 15),
+(23, 7, 8);
 
 -- --------------------------------------------------------
 
@@ -316,13 +318,6 @@ CREATE TABLE `monitoring_harian_isian` (
   `created_at` datetime NOT NULL,
   `feedback` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `monitoring_harian_isian`
---
-
-INSERT INTO `monitoring_harian_isian` (`id`, `id_siswa`, `id_data`, `jawaban`, `created_by`, `updated_at`, `created_at`, `feedback`) VALUES
-(1, 4, 13, 'Sudah.', 1, NULL, '2023-11-14 08:25:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -780,7 +775,8 @@ ALTER TABLE `data_harian_isian`
   ADD PRIMARY KEY (`id`),
   ADD KEY `created_at` (`created_at`),
   ADD KEY `updated_at` (`updated_at`),
-  ADD KEY `active` (`status`);
+  ADD KEY `tgl_mulai` (`tgl_mulai`),
+  ADD KEY `tgl_selesai` (`tgl_selesai`);
 ALTER TABLE `data_harian_isian` ADD FULLTEXT KEY `pertanyaan` (`pertanyaan`);
 
 --
@@ -798,7 +794,8 @@ ALTER TABLE `data_harian_yn`
   ADD PRIMARY KEY (`id`),
   ADD KEY `created_at` (`created_at`),
   ADD KEY `updated_at` (`updated_at`),
-  ADD KEY `aktif` (`status`);
+  ADD KEY `tgl_mulai` (`tgl_mulai`),
+  ADD KEY `tgl_selesai` (`tgl_selesai`);
 ALTER TABLE `data_harian_yn` ADD FULLTEXT KEY `pertanyaan` (`pertanyaan`);
 
 --
@@ -1055,25 +1052,25 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT for table `data_harian_isian`
 --
 ALTER TABLE `data_harian_isian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `data_harian_isian_kelas`
 --
 ALTER TABLE `data_harian_isian_kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `data_harian_yn`
 --
 ALTER TABLE `data_harian_yn`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `data_harian_yn_kelas`
 --
 ALTER TABLE `data_harian_yn_kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `goldar`
