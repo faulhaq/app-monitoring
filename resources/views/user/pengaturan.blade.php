@@ -11,10 +11,11 @@ if ($user->role === "guru") {
     $foto = (!empty($guru->foto)) ? "uploads/guru/".$guru->foto : NULL;
 } else {
     $orang_tua = $user->orang_tua();
+    $foto = (!empty($orang_tua->foto)) ? "uploads/orang_tua/".$orang_tua->foto : NULL;
 }
 
 if ($foto) {
-    $data_footer = '<a href="'.route('pengaturan.edit-foto').'" id="linkFotoGuru" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>';
+    $data_footer = '<a href="'.route('pengaturan.edit-foto').'" class="btn btn-link btn-block btn-light"><i class="nav-icon fas fa-file-upload"></i> &nbsp; Ubah Foto</a>';
 }
 
 $name = $user->name();
@@ -73,18 +74,29 @@ $name = $user->name();
                         <strong><i class="far fa-envelope mr-1"></i> NIP</strong>
                         <p class="text-muted">{{ $guru->nip }}</p>
                         <hr>
-                    @endif
 
+                        <strong><i class="far fa-envelope mr-1"></i> Email</strong>
+                        <p class="text-muted">{{ $user->email }}</p>
+                        <hr>
+
+                        <strong><i class="far fa-calendar mr-1"></i> Tanggal Lahir</strong>
+                        <p class="text-muted">{{ fix_id_d($guru->tgl_lahir) }}</p>
+                        <hr>
+
+                        <strong><i class="fas fa-phone mr-1"></i> No Telepon</strong>
+                        <p class="text-muted">{{ $guru->telp }}</p>
+                    @elseif ($user->role === 'orang_tua')
                     <strong><i class="far fa-envelope mr-1"></i> Email</strong>
-                    <p class="text-muted">{{ $user->email }}</p>
-                    <hr>
+                        <p class="text-muted">{{ $user->email }}</p>
+                        <hr>
 
-                    <strong><i class="far fa-calendar mr-1"></i> Tanggal Lahir</strong>
-                    <p class="text-muted">{{ fix_id_d($guru->tgl_lahir) }}</p>
-                    <hr>
+                        <strong><i class="far fa-calendar mr-1"></i> Tanggal Lahir</strong>
+                        <p class="text-muted">{{ fix_id_d($orang_tua->tgl_lahir) }}</p>
+                        <hr>
 
-                    <strong><i class="fas fa-phone mr-1"></i> No Telepon</strong>
-                    <p class="text-muted">{{ $guru->telp }}</p>
+                        <strong><i class="fas fa-phone mr-1"></i> No Telepon</strong>
+                        <p class="text-muted">{{ $orang_tua->telp }}</p>
+                    @endif
                 </div>
                 <!-- /.card-body -->
             </div>

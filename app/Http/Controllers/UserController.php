@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Models\Master\OrangTua;
 use App\Models\Master\Guru;
+use App\Models\Master\KK;
 use Auth;
 
 function rstr(int $len)
@@ -222,75 +223,117 @@ class UserController extends Controller
         ]);
     }
 
+    public function validate_form_orang_tua(Request $r, bool $must_be_unique = true)
+    {
+        $uq = ($must_be_unique ? "|unique:orang_tua" : "");
+        $r->validate([
+            'no_kk'         => 'required|digits:16',
+            'nik'           => 'required|digits:16'.$uq,
+            'nama'          => 'required|max:255',
+            'email'         => 'required|max:255'.$uq,
+            'jk'            => 'required|in:L,P',
+            'agama'         => 'required',
+            'tmp_lahir'     => 'required',
+            'alamat'        => 'required',
+            'telp'          => 'required',
+            'tgl_lahir'     => 'required',
+            'pendidikan'    => 'required',
+            'goldar'        => 'required',
+            'pekerjaan'     => 'required'
+        ]);
+    }
+
+    private function ubah_profile_guru($user, Request $r)
+    {
+        $this->validate_form_guru($r, false);
+        $guru = $user->guru();
+        if (!$guru) {
+            abort(404);
+            return;
+        }
+
+        $data = [
+            'nik'        => $r->nik,
+            'nip'        => $r->nip,
+            'nama'       => $r->nama,
+            'email'      => $r->email,
+            'jk'         => $r->jk,
+            'agama'      => $r->agama,
+            'tmp_lahir'  => $r->tmp_lahir,
+            'alamat'     => $r->alamat,
+            'telp'       => $r->telp,
+            'tgl_lahir'  => $r->tgl_lahir,
+            'pendidikan' => $r->pendidikan,
+            'goldar'     => $r->goldar,
+            'pekerjaan'  => $r->pekerjaan,
+            'status'     => $r->status
+        ];
+
+        if ($r->foto) {
+            $foto = $r->foto;
+            $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
+            $foto->move("uploads/guru/", $file_foto);
+            $data["foto"] = $file_foto;
+        }
+
+        $guru->update($data);
+        return redirect()->back()->with('success', 'Data guru berhasil diubah!');
+    }
+
+    private function ubah_profile_orang_tua($user, Request $r)
+    {
+        $this->validate_form_orang_tua($r, false);
+        $orang_tua = $user->orang_tua();
+        if (!$orang_tua) {
+            abort(404);
+            return;
+        }
+
+        $id_kk = KK::where("no_kk", $r->no_kk)->first();
+        if (!$id_kk) {
+            abort(404);
+            return;
+        }
+        $id_kk = $id_kk->id;
+
+        $data = [
+            'id_kk'      => $id_kk,
+            'nik'        => $r->nik,
+            'nip'        => $r->nip,
+            'nama'       => $r->nama,
+            'email'      => $r->email,
+            'jk'         => $r->jk,
+            'agama'      => $r->agama,
+            'tmp_lahir'  => $r->tmp_lahir,
+            'alamat'     => $r->alamat,
+            'telp'       => $r->telp,
+            'tgl_lahir'  => $r->tgl_lahir,
+            'pendidikan' => $r->pendidikan,
+            'goldar'     => $r->goldar,
+            'pekerjaan'  => $r->pekerjaan,
+        ];
+
+        if ($r->foto) {
+            $foto = $r->foto;
+            $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
+            $foto->move("uploads/orang_tua/", $file_foto);
+            $data["foto"] = $file_foto;
+        }
+
+        $orang_tua->update($data);
+        return redirect()->back()->with('success', 'Data orang tua berhasil diubah!');
+    }
+
     public function ubah_profile(Request $r)
     {
         $user = Auth::user();
         if ($user->role == 'guru') {
-            $this->validate_form_guru($r, false);
-            $guru = $user->guru();
-            if (!$guru) {
-                return redirect()->back()->with('warning', 'Gagal mengubah data guru!');
-            }
-
-            $data = [
-                'nik'        => $r->nik,
-                'nip'        => $r->nip,
-                'nama'       => $r->nama,
-                'email'      => $r->email,
-                'jk'         => $r->jk,
-                'agama'      => $r->agama,
-                'tmp_lahir'  => $r->tmp_lahir,
-                'alamat'     => $r->alamat,
-                'telp'       => $r->telp,
-                'tgl_lahir'  => $r->tgl_lahir,
-                'pendidikan' => $r->pendidikan,
-                'goldar'     => $r->goldar,
-                'pekerjaan'  => $r->pekerjaan,
-                'status'     => $r->status
-            ];
-
-            if ($r->foto) {
-                $foto = $r->foto;
-                $file_foto = date("Y_m_d__H_i_s") . "_" . $foto->getClientOriginalName();
-                $foto->move("uploads/guru/", $file_foto);
-                $data["foto"] = $file_foto;
-            }
-
-            $guru->update($data);
-            return redirect()->back()->with('success', 'Data guru berhasil diubah!');
-        } elseif ($r->role == 'Siswa') {
-            $this->validate($request, [
-                'nama' => 'required',
-                'jk' => 'required',
-                'id_kelas' => 'required'
-            ]);
-            $siswa = Siswa::where('no_induk', Auth::user()->no_induk)->first();
-            $user = User::where('no_induk', Auth::user()->no_induk)->first();
-            if ($user) {
-                $user_data = [
-                    'name' => $request->name
-                ];
-                $user->update($user_data);
-            } else {
-            }
-            $siswa_data = [
-                'nis' => $request->nis,
-                'nama' => $request->name,
-                'jk' => $request->jk,
-                'id_kelas' => $request->id_kelas,
-                'telp' => $request->telp,
-                'tmp_lahir' => $request->tmp_lahir,
-                'tgl_lahir' => $request->tgl_lahir,
-            ];
-            $siswa->update($siswa_data);
-            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
+            return $this->ubah_profile_guru($user, $r);
+        } elseif ($user->role == 'orang_tua') {
+            return $this->ubah_profile_orang_tua($user, $r);
         } else {
-            $user = User::findorfail(Auth::user()->id);
-            $data_user = [
-                'name' => $request->name,
-            ];
-            $user->update($data_user);
-            return redirect()->route('profile')->with('success', 'Profile anda berhasil diperbarui!');
+            abort(404);
+            return;
         }
     }
 
