@@ -6,17 +6,18 @@
 @endsection
 @section('content')
     <div class="col-lg-4 col-6">
-        <div class="small-box bg-info">
-            <div class="inner">
-                <h3> Monitoring Harian </h3>
-                <p>Kegiatan Harian</p>
+        <a href="{{ route('monitoring.harian.harian') }}">
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3> Monitoring Harian </h3>
+                    <p>Kegiatan Harian</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-book nav-icon"></i>
+                </div>
             </div>
-            <div class="icon">
-                <i class="fas fa-book nav-icon"></i>
-            </div>
-        </div>
+        </a>
     </div>
-
 @endsection
 @section('script')
     <script>

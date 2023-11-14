@@ -79,9 +79,10 @@ Route::middleware(['auth'])->group(function () {
             Route::post("/mahfudhot/store/{id_siswa}", "MonitoringKeagamaanController@mahfudhot_store")->name("mahfudhot.store");
             Route::delete("/mahfudhot/delete/{id}", "MonitoringKeagamaanController@mahfudhot_destroy")->name("mahfudhot.destroy");
         });
+
         Route::prefix("harian")->name("harian.")->group(function () {
             Route::get("/", "MonitoringHarianController@index")->name("index");
-
+            Route::get("/harian", "MonitoringHarianController@form_isi")->name("harian");
         });
 
         
@@ -89,9 +90,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::middleware(["role:admin"])->prefix("master_data")->group(function () {
         Route::resource('/harian_isian', 'HarianIsianController');
-
         Route::resource('/harian_yn', 'HarianYnController');
-    
+
         Route::prefix("guru")->name("guru.")->group(function () {
             Route::get("/update_foto/{id}", "GuruController@update_foto")->name("update_foto");
             Route::post("/simpan_foto/{id}", "GuruController@simpan_foto")->name("simpan_foto");

@@ -9,12 +9,38 @@ use Illuminate\Http\Request;
 use App\Models\Master\Siswa;
 use App\Models\Master\Kelas;
 use App\Models\Master\TahunAjaran;
+use App\Models\Monitoring\HarianIsian;
 
 class MonitoringHarianController extends Controller
 {
     public function index()
     {
         return view("monitoring.harian.index");
+    }
+
+    private function form_isi_orang_tua($user)
+    {
+        $orang_tua = $user->orang_tua();
+        if (!$orang_tua) {
+            abort(404);
+            return;
+        }
+
+        $siswa = $orang_tua->get_all_anak();
+        if (count($siswa) === 1) {
+            $harian = HarianIsian::where("id_siswa", $siswa[0]->id);
+        } else {
+            $harian = [];
+        }
+        return view("monitoring.harian.harian_orang_tua", compact("siswa", "harian"));
+    }
+
+    public function form_isi()
+    {
+        $user = Auth::user();
+        if ($user->role === "orang_tua") {
+            return $this->form_isi_orang_tua($user);
+        }
     }
 
     public function get_created_by()

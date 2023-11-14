@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2023 at 12:02 PM
+-- Generation Time: Nov 14, 2023 at 08:38 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -63,10 +63,7 @@ CREATE TABLE `data_harian_isian` (
 --
 
 INSERT INTO `data_harian_isian` (`id`, `status`, `pertanyaan`, `created_at`, `updated_at`) VALUES
-(9, 'aktif', 'aaaaaaaaaaaa', '2023-11-09 05:53:40', '2023-11-09 05:53:40'),
-(10, 'non-aktif', 'cqwcqwdqwd', '2023-11-09 06:00:35', '2023-11-09 06:07:11'),
-(11, 'non-aktif', 'w', '2023-11-09 06:07:16', '2023-11-09 06:08:26'),
-(12, 'aktif', 'qwdqwdqwdqwd', '2023-11-09 06:07:25', '2023-11-09 06:07:25');
+(13, 'aktif', 'Sudah makan belum?', '2023-11-14 06:52:33', '2023-11-14 06:52:33');
 
 -- --------------------------------------------------------
 
@@ -85,7 +82,9 @@ CREATE TABLE `data_harian_isian_kelas` (
 --
 
 INSERT INTO `data_harian_isian_kelas` (`id`, `id_data`, `id_kelas`) VALUES
-(27, 9, 15);
+(31, 13, 15),
+(32, 13, 8),
+(33, 13, 14);
 
 -- --------------------------------------------------------
 
@@ -181,7 +180,7 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(4, '1234512345123451', '123123', 'Guru AAAAABC', 'guru001@gmail.com', 'L', 1, 1, 1, 1, '081123123123', 'Jogja', '2023-07-31', 'Jogja', '2023_11_13__11_01_22_Screenshot_3.png', 'aktif', '2023-08-02 03:36:45', '2023-11-13 11:01:22', NULL),
+(4, '1234512345123451', '123123', 'Guru AAAAABC', 'guru001@gmail.com', 'L', 1, 2, 1, 1, '081123123123', 'Jogja', '2023-07-31', 'Jogja', '2023_11_13__11_01_22_Screenshot_3.png', 'aktif', '2023-08-02 03:36:45', '2023-11-14 06:28:40', NULL),
 (5, '1234512345123453', '122123', 'Guru BBBBBBB', 'guru002@gmail.com', 'L', 1, 1, 1, 1, '083123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__12_31_19_download (3).png', 'aktif', '2023-08-02 03:36:45', '2023-08-02 12:31:19', NULL),
 (6, '1234512345122453', '121123', 'AAAAAAAAAA', 'guru003@gmail.com', 'L', 1, 1, 1, 1, '08344123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_03__12_58_13_Simulasi Forward Chaining Diagram.png', 'aktif', '2023-08-02 03:36:45', '2023-08-03 12:58:13', NULL),
 (7, '3314150809010009', '196481271994031004', 'Anton', 'anton@gmail.com', 'L', 1, 4, 1, 1, '081265345346', 'sragen', '2023-07-31', 'Sragen', '2023_08_03__13_01_21_Andhika-Saedya-transformed.png', 'aktif', '2023-08-03 13:01:21', '2023-08-03 13:01:21', NULL),
@@ -304,6 +303,30 @@ CREATE TABLE `monitoring_hadits` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `monitoring_harian_isian`
+--
+
+CREATE TABLE `monitoring_harian_isian` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_siswa` int(10) UNSIGNED NOT NULL,
+  `id_data` int(10) UNSIGNED NOT NULL,
+  `jawaban` text NOT NULL,
+  `created_by` int(10) UNSIGNED NOT NULL,
+  `updated_at` datetime DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `feedback` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_harian_isian`
+--
+
+INSERT INTO `monitoring_harian_isian` (`id`, `id_siswa`, `id_data`, `jawaban`, `created_by`, `updated_at`, `created_at`, `feedback`) VALUES
+(1, 4, 13, 'Sudah.', 1, NULL, '2023-11-14 08:25:32', NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `monitoring_mahfudhot`
 --
 
@@ -414,7 +437,7 @@ CREATE TABLE `orang_tua` (
 --
 
 INSERT INTO `orang_tua` (`id`, `id_kk`, `nik`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`) VALUES
-(1, 3, '1634567890098765', 'Ayah', 'ayah@gmail.com', 'L', 1, 1, 1, 1, '081231231234', 'solo', '2023-09-01', 'solo', NULL, '2023-09-20 04:28:44', NULL),
+(1, 3, '1634567890098765', 'Ayah', 'ayah@gmail.com', 'L', 1, 1, 1, 1, '081231231234', 'solo', '2023-09-01', 'solo', NULL, '2023-09-20 04:28:44', '2023-11-14 06:51:38'),
 (2, 3, '1214215621212313', 'Ibu', 'ibu@gmail.com', 'P', 1, 2, 1, 1, '089274517442', 'solo', '2023-09-02', 'solo', NULL, '2023-09-20 04:28:44', NULL),
 (4, 1, '3314110809910001', 'Ayahe angga', 'ayahangga@gmail.com', 'L', 1, 1, 1, 10, '08123156732', 'Solo', '2023-09-01', 'Solo', '2023_09_20__03_07_20_Andhika-Saedya-transformed.png', '2023-09-20 03:07:20', '2023-10-02 08:05:15'),
 (6, 1, '3314150809018605', 'Ibu 1', 'ibuangga@gmail.com', 'P', 1, 3, 4, 10, '081265345141', 'sragen', '2023-09-01', 'Solo', NULL, '2023-09-20 03:24:12', '2023-09-23 00:59:59'),
@@ -871,6 +894,17 @@ ALTER TABLE `monitoring_hadits`
 ALTER TABLE `monitoring_hadits` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
+-- Indexes for table `monitoring_harian_isian`
+--
+ALTER TABLE `monitoring_harian_isian`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `updated_at` (`updated_at`),
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `created_by` (`created_by`),
+  ADD KEY `id_data` (`id_data`),
+  ADD KEY `id_siswa` (`id_siswa`);
+
+--
 -- Indexes for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
@@ -1021,13 +1055,13 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT for table `data_harian_isian`
 --
 ALTER TABLE `data_harian_isian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `data_harian_isian_kelas`
 --
 ALTER TABLE `data_harian_isian_kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `data_harian_yn`
@@ -1082,6 +1116,12 @@ ALTER TABLE `monitoring_doa`
 --
 ALTER TABLE `monitoring_hadits`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `monitoring_harian_isian`
+--
+ALTER TABLE `monitoring_harian_isian`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
@@ -1211,6 +1251,14 @@ ALTER TABLE `monitoring_hadits`
   ADD CONSTRAINT `monitoring_hadits_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `monitoring_hadits_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `monitoring_hadits_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Constraints for table `monitoring_harian_isian`
+--
+ALTER TABLE `monitoring_harian_isian`
+  ADD CONSTRAINT `monitoring_harian_isian_ibfk_1` FOREIGN KEY (`id_data`) REFERENCES `data_harian_isian` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_harian_isian_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_harian_isian_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `orang_tua` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `monitoring_mahfudhot`

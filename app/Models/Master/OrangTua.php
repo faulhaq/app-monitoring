@@ -18,4 +18,9 @@ class OrangTua extends Model
     {
        return $this->belongsTo(KK::class, "id_kk")->first();
     }
+
+    public function get_all_anak()
+    {
+        return Siswa::where("id_kk", $this->id_kk)->get();
+    }
 }
