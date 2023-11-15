@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 14, 2023 at 08:53 AM
+-- Generation Time: Nov 15, 2023 at 09:25 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -64,7 +64,7 @@ CREATE TABLE `data_harian_isian` (
 --
 
 INSERT INTO `data_harian_isian` (`id`, `pertanyaan`, `tgl_mulai`, `tgl_selesai`, `created_at`, `updated_at`) VALUES
-(14, 'Siapa nama Anda?', '2023-11-14', '2023-11-30', '2023-11-14 07:46:18', '2023-11-14 07:50:02');
+(14, 'Siapa nama Anda?', '2023-11-01', '2023-11-30', '2023-11-14 07:46:18', '2023-11-14 07:50:02');
 
 -- --------------------------------------------------------
 
@@ -83,8 +83,9 @@ CREATE TABLE `data_harian_isian_kelas` (
 --
 
 INSERT INTO `data_harian_isian_kelas` (`id`, `id_data`, `id_kelas`) VALUES
-(36, 14, 15),
-(37, 14, 8);
+(38, 14, 15),
+(39, 14, 8),
+(40, 14, 14);
 
 -- --------------------------------------------------------
 
@@ -313,11 +314,23 @@ CREATE TABLE `monitoring_harian_isian` (
   `id_siswa` int(10) UNSIGNED NOT NULL,
   `id_data` int(10) UNSIGNED NOT NULL,
   `jawaban` text NOT NULL,
+  `tanggal` date NOT NULL,
   `created_by` int(10) UNSIGNED NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `feedback` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_harian_isian`
+--
+
+INSERT INTO `monitoring_harian_isian` (`id`, `id_siswa`, `id_data`, `jawaban`, `tanggal`, `created_by`, `updated_at`, `created_at`, `feedback`) VALUES
+(15, 4, 14, 'zxczxc', '2023-11-01', 1, NULL, '2023-11-15 08:11:57', NULL),
+(16, 4, 14, 'asdasd', '2023-11-14', 1, NULL, '2023-11-15 08:12:28', NULL),
+(23, 2, 14, 'aaaaaa', '2023-11-15', 4, NULL, '2023-11-15 08:24:46', NULL),
+(25, 3, 14, 'ddddddddd', '2023-11-15', 4, NULL, '2023-11-15 08:24:53', NULL),
+(26, 3, 14, 'zzzz', '2023-11-14', 4, NULL, '2023-11-15 08:25:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -899,7 +912,8 @@ ALTER TABLE `monitoring_harian_isian`
   ADD KEY `created_at` (`created_at`),
   ADD KEY `created_by` (`created_by`),
   ADD KEY `id_data` (`id_data`),
-  ADD KEY `id_siswa` (`id_siswa`);
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `tanggal` (`tanggal`);
 
 --
 -- Indexes for table `monitoring_mahfudhot`
@@ -1058,7 +1072,7 @@ ALTER TABLE `data_harian_isian`
 -- AUTO_INCREMENT for table `data_harian_isian_kelas`
 --
 ALTER TABLE `data_harian_isian_kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `data_harian_yn`
@@ -1118,7 +1132,7 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_harian_isian`
 --
 ALTER TABLE `monitoring_harian_isian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`

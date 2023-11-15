@@ -4,6 +4,13 @@
   <li class="breadcrumb-item active">Data Hadits</li>
 @endsection
 @section('content')
+<?php
+if (strtotime($ftanggal) > time()) {
+    $disable_j = " disabled";
+} else {
+    $disable_j = "";
+}
+?>
 <div class="col-md-12">
     <div class="card">
         <!-- /.card-header -->
@@ -14,11 +21,9 @@
                     <div class="form-group">
                         <label for="filter_siswa">Pilih Siswa</label>
                         <select id="filter_siswa" name="filter_siswa" class="select2bs4 form-control">
-                            @if (count($siswa) > 1)
-                                <option value="">-- Pilih Siswa --</option>
-                            @endif
                             @foreach ($siswa as $s)
-                                <option value="{{ $s->id }}">{{ $s->nama }}</option>
+                                <?php $sel = ($s->id === $sel_siswa->id) ? " selected" : ""; ?>
+                                <option value="{{ $s->id }}"{!! $sel !!}>{{ $s->nama }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -36,6 +41,8 @@
     <div class="card">
         <form action="{{ route('monitoring.harian.simpan_jawaban') }}" method="POST">
             @csrf
+            <input type="hidden" name="id_siswa" value="{{ $fsiswa->id }}"/>
+            <input type="hidden" name="tanggal" value="{{ $ftanggal }}"/>
             <div class="card-body">
                 <div class="row">
                     <div class="col-md">
@@ -57,8 +64,8 @@
                             @foreach($harian as $v)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $v->pertanyaan }}</td>
-                                    <td><textarea name="jawaban_{{ $v->id }}" class="form-control @error('pertanyaan') is-invalid @enderror">{{ $v->jawaban }}</textarea></td>
+                                    <td>{{ $v["p"]->pertanyaan }}</td>
+                                    <td><textarea name="jawaban[{{ $v['p']->id }}]" class="form-control @error('pertanyaan') is-invalid @enderror" {!! $disable_j !!}>{{ $v["j"]->jawaban ?? "" }}</textarea></td>
                                     <td></td>
                                 </tr>
                             @endforeach
@@ -68,7 +75,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md">
-                        <button class="btn btn-primary">Simpan Jawaban</button>
+                        <button class="btn btn-primary" {!! $disable_j !!}>Simpan Jawaban</button>
                     </div>
                 </div>
             </div>
@@ -137,17 +144,21 @@
     $("#DataMonitoringHarian").addClass("active");
 
     let ftanggal = $("#tanggal");
-
+    let fsiswa = $("#filter_siswa");
     function reload_page()
     {
         let url = "";
 
         url += "?ftanggal=" + ftanggal[0].value;
+        url += "&fsiswa=" + fsiswa[0].value;
 
         window.location = url;
     }
 
-    ftanggal[0].addEventListener("change", function () {
+    ftanggal.change(function () {
+        reload_page();
+    });
+    fsiswa.change(function () {
         reload_page();
     });
 

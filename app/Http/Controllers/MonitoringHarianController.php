@@ -20,21 +20,47 @@ class MonitoringHarianController extends Controller
 
     public function simpan_jawaban(Request $r)
     {
-        foreach ($_POST as $k => $v) {
-            if (substr($k, 0, 8) !== "jawaban_")
-                continue;
-            if (!is_string($k))
-                continue;
-            $id = substr($k, 8);
-            if (!is_numeric($id))
-                continue;
-            var_dump($id, $v);
+        $r->validate([
+            "id_siswa" => "required",
+            "tanggal"  => "required",
+            "jawaban"  => "required"  
+        ]);
+
+        $created_by = Auth::user()->id_orang_tua;
+        if (!$created_by) {
+            abort(404);
+            return;
         }
+
+        HarianIsian::where("id_siswa", $r->id_siswa)
+                   ->where("tanggal", $r->tanggal)
+                   ->delete();
+
+        $ret = [];
+        foreach ($r->jawaban as $k => $j) {
+            if (!$j)
+                continue;
+            $ret[] = [
+                "id_siswa"   => $r->id_siswa,
+                "id_data"    => $k,
+                "jawaban"    => $j,
+                "created_by" => $created_by,
+                "tanggal"    => $r->tanggal,
+                "created_at" => date("Y-m-d H:i:s")
+            ];
+        }
+
+        HarianIsian::insert($ret);
+        $url = route("monitoring.harian.harian");
+        $url .= "?ftanggal=".$r->tanggal;
+        $url .= "&fsiswa=".$r->id_siswa;
+        return redirect($url)->with("success", "Berhasil menyimpan jawaban");
     }
 
     private function form_isi_orang_tua($user)
     {
         $ftanggal = isset($_GET["ftanggal"]) ? date("Y-m-d", strtotime($_GET["ftanggal"])) : date("Y-m-d");
+        $fsiswa = isset($_GET["fsiswa"]) ? (int)$_GET["fsiswa"] : NULL;
         $orang_tua = $user->orang_tua();
         if (!$orang_tua) {
             abort(404);
@@ -43,12 +69,23 @@ class MonitoringHarianController extends Controller
 
         $siswa = $orang_tua->get_all_anak();
         if (count($siswa) === 1) {
-            $harian = HarianIsian::get_data_siswa_by_tanggal($siswa[0]->id, $ftanggal);
+            $fsiswa = $siswa[0];
         } else {
+            if (!$fsiswa) {
+                $fsiswa = $siswa[0];
+            } else {
+                $fsiswa = Siswa::find($fsiswa);
+                if (!$fsiswa) {
+                    abort(404);
+                    return;
+                }
+            }
             $harian = [];
         }
 
-        return view("monitoring.harian.harian_orang_tua", compact("siswa", "harian", "ftanggal"));
+        $harian = HarianIsian::get_pertanyaan_dan_jawaban($fsiswa->id, $ftanggal);
+        $sel_siswa = $fsiswa;
+        return view("monitoring.harian.harian_orang_tua", compact("sel_siswa", "siswa", "fsiswa", "harian", "ftanggal"));
     }
 
     public function form_isi()
