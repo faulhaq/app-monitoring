@@ -88,11 +88,44 @@ class MonitoringHarianController extends Controller
         return view("monitoring.harian.harian_orang_tua", compact("sel_siswa", "siswa", "fsiswa", "harian", "ftanggal"));
     }
 
+    private function form_guru($user)
+    {
+        $ftanggal = isset($_GET["ftanggal"]) ? date("Y-m-d", strtotime($_GET["ftanggal"])) : date("Y-m-d");
+        $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
+        $fsiswa = isset($_GET["fsiswa"]) ? (int)$_GET["fsiswa"] : NULL;
+
+        $user = Auth::user();
+        $kelas = $this->get_kelas($user);
+        $siswa = $this->get_siswa($fkelas, $user);
+
+        if ($fkelas && $fsiswa) {
+            $sel_siswa = Siswa::find($fsiswa);
+            if (!$sel_siswa) {
+                abort(404);
+                return;
+            }
+            $harian = [];
+        } else {
+            $sel_siswa = NULL;
+            $harian = [];
+        }
+
+        $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
+        if ($sel_siswa) {
+            $harian = HarianIsian::get_pertanyaan_dan_jawaban($sel_siswa->id, $ftanggal);
+        }
+        return view("monitoring.harian.harian_guru",
+                    compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa", "ftanggal",
+                            "mahfudhot", "siswa", "sel_siswa", "harian"));
+    }
+
     public function form_isi()
     {
         $user = Auth::user();
         if ($user->role === "orang_tua") {
             return $this->form_isi_orang_tua($user);
+        } else {
+            return $this->form_guru($user);
         }
     }
 
@@ -128,26 +161,13 @@ class MonitoringHarianController extends Controller
      */
     private function get_siswa($fkelas, $user)
     {
-        if (($fkelas && $fkelas !== "all") || $user->role === "orang_tua") {
-            $siswa = Siswa::select("siswa.*");
-
-            if ($user->role !== "orang_tua") {
-                $siswa = $siswa
-                        ->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
-                        ->where("kelas_siswa.id_kelas", $fkelas);
-            }
-
-            if ($user->role === "orang_tua") {
-                $siswa = $siswa
-                            ->join("kk", "kk.id", "siswa.id_kk")
-                            ->join("orang_tua", "kk.id", "orang_tua.id_kk")
-                            ->join("users", "orang_tua.id", "users.id_orang_tua")
-                            ->where("users.id", $user->id);
-            }
-
-            $siswa = $siswa->get();
+        if ($fkelas && $fkelas !== "all") {
+            $siswa = Siswa::select("siswa.*")
+                          ->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
+                          ->where("kelas_siswa.id_kelas", $fkelas)
+                          ->get();
         } else {
-            $siswa = [];
+            $siswa = Siswa::all();
         }
         return $siswa;
     }

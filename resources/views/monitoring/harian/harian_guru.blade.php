@@ -11,24 +11,14 @@ if (strtotime($ftanggal) > time()) {
     $disable_j = "";
 }
 $user = Auth::user();
+$has_siswa = false;
 ?>
 <div class="col-md-12">
     <div class="card">
         <!-- /.card-header -->
         <div class="card-body">
             <div class="row">
-                <?php /* @include('monitoring.search_bar') */ ?>
-                <div class="col-md">
-                    <div class="form-group">
-                        <label for="filter_siswa">Pilih Siswa</label>
-                        <select id="filter_siswa" name="filter_siswa" class="select2bs4 form-control">
-                            @foreach ($siswa as $s)
-                                <?php $sel = ($s->id === $sel_siswa->id) ? " selected" : ""; ?>
-                                <option value="{{ $s->id }}"{!! $sel !!}>{{ $s->nama }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
+                @include('monitoring.search_bar')
                 <div class="col-md">
                     <div class="form-group">
                         <label for="tanggal">Tanggal</label>
@@ -42,8 +32,10 @@ $user = Auth::user();
     <div class="card">
         <form action="{{ route('monitoring.harian.simpan_jawaban') }}" method="POST">
             @csrf
-            <input type="hidden" name="id_siswa" value="{{ $fsiswa->id }}"/>
+            @if ($sel_siswa)
+            <input type="hidden" name="id_siswa" value="{{ $sel_siswa->id }}"/>
             <input type="hidden" name="tanggal" value="{{ $ftanggal }}"/>
+            @endif
             <div class="card-body">
                 <div class="row">
                     <div class="col-md">
@@ -68,16 +60,16 @@ $user = Auth::user();
                                     <td>{{ $v["p"]->pertanyaan }}</td>
                                     <td><textarea name="jawaban[{{ $v['p']->id }}]" class="form-control @error('pertanyaan') is-invalid @enderror" {!! $disable_j !!}>{{ $v["j"]->jawaban ?? "" }}</textarea></td>
                                     <td>
-                                        <?php $feedback_by = isset($v["j"]) ? $v["j"]->feedback_by() : NULL; ?>
-                                        @if ($user->role === "orang_tua")
+                                        <?php $feedback_by = isset($v["j"]) ? $v["j"]->feedback_by() : ""; ?>
+                                        @if ($user->role === "orang_tua" || $feedback_by)
                                             <?php
                                                 if (empty($v->feedback))
                                                     $class = "btn-secondary";
                                                 else
                                                     $class = "btn-success";
                                             ?>
-                                            <a onclick="handle_user_feedback(this);" user-data-id="{{ $v['j']->id ?? '' }}"
-                                                user-feedback-by="{{ e($feedback_by) }}" user-feedback="{{ e($v['j']->feedback ?? '') }}"
+                                            <a onclick="handle_user_feedback(this);" user-data-id="{{ $v['j']->id }}"
+                                                user-feedback-by="{{ e($feedback_by) }}" user-feedback="{{ e($v['j']->feedback) }}"
                                                 data-toggle="modal" data-target=".show-feedback" style="color: white; cursor: pointer;"
                                                 class="btn {{ $class }} btn-sm mt-2">
                                                 <i class="nav-icon fas fa-comment-alt"></i> &nbsp; Feedback
@@ -162,12 +154,14 @@ $user = Auth::user();
 
     let ftanggal = $("#tanggal");
     let fsiswa = $("#filter_siswa");
+    let fkelas = $("#filter_kelas");
     function reload_page()
     {
         let url = "";
 
         url += "?ftanggal=" + ftanggal[0].value;
         url += "&fsiswa=" + fsiswa[0].value;
+        url += "&fkelas=" + fkelas[0].value;
 
         window.location = url;
     }
@@ -178,6 +172,8 @@ $user = Auth::user();
     fsiswa.change(function () {
         reload_page();
     });
-
+    fkelas.change(function () {
+        reload_page();
+    });
 </script>
 @endsection

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2023 at 02:47 PM
+-- Generation Time: Nov 17, 2023 at 03:49 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -332,7 +332,9 @@ INSERT INTO `monitoring_harian_isian` (`id`, `id_siswa`, `id_data`, `jawaban`, `
 (23, 2, 14, 'aaaaaa', '2023-11-15', 4, NULL, '2023-11-15 08:24:46', NULL, NULL),
 (25, 3, 14, 'ddddddddd', '2023-11-15', 4, NULL, '2023-11-15 08:24:53', NULL, NULL),
 (26, 3, 14, 'zzzz', '2023-11-14', 4, NULL, '2023-11-15 08:25:00', NULL, NULL),
-(27, 4, 14, 'abc', '2023-11-17', 1, NULL, '2023-11-17 13:34:22', NULL, NULL);
+(27, 4, 14, 'abc', '2023-11-17', 1, NULL, '2023-11-17 13:34:22', NULL, NULL),
+(30, 2, 14, 'asdasd', '2023-11-16', 4, NULL, '2023-11-17 14:40:17', NULL, NULL),
+(31, 2, 14, 'zzzzzzzzzzzzzzzzzzzzzzz', '2023-11-08', 4, NULL, '2023-11-17 14:49:35', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -1135,7 +1137,7 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_harian_isian`
 --
 ALTER TABLE `monitoring_harian_isian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
