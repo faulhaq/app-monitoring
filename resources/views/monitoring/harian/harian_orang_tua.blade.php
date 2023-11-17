@@ -10,6 +10,7 @@ if (strtotime($ftanggal) > time()) {
 } else {
     $disable_j = "";
 }
+$user = Auth::user();
 ?>
 <div class="col-md-12">
     <div class="card">
@@ -66,7 +67,23 @@ if (strtotime($ftanggal) > time()) {
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $v["p"]->pertanyaan }}</td>
                                     <td><textarea name="jawaban[{{ $v['p']->id }}]" class="form-control @error('pertanyaan') is-invalid @enderror" {!! $disable_j !!}>{{ $v["j"]->jawaban ?? "" }}</textarea></td>
-                                    <td></td>
+                                    <td>
+                                        <?php $feedback_by = $v["j"]->feedback_by(); ?>
+                                        @if ($user->role === "orang_tua" || $feedback_by)
+                                            <?php
+                                                if (empty($v->feedback))
+                                                    $class = "btn-secondary";
+                                                else
+                                                    $class = "btn-success";
+                                            ?>
+                                            <a onclick="handle_user_feedback(this);" user-data-id="{{ $v['j']->id }}"
+                                                user-feedback-by="{{ e($feedback_by) }}" user-feedback="{{ e($v['j']->feedback) }}"
+                                                data-toggle="modal" data-target=".show-feedback" style="color: white; cursor: pointer;"
+                                                class="btn {{ $class }} btn-sm mt-2">
+                                                <i class="nav-icon fas fa-comment-alt"></i> &nbsp; Feedback
+                                            </a>
+                                        @endif
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>

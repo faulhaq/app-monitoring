@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 15, 2023 at 09:25 AM
+-- Generation Time: Nov 17, 2023 at 02:47 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -318,19 +318,21 @@ CREATE TABLE `monitoring_harian_isian` (
   `created_by` int(10) UNSIGNED NOT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime NOT NULL,
-  `feedback` text DEFAULT NULL
+  `feedback` text DEFAULT NULL,
+  `feedback_by` int(10) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `monitoring_harian_isian`
 --
 
-INSERT INTO `monitoring_harian_isian` (`id`, `id_siswa`, `id_data`, `jawaban`, `tanggal`, `created_by`, `updated_at`, `created_at`, `feedback`) VALUES
-(15, 4, 14, 'zxczxc', '2023-11-01', 1, NULL, '2023-11-15 08:11:57', NULL),
-(16, 4, 14, 'asdasd', '2023-11-14', 1, NULL, '2023-11-15 08:12:28', NULL),
-(23, 2, 14, 'aaaaaa', '2023-11-15', 4, NULL, '2023-11-15 08:24:46', NULL),
-(25, 3, 14, 'ddddddddd', '2023-11-15', 4, NULL, '2023-11-15 08:24:53', NULL),
-(26, 3, 14, 'zzzz', '2023-11-14', 4, NULL, '2023-11-15 08:25:00', NULL);
+INSERT INTO `monitoring_harian_isian` (`id`, `id_siswa`, `id_data`, `jawaban`, `tanggal`, `created_by`, `updated_at`, `created_at`, `feedback`, `feedback_by`) VALUES
+(15, 4, 14, 'zxczxc', '2023-11-01', 1, NULL, '2023-11-15 08:11:57', NULL, NULL),
+(16, 4, 14, 'asdasd', '2023-11-14', 1, NULL, '2023-11-15 08:12:28', NULL, NULL),
+(23, 2, 14, 'aaaaaa', '2023-11-15', 4, NULL, '2023-11-15 08:24:46', NULL, NULL),
+(25, 3, 14, 'ddddddddd', '2023-11-15', 4, NULL, '2023-11-15 08:24:53', NULL, NULL),
+(26, 3, 14, 'zzzz', '2023-11-14', 4, NULL, '2023-11-15 08:25:00', NULL, NULL),
+(27, 4, 14, 'abc', '2023-11-17', 1, NULL, '2023-11-17 13:34:22', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -447,7 +449,7 @@ CREATE TABLE `orang_tua` (
 INSERT INTO `orang_tua` (`id`, `id_kk`, `nik`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`) VALUES
 (1, 3, '1634567890098765', 'Ayah', 'ayah@gmail.com', 'L', 1, 1, 1, 1, '081231231234', 'solo', '2023-09-01', 'solo', NULL, '2023-09-20 04:28:44', '2023-11-14 06:51:38'),
 (2, 3, '1214215621212313', 'Ibu', 'ibu@gmail.com', 'P', 1, 2, 1, 1, '089274517442', 'solo', '2023-09-02', 'solo', NULL, '2023-09-20 04:28:44', NULL),
-(4, 1, '3314110809910001', 'Ayahe angga', 'ayahangga@gmail.com', 'L', 1, 1, 1, 10, '08123156732', 'Solo', '2023-09-01', 'Solo', '2023_09_20__03_07_20_Andhika-Saedya-transformed.png', '2023-09-20 03:07:20', '2023-10-02 08:05:15'),
+(4, 1, '3314110809910001', 'Ayahe angga', 'ayahangga@gmail.com', 'L', 1, 1, 2, 10, '08123156732', 'Solo', '2023-09-01', 'Solo', '2023_09_20__03_07_20_Andhika-Saedya-transformed.png', '2023-09-20 03:07:20', '2023-11-17 13:35:36'),
 (6, 1, '3314150809018605', 'Ibu 1', 'ibuangga@gmail.com', 'P', 1, 3, 4, 10, '081265345141', 'sragen', '2023-09-01', 'Solo', NULL, '2023-09-20 03:24:12', '2023-09-23 00:59:59'),
 (7, 1, '3314150853678005', 'Ibu 2', 'Ibuuuu@gmail.com', 'P', 1, 3, 1, 11, '08115856732', 'sragen', '2023-08-27', 'Solo', NULL, '2023-09-20 03:55:00', '2023-09-23 01:00:04');
 
@@ -913,7 +915,8 @@ ALTER TABLE `monitoring_harian_isian`
   ADD KEY `created_by` (`created_by`),
   ADD KEY `id_data` (`id_data`),
   ADD KEY `id_siswa` (`id_siswa`),
-  ADD KEY `tanggal` (`tanggal`);
+  ADD KEY `tanggal` (`tanggal`),
+  ADD KEY `feedback_by` (`feedback_by`);
 
 --
 -- Indexes for table `monitoring_mahfudhot`
@@ -1132,7 +1135,7 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_harian_isian`
 --
 ALTER TABLE `monitoring_harian_isian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
