@@ -120,55 +120,6 @@ $has_siswa = false;
 
 <?php /* @include('monitoring.user_feedback') */ ?>
 
-<?php /*
-<!-- Extra large modal -->
-<div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Tambah Data Hadits</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form action="{{ route('monitoring.keagamaan.hadits.store', Crypt::encrypt($fsiswa)) }}" method="post" enctype="multipart/form-data"> @csrf <div class="row">
-                        <input type="hidden" name="fkelas" value="{{ Crypt::encrypt($fkelas) }}">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label for="hadits">Hadits</label>
-                                <input type="text" id="hadits" name="hadits" class="form-control @error('hadits') is-invalid @enderror" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="lu">Keterangan</label>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="lul" name="lu" value="L" required>
-                                    <label class="form-check-label" for="lul">
-                                    Lancar
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="luu" name="lu" value="U" required>
-                                    <label class="form-check-label" for="luu">
-                                    Ulang
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">
-                            <i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali </button>
-                        <button type="submit" class="btn btn-primary">
-                            <i class="nav-icon fas fa-save"></i> &nbsp; Tambahkan </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-*/
-?>
 
 @endsection
 @section('script')
