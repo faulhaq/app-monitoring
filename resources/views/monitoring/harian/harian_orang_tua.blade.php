@@ -39,8 +39,61 @@ $user = Auth::user();
         </div>
     </div>
 
-    <div class="card">
-        <form action="{{ route('monitoring.harian.simpan_jawaban') }}" method="POST">
+    <form action="{{ route('monitoring.harian.simpan_jawaban') }}" method="POST">
+        <div class="card">
+            @csrf
+            <input type="hidden" name="id_siswa" value="{{ $fsiswa->id }}"/>
+            <input type="hidden" name="tanggal" value="{{ $ftanggal }}"/>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md">
+                        <h3>Pilihan</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <table class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Pertanyaan</th>
+                                <th>Jawaban</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($harian_yn as $v)
+                                <?php
+                                    $ncheck = "";
+                                    $ycheck = "";
+                                    if (!empty($v["j"]->jawaban)) {
+                                        $c = " checked";
+                                        if ($v["j"]->jawaban === "y") {
+                                            $ycheck = $c;
+                                        } else {
+                                            $ncheck = $c;
+                                        }
+                                    }
+                                ?>
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $v["p"]->pertanyaan }}</td>
+                                    <td>
+                                        <input type="radio" name="jawaban[hy_{{ $v['p']->id }}]" value="y"{!! $ycheck !!}/> Ya
+                                        &nbsp;
+                                        <input type="radio" name="jawaban[hy_{{ $v['p']->id }}]" value="n"{!! $ncheck !!}/> Tidak
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
             @csrf
             <input type="hidden" name="id_siswa" value="{{ $fsiswa->id }}"/>
             <input type="hidden" name="tanggal" value="{{ $ftanggal }}"/>
@@ -62,43 +115,27 @@ $user = Auth::user();
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($harian as $v)
+                            @foreach($harian_isian as $v)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $v["p"]->pertanyaan }}</td>
-                                    <td><textarea name="jawaban[{{ $v['p']->id }}]" class="form-control @error('pertanyaan') is-invalid @enderror" {!! $disable_j !!}>{{ $v["j"]->jawaban ?? "" }}</textarea></td>
-                                    <td>
-                                        <?php $feedback_by = isset($v["j"]) ? $v["j"]->feedback_by() : NULL; ?>
-                                        @if ($user->role === "orang_tua")
-                                            <?php
-                                                if (empty($v->feedback))
-                                                    $class = "btn-secondary";
-                                                else
-                                                    $class = "btn-success";
-                                            ?>
-                                            <a onclick="handle_user_feedback(this);" user-data-id="{{ $v['j']->id ?? '' }}"
-                                                user-feedback-by="{{ e($feedback_by) }}" user-feedback="{{ e($v['j']->feedback ?? '') }}"
-                                                data-toggle="modal" data-target=".show-feedback" style="color: white; cursor: pointer;"
-                                                class="btn {{ $class }} btn-sm mt-2">
-                                                <i class="nav-icon fas fa-comment-alt"></i> &nbsp; Feedback
-                                            </a>
-                                        @endif
-                                    </td>
+                                    <td><textarea name="jawaban[hi_{{ $v['p']->id }}]" class="form-control @error('pertanyaan') is-invalid @enderror" {!! $disable_j !!}>{{ $v["j"]->jawaban ?? "" }}</textarea></td>
+                                    <td></td>
                                 </tr>
                             @endforeach
                         </tbody>
                         </table>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md">
-                        <button class="btn btn-primary" {!! $disable_j !!}>Simpan Jawaban</button>
-                    </div>
-                </div>
             </div>
-        </form>
-        <!-- /.card-body -->
-    </div>
+        </div>
+
+        <div class="card">
+            <div class="col-md">
+                <button class="btn btn-primary" {!! $disable_j !!}>Simpan Jawaban</button>
+            </div>
+        </div>
+    </form>
 </div>
 
 <?php /* @include('monitoring.user_feedback') */ ?>

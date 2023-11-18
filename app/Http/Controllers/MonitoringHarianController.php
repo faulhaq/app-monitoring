@@ -10,6 +10,7 @@ use App\Models\Master\Siswa;
 use App\Models\Master\Kelas;
 use App\Models\Master\TahunAjaran;
 use App\Models\Monitoring\HarianIsian;
+use App\Models\Monitoring\HarianYn;
 
 class MonitoringHarianController extends Controller
 {
@@ -35,22 +36,45 @@ class MonitoringHarianController extends Controller
         HarianIsian::where("id_siswa", $r->id_siswa)
                    ->where("tanggal", $r->tanggal)
                    ->delete();
+        
+        HarianYn::where("id_siswa", $r->id_siswa)
+                   ->where("tanggal", $r->tanggal)
+                   ->delete();
 
-        $ret = [];
+        $isian = [];
+        $yn = [];
         foreach ($r->jawaban as $k => $j) {
             if (!$j)
                 continue;
-            $ret[] = [
+            $prefix = substr($k, 0, 3);
+            if ($prefix !== "hy_" && $prefix !== "hi_")
+                continue;
+            $id = substr($k, 3);
+
+            $tmp = [
                 "id_siswa"   => $r->id_siswa,
-                "id_data"    => $k,
+                "id_data"    => (int)$id,
                 "jawaban"    => $j,
                 "created_by" => $created_by,
                 "tanggal"    => $r->tanggal,
                 "created_at" => date("Y-m-d H:i:s")
             ];
+
+            switch ($prefix) {
+                case "hy_":
+                    if ($j === "y" || $j === "n")
+                        $yn[] = $tmp;
+                    break;
+                case "hi_":
+                    $isian[] = $tmp;
+                    break;
+                default:
+                    break;
+            }
         }
 
-        HarianIsian::insert($ret);
+        HarianIsian::insert($isian);
+        HarianYn::insert($yn);
         $url = route("monitoring.harian.harian");
         $url .= "?ftanggal=".$r->tanggal;
         $url .= "&fsiswa=".$r->id_siswa;
@@ -80,12 +104,12 @@ class MonitoringHarianController extends Controller
                     return;
                 }
             }
-            $harian = [];
         }
 
-        $harian = HarianIsian::get_pertanyaan_dan_jawaban($fsiswa->id, $ftanggal);
+        $harian_isian = HarianIsian::get_pertanyaan_dan_jawaban($fsiswa->id, $ftanggal);
+        $harian_yn = HarianYn::get_pertanyaan_dan_jawaban($fsiswa->id, $ftanggal);
         $sel_siswa = $fsiswa;
-        return view("monitoring.harian.harian_orang_tua", compact("sel_siswa", "siswa", "fsiswa", "harian", "ftanggal"));
+        return view("monitoring.harian.harian_orang_tua", compact("sel_siswa", "siswa", "fsiswa", "harian_isian", "harian_yn", "ftanggal"));
     }
 
     private function form_guru($user)
@@ -112,11 +136,12 @@ class MonitoringHarianController extends Controller
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         if ($sel_siswa) {
-            $harian = HarianIsian::get_pertanyaan_dan_jawaban($sel_siswa->id, $ftanggal);
+            $harian_isian = HarianIsian::get_pertanyaan_dan_jawaban($sel_siswa->id, $ftanggal);
+            $harian_yn = HarianYn::get_pertanyaan_dan_jawaban($sel_siswa->id, $ftanggal);
         }
         return view("monitoring.harian.harian_guru",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa", "ftanggal",
-                            "mahfudhot", "siswa", "sel_siswa", "harian"));
+                            "mahfudhot", "siswa", "sel_siswa", "harian_isian", "harian_yn"));
     }
 
     public function form_isi()
