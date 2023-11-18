@@ -128,16 +128,16 @@ class MonitoringHarianController extends Controller
                 abort(404);
                 return;
             }
-            $harian = [];
         } else {
             $sel_siswa = NULL;
-            $harian = [];
         }
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         if ($sel_siswa) {
             $harian_isian = HarianIsian::get_pertanyaan_dan_jawaban($sel_siswa->id, $ftanggal);
             $harian_yn = HarianYn::get_pertanyaan_dan_jawaban($sel_siswa->id, $ftanggal);
+        } else {
+            $harian_isian = $harian_yn = [];
         }
         return view("monitoring.harian.harian_guru",
                     compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa", "ftanggal",
