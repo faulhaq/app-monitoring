@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2023 at 11:17 AM
+-- Generation Time: Nov 30, 2023 at 11:41 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -52,13 +52,10 @@ INSERT INTO `agama` (`id`, `nama`) VALUES
 
 CREATE TABLE `data_harian` (
   `id` int(10) UNSIGNED NOT NULL,
-  `pertanyaan` text NOT NULL,
-  `tgl_mulai` date NOT NULL,
-  `tgl_selesai` date NOT NULL,
-  `tipe` enum('opsi','isian') NOT NULL,
-  `list_opsi` text DEFAULT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime DEFAULT NULL
+  `bulan` tinyint(3) UNSIGNED NOT NULL,
+  `tahun` year(4) NOT NULL,
+  `id_kelas` int(10) UNSIGNED NOT NULL,
+  `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -607,6 +604,22 @@ INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`, `dele
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `pertanyaan_data_harian`
+--
+
+CREATE TABLE `pertanyaan_data_harian` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_data_harian` int(10) UNSIGNED NOT NULL,
+  `pertanyaan` text NOT NULL,
+  `tipe` enum('opsi','isian') NOT NULL,
+  `list_opsi` text DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `siswa`
 --
 
@@ -867,12 +880,10 @@ ALTER TABLE `agama`
 --
 ALTER TABLE `data_harian`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `created_at` (`created_at`),
-  ADD KEY `updated_at` (`updated_at`),
-  ADD KEY `tgl_mulai` (`tgl_mulai`),
-  ADD KEY `tgl_selesai` (`tgl_selesai`),
-  ADD KEY `tipe` (`tipe`);
-ALTER TABLE `data_harian` ADD FULLTEXT KEY `pertanyaan` (`pertanyaan`);
+  ADD KEY `bulan` (`bulan`),
+  ADD KEY `tahun` (`tahun`),
+  ADD KEY `id_kelas` (`id_kelas`),
+  ADD KEY `created_at` (`created_at`);
 
 --
 -- Indexes for table `data_harian_isian`
@@ -1103,6 +1114,17 @@ ALTER TABLE `pengumuman`
   ADD KEY `deleted_at` (`deleted_at`);
 
 --
+-- Indexes for table `pertanyaan_data_harian`
+--
+ALTER TABLE `pertanyaan_data_harian`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_data_harian` (`id_data_harian`),
+  ADD KEY `tipe` (`tipe`),
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `updated_at` (`updated_at`);
+ALTER TABLE `pertanyaan_data_harian` ADD FULLTEXT KEY `pertanyaan` (`pertanyaan`);
+
+--
 -- Indexes for table `siswa`
 --
 ALTER TABLE `siswa`
@@ -1294,6 +1316,12 @@ ALTER TABLE `pengumuman`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
+-- AUTO_INCREMENT for table `pertanyaan_data_harian`
+--
+ALTER TABLE `pertanyaan_data_harian`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
@@ -1326,6 +1354,12 @@ ALTER TABLE `users`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `data_harian`
+--
+ALTER TABLE `data_harian`
+  ADD CONSTRAINT `data_harian_ibfk_1` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `data_harian_isian_kelas`
@@ -1430,6 +1464,12 @@ ALTER TABLE `orang_tua`
   ADD CONSTRAINT `orang_tua_fk3` FOREIGN KEY (`goldar`) REFERENCES `goldar` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `orang_tua_fk4` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaan` (`id`) ON UPDATE CASCADE,
   ADD CONSTRAINT `orang_tua_fk5` FOREIGN KEY (`pendidikan`) REFERENCES `pendidikan` (`id`) ON UPDATE CASCADE;
+
+--
+-- Constraints for table `pertanyaan_data_harian`
+--
+ALTER TABLE `pertanyaan_data_harian`
+  ADD CONSTRAINT `pertanyaan_data_harian_ibfk_1` FOREIGN KEY (`id_data_harian`) REFERENCES `data_harian` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `siswa`
