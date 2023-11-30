@@ -149,6 +149,7 @@ $has_siswa = false;
         reload_page();
     });
     fkelas.change(function () {
+        fsiswa[0].value = "";
         reload_page();
     });
 </script>
