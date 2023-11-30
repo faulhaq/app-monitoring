@@ -137,7 +137,7 @@ class MonitoringKeagamaanController extends Controller
 
             $siswa = $siswa->get();
         } else {
-            $siswa = [];
+            $siswa = Siswa::all();
         }
         return $siswa;
     }
