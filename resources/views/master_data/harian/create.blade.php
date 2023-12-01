@@ -136,7 +136,7 @@
     $("#DataHarian").addClass("active");
 
     let cf = $("#cage-form");
-    let qcounter = 1;
+    let qcounter = 0;
 
     let fkelas = $("#tujuan_kelas");
 @if (!empty($list_tahun))
@@ -162,8 +162,32 @@
 @endif
 
     $("#tambah_pertanyaan").click(function (e) {
+        let old_values = [];
+        let i;
+
         e.preventDefault();
-        cf[0].innerHTML += input_template.innerHTML.replace(/xxiii/g, qcounter++);
+
+        // Collect old values to avoid lost after appending to innerHTML.
+        for (i = 1; i <= qcounter; i++) {
+            old_values[i] = [
+                $("#pertanyaan_" + i).val(),
+                $("#jenis_pertanyaan_i_" + i)[0].checked,
+                $("#jenis_pertanyaan_o_" + i)[0].checked
+            ];
+        }
+
+        cf[0].innerHTML += input_template.innerHTML.replace(/xxiii/g, ++qcounter);
+
+        console.log(old_values);
+        for (i = 1; i < qcounter; i++) {
+            $("#pertanyaan_" + i).val(old_values[i][0]);
+
+            if (old_values[i][1]) {
+                $("#jenis_pertanyaan_i_" + i)[0].checked = true;
+            } else if (old_values[i][2]) {
+                $("#jenis_pertanyaan_o_" + i)[0].checked = true;
+            }
+        }
     });
 </script>
 @endsection

@@ -107,7 +107,6 @@ class HarianController extends Controller
         }
 
         if (count($pertanyaan) !== count($jenis_pertanyaan)) {
-            dd($r->toArray());
             return redirect()->back()->with('error', 'Jumlah pertanyaan tidak sesuai dengan jenis pertanyaan');
         }
 
@@ -151,7 +150,7 @@ class HarianController extends Controller
 
         PertanyaanHarian::insert($data);
         DB::commit();
-        return redirect()->back()->with('success', 'Berhasil menambahkan data pertanyaan harian');
+        return redirect(route("harian.index"))->with('success', 'Berhasil menambahkan data pertanyaan harian');
     }
 
     /**
