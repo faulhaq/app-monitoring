@@ -7,9 +7,9 @@
 @section('content')
 
 <div class="col-md-12">
-    <form action="{{ route('harian.store') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('harian.update', Crypt::encrypt($harian->id)) }}" method="post" enctype="multipart/form-data">
     @csrf
-    <input type="hidden" value="{{ Crypt::encrypt($harian->id) }}" name="id_data_harian"/>
+    @method('patch')
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Edit Pertanyaan Data Harian</h3>
@@ -20,6 +20,7 @@
                     <div class="form-group">
                         <label for="kelas">Kelas</label>
                         <input id="kelas" name="kelas" class="form-control @error('kelas') is-invalid @enderror" readonly="1" value="{{ $harian->kelas->nama_kelas() }}"/>
+                        <input type="hidden" name="tujuan_kelas" value="{{ $harian->kelas->id }}"/>
                     </div>
                 </div>
             </div>
@@ -35,8 +36,9 @@
             <div class="row">
                 <div class="col-md">
                     <div class="form-group">
-                        <label for="bulan">Bulan</label>
-                        <input id="bulan" name="bulan" class="form-control @error('bulan') is-invalid @enderror" readonly="1" value="{{ $harian->bulan() }}">
+                        <label for="fbulan">Bulan</label>
+                        <input id="fbulan" name="fbulan" class="form-control @error('fbulan') is-invalid @enderror" readonly="1" value="{{ $harian->bulan() }}">
+                        <input type="hidden" name="bulan" value="{{ $harian->bulan }}"/>
                     </div>
                 </div>
             </div>

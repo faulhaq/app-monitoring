@@ -54,30 +54,9 @@ class HarianController extends Controller
         return view("master_data.harian.create", compact("kelas", "fkelas", "list_tahun", "ftahun", "list_bulan"));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $r
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $r)
+    private function gather_input(Request $r)
     {
-        $r->validate([
-            "tujuan_kelas"      => "required",
-            "tahun"             => "required",
-            "bulan"             => "required",
-            "pertanyaan"        => "required",
-            "jenis_pertanyaan"  => "required"
-        ]);
-
-        $kelas = Kelas::find($r->tujuan_kelas);
-        if (!$kelas) {
-            abort(404);
-            return;
-        }
-
         $year_now = (int)date("Y");
-
         $tahun = (int)$r->tahun;
         if (!is_numeric($tahun) || $tahun < $year_now || $tahun >= 2100) {
             return redirect()->back()->with('error', 'Tahun salah');
@@ -106,30 +85,15 @@ class HarianController extends Controller
                 unset($jenis_pertanyaan[$k]);
         }
 
-        if (count($pertanyaan) !== count($jenis_pertanyaan)) {
-            return redirect()->back()->with('error', 'Jumlah pertanyaan tidak sesuai dengan jenis pertanyaan');
-        }
+        return [$pertanyaan, $jenis_pertanyaan, $tahun, $bulan];
+    }
 
-        $harian = Harian::where("id_kelas", $kelas->id)
-                        ->where("tahun", $tahun)
-                        ->where("bulan", $bulan)
-                        ->first();
-        if ($harian) {
-            return redirect()->back()->with('error', 'Kombinasi kelas, tahun dan bulan sudah ada, silakan edit di index');
-        }
-
-        DB::beginTransaction();
-        $harian = Harian::create([
-            "id_kelas" => $kelas->id,
-            "tahun"    => $tahun,
-            "bulan"    => $bulan
-        ]);
-
+    private function save_pertanyaan($harian, $pertanyaan, $jenis_pertanyaan)
+    {
         $data = [];
         foreach ($pertanyaan as $k => $p) {
             if (!isset($jenis_pertanyaan[$k]) || !in_array($jenis_pertanyaan[$k], ["opsi", "isian"])) {
-                DB::rollBack();
-                return redirect()->back()->with('error', 'Invalid form data');
+                return false;
             }
 
             $jenis = $jenis_pertanyaan[$k];
@@ -149,6 +113,59 @@ class HarianController extends Controller
         }
 
         PertanyaanHarian::insert($data);
+        return true;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $r
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $r)
+    {
+        $r->validate([
+            "tujuan_kelas"      => "required",
+            "tahun"             => "required",
+            "bulan"             => "required",
+        ]);
+
+        $kelas = Kelas::find($r->tujuan_kelas);
+        if (!$kelas) {
+            abort(404);
+            return;
+        }
+
+        $ret = $this->gather_input($r);
+        if (!is_array($ret)) {
+            return $ret;
+        }
+        [$pertanyaan, $jenis_pertanyaan, $tahun, $bulan] = $ret;
+
+        if (count($pertanyaan) !== count($jenis_pertanyaan)) {
+            return redirect()->back()->with('error', 'Jumlah pertanyaan tidak sesuai dengan jenis pertanyaan');
+        }
+
+        $harian = Harian::where("id_kelas", $kelas->id)
+                        ->where("tahun", $tahun)
+                        ->where("bulan", $bulan)
+                        ->first();
+        if ($harian) {
+            return redirect()->back()->with('error', 'Kombinasi kelas, tahun dan bulan sudah ada, silakan edit di index');
+        }
+
+        DB::beginTransaction();
+        $harian = Harian::create([
+            "id_kelas" => $kelas->id,
+            "tahun"    => $tahun,
+            "bulan"    => $bulan
+        ]);
+
+        if (!$this->save_pertanyaan($harian, $pertanyaan, $jenis_pertanyaan)) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Invalid form data');
+        }
+
         DB::commit();
         return redirect(route("harian.index"))->with('success', 'Berhasil menambahkan data pertanyaan harian');
     }
@@ -191,13 +208,53 @@ class HarianController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $r
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $r, $id)
     {
-        //
+        $r->validate([
+            "tujuan_kelas"      => "required",
+            "tahun"             => "required",
+            "bulan"             => "required",
+        ]);
+
+        $kelas = Kelas::find($r->tujuan_kelas);
+        if (!$kelas) {
+            abort(404);
+            return;
+        }
+
+        $id_data_harian = Crypt::decrypt($id);
+        if (!$id_data_harian) {
+            DB::rollBack();
+            abort(404);
+            return;
+        }
+
+        $ret = $this->gather_input($r);
+        if (!is_array($ret)) {
+            return $ret;
+        }
+        [$pertanyaan, $jenis_pertanyaan, $tahun, $bulan] = $ret;
+
+        DB::beginTransaction();
+        $harian = Harian::find($id_data_harian);
+        if (!$harian) {
+            DB::rollBack();
+            abort(404);
+            return;
+        }
+
+        PertanyaanHarian::where("id_data_harian", $harian->id)->delete();
+        if (!$this->save_pertanyaan($harian, $pertanyaan, $jenis_pertanyaan)) {
+            DB::rollBack();
+            return redirect()->back()->with('error', 'Invalid form data');
+        }
+
+        DB::commit();
+        return redirect(route("harian.index"))->with('success', 'Berhasil mengubah data pertanyaan harian');
     }
 
     /**
