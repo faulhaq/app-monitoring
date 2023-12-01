@@ -172,7 +172,20 @@ class HarianController extends Controller
      */
     public function edit($id)
     {
-        //
+        $id_data_harian = Crypt::decrypt($id);
+        if (!$id_data_harian) {
+            abort(404);
+            return;
+        }
+
+        $harian = Harian::find($id_data_harian);
+        if (!$harian) {
+            abort(404);
+            return;
+        }
+
+        $pertanyaan = PertanyaanHarian::where("id_data_harian", $harian->id)->get();
+        return view("master_data.harian.edit", compact("harian", "pertanyaan"));
     }
 
     /**
