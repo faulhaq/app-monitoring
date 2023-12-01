@@ -1,22 +1,20 @@
 <div class="row">
     <div class="col-md">
         <div class="form-group">
-            <h5>Tujuan Kelas</h5>
-            @foreach (App\Models\Master\Kelas::get_kelas_aktif() as $k)
-                <div class="form-check">
+            <label for="tujuan_kelas">Tujuan Kelas</label>
+            <select id="tujuan_kelas" name="tujuan_kelas" class="select2bs4 form-control @error('tujuan_kelas') is-invalid @enderror">
+                <option value="">-- Pilih Kelas --</option>
+                @foreach (App\Models\Master\Kelas::get_kelas_aktif() as $k)
                     <?php
-                        if (isset($tujuan_kelas) && in_array($k->id, $tujuan_kelas)) {
-                            $checked = " checked";
-                        } else {
-                            $checked = "";
-                        }
+                    if (isset($fkelas)) {
+                        $sel = ($fkelas == $k->id) ? " selected" : "";
+                    } else {
+                        $sel = "";
+                    }
                     ?>
-                    <input class="form-check-input" type="checkbox" name="tujuan_kelas[]" value="{{ $k->id }}" id="flexCheckDefault"{!! $checked !!}/>
-                    <label class="form-check-label" for="flexCheckDefault">
-                        {{ $k->tingkatan.$k->nama }}
-                    </label>
-                </div>
-            @endforeach
+                    <option value="{{ $k->id }}"{!! $sel !!}>{{ $k->nama_kelas() }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 </div>

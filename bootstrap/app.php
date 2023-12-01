@@ -54,6 +54,9 @@ $app->singleton(
 
 function fix_id_d($str)
 {
+    if (!$str)
+        return "";
+
     $bulan = [
         "Januari",
         "Februari",
@@ -75,6 +78,9 @@ function fix_id_d($str)
 
 function fix_id_dt($str)
 {
+    if (!$str)
+        return "";
+
     $bulan = [
         "Januari",
         "Februari",

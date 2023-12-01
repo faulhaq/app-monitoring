@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2023 at 11:41 AM
+-- Generation Time: Dec 01, 2023 at 09:45 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -55,7 +55,8 @@ CREATE TABLE `data_harian` (
   `bulan` tinyint(3) UNSIGNED NOT NULL,
   `tahun` year(4) NOT NULL,
   `id_kelas` int(10) UNSIGNED NOT NULL,
-  `created_at` datetime NOT NULL
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -883,7 +884,8 @@ ALTER TABLE `data_harian`
   ADD KEY `bulan` (`bulan`),
   ADD KEY `tahun` (`tahun`),
   ADD KEY `id_kelas` (`id_kelas`),
-  ADD KEY `created_at` (`created_at`);
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `updated_at` (`updated_at`);
 
 --
 -- Indexes for table `data_harian_isian`
@@ -1193,7 +1195,7 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT for table `data_harian`
 --
 ALTER TABLE `data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `data_harian_isian`

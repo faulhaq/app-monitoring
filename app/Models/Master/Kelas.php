@@ -20,6 +20,11 @@ class Kelas extends Model
         return $this->guru();
     }
 
+    public function nama_kelas()
+    {
+        return $this->tingkatan.$this->nama;
+    }
+
     public function tahun_ajaran()
     {
         return $this->belongsTo(TahunAjaran::class, "id_tahun_ajaran")->first();

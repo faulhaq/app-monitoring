@@ -92,6 +92,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(["role:admin"])->prefix("master_data")->group(function () {
         Route::resource('/harian_isian', 'HarianIsianController');
         Route::resource('/harian_yn', 'HarianYnController');
+        Route::resource('/harian', 'HarianController');
 
         Route::prefix("guru")->name("guru.")->group(function () {
             Route::get("/update_foto/{id}", "GuruController@update_foto")->name("update_foto");
