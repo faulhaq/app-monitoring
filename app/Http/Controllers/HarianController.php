@@ -85,6 +85,19 @@ class HarianController extends Controller
                 unset($jenis_pertanyaan[$k]);
         }
 
+        foreach ($pertanyaan as $k => $p) {
+            foreach ($pertanyaan as $kk => $pp) {
+                if ($k == $kk)
+                    continue;
+
+                $p = strtolower(trim($p));
+                $pp = strtolower(trim($pp));
+                if ($p === $pp) {
+                    return redirect()->back()->with('error', 'Pertanyaan tidak boleh kembar, pertanyaan yang kembar: '.$pp);
+                }
+            }
+        }
+
         return [$pertanyaan, $jenis_pertanyaan, $tahun, $bulan];
     }
 
