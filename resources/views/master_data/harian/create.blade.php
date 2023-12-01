@@ -106,20 +106,20 @@
         <div class="col-md">
             <div class="form-group">
                 <label for="pertanyaan_xxiii">Pertanyaan xxiii</label>
-                <textarea class="form-control @error('pertanyaan_xxiii') is-invalid @enderror" name="pertanyaan_xxiii" id="pertanyaan_xxiii"></textarea>
+                <textarea class="form-control @error('pertanyaan_xxiii') is-invalid @enderror" name="pertanyaan[xxiii]" id="pertanyaan_xxiii"></textarea>
             </div>
         </div>
         <div class="col-md">
             <div class="form-group">
                 <label for="jenis_pertanyaan_xxiii">Jenis Pertanyaan xxiii</label>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" id="jenis_pertanyaan_i_xxiii" name="jenis_pertanyaan_xxiii" value="isian">
+                    <input class="form-check-input" type="radio" id="jenis_pertanyaan_i_xxiii" name="jenis_pertanyaan[xxiii]" value="isian">
                     <label class="form-check-label" for="jenis_pertanyaan_i_xxiii">
                     Isian
                     </label>
                 </div>
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" id="jenis_pertanyaan_o_xxiii" name="jenis_pertanyaan_xxiii" value="opsi">
+                    <input class="form-check-input" type="radio" id="jenis_pertanyaan_o_xxiii" name="jenis_pertanyaan[xxiii]" value="opsi">
                     <label class="form-check-label" for="jenis_pertanyaan_o_xxiii">
                     Opsi
                     </label>
