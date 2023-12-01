@@ -99,17 +99,15 @@
     </form>
 </div>
 
-
-
 <div id="input_template" style="display: none;">
-    <div class="row">
-        <div class="col-md">
+    <div class="row" id="row_xxiii">
+        <div class="col-md-8">
             <div class="form-group">
                 <label for="pertanyaan_xxiii">Pertanyaan xxiii</label>
                 <textarea class="form-control @error('pertanyaan_xxiii') is-invalid @enderror" name="pertanyaan[xxiii]" id="pertanyaan_xxiii"></textarea>
             </div>
         </div>
-        <div class="col-md">
+        <div class="col-md-2">
             <div class="form-group">
                 <label for="jenis_pertanyaan_xxiii">Jenis Pertanyaan xxiii</label>
                 <div class="form-check">
@@ -126,6 +124,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-2">
+            <button type="button" style="margin-top: 35px;" class="btn btn-danger" onclick="del_pertanyaan(this, xxiii)">Hapus</button>
+        </div>
     </div>
 </div>
 @endsection
@@ -137,6 +138,7 @@
 
     let cf = $("#cage-form");
     let qcounter = 0;
+    let form_state = {};
 
     let fkelas = $("#tujuan_kelas");
 @if (!empty($list_tahun))
@@ -161,33 +163,67 @@
     ftahun.change(function (e) { apply_url(); });
 @endif
 
-    $("#tambah_pertanyaan").click(function (e) {
-        let old_values = [];
+    function collect_form_state()
+    {
         let i;
 
-        e.preventDefault();
-
-        // Collect old values to avoid lost after appending to innerHTML.
+        form_state = {};
         for (i = 1; i <= qcounter; i++) {
-            old_values[i] = [
+            if (!document.getElementById("pertanyaan_" + i)) {
+                continue;
+            }
+            form_state[i] = [
                 $("#pertanyaan_" + i).val(),
                 $("#jenis_pertanyaan_i_" + i)[0].checked,
                 $("#jenis_pertanyaan_o_" + i)[0].checked
             ];
         }
+    }
 
-        cf[0].innerHTML += input_template.innerHTML.replace(/xxiii/g, ++qcounter);
+    function build_form_from_state()
+    {
+        let template = input_template.innerHTML;
+        let new_form_state = {};
+        let new_qcounter = 0;
+        let i, j;
+        let r = "";
 
-        console.log(old_values);
-        for (i = 1; i < qcounter; i++) {
-            $("#pertanyaan_" + i).val(old_values[i][0]);
+        j = 1;
+        for (i in form_state) {
+            r += template.replace(/xxiii/g, j);
+            new_form_state[j] = form_state[i];
+            new_qcounter++;
+            j++;
+        }
 
-            if (old_values[i][1]) {
+        cf[0].innerHTML = r;
+
+        form_state = new_form_state;
+        for (i = 1; i <= qcounter; i++) {
+            $("#pertanyaan_" + i).val(form_state[i][0]);
+
+            if (form_state[i][1]) {
                 $("#jenis_pertanyaan_i_" + i)[0].checked = true;
-            } else if (old_values[i][2]) {
+            } else if (form_state[i][2]) {
                 $("#jenis_pertanyaan_o_" + i)[0].checked = true;
             }
         }
+        qcounter = new_qcounter;
+    }
+
+    $("#tambah_pertanyaan").click(function (e) {
+        e.preventDefault();
+        collect_form_state();
+        form_state[++qcounter] = ["", false, false];
+        build_form_from_state();
     });
+
+    function del_pertanyaan(e, i)
+    {
+        collect_form_state();
+        delete form_state[i];
+        qcounter--;
+        build_form_from_state();
+    }
 </script>
 @endsection
