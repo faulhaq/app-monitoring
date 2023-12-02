@@ -11,6 +11,15 @@ if (count($pertanyaan) > 0) {
 } else {
     $disable_simpan = " disabled";
 }
+
+$ftanggal_epoch = strtotime($ftanggal);
+$today_epoch = strtotime(date("Y-m-d")." 00:00:00");
+if ($ftanggal_epoch > $today_epoch) {
+    $disable_future = " disabled";
+} else {
+    $disable_future = "";
+}
+
 ?>
 
 <div class="col-md-12">
@@ -82,19 +91,19 @@ if (count($pertanyaan) > 0) {
                                     }
                                 ?>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jawaban_y_{{ $i }}" name="jawaban[{{ $id }}]" value="ya"{!! $y_check !!}>
+                                    <input class="form-check-input" type="radio" id="jawaban_y_{{ $i }}" name="jawaban[{{ $id }}]" value="ya"{!! $y_check !!}{!! $disable_future !!}>
                                     <label class="form-check-label" for="jawaban_y_{{ $i }}">
                                     Ya
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jawaban_n_{{ $i }}" name="jawaban[{{ $id }}]" value="tidak"{!! $n_check !!}>
+                                    <input class="form-check-input" type="radio" id="jawaban_n_{{ $i }}" name="jawaban[{{ $id }}]" value="tidak"{!! $n_check !!}{!! $disable_future !!}>
                                     <label class="form-check-label" for="jawaban_n_{{ $i }}">
                                     Tidak
                                     </label>
                                 </div>
                                 @elseif ($p->tipe === "isian")
-                                    <textarea class="form-control @error('jawaban_'.$i) is-invalid @enderror" name="jawaban[{{ $id }}]" id="pertanyaan_{{ $i }}">{{ $jawaban[$k]->jawaban ?? "" }}</textarea>
+                                    <textarea class="form-control @error('jawaban_'.$i) is-invalid @enderror" name="jawaban[{{ $id }}]" id="pertanyaan_{{ $i }}"{!! $disable_future !!}>{{ $jawaban[$k]->jawaban ?? "" }}</textarea>
                                 @endif
                             </div>
                         </div>
@@ -105,7 +114,7 @@ if (count($pertanyaan) > 0) {
 
         <div class="card-footer">
             <a href="{{ route('monitoring.harian.index') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
-            <button name="submit" class="btn btn-primary"{!! $disable_simpan !!}><i class="nav-icon fas fa-save"></i> &nbsp; Simpan Jawaban</button>
+            <button name="submit" class="btn btn-primary"{!! $disable_simpan !!}{!! $disable_future !!}><i class="nav-icon fas fa-save"></i> &nbsp; Simpan Jawaban</button>
         </div>
     </div>
     </form>
