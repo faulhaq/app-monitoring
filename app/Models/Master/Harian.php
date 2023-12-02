@@ -76,6 +76,6 @@ class Harian extends Model
 
     public function get_all_pertanyaan()
     {
-        return PertanyaanHarian::where("id_data_harian", $this->id)->get();
+        return PertanyaanHarian::where("id_data_harian", $this->id)->orderBy("tipe", "asc")->get();
     }
 }

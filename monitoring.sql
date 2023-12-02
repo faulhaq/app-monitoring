@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2023 at 08:57 AM
+-- Generation Time: Dec 02, 2023 at 10:44 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -58,6 +58,15 @@ CREATE TABLE `data_harian` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `data_harian`
+--
+
+INSERT INTO `data_harian` (`id`, `bulan`, `tahun`, `id_kelas`, `created_at`, `updated_at`) VALUES
+(14, 12, 2023, 8, '2023-12-02 08:25:26', '2023-12-02 08:25:26'),
+(15, 1, 2023, 14, '2023-12-02 09:41:29', '2023-12-02 09:41:29'),
+(16, 12, 2023, 14, '2023-12-02 09:42:32', '2023-12-02 09:42:32');
 
 -- --------------------------------------------------------
 
@@ -246,6 +255,35 @@ CREATE TABLE `monitoring_hadits` (
 
 INSERT INTO `monitoring_hadits` (`id`, `id_siswa`, `hadits`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
 (1, 2, 'hadis orang tua', 'lancar', NULL, NULL, NULL, '2023-11-24 14:58:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `monitoring_harian`
+--
+
+CREATE TABLE `monitoring_harian` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `id_siswa` int(10) UNSIGNED NOT NULL,
+  `id_pertanyaan` int(10) UNSIGNED NOT NULL,
+  `jawaban` text DEFAULT NULL,
+  `tanggal` date NOT NULL,
+  `created_by` int(10) UNSIGNED DEFAULT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_harian`
+--
+
+INSERT INTO `monitoring_harian` (`id`, `id_siswa`, `id_pertanyaan`, `jawaban`, `tanggal`, `created_by`, `created_at`, `updated_at`) VALUES
+(43, 4, 21, 'tidak', '2023-12-02', 1, '2023-12-02 09:39:59', NULL),
+(44, 2, 26, 'tidak', '2023-12-02', 4, '2023-12-02 09:43:41', NULL),
+(45, 2, 29, 'ya', '2023-12-02', 4, '2023-12-02 09:43:41', NULL),
+(46, 2, 25, 'qwe', '2023-12-02', 4, '2023-12-02 09:43:41', NULL),
+(47, 2, 27, 'asd', '2023-12-02', 4, '2023-12-02 09:43:41', NULL),
+(48, 2, 28, 'zxc', '2023-12-02', 4, '2023-12-02 09:43:41', NULL);
 
 -- --------------------------------------------------------
 
@@ -453,6 +491,22 @@ CREATE TABLE `pertanyaan_data_harian` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `pertanyaan_data_harian`
+--
+
+INSERT INTO `pertanyaan_data_harian` (`id`, `id_data_harian`, `pertanyaan`, `tipe`, `list_opsi`, `created_at`, `updated_at`) VALUES
+(20, 14, 'Siapa nama Anda?', 'isian', NULL, '2023-12-02 08:25:26', NULL),
+(21, 14, 'Sudah makan apa belum?', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-02 08:25:26', NULL),
+(22, 15, 'asdasdasd', 'isian', NULL, '2023-12-02 09:41:29', NULL),
+(23, 15, 'zxczxc', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-02 09:41:29', NULL),
+(24, 15, 'qweqwe', 'isian', NULL, '2023-12-02 09:41:29', NULL),
+(25, 16, 'aaaa', 'isian', NULL, '2023-12-02 09:42:32', NULL),
+(26, 16, 'bbbb', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-02 09:42:32', NULL),
+(27, 16, 'cccc', 'isian', NULL, '2023-12-02 09:42:32', NULL),
+(28, 16, 'ddd', 'isian', NULL, '2023-12-02 09:42:32', NULL),
+(29, 16, 'eeee', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-02 09:42:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -695,7 +749,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'dFEFgsHqBa83DKl0ajCe4HJLef0yB3akDHEiB8GwmdJIpfPe0wMhC6UGsWRA', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
+(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'i4C3KlJUGCL9dvEQ4LnsH0YLthI4Z0woJlqbctPD36lpNeogyG6AwR1hug92', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
 (11, 'guru', 'guru001@gmail.com', '$2y$10$nkbNg2CuYC1XctKjmTDLQenw2efFdjEmS.I3xR1twt3j5tWt2k3e6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-10-02 07:20:26'),
 (13, 'orang_tua', 'ayah@gmail.com', '$2y$10$ZJQjennnqoePQv3YbTDtv./X95CbZ9nFXzRG8S5ZI3HtQJPbY43ne', NULL, 1, NULL, '2023-10-02 08:04:32', '2023-10-02 08:04:40'),
 (14, 'orang_tua', 'ayahangga@gmail.com', '$2y$10$Mu6GmYhKo.n3G5xaY0jYSekvRuraMLvwl//pHahrM4cBHeTvdP3BW', NULL, 4, NULL, '2023-10-02 08:05:40', '2023-10-02 08:05:48'),
@@ -806,6 +860,19 @@ ALTER TABLE `monitoring_hadits`
   ADD KEY `created_at` (`created_at`),
   ADD KEY `feedback_by` (`feedback_by`);
 ALTER TABLE `monitoring_hadits` ADD FULLTEXT KEY `feedback` (`feedback`);
+
+--
+-- Indexes for table `monitoring_harian`
+--
+ALTER TABLE `monitoring_harian`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `id_pertanyaan` (`id_pertanyaan`),
+  ADD KEY `updated_at` (`updated_at`),
+  ADD KEY `created_at` (`created_at`),
+  ADD KEY `tanggal` (`tanggal`),
+  ADD KEY `id_siswa` (`id_siswa`),
+  ADD KEY `created_by` (`created_by`);
+ALTER TABLE `monitoring_harian` ADD FULLTEXT KEY `jawaban` (`jawaban`);
 
 --
 -- Indexes for table `monitoring_mahfudhot`
@@ -969,7 +1036,7 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT for table `data_harian`
 --
 ALTER TABLE `data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `goldar`
@@ -1012,6 +1079,12 @@ ALTER TABLE `monitoring_doa`
 --
 ALTER TABLE `monitoring_hadits`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `monitoring_harian`
+--
+ALTER TABLE `monitoring_harian`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
@@ -1059,7 +1132,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `pertanyaan_data_harian`
 --
 ALTER TABLE `pertanyaan_data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `siswa`
@@ -1139,6 +1212,14 @@ ALTER TABLE `monitoring_hadits`
   ADD CONSTRAINT `monitoring_hadits_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `monitoring_hadits_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `monitoring_hadits_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
+
+--
+-- Constraints for table `monitoring_harian`
+--
+ALTER TABLE `monitoring_harian`
+  ADD CONSTRAINT `monitoring_harian_ibfk_1` FOREIGN KEY (`id_pertanyaan`) REFERENCES `pertanyaan_data_harian` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_harian_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `monitoring_harian_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Constraints for table `monitoring_mahfudhot`
