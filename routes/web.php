@@ -85,13 +85,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get("/harian", "MonitoringHarianController@form_isi")->name("harian");
             Route::post("/harian/simpan_jawaban", "MonitoringHarianController@simpan_jawaban")->name("simpan_jawaban");
         });
-
-        
     });
 
     Route::middleware(["role:admin"])->prefix("master_data")->group(function () {
-        Route::resource('/harian_isian', 'HarianIsianController');
-        Route::resource('/harian_yn', 'HarianYnController');
         Route::resource('/harian', 'HarianController');
 
         Route::prefix("guru")->name("guru.")->group(function () {

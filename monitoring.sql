@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 01, 2023 at 10:06 AM
+-- Generation Time: Dec 02, 2023 at 08:57 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -58,107 +58,6 @@ CREATE TABLE `data_harian` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `data_harian`
---
-
-INSERT INTO `data_harian` (`id`, `bulan`, `tahun`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(6, 4, 2024, 15, '2023-12-01 09:06:04', '2023-12-01 09:06:04');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_harian_isian`
---
-
-CREATE TABLE `data_harian_isian` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `pertanyaan` text NOT NULL,
-  `tgl_mulai` date NOT NULL,
-  `tgl_selesai` date NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Master data monitoring harian isian';
-
---
--- Dumping data for table `data_harian_isian`
---
-
-INSERT INTO `data_harian_isian` (`id`, `pertanyaan`, `tgl_mulai`, `tgl_selesai`, `created_at`, `updated_at`) VALUES
-(14, 'Siapa nama Anda?', '2023-11-01', '2023-11-30', '2023-11-14 07:46:18', '2023-11-14 07:50:02'),
-(15, 'apakah kalian sehat ?', '2023-11-01', '2023-11-30', '2023-11-18 13:28:31', '2023-11-18 13:28:31'),
-(16, 'apakah hari ini sehat ?', '2023-11-01', '2023-11-30', '2023-11-29 06:44:51', '2023-11-29 06:44:51');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_harian_isian_kelas`
---
-
-CREATE TABLE `data_harian_isian_kelas` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `id_data` int(10) UNSIGNED NOT NULL,
-  `id_kelas` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `data_harian_isian_kelas`
---
-
-INSERT INTO `data_harian_isian_kelas` (`id`, `id_data`, `id_kelas`) VALUES
-(38, 14, 15),
-(39, 14, 8),
-(40, 14, 14),
-(41, 15, 15),
-(42, 15, 8),
-(43, 15, 14),
-(44, 16, 15),
-(45, 16, 8),
-(46, 16, 14);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_harian_yn`
---
-
-CREATE TABLE `data_harian_yn` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `pertanyaan` text NOT NULL,
-  `tgl_mulai` date NOT NULL,
-  `tgl_selesai` date NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='Master data monitoring harian yn/pilihan';
-
---
--- Dumping data for table `data_harian_yn`
---
-
-INSERT INTO `data_harian_yn` (`id`, `pertanyaan`, `tgl_mulai`, `tgl_selesai`, `created_at`, `updated_at`) VALUES
-(7, 'Sudah makan belum?', '2023-11-15', '2023-11-30', '2023-11-14 07:52:20', '2023-11-18 13:38:17');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `data_harian_yn_kelas`
---
-
-CREATE TABLE `data_harian_yn_kelas` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `id_data` int(10) UNSIGNED NOT NULL,
-  `id_kelas` int(10) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `data_harian_yn_kelas`
---
-
-INSERT INTO `data_harian_yn_kelas` (`id`, `id_data`, `id_kelas`) VALUES
-(24, 7, 15),
-(25, 7, 8),
-(26, 7, 14);
 
 -- --------------------------------------------------------
 
@@ -347,76 +246,6 @@ CREATE TABLE `monitoring_hadits` (
 
 INSERT INTO `monitoring_hadits` (`id`, `id_siswa`, `hadits`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
 (1, 2, 'hadis orang tua', 'lancar', NULL, NULL, NULL, '2023-11-24 14:58:44');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `monitoring_harian_isian`
---
-
-CREATE TABLE `monitoring_harian_isian` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `id_siswa` int(10) UNSIGNED NOT NULL,
-  `id_data` int(10) UNSIGNED NOT NULL,
-  `jawaban` text NOT NULL,
-  `tanggal` date NOT NULL,
-  `created_by` int(10) UNSIGNED NOT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `monitoring_harian_isian`
---
-
-INSERT INTO `monitoring_harian_isian` (`id`, `id_siswa`, `id_data`, `jawaban`, `tanggal`, `created_by`, `updated_at`, `created_at`) VALUES
-(15, 4, 14, 'zxczxc', '2023-11-01', 1, NULL, '2023-11-15 08:11:57'),
-(16, 4, 14, 'asdasd', '2023-11-14', 1, NULL, '2023-11-15 08:12:28'),
-(23, 2, 14, 'aaaaaa', '2023-11-15', 4, NULL, '2023-11-15 08:24:46'),
-(25, 3, 14, 'ddddddddd', '2023-11-15', 4, NULL, '2023-11-15 08:24:53'),
-(26, 3, 14, 'zzzz', '2023-11-14', 4, NULL, '2023-11-15 08:25:00'),
-(27, 4, 14, 'abc', '2023-11-17', 1, NULL, '2023-11-17 13:34:22'),
-(30, 2, 14, 'asdasd', '2023-11-16', 4, NULL, '2023-11-17 14:40:17'),
-(31, 2, 14, 'zzzzzzzzzzzzzzzzzzzzzzz', '2023-11-08', 4, NULL, '2023-11-17 14:49:35'),
-(41, 2, 14, 'qwe', '2023-11-18', 4, NULL, '2023-11-18 13:52:08'),
-(42, 2, 15, 'qwe', '2023-11-18', 4, NULL, '2023-11-18 13:52:08'),
-(45, 4, 14, 'Andi', '2023-11-18', 1, NULL, '2023-11-18 14:03:27'),
-(46, 4, 15, 'Ya sehat', '2023-11-18', 1, NULL, '2023-11-18 14:03:27'),
-(47, 4, 14, 'A', '2023-11-24', 1, NULL, '2023-11-24 15:13:49'),
-(48, 4, 15, 'ya', '2023-11-24', 1, NULL, '2023-11-24 15:13:49'),
-(49, 4, 14, 'A', '2023-11-23', 1, NULL, '2023-11-24 15:14:00'),
-(50, 4, 15, 'B', '2023-11-23', 1, NULL, '2023-11-24 15:14:00'),
-(51, 2, 14, 'angga', '2023-11-29', 4, NULL, '2023-11-29 06:58:02'),
-(52, 2, 15, 'ya sehat', '2023-11-29', 4, NULL, '2023-11-29 06:58:02'),
-(53, 2, 16, 'benar sehat', '2023-11-29', 4, NULL, '2023-11-29 06:58:02');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `monitoring_harian_yn`
---
-
-CREATE TABLE `monitoring_harian_yn` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `id_siswa` int(10) UNSIGNED NOT NULL,
-  `id_data` int(10) UNSIGNED NOT NULL,
-  `jawaban` enum('y','n') NOT NULL,
-  `tanggal` date NOT NULL,
-  `created_by` int(10) UNSIGNED NOT NULL,
-  `updated_at` datetime DEFAULT NULL,
-  `created_at` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `monitoring_harian_yn`
---
-
-INSERT INTO `monitoring_harian_yn` (`id`, `id_siswa`, `id_data`, `jawaban`, `tanggal`, `created_by`, `updated_at`, `created_at`) VALUES
-(38, 2, 7, 'y', '2023-11-18', 4, NULL, '2023-11-18 13:52:08'),
-(40, 4, 7, 'y', '2023-11-18', 1, NULL, '2023-11-18 14:03:27'),
-(42, 4, 7, 'y', '2023-11-24', 1, NULL, '2023-11-24 15:13:49'),
-(43, 4, 7, 'n', '2023-11-23', 1, NULL, '2023-11-24 15:14:00'),
-(44, 2, 7, 'y', '2023-11-29', 4, NULL, '2023-11-29 06:58:02');
 
 -- --------------------------------------------------------
 
@@ -624,14 +453,6 @@ CREATE TABLE `pertanyaan_data_harian` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pertanyaan_data_harian`
---
-
-INSERT INTO `pertanyaan_data_harian` (`id`, `id_data_harian`, `pertanyaan`, `tipe`, `list_opsi`, `created_at`, `updated_at`) VALUES
-(1, 6, 'ascasc', 'isian', NULL, '2023-12-01 09:06:04', NULL),
-(2, 6, 'ascasc', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-01 09:06:04', NULL);
 
 -- --------------------------------------------------------
 
@@ -903,44 +724,6 @@ ALTER TABLE `data_harian`
   ADD KEY `updated_at` (`updated_at`);
 
 --
--- Indexes for table `data_harian_isian`
---
-ALTER TABLE `data_harian_isian`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `created_at` (`created_at`),
-  ADD KEY `updated_at` (`updated_at`),
-  ADD KEY `tgl_mulai` (`tgl_mulai`),
-  ADD KEY `tgl_selesai` (`tgl_selesai`);
-ALTER TABLE `data_harian_isian` ADD FULLTEXT KEY `pertanyaan` (`pertanyaan`);
-
---
--- Indexes for table `data_harian_isian_kelas`
---
-ALTER TABLE `data_harian_isian_kelas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_data` (`id_data`),
-  ADD KEY `id_kelas` (`id_kelas`);
-
---
--- Indexes for table `data_harian_yn`
---
-ALTER TABLE `data_harian_yn`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `created_at` (`created_at`),
-  ADD KEY `updated_at` (`updated_at`),
-  ADD KEY `tgl_mulai` (`tgl_mulai`),
-  ADD KEY `tgl_selesai` (`tgl_selesai`);
-ALTER TABLE `data_harian_yn` ADD FULLTEXT KEY `pertanyaan` (`pertanyaan`);
-
---
--- Indexes for table `data_harian_yn_kelas`
---
-ALTER TABLE `data_harian_yn_kelas`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `id_data` (`id_data`),
-  ADD KEY `id_kelas` (`id_kelas`);
-
---
 -- Indexes for table `goldar`
 --
 ALTER TABLE `goldar`
@@ -1023,30 +806,6 @@ ALTER TABLE `monitoring_hadits`
   ADD KEY `created_at` (`created_at`),
   ADD KEY `feedback_by` (`feedback_by`);
 ALTER TABLE `monitoring_hadits` ADD FULLTEXT KEY `feedback` (`feedback`);
-
---
--- Indexes for table `monitoring_harian_isian`
---
-ALTER TABLE `monitoring_harian_isian`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `updated_at` (`updated_at`),
-  ADD KEY `created_at` (`created_at`),
-  ADD KEY `created_by` (`created_by`),
-  ADD KEY `id_data` (`id_data`),
-  ADD KEY `id_siswa` (`id_siswa`),
-  ADD KEY `tanggal` (`tanggal`);
-
---
--- Indexes for table `monitoring_harian_yn`
---
-ALTER TABLE `monitoring_harian_yn`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `updated_at` (`updated_at`),
-  ADD KEY `created_at` (`created_at`),
-  ADD KEY `created_by` (`created_by`),
-  ADD KEY `id_data` (`id_data`),
-  ADD KEY `id_siswa` (`id_siswa`),
-  ADD KEY `tanggal` (`tanggal`);
 
 --
 -- Indexes for table `monitoring_mahfudhot`
@@ -1210,31 +969,7 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT for table `data_harian`
 --
 ALTER TABLE `data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `data_harian_isian`
---
-ALTER TABLE `data_harian_isian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `data_harian_isian_kelas`
---
-ALTER TABLE `data_harian_isian_kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
-
---
--- AUTO_INCREMENT for table `data_harian_yn`
---
-ALTER TABLE `data_harian_yn`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-
---
--- AUTO_INCREMENT for table `data_harian_yn_kelas`
---
-ALTER TABLE `data_harian_yn_kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `goldar`
@@ -1277,18 +1012,6 @@ ALTER TABLE `monitoring_doa`
 --
 ALTER TABLE `monitoring_hadits`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `monitoring_harian_isian`
---
-ALTER TABLE `monitoring_harian_isian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
-
---
--- AUTO_INCREMENT for table `monitoring_harian_yn`
---
-ALTER TABLE `monitoring_harian_yn`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
@@ -1336,7 +1059,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `pertanyaan_data_harian`
 --
 ALTER TABLE `pertanyaan_data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `siswa`
@@ -1379,20 +1102,6 @@ ALTER TABLE `data_harian`
   ADD CONSTRAINT `data_harian_ibfk_1` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `data_harian_isian_kelas`
---
-ALTER TABLE `data_harian_isian_kelas`
-  ADD CONSTRAINT `data_harian_isian_kelas_ibfk_1` FOREIGN KEY (`id_data`) REFERENCES `data_harian_isian` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `data_harian_isian_kelas_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `data_harian_yn_kelas`
---
-ALTER TABLE `data_harian_yn_kelas`
-  ADD CONSTRAINT `data_harian_yn_kelas_ibfk_2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `data_harian_yn_kelas_ibfk_3` FOREIGN KEY (`id_data`) REFERENCES `data_harian_yn` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
 -- Constraints for table `guru`
 --
 ALTER TABLE `guru`
@@ -1430,22 +1139,6 @@ ALTER TABLE `monitoring_hadits`
   ADD CONSTRAINT `monitoring_hadits_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `monitoring_hadits_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `monitoring_hadits_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL;
-
---
--- Constraints for table `monitoring_harian_isian`
---
-ALTER TABLE `monitoring_harian_isian`
-  ADD CONSTRAINT `monitoring_harian_isian_ibfk_1` FOREIGN KEY (`id_data`) REFERENCES `data_harian_isian` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_harian_isian_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_harian_isian_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `orang_tua` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `monitoring_harian_yn`
---
-ALTER TABLE `monitoring_harian_yn`
-  ADD CONSTRAINT `monitoring_harian_yn_ibfk_1` FOREIGN KEY (`id_data`) REFERENCES `data_harian_yn` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_harian_yn_ibfk_2` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `monitoring_harian_yn_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `orang_tua` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `monitoring_mahfudhot`

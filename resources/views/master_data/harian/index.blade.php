@@ -71,7 +71,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('harian_isian.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('harian.store') }}" method="post" enctype="multipart/form-data">
                     @csrf
                     @include('master_data.harian_tujuan')
                     <div class="row">
