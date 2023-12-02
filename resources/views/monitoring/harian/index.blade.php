@@ -1,15 +1,15 @@
 @extends('template.home')
-@section('heading', 'Dashboard')
+@section('heading', 'Monitoring Harian')
 @section('page')
-  <li class="breadcrumb-item active">Admin</li>
-  <li class="breadcrumb-item active">Dashboard</li>
+  <li class="breadcrumb-item active">Data Monitoring</li>
+  <li class="breadcrumb-item active">Monitoring Harian</li>
 @endsection
 @section('content')
     <div class="col-lg-4 col-6">
-        <a href="{{ route('monitoring.harian.harian') }}">
+        <a href="{{ route('monitoring.harian.index2') }}">
             <div class="small-box bg-info">
                 <div class="inner">
-                    <h3> Monitoring Harian </h3>
+                    <h3>Monitoring Harian</h3>
                     <p>Kegiatan Harian</p>
                 </div>
                 <div class="icon">

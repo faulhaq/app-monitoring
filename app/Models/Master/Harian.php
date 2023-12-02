@@ -73,4 +73,9 @@ class Harian extends Model
 
         return $ret;
     }
+
+    public function get_all_pertanyaan()
+    {
+        return PertanyaanHarian::where("id_data_harian", $this->id)->get();
+    }
 }

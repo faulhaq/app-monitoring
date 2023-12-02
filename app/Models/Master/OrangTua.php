@@ -23,4 +23,18 @@ class OrangTua extends Model
     {
         return Siswa::where("id_kk", $this->id_kk)->get();
     }
+
+    /**
+     * Return true jika anaknya.
+     * Return false jika bukan anaknya.
+     */
+    public function validate_anak($id_siswa)
+    {
+        $siswa = Siswa::find($id_siswa);
+        if (!$siswa) {
+            return false;
+        }
+
+        return $siswa->id_kk === $this->id_kk;
+    }
 }

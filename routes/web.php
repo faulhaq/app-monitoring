@@ -82,8 +82,7 @@ Route::middleware(['auth'])->group(function () {
 
         Route::prefix("harian")->name("harian.")->group(function () {
             Route::get("/", "MonitoringHarianController@index")->name("index");
-            Route::get("/harian", "MonitoringHarianController@form_isi")->name("harian");
-            Route::post("/harian/simpan_jawaban", "MonitoringHarianController@simpan_jawaban")->name("simpan_jawaban");
+            Route::get("/index2", "MonitoringHarianController@index2")->name("index2");
         });
     });
 
