@@ -1,21 +1,10 @@
 @extends('template.home')
-@section('heading', 'Dashboard')
+@section('heading', 'Dashboard '.Auth::user()->role())
 @section('page')
-  <li class="breadcrumb-item active">Admin</li>
-  <li class="breadcrumb-item active">Dashboard</li>
+  <li class="breadcrumb-item active">Data Monitoring</li>
+  <li class="breadcrumb-item active">Monitoring Keagamaan</li>
 @endsection
 @section('content')
-    <!-- <div class="col-lg-4 col-6">
-        <div class="small-box bg-info">
-            <div class="inner">
-                <h3> Monitoring Kegiatan </h3>
-                <p>Kegiatan</p>
-            </div>
-            <div class="icon">
-                <i class="fas fa-book nav-icon"></i>
-            </div>
-        </div>
-    </div> -->
     <div class="col-lg-4 col-6">
         <a href="{{ route('monitoring.keagamaan.tahsin') }}">
         <div class="small-box" style="background-color: #3B44F6;">
