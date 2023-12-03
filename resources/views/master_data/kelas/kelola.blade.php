@@ -10,83 +10,89 @@ $user = Auth::user();
 $role = $user->role;
 $id_guru = $user->id_guru;
 ?>
+
 <div class="col-md-12">
-  <div class="card card-primary">
-    <div class="card-header">
-      <h3 class="card-title">Detail Kelas</h3>
-    </div>
-    <div class="card">
-      <div class="row" style="padding: 30px">
-        <div class="col-md">
-          <table>
-            <tbody>
-              <tr><td>Nama Kelas</td><td>:</td><td>{{ $kelas->tingkatan.$kelas->nama }}</td></tr>
-              <tr><td>Wali Kelas</td><td>:</td><td>{{ $kelas->wali_kelas()->nama }}</td></tr>
-              <tr><td>Tahun Ajaran</td><td>:</td><td>{{ $kelas->tahun_ajaran()->tahun }}</td></tr>
-              <tr><td>Jumlah Siswa</td><td>:</td><td>{{ $kelas->jumlah_siswa() }}</td></tr>
-              @if ($role === "admin")
-              <tr><td><button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Tambah Siswa</button></td></tr>
-              @endif
-            </tbody>
-          </table>
+    <div class="card card-primary">
+        <div class="card-header">
+            <h3 class="card-title">Detail Kelas</h3>
         </div>
-      </div>
-
-      <div class="row" style="padding: 30px;">
-        <div class="col-md">
-          <table class="table">
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>NIK</th>
-                <th>NIS</th>
-                <th>Nama</th>
-                <th>Aksi</th>
-              </tr>
-            </thead>
-            <tbody>
-              @foreach ($siswa as $v)
-                <tr>
-                  <td>{{ $v->id }}</td>
-                  <td>{{ $v->nik }}</td>
-                  <td>{{ $v->nis }}</td>
-                  <td>{{ $v->nama }}</td>
-                  <td>
-                    <?php $enc_id_siswa = Crypt::encrypt($v->id); ?>
-                    <form action="{{ route('kelas.hapus_siswa', [$enc_id_kelas, $enc_id_siswa]) }}" method="post">
-                        @csrf
-                        @method('delete')
-                        @if ($role === "admin")
-                        <button class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus</button>
-                        @endif
-                        <a href="{{ route('monitoring.keagamaan.tahsin').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" 
-                            class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-clipboard"></i> &nbsp; Tahsin</a>
-
-                        <a href="{{ route('monitoring.keagamaan.tahfidz').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" 
-                            class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-clipboard"></i> &nbsp; Tahfidz</a>
-
-                        <a href="{{ route('monitoring.keagamaan.mahfudhot').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" 
-                            class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-clipboard"></i> &nbsp; Mahfudhot</a>
-
-                        <a href="{{ route('monitoring.keagamaan.hadits').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" 
-                            class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-clipboard"></i> &nbsp; Hadits</a>
-
-                        <a href="{{ route('monitoring.keagamaan.doa').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" 
-                            class="btn btn-danger btn-sm mt-2"><i class="nav-icon fas fa-clipboard"></i> &nbsp; Doa</a>
-
-                    </form>
-                  </td>
-                </tr>
-              @endforeach
-            </tbody>
-          </table>
-          <div class="card-footer">
-            <a href="{{ route('kelas.index') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
-          </div>
+        <div class="card-body">
+            <div class="row" style="padding: 30px">
+                <div class="col-md">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Nama Kelas</td>
+                                <td>:</td>
+                                <td>{{ $kelas->tingkatan.$kelas->nama }}</td>
+                            </tr>
+                            <tr>
+                                <td>Wali Kelas</td>
+                                <td>:</td>
+                                <td>{{ $kelas->wali_kelas()->nama }}</td>
+                            </tr>
+                            <tr>
+                                <td>Tahun Ajaran</td>
+                                <td>:</td>
+                                <td>{{ $kelas->tahun_ajaran()->tahun }}</td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah Siswa</td>
+                                <td>:</td>
+                                <td>{{ $kelas->jumlah_siswa() }}</td>
+                            </tr> @if ($role === "admin") <tr>
+                                <td>
+                                    <button class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">Tambah Siswa</button>
+                                </td>
+                            </tr> @endif
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="row" style="padding: 30px;">
+                <div class="col-md">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>NIK</th>
+                                <th>NIS</th>
+                                <th>Nama</th>
+                                <th>Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($siswa as $v)
+                            <tr>
+                                <td>{{ $v->id }}</td>
+                                <td>{{ $v->nik }}</td>
+                                <td>{{ $v->nis }}</td>
+                                <td>{{ $v->nama }}</td>
+                                <td> <?php $enc_id_siswa = Crypt::encrypt($v->id); ?> <form action="{{ route('kelas.hapus_siswa', [$enc_id_kelas, $enc_id_siswa]) }}" method="post"> @csrf @method('delete') @if ($role === "admin") <button class="btn btn-danger btn-sm mt-2">
+                                            <i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus </button> @endif <a href="{{ route('monitoring.keagamaan.tahsin').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-danger btn-sm mt-2">
+                                            <i class="nav-icon fas fa-clipboard"></i> &nbsp; Tahsin </a>
+                                        <a href="{{ route('monitoring.keagamaan.tahfidz').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-danger btn-sm mt-2">
+                                            <i class="nav-icon fas fa-clipboard"></i> &nbsp; Tahfidz </a>
+                                        <a href="{{ route('monitoring.keagamaan.mahfudhot').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-danger btn-sm mt-2">
+                                            <i class="nav-icon fas fa-clipboard"></i> &nbsp; Mahfudhot </a>
+                                        <a href="{{ route('monitoring.keagamaan.hadits').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-danger btn-sm mt-2">
+                                            <i class="nav-icon fas fa-clipboard"></i> &nbsp; Hadits </a>
+                                        <a href="{{ route('monitoring.keagamaan.doa').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-danger btn-sm mt-2">
+                                            <i class="nav-icon fas fa-clipboard"></i> &nbsp; Doa </a>
+                                    </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <div class="card-footer">
+                        <a href="{{ route('kelas.index') }}" name="kembali" class="btn btn-default" id="back">
+                            <i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali </a> &nbsp;
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-  </div>
 </div>
 
 <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
@@ -121,6 +127,7 @@ $id_guru = $user->id_guru;
         </div>
     </div>
 </div>
+
 @endsection
 @section('script')
 <script>
