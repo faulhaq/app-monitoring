@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2023 at 11:21 AM
+-- Generation Time: Dec 03, 2023 at 11:25 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -368,7 +368,8 @@ INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`,
 (4, 5, 1, 'iqro', 12, 'lancar', 15, NULL, NULL, '2023-10-21 06:11:42'),
 (5, 4, 1, 'iqro', 10, 'lancar', 11, 'terimakasih', 1, '2023-11-06 05:49:58'),
 (6, 4, 1, 'iqro', 45, 'lancar', 11, 'baik', 1, '2023-11-08 05:01:17'),
-(7, 4, 4, 'iqro', 124, 'lancar', NULL, 'okee', 1, '2023-11-13 07:36:52');
+(7, 4, 4, 'iqro', 124, 'lancar', NULL, 'okee', 1, '2023-11-13 07:36:52'),
+(8, 5, 123, 'iqro', 10, 'lancar', 11, NULL, NULL, '2023-12-03 10:23:26');
 
 -- --------------------------------------------------------
 
@@ -1105,7 +1106,7 @@ ALTER TABLE `monitoring_tahfidz`
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`

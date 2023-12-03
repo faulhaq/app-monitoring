@@ -13,13 +13,8 @@ trait CreatedByTrait
 
         $ret = DB::table("users");
 
-        if ($this->lokasi === "sekolah") {
-            $ret = $ret->join("guru", "guru.id", "users.id_guru");
-        } else if ($this->lokasi === "rumah") {
-            $ret = $ret->join("orang_tua", "orang_tua.id", "users.id_orang_tua");
-        } else {
-            return "unknown";
-        }
+        $ret = $ret->join("guru", "guru.id", "users.id_guru");
+        
 
         return $ret->first()->nama ?? "unknown";
     }
