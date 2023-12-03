@@ -5,57 +5,65 @@
   <li class="breadcrumb-item active">Monitoring Harian</li>
 @endsection
 @section('content')
-<?php
-if (count($pertanyaan) > 0) {
-    $disable_simpan = "";
-} else {
-    $disable_simpan = " disabled";
-}
-
-$ftanggal_epoch = strtotime($ftanggal);
-$today_epoch = strtotime(date("Y-m-d")." 00:00:00");
-if ($ftanggal_epoch > $today_epoch) {
-    $disable_future = " disabled";
-} else {
-    $disable_future = "";
-}
-
-?>
 
 <div class="col-md-12">
-    <form action="{{ route('monitoring.harian.simpan_jawaban') }}" method="post" enctype="multipart/form-data">
-    @csrf
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Isi Monitoring Harian</h3>
+            <h3 class="card-title">Data Monitoring Harian</h3>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="filter_siswa">Pilih Siswa</label>
-                        <select id="filter_siswa" name="filter_siswa" class="select2bs4 form-control">
-                            @if (count($list_siswa) > 1)
-                                <option value="">-- Pilih Siswa --</option>
+                        <label for="fkelas">Pilih Kelas</label>
+                        <select id="fkelas" name="fkelas" class="select2bs4 form-control">
+                            @if (count($list_kelas) > 1)
+                                <option value="">-- Pilih Kelas --</option>
                             @endif
+                            @foreach ($list_kelas as $v)
+                                <?php $ta = $v->tahun_ajaran(); ?>
+                                @if ($ta->id == $id_tahun_ajaran_aktif)
+                                <?php $sel = $v->id == $fkelas ? " selected" : ""; ?>
+                                <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->tingkatan.$v->nama." (TA: {$ta->tahun})" }} (aktif)</option>
+                                @endif
+                            @endforeach
+                            @foreach ($list_kelas as $v)
+                                <?php $ta = $v->tahun_ajaran(); ?>
+                                @if ($ta->id != $id_tahun_ajaran_aktif)
+                                <?php $sel = $v->id == $fkelas ? " selected" : ""; ?>
+                                <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->tingkatan.$v->nama." (TA: {$ta->tahun})" }}</option>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                @if (!empty($fkelas))
+                <div class="col-md-4">
+                    <div class="form-group">
+                        <label for="fsiswa">Pilih Siswa</label>
+                        <select id="fsiswa" name="fsiswa" class="select2bs4 form-control">
+                            <option value="">-- Pilih Siswa --</option>
                             @foreach ($list_siswa as $v)
                                 <?php $sel = $v->id == $fsiswa ? " selected" : ""; ?>
-                                <?php if ($v->id == $fsiswa) $has_siswa = true; ?>
                                 <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->nama }} ({{ $v->nis }})</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-                <div class="col-md-6">
+                @endif
+                @if (!empty($fsiswa))
+                <div class="col-md-4">
                     <div class="form-group">
-                        <label for="filter_tanggal">Tanggal</label>
-                        <input type="date" id="filter_tanggal" name="filter_tanggal" value="{{ $ftanggal }}" class="form-control @error('filter_tanggal') is-invalid @enderror" required>
+                        <label for="ftanggal">Pilih Tanggal</label>
+                        <input type="date" id="ftanggal" name="ftanggal" value="{{ $ftanggal }}" class="form-control @error('ftanggal') is-invalid @enderror">
                     </div>
                 </div>
+                @endif
             </div>
         </div>
     </div>
 
+    @if (!empty($fsiswa))
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Monitoring untuk tanggal {{ fix_id_d($ftanggal) }}</h3>
@@ -63,6 +71,7 @@ if ($ftanggal_epoch > $today_epoch) {
             <input type="hidden" name="tanggal" value="{{ $ftanggal }}"/>
         </div>
         <div class="card-body">
+            @if (count($pertanyaan) > 0)
             <div>
                 @foreach ($pertanyaan as $k => $p)
                     <?php $i = $loop->iteration; ?>
@@ -91,33 +100,36 @@ if ($ftanggal_epoch > $today_epoch) {
                                     }
                                 ?>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jawaban_y_{{ $i }}" name="jawaban[{{ $id }}]" value="ya"{!! $y_check !!}{!! $disable_future !!}>
+                                    <input class="form-check-input" type="radio" id="jawaban_y_{{ $i }}" name="jawaban[{{ $id }}]" value="ya"{!! $y_check !!} disabled="true">
                                     <label class="form-check-label" for="jawaban_y_{{ $i }}">
                                     Ya
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jawaban_n_{{ $i }}" name="jawaban[{{ $id }}]" value="tidak"{!! $n_check !!}{!! $disable_future !!}>
+                                    <input class="form-check-input" type="radio" id="jawaban_n_{{ $i }}" name="jawaban[{{ $id }}]" value="tidak"{!! $n_check !!} disabled="true">
                                     <label class="form-check-label" for="jawaban_n_{{ $i }}">
                                     Tidak
                                     </label>
                                 </div>
                                 @elseif ($p->tipe === "isian")
-                                    <textarea class="form-control @error('jawaban_'.$i) is-invalid @enderror" name="jawaban[{{ $id }}]" id="pertanyaan_{{ $i }}"{!! $disable_future !!}>{{ $jawaban[$k]->jawaban ?? "" }}</textarea>
+                                    <textarea class="form-control @error('jawaban_'.$i) is-invalid @enderror" name="jawaban[{{ $id }}]" id="pertanyaan_{{ $i }}" disabled="true">{{ $jawaban[$k]->jawaban ?? "" }}</textarea>
                                 @endif
                             </div>
                         </div>
                     </div>
                 @endforeach
             </div>
+            @else
+            <div>
+                <h1>Monitoring belum tersedia!</h1>
+            </div>
+            @endif
         </div>
-
         <div class="card-footer">
-            <a href="{{ route('monitoring.harian.index') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a> &nbsp;
-            <button name="submit" class="btn btn-primary"{!! $disable_simpan !!}{!! $disable_future !!}><i class="nav-icon fas fa-save"></i> &nbsp; Simpan Jawaban</button>
+            <a href="{{ route('monitoring.harian.index') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
         </div>
     </div>
-    </form>
+    @endif
 </div>
 
 @endsection
@@ -126,19 +138,29 @@ if ($ftanggal_epoch > $today_epoch) {
     $("#Monitoring").addClass("active");
     $("#liMonitoring").addClass("menu-open");
     $("#DataMonitoringHarian").addClass("active");
-    let fsiswa = $("#filter_siswa");
-    let ftanggal = $("#filter_tanggal");
+    let fkelas = $("#fkelas");
+    let fsiswa = $("#fsiswa");
+    let ftanggal = $("#ftanggal");
 
     function handle_filter()
     {
         let url = "";
 
-        url += "?fsiswa=" + fsiswa.val();
-        url += "&ftanggal=" + ftanggal.val();
+        url += "?fkelas=" + fkelas.val();
+
+        if (fsiswa.val())
+            url += "&fsiswa=" + fsiswa.val();
+
+        if (ftanggal.val())
+            url += "&ftanggal=" + ftanggal.val();
 
         window.location = url;
     }
 
+    fkelas.change(function () {
+        fsiswa.val("");
+        handle_filter();
+    });
     fsiswa.change(handle_filter);
     ftanggal.change(handle_filter);
 </script>

@@ -8,6 +8,7 @@ use App\Models\Master\OrangTua;
 use App\Models\Master\Siswa;
 use App\Models\Master\Kelas;
 use App\Models\Master\Harian;
+use App\Models\Master\TahunAjaran;
 use App\Models\Monitoring\Harian as MonitoringHarian;
 use Illuminate\Support\Facades\DB;
 
@@ -102,7 +103,113 @@ class MonitoringHarianController extends Controller
 
     public function index2_guru($user)
     {
+        $pertanyaan = [];
+        $jawaban = [];
+        $list_siswa = [];
+        $ftanggal = date("Y-m-d");
+        $fkelas = NULL;
+        $kelas = NULL;
+        $fsiswa = NULL;
 
+        if ($user->role === "admin") {
+            $list_kelas = Kelas::all();
+        } else if ($user->role === "guru") {
+            // TODO: Handle role guru (wali kelas dan guru biasa).
+        } else {
+            abort(404);
+            return;
+        }
+
+        if (isset($_GET["fkelas"])) {
+            if (is_numeric($_GET["fkelas"])) {
+                $fkelas = (int) $_GET["fkelas"];
+                $kelas = Kelas::find($fkelas);
+                if (!$kelas) {
+                    abort(404);
+                    return;
+                }
+                $list_siswa = Siswa::get_siswa_by_id_kelas($kelas->id)->get();
+            }
+        }
+
+        if (!$fkelas && count($list_kelas) === 1) {
+            return redirect(route("monitoring.harian.index2")."?fkelas={$list_kelas[0]->id}");
+        }
+
+        if (isset($kelas) && isset($_GET["fsiswa"]) && is_numeric($_GET["fsiswa"])) {
+            if (empty($list_siswa)) {
+                abort(404);
+                return;
+            }
+
+            /**
+             * Pastikan $fsiswa berada dalam $list_siswa.
+             */
+            $found = false;
+            foreach ($list_siswa as $s) {
+                if ($s->id == $_GET["fsiswa"]) {
+                    $found = true;
+                    break;
+                }
+            }
+
+            if (!$found) {
+                abort(404);
+                return;
+            }
+
+            $fsiswa = (int) $_GET["fsiswa"];
+            $siswa = Siswa::find($fsiswa);
+            if (!$siswa) {
+                abort(404);
+                return;
+            }
+
+            if (isset($_GET["ftanggal"]) && is_string($_GET["ftanggal"])) {
+                $tmp = $_GET["ftanggal"];
+                if (date("Y-m-d", strtotime($tmp)) !== $tmp) {
+                    abort(404);
+                    return;
+                }
+    
+                $ftanggal = $tmp;
+            }
+
+            $epoch = strtotime($ftanggal);
+            $month_now = (int) date("m", $epoch);
+            $year_now = (int) date("Y", $epoch);
+
+            $harian = Harian::where("id_kelas", $kelas->id)
+                            ->where("tahun", $year_now)
+                            ->where("bulan", $month_now)
+                            ->first();
+
+            if ($harian) {
+                $pertanyaan = $harian->get_all_pertanyaan();
+                $list_jawaban = MonitoringHarian::where("id_siswa", $fsiswa)->where("tanggal", $ftanggal)->get();
+                foreach ($pertanyaan as $p) {
+                    $found = false;
+                    foreach ($list_jawaban as $j) {
+                        if ($p->id == $j->id_pertanyaan) {
+                            $found = true;
+                            break;
+                        }
+                    }
+
+                    if ($found) {
+                        $jawaban[] = $j;
+                    } else {
+                        $jawaban[] = "";
+                    }
+                }
+            }
+        }
+
+        $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
+        return view("monitoring.harian.guru.index",
+                   compact("list_kelas", "list_siswa", "fkelas", "ftanggal",
+                           "kelas", "fsiswa", "siswa", "id_tahun_ajaran_aktif",
+                           "user", "pertanyaan", "jawaban"));
     }
 
     public function index2()
