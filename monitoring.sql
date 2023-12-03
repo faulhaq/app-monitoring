@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 03, 2023 at 11:15 AM
+-- Generation Time: Dec 03, 2023 at 11:21 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -154,8 +154,8 @@ CREATE TABLE `kelas` (
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (8, '2', 'D', 1, 4, '2023-08-02 12:51:42', '2023-08-23 04:23:25', NULL),
 (9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL),
-(14, '3', NULL, 1, 6, '2023-09-15 03:28:21', '2023-09-26 04:00:32', NULL),
-(15, '1', NULL, 1, 9, '2023-09-26 03:59:13', '2023-09-26 03:59:13', NULL);
+(14, '3', NULL, 1, 4, '2023-09-15 03:28:21', '2023-12-03 10:19:00', NULL),
+(15, '1', NULL, 1, 5, '2023-09-26 03:59:13', '2023-12-03 10:18:50', NULL);
 
 -- --------------------------------------------------------
 
@@ -278,12 +278,15 @@ CREATE TABLE `monitoring_harian` (
 --
 
 INSERT INTO `monitoring_harian` (`id`, `id_siswa`, `id_pertanyaan`, `jawaban`, `tanggal`, `created_by`, `created_at`, `updated_at`) VALUES
-(43, 4, 21, 'tidak', '2023-12-02', 1, '2023-12-02 09:39:59', NULL),
 (44, 2, 26, 'tidak', '2023-12-02', 4, '2023-12-02 09:43:41', NULL),
 (45, 2, 29, 'ya', '2023-12-02', 4, '2023-12-02 09:43:41', NULL),
 (46, 2, 25, 'qwe', '2023-12-02', 4, '2023-12-02 09:43:41', NULL),
 (47, 2, 27, 'asd', '2023-12-02', 4, '2023-12-02 09:43:41', NULL),
-(48, 2, 28, 'zxc', '2023-12-02', 4, '2023-12-02 09:43:41', NULL);
+(48, 2, 28, 'zxc', '2023-12-02', 4, '2023-12-02 09:43:41', NULL),
+(49, 4, 21, 'ya', '2023-12-03', 1, '2023-12-03 10:20:14', NULL),
+(50, 4, 20, 'Andi', '2023-12-03', 1, '2023-12-03 10:20:14', NULL),
+(51, 4, 21, 'tidak', '2023-12-02', 1, '2023-12-03 10:20:24', NULL),
+(52, 4, 20, 'andi', '2023-12-02', 1, '2023-12-03 10:20:24', NULL);
 
 -- --------------------------------------------------------
 
@@ -749,7 +752,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'i4C3KlJUGCL9dvEQ4LnsH0YLthI4Z0woJlqbctPD36lpNeogyG6AwR1hug92', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
+(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'rFFXbspZeLTI0mhOutUx17xDhqqyCtXvcoaetyyMw9ykJEs85indYesHxJ5q', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
 (11, 'guru', 'guru001@gmail.com', '$2y$10$nkbNg2CuYC1XctKjmTDLQenw2efFdjEmS.I3xR1twt3j5tWt2k3e6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-10-02 07:20:26'),
 (13, 'orang_tua', 'ayah@gmail.com', '$2y$10$ZJQjennnqoePQv3YbTDtv./X95CbZ9nFXzRG8S5ZI3HtQJPbY43ne', NULL, 1, NULL, '2023-10-02 08:04:32', '2023-10-02 08:04:40'),
 (14, 'orang_tua', 'ayahangga@gmail.com', '$2y$10$Mu6GmYhKo.n3G5xaY0jYSekvRuraMLvwl//pHahrM4cBHeTvdP3BW', NULL, 4, NULL, '2023-10-02 08:05:40', '2023-10-02 08:05:48'),
@@ -1084,7 +1087,7 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_harian`
 --
 ALTER TABLE `monitoring_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`

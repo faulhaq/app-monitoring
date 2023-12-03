@@ -114,7 +114,12 @@ class MonitoringHarianController extends Controller
         if ($user->role === "admin") {
             $list_kelas = Kelas::all();
         } else if ($user->role === "guru") {
-            // TODO: Handle role guru (wali kelas dan guru biasa).
+            $guru = $user->guru();
+            if (!$guru) {
+                abort(404);
+                return;
+            }
+            $list_kelas = Kelas::where("id_guru", $guru->id)->get();
         } else {
             abort(404);
             return;
