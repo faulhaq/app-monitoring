@@ -98,51 +98,55 @@ if ($ftanggal_epoch > $today_epoch) {
         <div class="card-body">
             <div>
                 @if (count($pertanyaan) > 0)
+                    <table class="table">
+                    <thead>
+                        <tr><th>No.</th><th>Pertanyaan</th><th>Jawaban</th></tr>
+                    </thead>
+                    <tbody>
                     @foreach ($pertanyaan as $k => $p)
+                        <tr>
                         <?php $i = $loop->iteration; ?>
                         <?php $id = $p->id; ?>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="pertanyaan_{{ $i }}">Pertanyaan {{ $i }}</label>
-                                    <textarea disabled="true" class="form-control @error('pertanyaan_'.$i) is-invalid @enderror" name="pertanyaan[{{ $id }}]" id="pertanyaan_{{ $i }}">{{ $p->pertanyaan }}</textarea>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <label for="jawaban_{{ $i }}">Jawaban {{ $i }}</label>
-                                    @if ($p->tipe === "opsi")
-                                    <?php
-                                        $y_check = "";
-                                        $n_check = "";
+                        <td>{{ $i }}</td>
+                        <td>
+                            <p>{{ $p->pertanyaan }}</p>
+                        </td>
+                        <td>
+                            <div class="form-group">
+                                @if ($p->tipe === "opsi")
+                                <?php
+                                    $y_check = "";
+                                    $n_check = "";
 
-                                        if (isset($jawaban[$k]->jawaban)) {
-                                            if ($jawaban[$k]->jawaban === "ya") {
-                                                $y_check = " checked";
-                                            } else {
-                                                $n_check = " checked";
-                                            }
+                                    if (isset($jawaban[$k]->jawaban)) {
+                                        if ($jawaban[$k]->jawaban === "ya") {
+                                            $y_check = " checked";
+                                        } else {
+                                            $n_check = " checked";
                                         }
-                                    ?>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="jawaban_y_{{ $i }}" name="jawaban[{{ $id }}]" value="ya"{!! $y_check !!}{!! $disable_future !!}>
-                                        <label class="form-check-label" for="jawaban_y_{{ $i }}">
-                                        Ya
-                                        </label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" id="jawaban_n_{{ $i }}" name="jawaban[{{ $id }}]" value="tidak"{!! $n_check !!}{!! $disable_future !!}>
-                                        <label class="form-check-label" for="jawaban_n_{{ $i }}">
-                                        Tidak
-                                        </label>
-                                    </div>
-                                    @elseif ($p->tipe === "isian")
-                                        <textarea class="form-control @error('jawaban_'.$i) is-invalid @enderror" name="jawaban[{{ $id }}]" id="pertanyaan_{{ $i }}"{!! $disable_future !!}>{{ $jawaban[$k]->jawaban ?? "" }}</textarea>
-                                    @endif
+                                    }
+                                ?>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="jawaban_y_{{ $i }}" name="jawaban[{{ $id }}]" value="ya"{!! $y_check !!}{!! $disable_future !!}>
+                                    <label class="form-check-label" for="jawaban_y_{{ $i }}">
+                                    Ya
+                                    </label>
                                 </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" id="jawaban_n_{{ $i }}" name="jawaban[{{ $id }}]" value="tidak"{!! $n_check !!}{!! $disable_future !!}>
+                                    <label class="form-check-label" for="jawaban_n_{{ $i }}">
+                                    Tidak
+                                    </label>
+                                </div>
+                                @elseif ($p->tipe === "isian")
+                                    <textarea class="form-control @error('jawaban_'.$i) is-invalid @enderror" name="jawaban[{{ $id }}]" id="pertanyaan_{{ $i }}"{!! $disable_future !!}>{{ $jawaban[$k]->jawaban ?? "" }}</textarea>
+                                @endif
                             </div>
-                        </div>
+                        </td>
+                        </tr>
                     @endforeach
+                    </tbody>
+                    </table>
                 @else
                     <div>
                         <h1>Monitoring belum tersedia!</h1>
