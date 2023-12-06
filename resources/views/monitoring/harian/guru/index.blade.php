@@ -71,7 +71,7 @@
             <div class="row">
             @if (isset($siswa))
                 <div class="col-md" style="margin-bottom: 10px;">
-                    <div class="card-header">
+                    <div class="card-body">
                         <?php $kelas = $siswa->kelas(); ?>
                         <?php $wali_kelas = $kelas->wali_kelas(); ?>
                         <h5 class="card-title card-text mb-2">NIS : {{ $siswa->nis }}</h5>
@@ -79,15 +79,6 @@
                         <h5 class="card-title card-text mb-2">Kelas : {{ $kelas->tingkatan.$kelas->nama }}</h5>
                         <h5 class="card-title card-text mb-2">Wali Kelas : {{ "{$wali_kelas->nama}" }}</h5>
                     </div>
-                    @if (isset($allow_edit) && $allow_edit)
-                    <div class="card-header">
-                        <h3 class="card-title">
-                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; {{ $add_title }}
-                            </button>
-                        </h3>
-                    </div>
-                    @endif
                 </div>
             @endif
             </div>
