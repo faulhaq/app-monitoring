@@ -31,27 +31,50 @@ if ($ftanggal_epoch > $today_epoch) {
         </div>
         <div class="card-body">
             <div class="row">
+                @if (count($list_siswa) > 1)
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="filter_siswa">Pilih Siswa</label>
                         <select id="filter_siswa" name="filter_siswa" class="select2bs4 form-control">
-                            @if (count($list_siswa) > 1)
                                 <option value="">-- Pilih Siswa --</option>
-                            @endif
-                            @foreach ($list_siswa as $v)
-                                <?php $sel = $v->id == $fsiswa ? " selected" : ""; ?>
-                                <?php if ($v->id == $fsiswa) $has_siswa = true; ?>
-                                <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->nama }} ({{ $v->nis }})</option>
-                            @endforeach
+                                @foreach ($list_siswa as $v)
+                                    <?php $sel = $v->id == $fsiswa ? " selected" : ""; ?>
+                                    <?php if ($v->id == $fsiswa) $has_siswa = true; ?>
+                                    <option value="{{ $v->id }}"{!! $sel !!}>{{ $v->nama }} ({{ $v->nis }})</option>
+                                @endforeach
                         </select>
                     </div>
                 </div>
+                @endif
                 <div class="col-md-6">
                     <div class="form-group">
                         <label for="filter_tanggal">Tanggal</label>
                         <input type="date" id="filter_tanggal" name="filter_tanggal" value="{{ $ftanggal }}" class="form-control @error('filter_tanggal') is-invalid @enderror" required>
                     </div>
                 </div>
+            </div>
+            <div class="row">
+            @if ($siswa)
+                <div class="col-md" style="margin-bottom: 10px;">
+                    <div class="card-header">
+                        <?php $kelas = $siswa->kelas(); ?>
+                        <?php $wali_kelas = $kelas->wali_kelas(); ?>
+                        <h5 class="card-title card-text mb-2">NIS : {{ $siswa->nis }}</h5>
+                        <h5 class="card-title card-text mb-2">Nama Siswa : {{ $siswa->nama }}</h5>
+                        <h5 class="card-title card-text mb-2">Kelas : {{ $kelas->tingkatan.$kelas->nama }}</h5>
+                        <h5 class="card-title card-text mb-2">Wali Kelas : {{ "{$wali_kelas->nama}" }}</h5>
+                    </div>
+                    @if (isset($allow_edit) && $allow_edit)
+                    <div class="card-header">
+                        <h3 class="card-title">
+                            <button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target=".bd-example-modal-lg">
+                                <i class="nav-icon fas fa-folder-plus"></i> &nbsp; {{ $add_title }}
+                            </button>
+                        </h3>
+                    </div>
+                    @endif
+                </div>
+            @endif
             </div>
         </div>
     </div>

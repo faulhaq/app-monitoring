@@ -61,9 +61,10 @@
         <div class="card-header">
             <?php $kelas = $sel_siswa->kelas(); ?>
             <?php $wali_kelas = $kelas->wali_kelas(); ?>
+            <h5 class="card-title card-text mb-2">NIS : {{ $sel_siswa->nis }}</h5>
             <h5 class="card-title card-text mb-2">Nama Siswa : {{ $sel_siswa->nama }}</h5>
             <h5 class="card-title card-text mb-2">Kelas : {{ $kelas->tingkatan.$kelas->nama }}</h5>
-            <h5 class="card-title card-text mb-2">Wali Kelas : {{ " (NIP : {$wali_kelas->nip}) {$wali_kelas->nama}" }}</h5>
+            <h5 class="card-title card-text mb-2">Wali Kelas : {{ "{$wali_kelas->nama}" }}</h5>
         </div>
         @if (isset($allow_edit) && $allow_edit)
         <div class="card-header">
