@@ -1,7 +1,7 @@
 @extends('template.home')
-@section('heading', 'Data Monitoring Harian Isian')
+@section('heading', 'Data Monitoring Harian')
 @section('page')
-  <li class="breadcrumb-item active">Data Monitoring Harian Isian</li>
+  <li class="breadcrumb-item active">Data Monitoring Harian</li>
 @endsection
 @section('content')
 <div class="col-md-12">
@@ -10,7 +10,7 @@
             <h3 class="card-title">
                 <a href="{{ route('harian.create') }}">
                     <button type="button" class="btn btn-default btn-sm" data-toggle="modal">
-                        <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Monitoring Harian Isian
+                        <i class="nav-icon fas fa-folder-plus"></i> &nbsp; Tambah Data Monitoring Harian
                     </button>
                 </a>
             </h3>
@@ -40,8 +40,8 @@
                     <td>{{ $v->kelas->nama_kelas() }}</td>
                     <td>{{ $v->bulan() }}</td>
                     <td>{{ $v->tahun }}</td>
-                    <td>{{ fix_id_dt($v->created_at) }}</td>
-                    <td>{{ fix_id_dt($v->updated_at) }}</td>
+                    <td>{{ fix_id_d($v->created_at) }}</td>
+                    <td>{{ fix_id_d($v->updated_at) }}</td>
                     <td>
                         <?php $enc_id = Crypt::encrypt($v->id); ?>
                         <form action="{{ route('harian.destroy', $enc_id) }}" method="post">
