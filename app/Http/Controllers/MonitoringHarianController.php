@@ -10,6 +10,7 @@ use App\Models\Master\Kelas;
 use App\Models\Master\Harian;
 use App\Models\Master\TahunAjaran;
 use App\Models\Monitoring\Harian as MonitoringHarian;
+use App\Models\Monitoring\KunciMonitoringHarian;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Crypt;
 
@@ -23,6 +24,18 @@ class MonitoringHarianController extends Controller
     public function index()
     {
         return view("monitoring.harian.index");
+    }
+
+    public function cek_jawaban_terkunci($id_data_harian, $id_siswa, $tanggal)
+    {
+        $tmp = KunciMonitoringHarian::where("id_data_harian", $id_data_harian)
+                                            ->where("id_siswa", $id_siswa)
+                                            ->where("tanggal", $tanggal)
+                                            ->first();
+        if ($tmp)
+            return true;
+
+        return false;
     }
 
     public function index2_orang_tua($user)
@@ -93,6 +106,8 @@ class MonitoringHarianController extends Controller
                         $jawaban[] = "";
                     }
                 }
+
+                $jawaban_terkunci = $this->cek_jawaban_terkunci($harian->id, $siswa->id, $ftanggal);
             }
         }
 
@@ -103,7 +118,7 @@ class MonitoringHarianController extends Controller
 
         return view("monitoring.harian.orang_tua.index",
                     compact("tahun", "bulan", "orang_tua", "list_siswa", "siswa",
-                            "fsiswa", "ftanggal", "pertanyaan", "jawaban"));
+                            "fsiswa", "ftanggal", "pertanyaan", "jawaban", "jawaban_terkunci"));
     }
 
     public function index2_guru($user)
@@ -115,6 +130,7 @@ class MonitoringHarianController extends Controller
         $fkelas = NULL;
         $kelas = NULL;
         $fsiswa = NULL;
+        $jawaban_terkunci = false;
 
         if ($user->role === "admin") {
             $list_kelas = Kelas::all();
@@ -214,6 +230,8 @@ class MonitoringHarianController extends Controller
                         $jawaban[] = "";
                     }
                 }
+
+                $jawaban_terkunci = $this->cek_jawaban_terkunci($harian->id, $siswa->id, $ftanggal);
             }
         }
 
@@ -221,7 +239,7 @@ class MonitoringHarianController extends Controller
         return view("monitoring.harian.guru.index",
                    compact("list_kelas", "list_siswa", "fkelas", "ftanggal",
                            "kelas", "fsiswa", "siswa", "id_tahun_ajaran_aktif",
-                           "user", "pertanyaan", "jawaban", "bulan", "tahun"));
+                           "user", "pertanyaan", "jawaban", "bulan", "tahun", "jawaban_terkunci"));
     }
 
     public function index2()
@@ -293,6 +311,10 @@ class MonitoringHarianController extends Controller
             return;
         }
 
+        if ($this->cek_jawaban_terkunci($harian->id, $siswa->id, $r->tanggal)) {
+            return redirect()->back()->with("error", "Jawaban sudah terkunci, tidak bisa menyimpan jawaban");
+        }
+
         $pertanyaan = $harian->get_all_pertanyaan();
         $jawaban = [];
         foreach ($pertanyaan as $p) {
@@ -324,6 +346,67 @@ class MonitoringHarianController extends Controller
         $url .= route("monitoring.harian.index2");
         $url .= "?fsiswa={$siswa->id}&ftanggal={$r->tanggal}";
         return redirect($url)->with("success", "Berhasil menyimpan jawaban!");
+    }
+
+    public function terima_jawaban()
+    {
+        $id_siswa = NULL;
+        $tanggal = NULL;
+
+        if (isset($_GET["id_siswa"]) && is_numeric($_GET["id_siswa"])) {
+            $id_siswa = (int) $_GET["id_siswa"];
+            $siswa = Siswa::find($id_siswa);
+            if (!$siswa) {
+                abort(404);
+                return;
+            }
+        } else {
+            abort(404);
+            return;
+        }
+
+        if (isset($_GET["tanggal"]) && is_string($_GET["tanggal"])) {
+            $tanggal = $_GET["tanggal"];
+            $epoch = strtotime($tanggal);
+            if (date("Y-m-d", $epoch) !== $tanggal) {
+                abort(404);
+                return;
+            }
+
+            if ($epoch > time()) {
+                abort(404);
+                return;
+            }
+        } else {
+            abort(404);
+            return;
+        }
+
+        $bulan = (int) date("m", $epoch);
+        $tahun = (int) date("Y", $epoch);
+
+        $kelas = $siswa->kelas();
+        $harian = Harian::where("id_kelas", $kelas->id)
+                        ->where("bulan", $bulan)
+                        ->where("tahun", $tahun)
+                        ->first();
+        if (!$harian) {
+            abort(404);
+            return;
+        }
+
+        KunciMonitoringHarian::where("id_data_harian", $harian->id)
+                             ->where("id_siswa", $siswa->id)
+                             ->where("tanggal", $tanggal)
+                             ->delete();
+
+        KunciMonitoringHarian::create([
+            "id_data_harian" => $harian->id,
+            "id_siswa"       => $siswa->id,
+            "tanggal"        => $tanggal
+        ]);
+
+        return redirect()->back()->with("success", "Berhasil menerima jawaban!");
     }
 
     public function calendar($id_siswa)

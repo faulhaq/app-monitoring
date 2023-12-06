@@ -100,21 +100,59 @@
                         <tr><th>No.</th><th>Pertanyaan</th><th>Jawaban</th></tr>
                     </thead>
                     <tbody>
+                    <?php
+                        $nr_dijawab = 0;
+                        $nr_pertanyaan = 0;
+                    ?>
                     @foreach ($pertanyaan as $k => $p)
+                        <?php $nr_pertanyaan++; ?>
                         <tr>
                         <?php $i = $loop->iteration; ?>
                         <?php $id = $p->id; ?>
+                        <?php
+                            if (isset($jawaban[$k]->jawaban)) {
+                                $nr_dijawab++;
+                            }
+                        ?>
                         <td>{{ $i }}</td>
                         <td>
                             <p>{{ $p->pertanyaan }}</p>
                         </td>
                         <td>
-                            <p>{{ $jawaban[$k]->jawaban ?? "" }}</p>
+                            <p>{{ ucfirst($jawaban[$k]->jawaban ?? "") }}</p>
                         </td>
                         </tr>
                     @endforeach
                     </tbody>
                 </table>
+                <div class="col-md-4">
+                    <table class="table">
+                        <thead></thead>
+                        <tbody>
+                            <tr>
+                                <td>Total Pertanyaan</td>
+                                <td>:</td>
+                                <td>{{ $nr_pertanyaan }}</td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah dijawab</td>
+                                <td>:</td>
+                                <td>{{ $nr_dijawab }}</td>
+                            </tr>
+                            <tr>
+                                <td>Jumlah tidak dijawab</td>
+                                <td>:</td>
+                                <td>{{ $nr_pertanyaan - $nr_dijawab }}</td>
+                            </tr>
+                            <tr>
+                                <td>Point</td>
+                                <td>:</td>
+                                <td>{{ $nr_dijawab * 10 }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>Catatan: Jika tombol "Terima Jawaban" ditekan, maka orang tua tidak dapat mengubah jawaban dan point akan ditampilkan di sisi orang tua.</p>
+                </div>
             </div>
             @else
             <div>
@@ -124,6 +162,13 @@
         </div>
         <div class="card-footer">
             <a href="{{ route('monitoring.harian.index') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
+            @if ($jawaban_terkunci)
+                <button type="button" class="btn btn-primary" disabled="true">Jawaban sudah terkunci</button>
+            @else
+            <a href="{{ route('monitoring.harian.terima_jawaban').'?id_siswa='.$siswa->id.'&tanggal='.$ftanggal }}">
+                <button type="button" class="btn btn-primary">Terima Jawaban</button>
+            </a>
+            @endif
         </div>
     </div>
     @endif

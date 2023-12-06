@@ -14,11 +14,12 @@ if (count($pertanyaan) > 0) {
 
 $ftanggal_epoch = strtotime($ftanggal);
 $today_epoch = strtotime(date("Y-m-d")." 00:00:00");
-if ($ftanggal_epoch > $today_epoch) {
+if ($ftanggal_epoch > $today_epoch || $jawaban_terkunci) {
     $disable_future = " disabled";
 } else {
     $disable_future = "";
 }
+
 
 ?>
 
@@ -103,9 +104,19 @@ if ($ftanggal_epoch > $today_epoch) {
                         <tr><th>No.</th><th>Pertanyaan</th><th>Jawaban</th></tr>
                     </thead>
                     <tbody>
+                    <?php
+                        $nr_dijawab = 0;
+                        $nr_pertanyaan = 0;
+                    ?>
                     @foreach ($pertanyaan as $k => $p)
+                        <?php $nr_pertanyaan++; ?>
                         <tr>
                         <?php $i = $loop->iteration; ?>
+                        <?php
+                            if (isset($jawaban[$k]->jawaban)) {
+                                $nr_dijawab++;
+                            }
+                        ?>
                         <?php $id = $p->id; ?>
                         <td>{{ $i }}</td>
                         <td>
@@ -152,6 +163,36 @@ if ($ftanggal_epoch > $today_epoch) {
                         <h1>Monitoring belum tersedia!</h1>
                     </div>
                 @endif
+            </div>
+            <div class="col-md-4">
+                @if ($jawaban_terkunci)
+                <table class="table">
+                    <thead></thead>
+                    <tbody>
+                        <tr>
+                            <td>Total Pertanyaan</td>
+                            <td>:</td>
+                            <td>{{ $nr_pertanyaan }}</td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah dijawab</td>
+                            <td>:</td>
+                            <td>{{ $nr_dijawab }}</td>
+                        </tr>
+                        <tr>
+                            <td>Jumlah tidak dijawab</td>
+                            <td>:</td>
+                            <td>{{ $nr_pertanyaan - $nr_dijawab }}</td>
+                        </tr>
+                        <tr>
+                            <td>Point</td>
+                            <td>:</td>
+                            <td>{{ $nr_dijawab * 10 }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                @endif
+                <p>Catatan: Jika monitoring sudah terkunci, maka point akan ditampilkan dan orang tua tidak bisa mengisi ataupun mengubah jawaban.</p>
             </div>
         </div>
 
