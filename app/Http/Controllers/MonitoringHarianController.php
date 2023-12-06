@@ -11,6 +11,7 @@ use App\Models\Master\Harian;
 use App\Models\Master\TahunAjaran;
 use App\Models\Monitoring\Harian as MonitoringHarian;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Crypt;
 
 class MonitoringHarianController extends Controller
 {
@@ -66,6 +67,8 @@ class MonitoringHarianController extends Controller
             $epoch = strtotime($ftanggal);
             $month_now = (int) date("m", $epoch);
             $year_now = (int) date("Y", $epoch);
+            $bulan = $month_now;
+            $tahun = $year_now;
 
             $harian = Harian::where("id_kelas", $kelas->id)
                             ->where("tahun", $year_now)
@@ -98,7 +101,9 @@ class MonitoringHarianController extends Controller
             return redirect(route("monitoring.harian.index2")."?fsiswa={$list_siswa[0]->id}");
         }
 
-        return view("monitoring.harian.orang_tua.index", compact("orang_tua", "list_siswa", "siswa", "fsiswa", "ftanggal", "pertanyaan", "jawaban"));
+        return view("monitoring.harian.orang_tua.index",
+                    compact("tahun", "bulan", "orang_tua", "list_siswa", "siswa",
+                            "fsiswa", "ftanggal", "pertanyaan", "jawaban"));
     }
 
     public function index2_guru($user)
@@ -317,6 +322,76 @@ class MonitoringHarianController extends Controller
         $url .= route("monitoring.harian.index2");
         $url .= "?fsiswa={$siswa->id}&ftanggal={$r->tanggal}";
         return redirect($url)->with("success", "Berhasil menyimpan jawaban!");
+    }
+
+    public function calendar($id_siswa)
+    {
+        $id_siswa = Crypt::decrypt($id_siswa);
+        if (!$id_siswa) {
+            abort(404);
+            return;
+        }
+
+        $siswa = Siswa::find($id_siswa);
+        if (!$siswa) {
+            abort(404);
+            return;
+        }
+
+        $kelas = $siswa->kelas();
+        if (!$kelas) {
+            abort(404);
+            return;
+        }
+
+        if (isset($_GET["tahun"]) && is_numeric($_GET["tahun"])) {
+            $tahun = (int) $_GET["tahun"];
+        } else {
+            $tahun = (int) date("Y");
+        }
+
+        if (isset($_GET["bulan"]) && is_numeric($_GET["bulan"])) {
+            $bulan = (int) $_GET["bulan"];
+        } else {
+            $bulan = (int) date("m");
+        }
+
+        $harian = Harian::where("id_kelas", $kelas->id)
+                        ->where("tahun", $tahun)
+                        ->where("bulan", $bulan)
+                        ->first();
+        if (!$harian) {
+            $all_false = true;
+        } else {
+            $all_false = false;
+            $jawaban = MonitoringHarian::where("id_siswa", $siswa->id)
+                        ->where("tanggal", "LIKE", "{$tahun}-".sprintf("%02d", $bulan)."-%")
+                        ->get();
+        }
+
+        $list_tanggal = [];
+        for ($i = 1; $i <= 31; $i++) {
+            $dt = "{$tahun}-".sprintf("%02d", $bulan)."-".sprintf("%02d", $i);
+            $ep = strtotime($dt);
+            if (date("Y-m-d", $ep) !== $dt)
+                continue;
+
+            if ($all_false) {
+                $list_tanggal[$dt] = false;
+                continue;
+            }
+
+            $found = false;
+            foreach ($jawaban as $j) {
+                if ($j->tanggal === $dt) {
+                    $found = true;
+                    break;
+                }
+            }
+
+            $list_tanggal[$dt] = $found;
+        }
+        return view("monitoring.harian.orang_tua.calendar", compact("siswa", "bulan", "tahun", "list_tanggal")); 
     }
 
     /**

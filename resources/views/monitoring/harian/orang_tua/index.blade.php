@@ -32,7 +32,7 @@ if ($ftanggal_epoch > $today_epoch) {
         <div class="card-body">
             <div class="row">
                 @if (count($list_siswa) > 1)
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="filter_siswa">Pilih Siswa</label>
                         <select id="filter_siswa" name="filter_siswa" class="select2bs4 form-control">
@@ -46,12 +46,22 @@ if ($ftanggal_epoch > $today_epoch) {
                     </div>
                 </div>
                 @endif
-                <div class="col-md-6">
+                @if (isset($siswa))
+                <div class="col-md-5">
                     <div class="form-group">
                         <label for="filter_tanggal">Tanggal</label>
                         <input type="date" id="filter_tanggal" name="filter_tanggal" value="{{ $ftanggal }}" class="form-control @error('filter_tanggal') is-invalid @enderror" required>
                     </div>
                 </div>
+                <div class="col-md-2">
+                    <div class="form-group">
+                        <label for="lihat_kalender">&nbsp;</label>
+                        <a href="{{ route('monitoring.harian.orang_tua.calendar', urlencode(Crypt::encrypt($siswa->id))).'?tahun='.$tahun.'&bulan='.$bulan }}">
+                            <button type="button" id="lihat_kalender" class="btn btn-primary form-control">Lihat Kalender</button>
+                        </a>
+                    </div>
+                </div>
+                @endif
             </div>
             <div class="row">
             @if ($siswa)
@@ -87,51 +97,57 @@ if ($ftanggal_epoch > $today_epoch) {
         </div>
         <div class="card-body">
             <div>
-                @foreach ($pertanyaan as $k => $p)
-                    <?php $i = $loop->iteration; ?>
-                    <?php $id = $p->id; ?>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="pertanyaan_{{ $i }}">Pertanyaan {{ $i }}</label>
-                                <textarea disabled="true" class="form-control @error('pertanyaan_'.$i) is-invalid @enderror" name="pertanyaan[{{ $id }}]" id="pertanyaan_{{ $i }}">{{ $p->pertanyaan }}</textarea>
+                @if (count($pertanyaan) > 0)
+                    @foreach ($pertanyaan as $k => $p)
+                        <?php $i = $loop->iteration; ?>
+                        <?php $id = $p->id; ?>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="pertanyaan_{{ $i }}">Pertanyaan {{ $i }}</label>
+                                    <textarea disabled="true" class="form-control @error('pertanyaan_'.$i) is-invalid @enderror" name="pertanyaan[{{ $id }}]" id="pertanyaan_{{ $i }}">{{ $p->pertanyaan }}</textarea>
+                                </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="jawaban_{{ $i }}">Jawaban {{ $i }}</label>
-                                @if ($p->tipe === "opsi")
-                                <?php
-                                    $y_check = "";
-                                    $n_check = "";
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="jawaban_{{ $i }}">Jawaban {{ $i }}</label>
+                                    @if ($p->tipe === "opsi")
+                                    <?php
+                                        $y_check = "";
+                                        $n_check = "";
 
-                                    if (isset($jawaban[$k]->jawaban)) {
-                                        if ($jawaban[$k]->jawaban === "ya") {
-                                            $y_check = " checked";
-                                        } else {
-                                            $n_check = " checked";
+                                        if (isset($jawaban[$k]->jawaban)) {
+                                            if ($jawaban[$k]->jawaban === "ya") {
+                                                $y_check = " checked";
+                                            } else {
+                                                $n_check = " checked";
+                                            }
                                         }
-                                    }
-                                ?>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jawaban_y_{{ $i }}" name="jawaban[{{ $id }}]" value="ya"{!! $y_check !!}{!! $disable_future !!}>
-                                    <label class="form-check-label" for="jawaban_y_{{ $i }}">
-                                    Ya
-                                    </label>
+                                    ?>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="jawaban_y_{{ $i }}" name="jawaban[{{ $id }}]" value="ya"{!! $y_check !!}{!! $disable_future !!}>
+                                        <label class="form-check-label" for="jawaban_y_{{ $i }}">
+                                        Ya
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" id="jawaban_n_{{ $i }}" name="jawaban[{{ $id }}]" value="tidak"{!! $n_check !!}{!! $disable_future !!}>
+                                        <label class="form-check-label" for="jawaban_n_{{ $i }}">
+                                        Tidak
+                                        </label>
+                                    </div>
+                                    @elseif ($p->tipe === "isian")
+                                        <textarea class="form-control @error('jawaban_'.$i) is-invalid @enderror" name="jawaban[{{ $id }}]" id="pertanyaan_{{ $i }}"{!! $disable_future !!}>{{ $jawaban[$k]->jawaban ?? "" }}</textarea>
+                                    @endif
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jawaban_n_{{ $i }}" name="jawaban[{{ $id }}]" value="tidak"{!! $n_check !!}{!! $disable_future !!}>
-                                    <label class="form-check-label" for="jawaban_n_{{ $i }}">
-                                    Tidak
-                                    </label>
-                                </div>
-                                @elseif ($p->tipe === "isian")
-                                    <textarea class="form-control @error('jawaban_'.$i) is-invalid @enderror" name="jawaban[{{ $id }}]" id="pertanyaan_{{ $i }}"{!! $disable_future !!}>{{ $jawaban[$k]->jawaban ?? "" }}</textarea>
-                                @endif
                             </div>
                         </div>
+                    @endforeach
+                @else
+                    <div>
+                        <h1>Monitoring belum tersedia!</h1>
                     </div>
-                @endforeach
+                @endif
             </div>
         </div>
 
@@ -157,12 +173,15 @@ if ($ftanggal_epoch > $today_epoch) {
         let url = "";
 
         url += "?fsiswa=" + fsiswa.val();
+        @if ($siswa)
         url += "&ftanggal=" + ftanggal.val();
-
+        @endif
         window.location = url;
     }
 
     fsiswa.change(handle_filter);
+    @if ($siswa)
     ftanggal.change(handle_filter);
+    @endif
 </script>
 @endsection
