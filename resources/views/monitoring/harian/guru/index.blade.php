@@ -61,7 +61,7 @@
                 @endif
             </div>
             <div class="row">
-            @if ($siswa)
+            @if (isset($siswa))
                 <div class="col-md" style="margin-bottom: 10px;">
                     <div class="card-header">
                         <?php $kelas = $siswa->kelas(); ?>
