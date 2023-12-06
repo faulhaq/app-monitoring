@@ -13,7 +13,7 @@
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="fkelas">Pilih Kelas</label>
                         <select id="fkelas" name="fkelas" class="select2bs4 form-control">
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 @if (!empty($fkelas))
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="fsiswa">Pilih Siswa</label>
                         <select id="fsiswa" name="fsiswa" class="select2bs4 form-control">
@@ -52,10 +52,18 @@
                 </div>
                 @endif
                 @if (!empty($fsiswa))
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="form-group">
                         <label for="ftanggal">Pilih Tanggal</label>
                         <input type="date" id="ftanggal" name="ftanggal" value="{{ $ftanggal }}" class="form-control @error('ftanggal') is-invalid @enderror">
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                        <label for="lihat_kalender">&nbsp;</label>
+                        <a href="{{ route('monitoring.harian.orang_tua.calendar', urlencode(Crypt::encrypt($siswa->id))).'?tahun='.$tahun.'&bulan='.$bulan.'&kelas='.$fkelas }}">
+                            <button type="button" id="lihat_kalender" class="btn btn-primary form-control">Lihat Kalender</button>
+                        </a>
                     </div>
                 </div>
                 @endif

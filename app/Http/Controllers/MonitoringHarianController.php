@@ -188,6 +188,8 @@ class MonitoringHarianController extends Controller
             $epoch = strtotime($ftanggal);
             $month_now = (int) date("m", $epoch);
             $year_now = (int) date("Y", $epoch);
+            $bulan = $month_now;
+            $tahun = $year_now;
 
             $harian = Harian::where("id_kelas", $kelas->id)
                             ->where("tahun", $year_now)
@@ -219,7 +221,7 @@ class MonitoringHarianController extends Controller
         return view("monitoring.harian.guru.index",
                    compact("list_kelas", "list_siswa", "fkelas", "ftanggal",
                            "kelas", "fsiswa", "siswa", "id_tahun_ajaran_aktif",
-                           "user", "pertanyaan", "jawaban"));
+                           "user", "pertanyaan", "jawaban", "bulan", "tahun"));
     }
 
     public function index2()
@@ -350,6 +352,12 @@ class MonitoringHarianController extends Controller
             $tahun = (int) date("Y");
         }
 
+        if (isset($_GET["kelas"]) && is_numeric($_GET["kelas"])) {
+            $fkelas = (int) $_GET["kelas"];
+        } else {
+            $fkelas = NULL;
+        }
+
         if (isset($_GET["bulan"]) && is_numeric($_GET["bulan"])) {
             $bulan = (int) $_GET["bulan"];
         } else {
@@ -391,7 +399,7 @@ class MonitoringHarianController extends Controller
 
             $list_tanggal[$dt] = $found;
         }
-        return view("monitoring.harian.orang_tua.calendar", compact("siswa", "bulan", "tahun", "list_tanggal")); 
+        return view("monitoring.harian.orang_tua.calendar", compact("fkelas", "siswa", "bulan", "tahun", "list_tanggal")); 
     }
 
     /**

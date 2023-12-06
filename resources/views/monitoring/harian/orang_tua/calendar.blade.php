@@ -39,7 +39,7 @@
                             <td>{{ fix_id_d($tg) }}</td>
                             <td>{!! $v !!}</td>
                             <td>
-                                <a href="{{ route('monitoring.harian.index2').'?fsiswa='.$siswa->id.'&ftanggal='.$tg }}">
+                                <a href="{{ route('monitoring.harian.index2').'?fsiswa='.$siswa->id.'&ftanggal='.$tg.'&fkelas='.$fkelas }}">
                                     <button class="btn btn-primary">Lihat Laporan</button>
                                 </a>
                             </td>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <a href="{{ route('monitoring.harian.index2').'?fsiswa='.$siswa->id }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
+            <a href="{{ route('monitoring.harian.index2').'?fsiswa='.$siswa->id.'&fkelas='.$fkelas }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
         </div>
     </div>
 </div>
