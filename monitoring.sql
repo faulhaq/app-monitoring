@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 04:41 PM
+-- Generation Time: Dec 13, 2023 at 04:43 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -59,16 +59,6 @@ CREATE TABLE `data_harian` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `data_harian`
---
-
-INSERT INTO `data_harian` (`id`, `bulan`, `tahun`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(15, 1, 2023, 14, '2023-12-02 09:41:29', '2023-12-02 09:41:29'),
-(16, 12, 2023, 14, '2023-12-02 09:42:32', '2023-12-02 09:42:32'),
-(17, 2, 2023, 14, '2023-12-06 04:11:27', '2023-12-06 04:11:27'),
-(18, 12, 2023, 8, '2023-12-13 04:14:40', '2023-12-13 04:14:40');
-
 -- --------------------------------------------------------
 
 --
@@ -118,19 +108,6 @@ CREATE TABLE `guru` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `guru`
---
-
-INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(4, '1234512345123451', '123123', 'Guru 1', 'guru001@gmail.com', 'L', 1, 2, 1, 1, '081123123123', 'Jogja', '2023-07-31', 'Jogja', '2023_11_13__11_01_22_Screenshot_3.png', 'aktif', '2023-08-02 03:36:45', '2023-11-24 14:48:05', NULL),
-(5, '1234512345123453', '122123', 'Guru BBBBBBB', 'guru002@gmail.com', 'L', 1, 1, 1, 1, '083123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__12_31_19_download (3).png', 'aktif', '2023-08-02 03:36:45', '2023-08-02 12:31:19', NULL),
-(6, '1234512345122453', NULL, 'AAAAAAAAAA', 'guru003@gmail.com', 'L', 1, 1, 1, 1, '08344123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_03__12_58_13_Simulasi Forward Chaining Diagram.png', 'aktif', '2023-08-02 03:36:45', '2023-08-03 12:58:13', NULL),
-(7, '3314150809010009', '196481271994031004', 'Anton', 'anton@gmail.com', 'L', 1, 4, 1, 1, '081265345346', 'sragen', '2023-07-31', 'Sragen', '2023_08_03__13_01_21_Andhika-Saedya-transformed.png', 'aktif', '2023-08-03 13:01:21', '2023-08-03 13:01:21', NULL),
-(8, '3314150809010208', '124415322286765', 'Angga 123123', 'anton321@gmail.com', 'L', 4, 4, 2, 11, '081233456732', 'surakarta', '2023-08-16', 'Sragen 2', NULL, 'aktif', '2023-08-03 13:07:34', '2023-10-18 04:34:54', NULL),
-(9, '3314150807654205', '196506061992032001', 'AWEfsg', 'syifaulhaq008@gmail.com', 'L', 1, 1, 1, 1, '086234567895', 'sragenn', '2023-07-30', 'srageh', NULL, 'aktif', '2023-08-23 03:44:46', '2023-08-23 03:44:46', NULL),
-(10, '3314145739010001', NULL, 'fuog', 'alexr23@gmail.com', 'L', 1, 1, 1, 1, '088765345346', 'bantul', '2023-08-02', 'grogol', NULL, 'aktif', '2023-08-23 03:45:46', '2023-08-23 03:45:46', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -148,16 +125,6 @@ CREATE TABLE `kelas` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `kelas`
---
-
-INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(8, '2', 'D', 1, 4, '2023-08-02 12:51:42', '2023-08-23 04:23:25', NULL),
-(9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL),
-(14, '3', NULL, 1, 4, '2023-09-15 03:28:21', '2023-12-03 10:19:00', NULL),
-(15, '1', NULL, 1, 5, '2023-09-26 03:59:13', '2023-12-03 10:18:50', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -172,20 +139,6 @@ CREATE TABLE `kelas_siswa` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `kelas_siswa`
---
-
-INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(8, 2, 9, '2023-08-23 03:46:23', NULL),
-(9, 5, 9, '2023-08-23 03:46:23', NULL),
-(10, 3, 9, '2023-08-23 03:46:23', NULL),
-(16, 5, 8, '2023-08-23 04:29:17', NULL),
-(17, 6, 8, '2023-08-23 04:33:09', NULL),
-(21, 4, 8, '2023-08-23 07:03:24', NULL),
-(22, 2, 14, '2023-09-15 03:30:10', NULL),
-(23, 3, 14, '2023-09-15 03:30:10', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -198,16 +151,6 @@ CREATE TABLE `kk` (
   `updated_at` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `kk`
---
-
-INSERT INTO `kk` (`id`, `no_kk`, `updated_at`, `created_at`) VALUES
-(1, '1234567890123456', '2023-08-10 09:01:35', '2023-08-10 09:01:35'),
-(3, '1231211111111111', '2023-08-10 09:10:41', '2023-08-10 09:10:41'),
-(5, '1231211111111146', '2023-08-14 08:15:06', '2023-08-14 08:15:06'),
-(6, '1231211111211146', '2023-08-23 03:36:31', '2023-08-23 03:36:31');
 
 -- --------------------------------------------------------
 
@@ -222,17 +165,6 @@ CREATE TABLE `kunci_monitoring_harian` (
   `point` int(10) UNSIGNED NOT NULL,
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `kunci_monitoring_harian`
---
-
-INSERT INTO `kunci_monitoring_harian` (`id`, `id_data_harian`, `id_siswa`, `point`, `tanggal`) VALUES
-(2, 17, 2, 0, '2023-02-01'),
-(3, 17, 2, 0, '2023-02-02'),
-(4, 17, 2, 0, '2023-02-04'),
-(6, 18, 4, 0, '2023-12-13'),
-(7, 18, 4, 123, '2023-12-01');
 
 -- --------------------------------------------------------
 
@@ -284,30 +216,6 @@ CREATE TABLE `monitoring_harian` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `monitoring_harian`
---
-
-INSERT INTO `monitoring_harian` (`id`, `id_siswa`, `id_pertanyaan`, `jawaban`, `tanggal`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 2, 4, 'ya', '2023-02-01', 4, '2023-12-06 04:13:31', NULL),
-(2, 2, 5, 'tidak', '2023-02-01', 4, '2023-12-06 04:13:31', NULL),
-(3, 2, 3, 'Angga', '2023-02-01', 4, '2023-12-06 04:13:31', NULL),
-(4, 2, 6, 'Pemrograman', '2023-02-01', 4, '2023-12-06 04:13:31', NULL),
-(8, 3, 3, 'qqweqwe', '2023-02-02', 4, '2023-12-06 13:21:16', NULL),
-(9, 3, 6, 'dddd', '2023-02-02', 4, '2023-12-06 13:21:16', NULL),
-(10, 3, 4, 'ya', '2023-02-01', 4, '2023-12-06 13:48:35', NULL),
-(11, 3, 5, 'ya', '2023-02-01', 4, '2023-12-06 13:48:35', NULL),
-(12, 3, 3, 'Paul', '2023-02-01', 4, '2023-12-06 13:48:35', NULL),
-(13, 3, 6, 'pemrograman', '2023-02-01', 4, '2023-12-06 13:48:35', NULL),
-(14, 2, 3, 'zxczxczxc', '2023-02-03', 4, '2023-12-06 15:07:16', NULL),
-(15, 2, 4, 'ya', '2023-02-04', 4, '2023-12-06 15:13:07', NULL),
-(16, 2, 5, 'ya', '2023-02-04', 4, '2023-12-06 15:13:07', NULL),
-(17, 2, 3, 'a', '2023-02-04', 4, '2023-12-06 15:13:07', NULL),
-(18, 2, 6, 'b', '2023-02-04', 4, '2023-12-06 15:13:07', NULL),
-(21, 4, 11, 'ya', '2023-12-13', 1, '2023-12-13 11:10:33', NULL),
-(22, 4, 10, 'ya', '2023-12-13', 1, '2023-12-13 11:10:33', NULL),
-(23, 4, 12, 'nasi', '2023-12-13', 1, '2023-12-13 11:10:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -363,13 +271,6 @@ CREATE TABLE `monitoring_tahsin` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `monitoring_tahsin`
---
-
-INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(1, 4, 1, 'iqro', 1, 'lancar', NULL, 'terimakasih', 1, '2023-12-03 11:57:53');
-
 -- --------------------------------------------------------
 
 --
@@ -395,17 +296,6 @@ CREATE TABLE `orang_tua` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `orang_tua`
---
-
-INSERT INTO `orang_tua` (`id`, `id_kk`, `nik`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`) VALUES
-(1, 3, '1634567890098765', 'Ayah', 'ayah@gmail.com', 'L', 1, 1, 1, 1, '081231231234', 'solo', '2023-09-01', 'solo', NULL, '2023-09-20 04:28:44', '2023-11-14 06:51:38'),
-(2, 3, '1214215621212313', 'Ibu', 'ibu@gmail.com', 'P', 1, 2, 1, 1, '089274517442', 'solo', '2023-09-02', 'solo', NULL, '2023-09-20 04:28:44', NULL),
-(4, 1, '3314110809910001', 'Ayahe angga', 'ayahangga@gmail.com', 'L', 1, 1, 2, 10, '08123156732', 'Solo', '2023-09-01', 'Solo', '2023_09_20__03_07_20_Andhika-Saedya-transformed.png', '2023-09-20 03:07:20', '2023-11-17 13:35:36'),
-(6, 1, '3314150809018605', 'Ibu 1', 'ibuangga@gmail.com', 'P', 1, 3, 4, 10, '081265345141', 'sragen', '2023-09-01', 'Solo', NULL, '2023-09-20 03:24:12', '2023-09-23 00:59:59'),
-(7, 1, '3314150853678005', 'Ibu 2', 'Ibuuuu@gmail.com', 'P', 1, 3, 1, 11, '08115856732', 'sragen', '2023-08-27', 'Solo', NULL, '2023-09-20 03:55:00', '2023-09-23 01:00:04');
 
 -- --------------------------------------------------------
 
@@ -472,13 +362,6 @@ CREATE TABLE `pengumuman` (
   `deleted_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `pengumuman`
---
-
-INSERT INTO `pengumuman` (`id`, `opsi`, `isi`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'pengumuman', 'halo gaisss', '2023-07-27 07:17:05', '2023-09-27 04:22:10', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -494,20 +377,6 @@ CREATE TABLE `pertanyaan_data_harian` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `pertanyaan_data_harian`
---
-
-INSERT INTO `pertanyaan_data_harian` (`id`, `id_data_harian`, `pertanyaan`, `tipe`, `list_opsi`, `created_at`, `updated_at`) VALUES
-(3, 17, 'siapa nama anda ?', 'isian', NULL, '2023-12-06 04:12:04', NULL),
-(4, 17, 'apakah hari ini sudah makan ?', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-06 04:12:04', NULL),
-(5, 17, 'apakah hari ini sehat ?', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-06 04:12:04', NULL),
-(6, 17, 'apa mata kuliah hari ini ?', 'isian', NULL, '2023-12-06 04:12:04', NULL),
-(9, 16, 'Siapa nama anda ?', 'isian', NULL, '2023-12-13 04:13:22', NULL),
-(10, 18, 'Apakah sudah membantu orang tua ?', 'isian', NULL, '2023-12-13 04:14:40', NULL),
-(11, 18, 'apakah sudah belajar ?', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-13 04:14:40', NULL),
-(12, 18, 'hari ini makan apa ?', 'isian', NULL, '2023-12-13 04:14:40', NULL);
 
 -- --------------------------------------------------------
 
@@ -534,17 +403,6 @@ CREATE TABLE `siswa` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `siswa`
---
-
-INSERT INTO `siswa` (`id`, `id_kk`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`) VALUES
-(2, 1, '3314110809010001', '123453', 'Angga', 'L', 4, 1, NULL, '08123456789', 'sragenn', '2023-08-10', 'Sragen', NULL, 'aktif', '2023-08-14 07:32:54', '2023-08-14 07:32:54'),
-(3, 1, '3314150809010905', '321', 'paull', 'L', 1, 1, NULL, NULL, 'sragen', '2023-07-30', 'Sragen 2', '2023_08_14__07_59_11_Andhika-Saedya-transformed.png', 'aktif', '2023-08-14 07:51:59', '2023-08-14 07:59:11'),
-(4, 3, '3314150809010685', '1234588', 'A', 'L', 1, 1, NULL, '08123456789', 'solo', '2023-07-31', 'solo', '2023_08_14__08_01_43_lokasi-logo-25373.png', 'aktif', '2023-08-14 08:01:43', '2023-08-14 08:01:43'),
-(5, 5, '3314150809636905', '321115', 'Andi', 'P', 1, 2, NULL, '0812345326543', 'Sleman', '2023-08-25', 'sleman', NULL, 'aktif', '2023-08-14 08:16:50', '2023-08-14 08:16:50'),
-(6, 6, '3314110346210001', '14678', 'ABCDES', 'L', 1, 1, NULL, '08923456789', 'sragen', '2023-08-01', 'Sragen', NULL, 'aktif', '2023-08-23 03:40:21', '2023-08-23 03:40:21');
 
 -- --------------------------------------------------------
 
@@ -691,24 +549,6 @@ CREATE TABLE `tahun_ajaran` (
   `updated_at` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `tahun_ajaran`
---
-
-INSERT INTO `tahun_ajaran` (`id`, `tahun`, `created_at`, `updated_at`) VALUES
-(1, '2022/2023', '2023-07-27 08:10:58', NULL),
-(3, '2023/2024', '2023-07-27 09:25:36', '2023-07-27 09:25:36'),
-(4, '2024/2025', '2023-07-27 09:25:41', '2023-07-27 09:25:41'),
-(5, '2026/2027', '2023-08-03 13:41:30', '2023-08-03 13:41:30'),
-(6, '2027/2028', '2023-08-03 13:42:55', '2023-08-03 13:42:55'),
-(7, '2028/2029', '2023-08-03 13:43:04', '2023-08-03 13:43:04'),
-(8, '2029/2030', '2023-08-04 02:48:45', '2023-08-04 02:48:45'),
-(9, '2030/2031', '2023-08-14 08:18:16', '2023-08-14 08:18:16'),
-(10, '2043/2044', '2023-08-23 03:42:49', '2023-08-23 03:42:49'),
-(11, '2037/2038', '2023-09-15 03:31:13', '2023-09-15 03:31:13'),
-(12, '2031/2032', '2023-09-26 06:24:25', '2023-09-26 06:24:25'),
-(13, '2032/2033', '2023-09-26 06:25:15', '2023-09-26 06:25:15');
-
 -- --------------------------------------------------------
 
 --
@@ -719,13 +559,6 @@ CREATE TABLE `tahun_ajaran_aktif` (
   `id` tinyint(3) UNSIGNED NOT NULL,
   `id_tahun_ajaran` int(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `tahun_ajaran_aktif`
---
-
-INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
-(30, 1);
 
 -- --------------------------------------------------------
 
@@ -750,11 +583,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'R4tdPYKFrXOZn6EZ2x1DqEAdAboFYvLOT0oRlgZi6FOztKEaikEjLJsO6k5y', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
-(11, 'guru', 'guru001@gmail.com', '$2y$10$nkbNg2CuYC1XctKjmTDLQenw2efFdjEmS.I3xR1twt3j5tWt2k3e6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-10-02 07:20:26'),
-(13, 'orang_tua', 'ayah@gmail.com', '$2y$10$ZJQjennnqoePQv3YbTDtv./X95CbZ9nFXzRG8S5ZI3HtQJPbY43ne', NULL, 1, NULL, '2023-10-02 08:04:32', '2023-10-02 08:04:40'),
-(14, 'orang_tua', 'ayahangga@gmail.com', '$2y$10$Mu6GmYhKo.n3G5xaY0jYSekvRuraMLvwl//pHahrM4cBHeTvdP3BW', NULL, 4, NULL, '2023-10-02 08:05:40', '2023-10-02 08:05:48'),
-(15, 'guru', 'anton321@gmail.com', '$2y$10$H1BWv0t5xAlygmqVM27WyOJfmc6/rOufNZnUeOAG0x61Vv0RMXH2e', 8, NULL, NULL, '2023-10-11 07:48:20', '2023-10-17 03:47:12');
+(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'R4tdPYKFrXOZn6EZ2x1DqEAdAboFYvLOT0oRlgZi6FOztKEaikEjLJsO6k5y', '2023-07-27 12:15:00', '2023-11-13 08:44:22');
 
 --
 -- Indexes for dumped tables
@@ -1047,7 +876,7 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT for table `data_harian`
 --
 ALTER TABLE `data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `goldar`
@@ -1059,31 +888,31 @@ ALTER TABLE `goldar`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kk`
 --
 ALTER TABLE `kk`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `kunci_monitoring_harian`
 --
 ALTER TABLE `kunci_monitoring_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `monitoring_doa`
@@ -1101,7 +930,7 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_harian`
 --
 ALTER TABLE `monitoring_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
@@ -1119,13 +948,13 @@ ALTER TABLE `monitoring_tahfidz`
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`
@@ -1143,19 +972,19 @@ ALTER TABLE `pendidikan`
 -- AUTO_INCREMENT for table `pengumuman`
 --
 ALTER TABLE `pengumuman`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pertanyaan_data_harian`
 --
 ALTER TABLE `pertanyaan_data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `surah`
@@ -1167,13 +996,13 @@ ALTER TABLE `surah`
 -- AUTO_INCREMENT for table `tahun_ajaran`
 --
 ALTER TABLE `tahun_ajaran`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
 --
 ALTER TABLE `tahun_ajaran_aktif`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
