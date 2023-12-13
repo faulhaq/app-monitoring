@@ -114,7 +114,7 @@ class MonitoringHarianController extends Controller
 
         $list_siswa = $orang_tua->get_all_anak();
         if (count($list_siswa) === 1 && !$fsiswa) {
-            return redirect(route("monitoring.harian.index2")."?fsiswa={$list_siswa[0]->id}");
+            return redirect(route("monitoring.harian.index2")."?fsiswa={$list_siswa[0]->id}&ftanggal={$ftanggal}");
         }
 
         return view("monitoring.harian.orang_tua.index",
