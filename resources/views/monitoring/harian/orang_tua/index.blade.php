@@ -99,7 +99,7 @@ if ($ftanggal_epoch > $today_epoch || ($jawaban_terkunci !== false)) {
         <div class="card-body">
             <div>
                 @if (count($pertanyaan) > 0)
-                    <table class="table">
+                    <table class="table table-sm table-bordered">
                     <thead>
                         <tr><th>No.</th><th>Pertanyaan</th><th>Jawaban</th></tr>
                     </thead>
@@ -137,18 +137,26 @@ if ($ftanggal_epoch > $today_epoch || ($jawaban_terkunci !== false)) {
                                         }
                                     }
                                 ?>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jawaban_y_{{ $i }}" name="jawaban[{{ $id }}]" value="ya"{!! $y_check !!}{!! $disable_future !!}>
-                                    <label class="form-check-label" for="jawaban_y_{{ $i }}">
-                                    Ya
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="radio" id="jawaban_n_{{ $i }}" name="jawaban[{{ $id }}]" value="tidak"{!! $n_check !!}{!! $disable_future !!}>
-                                    <label class="form-check-label" for="jawaban_n_{{ $i }}">
-                                    Tidak
-                                    </label>
-                                </div>
+                                <table class="table table-borderless">
+                                    <tr>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="jawaban_y_{{ $i }}" name="jawaban[{{ $id }}]" value="ya"{!! $y_check !!}{!! $disable_future !!}>
+                                                <label class="form-check-label" for="jawaban_y_{{ $i }}">
+                                                Ya
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" id="jawaban_n_{{ $i }}" name="jawaban[{{ $id }}]" value="tidak"{!! $n_check !!}{!! $disable_future !!}>
+                                                <label class="form-check-label" for="jawaban_n_{{ $i }}">
+                                                Tidak
+                                                </label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                                 @elseif ($p->tipe === "isian")
                                     <textarea class="form-control @error('jawaban_'.$i) is-invalid @enderror" name="jawaban[{{ $id }}]" id="pertanyaan_{{ $i }}"{!! $disable_future !!}>{{ $jawaban[$k]->jawaban ?? "" }}</textarea>
                                 @endif
