@@ -33,7 +33,7 @@ class MonitoringHarianController extends Controller
                                             ->where("tanggal", $tanggal)
                                             ->first();
         if ($tmp)
-            return true;
+            return $tmp->point;
 
         return false;
     }
@@ -349,10 +349,16 @@ class MonitoringHarianController extends Controller
         return redirect($url)->with("success", "Berhasil menyimpan jawaban!");
     }
 
-    public function terima_jawaban()
+    public function terima_jawaban(Request $r)
     {
         $id_siswa = NULL;
         $tanggal = NULL;
+
+        if (!isset($r->point) || !is_numeric($r->point)) {
+            dd($r);
+            abort(404);
+            return;
+        }
 
         if (isset($_GET["id_siswa"]) && is_numeric($_GET["id_siswa"])) {
             $id_siswa = (int) $_GET["id_siswa"];
@@ -404,7 +410,8 @@ class MonitoringHarianController extends Controller
         KunciMonitoringHarian::create([
             "id_data_harian" => $harian->id,
             "id_siswa"       => $siswa->id,
-            "tanggal"        => $tanggal
+            "tanggal"        => $tanggal,
+            "point"          => $r->point,
         ]);
 
         return redirect()->back()->with("success", "Berhasil menerima jawaban!");

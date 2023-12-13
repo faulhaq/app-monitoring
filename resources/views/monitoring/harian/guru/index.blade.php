@@ -86,91 +86,98 @@
     </div>
 
     @if (!empty($fsiswa))
-    <div class="card card-primary">
-        <div class="card-header">
-            <h3 class="card-title">Monitoring untuk tanggal {{ fix_id_d($ftanggal) }}</h3>
-            <input type="hidden" name="id_siswa" value="{{ $fsiswa }}"/>
-            <input type="hidden" name="tanggal" value="{{ $ftanggal }}"/>
-        </div>
-        <div class="card-body">
-            @if (count($pertanyaan) > 0)
-            <div>
-                <table class="table">
-                    <thead>
-                        <tr><th>No.</th><th>Pertanyaan</th><th>Jawaban</th></tr>
-                    </thead>
-                    <tbody>
-                    <?php
-                        $nr_dijawab = 0;
-                        $nr_pertanyaan = 0;
-                    ?>
-                    @foreach ($pertanyaan as $k => $p)
-                        <?php $nr_pertanyaan++; ?>
-                        <tr>
-                        <?php $i = $loop->iteration; ?>
-                        <?php $id = $p->id; ?>
-                        <?php
-                            if (isset($jawaban[$k]->jawaban)) {
-                                $nr_dijawab++;
-                            }
-                        ?>
-                        <td>{{ $i }}</td>
-                        <td>
-                            <p>{{ $p->pertanyaan }}</p>
-                        </td>
-                        <td>
-                            <p>{{ ucfirst($jawaban[$k]->jawaban ?? "") }}</p>
-                        </td>
-                        </tr>
-                    @endforeach
-                    </tbody>
-                </table>
-                <div class="col-md-4">
+    <form action="{{ route('monitoring.harian.terima_jawaban').'?id_siswa='.$siswa->id.'&tanggal='.$ftanggal }}" method="POST">
+        @csrf
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Monitoring untuk tanggal {{ fix_id_d($ftanggal) }}</h3>
+                <input type="hidden" name="id_siswa" value="{{ $fsiswa }}"/>
+                <input type="hidden" name="tanggal" value="{{ $ftanggal }}"/>
+            </div>
+            <div class="card-body">
+                @if (count($pertanyaan) > 0)
+                <div>
                     <table class="table">
-                        <thead></thead>
+                        <thead>
+                            <tr><th>No.</th><th>Pertanyaan</th><th>Jawaban</th></tr>
+                        </thead>
                         <tbody>
+                        <?php
+                            $nr_dijawab = 0;
+                            $nr_pertanyaan = 0;
+                        ?>
+                        @foreach ($pertanyaan as $k => $p)
+                            <?php $nr_pertanyaan++; ?>
                             <tr>
-                                <td>Total Pertanyaan</td>
-                                <td>:</td>
-                                <td>{{ $nr_pertanyaan }}</td>
+                            <?php $i = $loop->iteration; ?>
+                            <?php $id = $p->id; ?>
+                            <?php
+                                if (isset($jawaban[$k]->jawaban)) {
+                                    $nr_dijawab++;
+                                }
+                            ?>
+                            <td>{{ $i }}</td>
+                            <td>
+                                <p>{{ $p->pertanyaan }}</p>
+                            </td>
+                            <td>
+                                <p>{{ ucfirst($jawaban[$k]->jawaban ?? "") }}</p>
+                            </td>
                             </tr>
-                            <tr>
-                                <td>Jumlah dijawab</td>
-                                <td>:</td>
-                                <td>{{ $nr_dijawab }}</td>
-                            </tr>
-                            <tr>
-                                <td>Jumlah tidak dijawab</td>
-                                <td>:</td>
-                                <td>{{ $nr_pertanyaan - $nr_dijawab }}</td>
-                            </tr>
-                            <tr>
-                                <td>Point</td>
-                                <td>:</td>
-                                <td>{{ $nr_dijawab * 10 }}</td>
-                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
-                    <p>Catatan: Jika tombol "Terima Jawaban" ditekan, maka orang tua tidak dapat mengubah jawaban dan point akan ditampilkan di sisi orang tua.</p>
+                    <div class="col-md-4">
+                        <table class="table">
+                            <thead></thead>
+                            <tbody>
+                                <tr>
+                                    <td>Total Pertanyaan</td>
+                                    <td>:</td>
+                                    <td>{{ $nr_pertanyaan }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Jumlah dijawab</td>
+                                    <td>:</td>
+                                    <td>{{ $nr_dijawab }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Jumlah tidak dijawab</td>
+                                    <td>:</td>
+                                    <td>{{ $nr_pertanyaan - $nr_dijawab }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Point</td>
+                                    <td>:</td>
+                                    <td>
+                                        @if ($jawaban_terkunci !== false)
+                                            {{ $jawaban_terkunci }}
+                                        @else
+                                            <input type="number" name="point"/>
+                                        @endif
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p>Catatan: Jika tombol "Simpan" ditekan, maka orang tua tidak dapat mengubah jawaban dan point akan ditampilkan di sisi orang tua.</p>
+                    </div>
                 </div>
+                @else
+                <div>
+                    <h1>Monitoring belum tersedia!</h1>
+                </div>
+                @endif
             </div>
-            @else
-            <div>
-                <h1>Monitoring belum tersedia!</h1>
+            <div class="card-footer">
+                <a href="{{ route('monitoring.harian.index') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
+                @if ($jawaban_terkunci !== false)
+                    <button type="button" class="btn btn-primary" disabled="true">Jawaban sudah terkunci</button>
+                @else
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                @endif
             </div>
-            @endif
         </div>
-        <div class="card-footer">
-            <a href="{{ route('monitoring.harian.index') }}" name="kembali" class="btn btn-default" id="back"><i class='nav-icon fas fa-arrow-left'></i> &nbsp; Kembali</a>
-            @if ($jawaban_terkunci)
-                <button type="button" class="btn btn-primary" disabled="true">Jawaban sudah terkunci</button>
-            @else
-            <a href="{{ route('monitoring.harian.terima_jawaban').'?id_siswa='.$siswa->id.'&tanggal='.$ftanggal }}">
-                <button type="button" class="btn btn-primary">Terima Jawaban</button>
-            </a>
-            @endif
-        </div>
-    </div>
+    </form>
     @endif
 </div>
 

@@ -85,7 +85,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get("/index2", "MonitoringHarianController@index2")->name("index2");
             Route::post("/simpan_jawaban", "MonitoringHarianController@simpan_jawaban")->name("simpan_jawaban");
             Route::get("/calendar/{id_siswa}", "MonitoringHarianController@calendar")->name("orang_tua.calendar");
-            Route::get('/terima_jawaban', "MonitoringHarianController@terima_jawaban")->name("terima_jawaban");
+            Route::post('/terima_jawaban', "MonitoringHarianController@terima_jawaban")->name("terima_jawaban");
         });
     });
 

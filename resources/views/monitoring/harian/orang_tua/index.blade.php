@@ -14,7 +14,7 @@ if (count($pertanyaan) > 0) {
 
 $ftanggal_epoch = strtotime($ftanggal);
 $today_epoch = strtotime(date("Y-m-d")." 00:00:00");
-if ($ftanggal_epoch > $today_epoch || $jawaban_terkunci) {
+if ($ftanggal_epoch > $today_epoch || ($jawaban_terkunci !== false)) {
     $disable_future = " disabled";
 } else {
     $disable_future = "";
@@ -165,7 +165,7 @@ if ($ftanggal_epoch > $today_epoch || $jawaban_terkunci) {
                 @endif
             </div>
             <div class="col-md-4">
-                @if ($jawaban_terkunci)
+                @if ($jawaban_terkunci !== false)
                 <table class="table">
                     <thead></thead>
                     <tbody>
@@ -187,7 +187,7 @@ if ($ftanggal_epoch > $today_epoch || $jawaban_terkunci) {
                         <tr>
                             <td>Point</td>
                             <td>:</td>
-                            <td>{{ $nr_dijawab * 10 }}</td>
+                            <td>{{ $jawaban_terkunci }}</td>
                         </tr>
                     </tbody>
                 </table>
