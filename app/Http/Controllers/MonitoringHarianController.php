@@ -50,6 +50,7 @@ class MonitoringHarianController extends Controller
         $siswa = NULL;
         $pertanyaan = [];
         $jawaban = [];
+        $jawaban_terkunci = false;
 
         if (isset($_GET["ftanggal"])) {
             if ($_GET["ftanggal"] !== date("Y-m-d", strtotime($_GET["ftanggal"]))) {
