@@ -49,7 +49,7 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.css') }}">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <link rel="shrotcut icon" href="{{ asset('img/logomi.png') }}">
+    <link rel="shrotcut icon" href="{{ asset('img/Logomi.png') }}">
     <style>
         .ctr {
             text-align: center !important;
