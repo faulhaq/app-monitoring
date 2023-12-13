@@ -27,7 +27,7 @@
                     </div>
                 </div>
             </div>
-            <table id="example1" class="table table-bordered table-striped table-hover" style="width: 100%">
+            <table id="example1" class="table table-bordered table-hover" style="width: 100%">
             <thead>
                 <tr>
                     <th>No.</th>

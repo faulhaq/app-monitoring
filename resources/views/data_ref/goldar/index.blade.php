@@ -16,7 +16,7 @@
 
         <!-- /.card-header -->
         <div class="card-body" style="overflow-x: scroll">
-          <table class="table table-bordered table-striped table-hover" style="width: 100%">
+          <table class="table table-bordered table-hover" style="width: 100%">
             <thead>
                 <tr>
                     <th>No.</th>

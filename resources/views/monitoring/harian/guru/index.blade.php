@@ -97,7 +97,7 @@
             <div class="card-body">
                 @if (count($pertanyaan) > 0)
                 <div>
-                    <table class="table table-sm table-bordered">
+                    <table class="table table-sm table-hover table-bordered">
                         <thead>
                             <tr><th>No.</th><th>Pertanyaan</th><th>Jawaban</th></tr>
                         </thead>

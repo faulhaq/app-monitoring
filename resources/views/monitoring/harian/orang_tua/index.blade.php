@@ -99,7 +99,7 @@ if ($ftanggal_epoch > $today_epoch || ($jawaban_terkunci !== false)) {
         <div class="card-body">
             <div>
                 @if (count($pertanyaan) > 0)
-                    <table class="table table-sm table-bordered">
+                    <table class="table table-sm table-bordered table-hover">
                     <thead>
                         <tr><th>No.</th><th>Pertanyaan</th><th>Jawaban</th></tr>
                     </thead>
