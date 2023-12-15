@@ -1,8 +1,8 @@
 @extends('template.home')
-@section('heading', 'Details Orang Tua')
+@section('heading', 'Detail Siswa')
 @section('page')
-  <li class="breadcrumb-item active"><a href="{{ route('siswa.index') }}">Orang Tua</a></li>
-  <li class="breadcrumb-item active">Details Orang Tua</li>
+  <li class="breadcrumb-item active"><a href="{{ route('siswa.index') }}">Siswa</a></li>
+  <li class="breadcrumb-item active">Detail Siswa</li>
 @endsection
 @section('content')
 <div class="col-md-12">
@@ -23,12 +23,12 @@
                     <h5 class="card-title card-text mb-2">NIK : {{ $siswa->nik }}</h5>
                     <h5 class="card-title card-text mb-2">NIS : {{ $siswa->nis }}</h5>
                     <h5 class="card-title card-text mb-2">Nama : {{ $siswa->nama }}</h5>
+                    <h5 class="card-title card-text mb-2">Tempat Lahir : {{ $siswa->tmp_lahir }}</h5>
+                    <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ fix_id_d($siswa->tgl_lahir) }}</h5>
                     <h5 class="card-title card-text mb-2">Jenis Kelamin : {{ $siswa->jk === "L" ? "Laki-laki" : "Perempuan" }}</h5>
                     <h5 class="card-title card-text mb-2">Agama : {{ $siswa->agama() }}</h5>
                     <h5 class="card-title card-text mb-2">Goldar : {{ $siswa->goldar() }}</h5>
                     <h5 class="card-title card-text mb-2">No. Telepon : {{ $siswa->telp }}</h5>
-                    <h5 class="card-title card-text mb-2">Tempat Lahir : {{ $siswa->tmp_lahir }}</h5>
-                    <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ fix_id_d($siswa->tgl_lahir) }}</h5>
                     <h5 class="card-title card-text mb-2">Alamat : {{ $siswa->alamat }}</h5>
                     <h5 class="card-title card-text mb-2">Status : {{ $siswa->status() }}</h5> 
                 </div>
