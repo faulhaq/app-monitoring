@@ -1,8 +1,8 @@
 @extends('template.home')
-@section('heading', 'Tambah Data Harian')
+@section('heading', 'Tambah Data Monitoring Harian')
 @section('page')
-  <li class="breadcrumb-item active"><a href="{{ route('harian.index') }}">Data Harian</a></li>
-  <li class="breadcrumb-item active">Tambah Data Harian</li>
+  <li class="breadcrumb-item active"><a href="{{ route('harian.index') }}">Data Monitoring Harian</a></li>
+  <li class="breadcrumb-item active">Tambah Data Monitoring Harian</li>
 @endsection
 @section('content')
 

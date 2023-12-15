@@ -1,8 +1,8 @@
 @extends('template.home')
-@section('heading', 'Details Guru')
+@section('heading', 'Detail Guru')
 @section('page')
   <li class="breadcrumb-item active"><a href="{{ route('guru.index') }}">Guru</a></li>
-  <li class="breadcrumb-item active">Details Guru</li>
+  <li class="breadcrumb-item active">Detail Guru</li>
 @endsection
 @section('content')
 <div class="col-md-12">
@@ -21,16 +21,16 @@
                     <h5 class="card-title card-text mb-2">NIK : {{ $guru->nik }}</h5>
                     <h5 class="card-title card-text mb-2">NIP : {{ $guru->nip }}</h5>
                     <h5 class="card-title card-text mb-2">Nama : {{ $guru->nama }}</h5>
-                    <h5 class="card-title card-text mb-2">Email : {{ $guru->email }}</h5>
+                    <h5 class="card-title card-text mb-2">Tempat Lahir : {{ $guru->tmp_lahir }}</h5>
+                    <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ fix_id_d($guru->tgl_lahir) }}</h5>
                     <h5 class="card-title card-text mb-2">Jenis Kelamin : {{ $guru->jk === "L" ? "Laki-laki" : "Perempuan" }}</h5>
                     <h5 class="card-title card-text mb-2">Agama : {{ $guru->agama() }}</h5>
                     <h5 class="card-title card-text mb-2">Goldar : {{ $guru->goldar() }}</h5>
-                    <h5 class="card-title card-text mb-2">Pekerjaan : {{ $guru->pekerjaan() }}</h5>
-                    <h5 class="card-title card-text mb-2">Pendidikan : {{ $guru->pendidikan() }}</h5>
                     <h5 class="card-title card-text mb-2">No. Telepon : {{ $guru->telp }}</h5>
-                    <h5 class="card-title card-text mb-2">Tempat Lahir : {{ $guru->tmp_lahir }}</h5>
-                    <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ fix_id_d($guru->tgl_lahir) }}</h5>
+                    <h5 class="card-title card-text mb-2">Email : {{ $guru->email }}</h5>
                     <h5 class="card-title card-text mb-2">Alamat : {{ $guru->alamat }}</h5>
+                    <h5 class="card-title card-text mb-2">Pendidikan : {{ $guru->pendidikan() }}</h5>
+                    <h5 class="card-title card-text mb-2">Pekerjaan : {{ $guru->pekerjaan() }}</h5>
                     <h5 class="card-title card-text mb-2">Status : {{ $guru->status === "aktif" ? "Aktif" : "Non-aktif" }}</h5> 
                 </div>
             </div>
