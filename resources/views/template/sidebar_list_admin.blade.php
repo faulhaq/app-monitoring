@@ -74,16 +74,17 @@
                 <p>Data Keluarga</p>
             </a>
         </li> -->
-        <li class="nav-item">
-            <a href="{{ route('orang_tua.index') }}" class="nav-link" id="DataOrangTua">
-                <i class="fas fa-users nav-icon"></i>
-                <p>Data Orang Tua</p>
-            </a>
-        </li>
+        
         <li class="nav-item">
             <a href="{{ route('siswa.index') }}" class="nav-link" id="DataSiswa">
                 <i class="fas fa-users nav-icon"></i>
                 <p>Data Siswa</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{ route('orang_tua.index') }}" class="nav-link" id="DataOrangTua">
+                <i class="fas fa-users nav-icon"></i>
+                <p>Data Orang Tua</p>
             </a>
         </li>
         <li class="nav-item">
