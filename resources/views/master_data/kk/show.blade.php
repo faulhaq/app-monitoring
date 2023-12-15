@@ -1,8 +1,8 @@
 @extends('template.home')
-@section('heading', 'Details Keluarga')
+@section('heading', 'Detail Keluarga')
 @section('page')
   <li class="breadcrumb-item active"><a href="{{ route('kk.index') }}">Keluarga</a></li>
-  <li class="breadcrumb-item active">Details Orang Tua</li>
+  <li class="breadcrumb-item active">Detail Keluarga</li>
 @endsection
 @section('content')
 <div class="col-md-12">
