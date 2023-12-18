@@ -7,7 +7,7 @@
 @section('content')
     <div class="col-lg-4 col-6">
         <a href="{{ route('monitoring.keagamaan.tahsin') }}">
-        <div class="small-box" style="background-color: #3B44F6;">
+        <div class="small-box bg-primary">
             <div class="inner" style="color: #FFFFFF;">
                 <h3> Monitoring Tahsin </h3>
                 <p>Tahsin</p>
@@ -20,7 +20,7 @@
     </div>
     <div class="col-lg-4 col-6">
         <a href="{{ route('monitoring.keagamaan.tahfidz') }}">
-        <div class="small-box" style="background-color: #357ded;">
+        <div class="small-box bg-info">
             <div class="inner" style="color: #FFFFFF;">
                 <h3> Monitoring Tahfidz </h3>
                 <p>Tahfidz</p>
@@ -33,7 +33,7 @@
 
     <div class="col-lg-4 col-6">
         <a href="{{ route('monitoring.keagamaan.mahfudhot') }}">
-        <div class="small-box" style="background-color: #3EC70B;">
+        <div class="small-box bg-success">
             <div class="inner" style="color: #FFFFFF;">
                 <h3> Monitoring Mahfudhot </h3>
                 <p>Mahfudhot</p>
@@ -46,7 +46,7 @@
 
     <div class="col-lg-4 col-6">
         <a href="{{ route('monitoring.keagamaan.hadits') }}">
-        <div class="small-box" style="background-color: #32e875;">
+        <div class="small-box bg-warning">
             <div class="inner" style="color: #FFFFFF;">
                 <h3> Monitoring Hadits </h3>
                 <p>Hadits</p>
@@ -59,7 +59,7 @@
 
     <div class="col-lg-4 col-6">
         <a href="{{ route('monitoring.keagamaan.doa') }}">
-        <div class="small-box" style="background-color: #F7EC09;">
+        <div class="small-box bg-secondary">
             <div class="inner" style="color: #FFFFFF;">
                 <h3> Monitoring Doa </h3>
                 <p>Doa</p>
