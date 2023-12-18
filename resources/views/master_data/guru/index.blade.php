@@ -93,6 +93,14 @@
                         <input type="text" id="nama" name="nama" class="form-control @error('nama') is-invalid @enderror">
                     </div>
                     <div class="form-group">
+                        <label for="tmp_lahir">Tempat Lahir</label>
+                        <input type="text" id="tmp_lahir" name="tmp_lahir" class="form-control @error('tmp_lahir') is-invalid @enderror">
+                    </div>
+                    <div class="form-group">
+                        <label for="tgl_lahir">Tanggal Lahir</label>
+                        <input type="date" id="tgl_lahir" name="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror">
+                    </div>
+                    <div class="form-group">
                         <label for="jk">Jenis Kelamin</label>
                         <select id="jk" name="jk" class="select2bs4 form-control @error('jk') is-invalid @enderror">
                             <option value="">-- Pilih Jenis Kelamin --</option>
@@ -107,16 +115,19 @@
                             <?= FormWithRef::get_agama(); ?>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label for="tmp_lahir">Tempat Lahir</label>
-                        <input type="text" id="tmp_lahir" name="tmp_lahir" class="form-control @error('tmp_lahir') is-invalid @enderror">
-                    </div>
-                    <div class="form-group">
-                        <label for="tgl_lahir">Tanggal Lahir</label>
-                        <input type="date" id="tgl_lahir" name="tgl_lahir" class="form-control @error('tgl_lahir') is-invalid @enderror">
-                    </div>
                 </div>
                 <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="goldar">Golongan Darah</label>
+                        <select id="goldar" name="goldar" class="select2bs4 form-control @error('goldar') is-invalid @enderror">
+                            <option value="">-- Pilih Golongan Darah --</option>
+                            <?= FormWithRef::get_goldar(); ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="telp">Nomor Telpon/HP</label>
+                        <input type="text" id="telp" name="telp" onkeypress="return inputAngka(event)" class="form-control @error('telp') is-invalid @enderror">
+                    </div>
                     <div class="form-group">
                         <label for="email">Email</label>
                         <input type="text" id="email" name="email" class="form-control @error('email') is-invalid @enderror">
@@ -126,21 +137,10 @@
                         <input type="text" id="alamat" name="alamat" class="form-control @error('alamat') is-invalid @enderror">
                     </div>
                     <div class="form-group">
-                        <label for="telp">Nomor Telpon/HP</label>
-                        <input type="text" id="telp" name="telp" onkeypress="return inputAngka(event)" class="form-control @error('telp') is-invalid @enderror">
-                    </div>
-                    <div class="form-group">
                         <label for="pendidikan">Pendidikan</label>
                         <select id="pendidikan" name="pendidikan" class="select2bs4 form-control @error('pendidikan') is-invalid @enderror">
                             <option value="">-- Pilih Pendidikan Terakhir --</option>
                             <?= FormWithRef::get_pendidikan(); ?>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="goldar">Golongan Darah</label>
-                        <select id="goldar" name="goldar" class="select2bs4 form-control @error('goldar') is-invalid @enderror">
-                            <option value="">-- Pilih Golongan Darah --</option>
-                            <?= FormWithRef::get_goldar(); ?>
                         </select>
                     </div>
                     <div class="form-group">

@@ -1,8 +1,8 @@
 @extends('template.home')
-@section('heading', 'Details User')
+@section('heading', 'Detail User')
 @section('page')
-  <li class="breadcrumb-item active"><a href="{{ route('user.index') }}">Guru</a></li>
-  <li class="breadcrumb-item active">Details Guru</li>
+  <li class="breadcrumb-item active"><a href="{{ route('user.index') }}">User</a></li>
+  <li class="breadcrumb-item active">Detail User</li>
 @endsection
 @section('content')
 <div class="col-md-12">

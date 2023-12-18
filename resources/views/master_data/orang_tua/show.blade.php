@@ -1,8 +1,8 @@
 @extends('template.home')
-@section('heading', 'Details Orang Tua')
+@section('heading', 'Detail Orang Tua')
 @section('page')
   <li class="breadcrumb-item active"><a href="{{ route('orang_tua.index') }}">Orang Tua</a></li>
-  <li class="breadcrumb-item active">Details Orang Tua</li>
+  <li class="breadcrumb-item active">Detail Orang Tua</li>
 @endsection
 @section('content')
 <?php $enc_id = Crypt::encrypt(json_encode([
@@ -25,16 +25,16 @@
                     <h5 class="card-title card-text mb-2">No. KK : <a href="{{ route('kk.show', $enc_id) }}">{{ $orang_tua->kk()->no_kk }} </a></h5>
                     <h5 class="card-title card-text mb-2">NIK : {{ $orang_tua->nik }}</h5>
                     <h5 class="card-title card-text mb-2">Nama : {{ $orang_tua->nama }}</h5>
-                    <h5 class="card-title card-text mb-2">Email : {{ $orang_tua->email }}</h5>
+                    <h5 class="card-title card-text mb-2">Tempat Lahir : {{ $orang_tua->tmp_lahir }}</h5>
+                    <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ fix_id_d($orang_tua->tgl_lahir) }}</h5>
                     <h5 class="card-title card-text mb-2">Jenis Kelamin : {{ $orang_tua->jk === "L" ? "Laki-laki" : "Perempuan" }}</h5>
                     <h5 class="card-title card-text mb-2">Agama : {{ $orang_tua->agama() }}</h5>
                     <h5 class="card-title card-text mb-2">Goldar : {{ $orang_tua->goldar() }}</h5>
-                    <h5 class="card-title card-text mb-2">Pekerjaan : {{ $orang_tua->pekerjaan() }}</h5>
-                    <h5 class="card-title card-text mb-2">Pendidikan : {{ $orang_tua->pendidikan() }}</h5>
                     <h5 class="card-title card-text mb-2">No. Telepon : {{ $orang_tua->telp }}</h5>
-                    <h5 class="card-title card-text mb-2">Tempat Lahir : {{ $orang_tua->tmp_lahir }}</h5>
-                    <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ fix_id_d($orang_tua->tgl_lahir) }}</h5>
-                    <h5 class="card-title card-text mb-2">Alamat : {{ $orang_tua->alamat }}</h5> 
+                    <h5 class="card-title card-text mb-2">Email : {{ $orang_tua->email }}</h5>
+                    <h5 class="card-title card-text mb-2">Alamat : {{ $orang_tua->alamat }}</h5>
+                    <h5 class="card-title card-text mb-2">Pendidikan : {{ $orang_tua->pendidikan() }}</h5>
+                    <h5 class="card-title card-text mb-2">Pekerjaan : {{ $orang_tua->pekerjaan() }}</h5>
                 </div>
             </div>
         </div>
