@@ -69,15 +69,15 @@ $id_guru = $user->id_guru;
                                 <td>{{ $v->nis }}</td>
                                 <td>{{ $v->nama }}</td>
                                 <td> <?php $enc_id_siswa = Crypt::encrypt($v->id); ?> <form action="{{ route('kelas.hapus_siswa', [$enc_id_kelas, $enc_id_siswa]) }}" method="post"> @csrf @method('delete') @if ($role === "admin") <button class="btn btn-danger btn-sm mt-2">
-                                            <i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus </button> @endif <a href="{{ route('monitoring.keagamaan.tahsin').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-danger btn-sm mt-2">
+                                            <i class="nav-icon fas fa-trash-alt"></i> &nbsp; Hapus </button> @endif <a href="{{ route('monitoring.keagamaan.tahsin').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-primary btn-sm mt-2">
                                             <i class="nav-icon fas fa-clipboard"></i> &nbsp; Tahsin </a>
-                                        <a href="{{ route('monitoring.keagamaan.tahfidz').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-danger btn-sm mt-2">
+                                        <a href="{{ route('monitoring.keagamaan.tahfidz').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-info btn-sm mt-2">
                                             <i class="nav-icon fas fa-clipboard"></i> &nbsp; Tahfidz </a>
-                                        <a href="{{ route('monitoring.keagamaan.mahfudhot').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-danger btn-sm mt-2">
+                                        <a href="{{ route('monitoring.keagamaan.mahfudhot').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-success btn-sm mt-2">
                                             <i class="nav-icon fas fa-clipboard"></i> &nbsp; Mahfudhot </a>
-                                        <a href="{{ route('monitoring.keagamaan.hadits').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-danger btn-sm mt-2">
+                                        <a href="{{ route('monitoring.keagamaan.hadits').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-warning btn-sm mt-2" class="inner" style="color: #FFFFFF;">
                                             <i class="nav-icon fas fa-clipboard"></i> &nbsp; Hadits </a>
-                                        <a href="{{ route('monitoring.keagamaan.doa').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-danger btn-sm mt-2">
+                                        <a href="{{ route('monitoring.keagamaan.doa').'?fkelas='.$kelas->id.'&fsiswa='.$v->id }}" class="btn btn-secondary btn-sm mt-2">
                                             <i class="nav-icon fas fa-clipboard"></i> &nbsp; Doa </a>
                                     </form>
                                 </td>
