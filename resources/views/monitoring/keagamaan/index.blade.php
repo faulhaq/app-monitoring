@@ -13,7 +13,7 @@
                 <p>Tahsin</p>
             </div>
             <div class="icon">
-                <i class="fas fa-book nav-icon"></i>
+                <i class="nav-icon fas fa-clipboard"></i>
             </div>
         </div>
         </a>
@@ -26,7 +26,7 @@
                 <p>Tahfidz</p>
             </div>
             <div class="icon">
-                <i class="fas fa-book nav-icon"></i>
+                <i class="nav-icon fas fa-clipboard"></i>
             </div>
         </div>
     </div>
@@ -39,7 +39,7 @@
                 <p>Mahfudhot</p>
             </div>
             <div class="icon">
-                <i class="fas fa-book nav-icon"></i>
+                <i class="nav-icon fas fa-clipboard"></i>
             </div>
         </div>        
     </div>
@@ -52,7 +52,7 @@
                 <p>Hadits</p>
             </div>
             <div class="icon">
-                <i class="fas fa-book nav-icon"></i>
+                <i class="nav-icon fas fa-clipboard"></i>
             </div>
         </div>
     </div>
@@ -65,7 +65,7 @@
                 <p>Doa</p>
             </div>
             <div class="icon">
-                <i class="fas fa-book nav-icon"></i>
+                <i class="nav-icon fas fa-clipboard"></i>
             </div>
         </div>
     </div>
