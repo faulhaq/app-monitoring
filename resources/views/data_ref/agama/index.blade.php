@@ -20,7 +20,6 @@
             <thead>
                 <tr>
                     <th>No.</th>
-                    <th>ID</th>
                     <th>Nama Agama</th>
                     <th>Aksi</th>
                 </tr>
@@ -29,7 +28,6 @@
                 @foreach ($agama as $v)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
-                    <td>{{ $v->id }}</td>
                     <td>{{ $v->nama }}</td>
                     <td>
                         <?php $enc_id = Crypt::encrypt($v->id); ?>
