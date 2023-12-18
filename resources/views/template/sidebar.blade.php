@@ -5,9 +5,9 @@ $user = Auth::user();
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="" class="brand-link" style="">
+    <a href="{{ route('home') }}" class="brand-link" style="">
         <!-- <img src="{{ asset('img/favicon.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"> -->
-        <span class="brand-text font-weight-light">MI NURROHMAH BINA INSANI</span>
+        <span class="brand-text font-weight-bolder">Monitoring MINBI</span>
     </a>
 
     <!-- Sidebar -->
