@@ -1,8 +1,8 @@
 @extends('template.home')
-@section('heading', 'Edit Pertanyaan Data Harian')
+@section('heading', 'Edit Data Monitoring Harian')
 @section('page')
-  <li class="breadcrumb-item active"><a href="{{ route('harian.index') }}">Data Harian</a></li>
-  <li class="breadcrumb-item active">Edit Pertanyaan Data Harian</li>
+  <li class="breadcrumb-item active"><a href="{{ route('harian.index') }}">Data Monitoring Harian</a></li>
+  <li class="breadcrumb-item active">Edit Data Monitoring Harian</li>
 @endsection
 @section('content')
 
@@ -12,7 +12,7 @@
     @method('patch')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Edit Pertanyaan Data Harian</h3>
+            <h3 class="card-title">Edit Data Monitoring Harian</h3>
         </div>
         <div class="card-body">
             <div class="row">
@@ -47,7 +47,7 @@
 
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Tambah Pertanyaan Data Harian</h3>
+            <h3 class="card-title">Tambah Pertanyaan Data Monitoring Harian</h3>
         </div>
         <div class="card-body">
             <div class="row" style="margin-bottom: 30px;">

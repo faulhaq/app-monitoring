@@ -38,7 +38,7 @@ $tipe_monitoring = "doa";
                         <td>{{ $v->doa }}</td>
                         <td>{{ $v->lu }}</td>
                         <td>{{ $v->created_by() }}</td>
-                        <td>{{ fix_id_dt(fix_id_dt($v->created_at)) }}</td>
+                        <td>{{ fix_id_dt($v->created_at) }}</td>
                         <td>
                             <form action="{{ route('monitoring.keagamaan.doa.destroy', Crypt::encrypt($v->id)) }}" method="post">
                                 @if ($allow_edit)
