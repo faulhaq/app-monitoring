@@ -1,6 +1,8 @@
 @extends('template.home')
 @section('heading', 'Data Tahsin')
 @section('page')
+  <li class="breadcrumb-item active">Data Monitoring</li>
+  <li class="breadcrumb-item active">Monitoring Keagamaan</li>
   <li class="breadcrumb-item active">Data Tahsin</li>
 @endsection
 @section('content')

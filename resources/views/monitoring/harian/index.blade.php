@@ -1,5 +1,5 @@
 @extends('template.home')
-@section('heading', 'Monitoring Harian')
+@section('heading', 'Dashboard '.Auth::user()->role())
 @section('page')
   <li class="breadcrumb-item active">Data Monitoring</li>
   <li class="breadcrumb-item active">Monitoring Harian</li>
