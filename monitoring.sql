@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 13, 2023 at 04:41 PM
+-- Generation Time: Feb 21, 2024 at 01:14 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -123,13 +123,8 @@ CREATE TABLE `guru` (
 --
 
 INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(4, '1234512345123451', '123123', 'Guru 1', 'guru001@gmail.com', 'L', 1, 2, 1, 1, '081123123123', 'Jogja', '2023-07-31', 'Jogja', '2023_11_13__11_01_22_Screenshot_3.png', 'aktif', '2023-08-02 03:36:45', '2023-11-24 14:48:05', NULL),
-(5, '1234512345123453', '122123', 'Guru BBBBBBB', 'guru002@gmail.com', 'L', 1, 1, 1, 1, '083123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_02__12_31_19_download (3).png', 'aktif', '2023-08-02 03:36:45', '2023-08-02 12:31:19', NULL),
-(6, '1234512345122453', NULL, 'AAAAAAAAAA', 'guru003@gmail.com', 'L', 1, 1, 1, 1, '08344123123', 'Jogja', '2023-07-31', 'Jogja', '2023_08_03__12_58_13_Simulasi Forward Chaining Diagram.png', 'aktif', '2023-08-02 03:36:45', '2023-08-03 12:58:13', NULL),
-(7, '3314150809010009', '196481271994031004', 'Anton', 'anton@gmail.com', 'L', 1, 4, 1, 1, '081265345346', 'sragen', '2023-07-31', 'Sragen', '2023_08_03__13_01_21_Andhika-Saedya-transformed.png', 'aktif', '2023-08-03 13:01:21', '2023-08-03 13:01:21', NULL),
-(8, '3314150809010208', '124415322286765', 'Angga 123123', 'anton321@gmail.com', 'L', 4, 4, 2, 11, '081233456732', 'surakarta', '2023-08-16', 'Sragen 2', NULL, 'aktif', '2023-08-03 13:07:34', '2023-10-18 04:34:54', NULL),
-(9, '3314150807654205', '196506061992032001', 'AWEfsg', 'syifaulhaq008@gmail.com', 'L', 1, 1, 1, 1, '086234567895', 'sragenn', '2023-07-30', 'srageh', NULL, 'aktif', '2023-08-23 03:44:46', '2023-08-23 03:44:46', NULL),
-(10, '3314145739010001', NULL, 'fuog', 'alexr23@gmail.com', 'L', 1, 1, 1, 1, '088765345346', 'bantul', '2023-08-02', 'grogol', NULL, 'aktif', '2023-08-23 03:45:46', '2023-08-23 03:45:46', NULL);
+(1, '2582668149791338', NULL, 'Ratih Wahyuni', 'ratihwahyuni@gmail.com', 'P', 1, 4, NULL, NULL, NULL, 'Bantul', '1992-12-12', 'Bantul', NULL, 'aktif', '2024-02-21 13:02:24', NULL, NULL),
+(2, '2363395548413331', NULL, 'Jasmin Prastuti', 'jasminprastuti@gmail.com', 'P', 1, 1, NULL, NULL, NULL, 'Bantul', '1995-02-09', 'Bantul', NULL, 'aktif', '2024-02-21 13:02:24', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -207,7 +202,14 @@ INSERT INTO `kk` (`id`, `no_kk`, `updated_at`, `created_at`) VALUES
 (1, '1234567890123456', '2023-08-10 09:01:35', '2023-08-10 09:01:35'),
 (3, '1231211111111111', '2023-08-10 09:10:41', '2023-08-10 09:10:41'),
 (5, '1231211111111146', '2023-08-14 08:15:06', '2023-08-14 08:15:06'),
-(6, '1231211111211146', '2023-08-23 03:36:31', '2023-08-23 03:36:31');
+(6, '1231211111211146', '2023-08-23 03:36:31', '2023-08-23 03:36:31'),
+(9, '7896417867454573', NULL, NULL),
+(10, '8747561943032509', NULL, NULL),
+(11, '5852855020025290', NULL, NULL),
+(12, '8538660763751405', NULL, NULL),
+(13, '1399733792565701', NULL, NULL),
+(14, '6642227171951529', NULL, NULL),
+(15, '8631724790134725', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -251,6 +253,13 @@ CREATE TABLE `monitoring_doa` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `monitoring_doa`
+--
+
+INSERT INTO `monitoring_doa` (`id`, `id_siswa`, `doa`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
+(1, 4, 'Doa masuk masjid', 'lancar', NULL, NULL, NULL, '2024-02-08 03:09:11');
+
 -- --------------------------------------------------------
 
 --
@@ -267,6 +276,13 @@ CREATE TABLE `monitoring_hadits` (
   `feedback_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_hadits`
+--
+
+INSERT INTO `monitoring_hadits` (`id`, `id_siswa`, `hadits`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
+(1, 4, 'Hadits tentang marah', 'lancar', NULL, NULL, NULL, '2024-02-08 03:08:12');
 
 -- --------------------------------------------------------
 
@@ -290,24 +306,24 @@ CREATE TABLE `monitoring_harian` (
 --
 
 INSERT INTO `monitoring_harian` (`id`, `id_siswa`, `id_pertanyaan`, `jawaban`, `tanggal`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 2, 4, 'ya', '2023-02-01', 4, '2023-12-06 04:13:31', NULL),
-(2, 2, 5, 'tidak', '2023-02-01', 4, '2023-12-06 04:13:31', NULL),
-(3, 2, 3, 'Angga', '2023-02-01', 4, '2023-12-06 04:13:31', NULL),
-(4, 2, 6, 'Pemrograman', '2023-02-01', 4, '2023-12-06 04:13:31', NULL),
-(8, 3, 3, 'qqweqwe', '2023-02-02', 4, '2023-12-06 13:21:16', NULL),
-(9, 3, 6, 'dddd', '2023-02-02', 4, '2023-12-06 13:21:16', NULL),
-(10, 3, 4, 'ya', '2023-02-01', 4, '2023-12-06 13:48:35', NULL),
-(11, 3, 5, 'ya', '2023-02-01', 4, '2023-12-06 13:48:35', NULL),
-(12, 3, 3, 'Paul', '2023-02-01', 4, '2023-12-06 13:48:35', NULL),
-(13, 3, 6, 'pemrograman', '2023-02-01', 4, '2023-12-06 13:48:35', NULL),
-(14, 2, 3, 'zxczxczxc', '2023-02-03', 4, '2023-12-06 15:07:16', NULL),
-(15, 2, 4, 'ya', '2023-02-04', 4, '2023-12-06 15:13:07', NULL),
-(16, 2, 5, 'ya', '2023-02-04', 4, '2023-12-06 15:13:07', NULL),
-(17, 2, 3, 'a', '2023-02-04', 4, '2023-12-06 15:13:07', NULL),
-(18, 2, 6, 'b', '2023-02-04', 4, '2023-12-06 15:13:07', NULL),
-(21, 4, 11, 'ya', '2023-12-13', 1, '2023-12-13 11:10:33', NULL),
-(22, 4, 10, 'ya', '2023-12-13', 1, '2023-12-13 11:10:33', NULL),
-(23, 4, 12, 'nasi', '2023-12-13', 1, '2023-12-13 11:10:33', NULL);
+(1, 2, 4, 'ya', '2023-02-01', NULL, '2023-12-06 04:13:31', NULL),
+(2, 2, 5, 'tidak', '2023-02-01', NULL, '2023-12-06 04:13:31', NULL),
+(3, 2, 3, 'Angga', '2023-02-01', NULL, '2023-12-06 04:13:31', NULL),
+(4, 2, 6, 'Pemrograman', '2023-02-01', NULL, '2023-12-06 04:13:31', NULL),
+(8, 3, 3, 'qqweqwe', '2023-02-02', NULL, '2023-12-06 13:21:16', NULL),
+(9, 3, 6, 'dddd', '2023-02-02', NULL, '2023-12-06 13:21:16', NULL),
+(10, 3, 4, 'ya', '2023-02-01', NULL, '2023-12-06 13:48:35', NULL),
+(11, 3, 5, 'ya', '2023-02-01', NULL, '2023-12-06 13:48:35', NULL),
+(12, 3, 3, 'Paul', '2023-02-01', NULL, '2023-12-06 13:48:35', NULL),
+(13, 3, 6, 'pemrograman', '2023-02-01', NULL, '2023-12-06 13:48:35', NULL),
+(14, 2, 3, 'zxczxczxc', '2023-02-03', NULL, '2023-12-06 15:07:16', NULL),
+(15, 2, 4, 'ya', '2023-02-04', NULL, '2023-12-06 15:13:07', NULL),
+(16, 2, 5, 'ya', '2023-02-04', NULL, '2023-12-06 15:13:07', NULL),
+(17, 2, 3, 'a', '2023-02-04', NULL, '2023-12-06 15:13:07', NULL),
+(18, 2, 6, 'b', '2023-02-04', NULL, '2023-12-06 15:13:07', NULL),
+(21, 4, 11, 'ya', '2023-12-13', NULL, '2023-12-13 11:10:33', NULL),
+(22, 4, 10, 'ya', '2023-12-13', NULL, '2023-12-13 11:10:33', NULL),
+(23, 4, 12, 'nasi', '2023-12-13', NULL, '2023-12-13 11:10:33', NULL);
 
 -- --------------------------------------------------------
 
@@ -326,6 +342,13 @@ CREATE TABLE `monitoring_mahfudhot` (
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+--
+-- Dumping data for table `monitoring_mahfudhot`
+--
+
+INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `mahfudhot`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
+(1, 4, 'Mahfudhot orang tua', 'lancar', NULL, NULL, NULL, '2024-02-08 03:06:55');
+
 -- --------------------------------------------------------
 
 --
@@ -343,6 +366,13 @@ CREATE TABLE `monitoring_tahfidz` (
   `feedback_by` int(10) UNSIGNED DEFAULT NULL,
   `created_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `monitoring_tahfidz`
+--
+
+INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
+(1, 4, 2, '1-25', 'lancar', NULL, NULL, NULL, '2024-02-08 03:05:27');
 
 -- --------------------------------------------------------
 
@@ -368,7 +398,7 @@ CREATE TABLE `monitoring_tahsin` (
 --
 
 INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(1, 4, 1, 'iqro', 1, 'lancar', NULL, 'terimakasih', 1, '2023-12-03 11:57:53');
+(1, 4, 1, 'iqro', 1, 'lancar', NULL, 'terimakasih', NULL, '2023-12-03 11:57:53');
 
 -- --------------------------------------------------------
 
@@ -401,11 +431,16 @@ CREATE TABLE `orang_tua` (
 --
 
 INSERT INTO `orang_tua` (`id`, `id_kk`, `nik`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `created_at`, `updated_at`) VALUES
-(1, 3, '1634567890098765', 'Ayah', 'ayah@gmail.com', 'L', 1, 1, 1, 1, '081231231234', 'solo', '2023-09-01', 'solo', NULL, '2023-09-20 04:28:44', '2023-11-14 06:51:38'),
-(2, 3, '1214215621212313', 'Ibu', 'ibu@gmail.com', 'P', 1, 2, 1, 1, '089274517442', 'solo', '2023-09-02', 'solo', NULL, '2023-09-20 04:28:44', NULL),
-(4, 1, '3314110809910001', 'Ayahe angga', 'ayahangga@gmail.com', 'L', 1, 1, 2, 10, '08123156732', 'Solo', '2023-09-01', 'Solo', '2023_09_20__03_07_20_Andhika-Saedya-transformed.png', '2023-09-20 03:07:20', '2023-11-17 13:35:36'),
-(6, 1, '3314150809018605', 'Ibu 1', 'ibuangga@gmail.com', 'P', 1, 3, 4, 10, '081265345141', 'sragen', '2023-09-01', 'Solo', NULL, '2023-09-20 03:24:12', '2023-09-23 00:59:59'),
-(7, 1, '3314150853678005', 'Ibu 2', 'Ibuuuu@gmail.com', 'P', 1, 3, 1, 11, '08115856732', 'sragen', '2023-08-27', 'Solo', NULL, '2023-09-20 03:55:00', '2023-09-23 01:00:04');
+(2, 3, '1214215621212313', 'Elma Hartati', 'elmahartati@gmail.com', 'P', 1, 2, 1, 1, '089274517442', 'Solo', '1992-03-01', 'Solo', NULL, '2023-09-20 04:28:44', '2024-02-21 11:37:58'),
+(6, 1, '3314150809018605', 'Amalia Novitasari', 'amalianovitasari@gmail.com', 'P', 1, 3, 1, 10, '081265345141', 'Sragen', '1987-02-03', 'Sragen', NULL, '2023-09-20 03:24:12', '2024-02-21 11:36:34'),
+(8, 9, '2938670989801205', 'Eka Iswahyudi', 'ekaiswahyudi@gmail.com', 'L', 1, 1, 1, 2, '088884733724', 'Sleman', '1985-06-01', 'Sleman', NULL, '2024-02-21 12:24:09', NULL),
+(9, 10, '1261394734176118', 'Dadi Natsir', 'dadinatsir@gmail.com', 'L', 1, 4, 1, 1, '081290088839', 'Bantul', '1985-06-03', 'Bantul', NULL, '2024-02-21 12:24:09', NULL),
+(10, 11, '5221015854971387', 'Purwadi Waluyo', 'purwadiwaluyo@gmail.com', 'L', 1, 2, NULL, NULL, '08544869565', 'Sleman', '1985-06-18', 'Sleman', NULL, '2024-02-21 12:24:09', NULL),
+(11, 12, '2393058558891069', 'Enteng Kuswoyo', 'entengkuswoyo@gmail.com', 'L', 1, 3, NULL, NULL, '085132428063', 'Yogyakarta', '1985-02-01', 'Yogyakarta', NULL, '2024-02-21 12:24:09', NULL),
+(12, 14, '2769570321658946', 'Harjasa Maulana', 'harjasamaulana@gmail.com', 'L', 1, 1, NULL, NULL, '082275636101', 'Solo', '1985-06-09', 'Solo', NULL, '2024-02-21 12:24:09', NULL),
+(13, 15, '5802049577995185', 'Agnes Astuti', 'agnesastuti@gmail.com', 'P', 1, 4, NULL, NULL, NULL, 'Sleman', '1999-01-12', 'Sleman', NULL, '2024-02-21 12:52:51', NULL),
+(14, 5, '6053610362289979', 'Tania Wulandari', 'taniawulandari@gmail.com', 'P', 1, 2, NULL, NULL, NULL, 'Bantul', '1991-02-09', 'Bantul', NULL, '2024-02-21 12:52:51', NULL),
+(15, 6, '9130035922768820', 'Ida Wijayanti', 'idawijayanti@gmail.com', 'P', 1, 3, NULL, NULL, NULL, 'Sleman', '1994-05-20', 'Sleman', NULL, '2024-02-21 12:52:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -540,11 +575,16 @@ CREATE TABLE `siswa` (
 --
 
 INSERT INTO `siswa` (`id`, `id_kk`, `nik`, `nis`, `nama`, `jk`, `agama`, `goldar`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`) VALUES
-(2, 1, '3314110809010001', '123453', 'Angga', 'L', 4, 1, NULL, '08123456789', 'sragenn', '2023-08-10', 'Sragen', NULL, 'aktif', '2023-08-14 07:32:54', '2023-08-14 07:32:54'),
-(3, 1, '3314150809010905', '321', 'paull', 'L', 1, 1, NULL, NULL, 'sragen', '2023-07-30', 'Sragen 2', '2023_08_14__07_59_11_Andhika-Saedya-transformed.png', 'aktif', '2023-08-14 07:51:59', '2023-08-14 07:59:11'),
-(4, 3, '3314150809010685', '1234588', 'A', 'L', 1, 1, NULL, '08123456789', 'solo', '2023-07-31', 'solo', '2023_08_14__08_01_43_lokasi-logo-25373.png', 'aktif', '2023-08-14 08:01:43', '2023-08-14 08:01:43'),
-(5, 5, '3314150809636905', '321115', 'Andi', 'P', 1, 2, NULL, '0812345326543', 'Sleman', '2023-08-25', 'sleman', NULL, 'aktif', '2023-08-14 08:16:50', '2023-08-14 08:16:50'),
-(6, 6, '3314110346210001', '14678', 'ABCDES', 'L', 1, 1, NULL, '08923456789', 'sragen', '2023-08-01', 'Sragen', NULL, 'aktif', '2023-08-23 03:40:21', '2023-08-23 03:40:21');
+(2, 1, '3314110809010001', '123453', 'Atmaja Maulana', 'L', 1, 1, NULL, '08123456789', 'Bantul', '2010-01-20', 'Bantul', NULL, 'aktif', '2023-08-14 07:32:54', '2024-02-21 10:38:25'),
+(3, 15, '3314150809010905', '321126', 'Hendra Gunawan', 'L', 1, 1, NULL, NULL, 'Bantul', '2011-06-10', 'Bantul', NULL, 'aktif', '2023-08-14 07:51:59', '2024-02-21 10:39:02'),
+(4, 3, '3314150809010685', '1234588', 'Taufan Nainggolan', 'L', 1, 1, NULL, '08123456789', 'Sleman', '2010-01-07', 'Godean', NULL, 'aktif', '2023-08-14 08:01:43', '2024-02-21 10:36:04'),
+(5, 5, '3314150809636905', '321115', 'Daniswara Hidayanto', 'L', 1, 2, NULL, '0812345326543', 'Sleman', '2010-02-01', 'Gamping', NULL, 'aktif', '2023-08-14 08:16:50', '2024-02-21 10:37:35'),
+(6, 6, '3314110346210001', '14678', 'Hendra Sirait', 'L', 1, 1, NULL, '08923456789', 'Bantul', '2010-03-02', 'Kasihan', NULL, 'aktif', '2023-08-23 03:40:21', '2024-02-21 10:36:49'),
+(8, 11, '5851085732965262', '12312312', 'Anita Lestari', 'P', 1, 4, 7, NULL, 'Yogyakarta', '2014-02-05', 'Yogyakarta', NULL, 'aktif', '2024-02-21 11:42:48', NULL),
+(9, 14, '2602815764258682', '88246', 'Usyi Oktaviani', 'P', 1, 2, 7, NULL, 'Bantul', '2011-02-09', 'Bantul', NULL, 'aktif', '2024-02-21 11:42:48', NULL),
+(10, 9, '7563877722641167', '58879', 'Vera Wijayanti', 'P', 1, 1, 7, NULL, 'Gunung Kidul', '2011-05-20', 'Srandakan', NULL, 'aktif', '2024-02-21 11:42:48', NULL),
+(11, 12, '9441657787218956', '25382', 'Novi Pratiwi', 'P', 1, 3, 7, NULL, 'Solo', '2011-02-22', 'Sleman', NULL, 'aktif', '2024-02-21 11:42:48', NULL),
+(12, 10, '6018861246747347', '92977', 'Chelsea Hartati', 'P', 1, 1, 7, NULL, 'Sleman', '2011-10-26', 'Sleman', NULL, 'aktif', '2024-02-21 11:42:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -725,7 +765,7 @@ CREATE TABLE `tahun_ajaran_aktif` (
 --
 
 INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
-(30, 1);
+(32, 1);
 
 -- --------------------------------------------------------
 
@@ -750,11 +790,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'R4tdPYKFrXOZn6EZ2x1DqEAdAboFYvLOT0oRlgZi6FOztKEaikEjLJsO6k5y', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
-(11, 'guru', 'guru001@gmail.com', '$2y$10$nkbNg2CuYC1XctKjmTDLQenw2efFdjEmS.I3xR1twt3j5tWt2k3e6', 4, NULL, NULL, '2023-08-14 08:18:51', '2023-10-02 07:20:26'),
-(13, 'orang_tua', 'ayah@gmail.com', '$2y$10$ZJQjennnqoePQv3YbTDtv./X95CbZ9nFXzRG8S5ZI3HtQJPbY43ne', NULL, 1, NULL, '2023-10-02 08:04:32', '2023-10-02 08:04:40'),
-(14, 'orang_tua', 'ayahangga@gmail.com', '$2y$10$Mu6GmYhKo.n3G5xaY0jYSekvRuraMLvwl//pHahrM4cBHeTvdP3BW', NULL, 4, NULL, '2023-10-02 08:05:40', '2023-10-02 08:05:48'),
-(15, 'guru', 'anton321@gmail.com', '$2y$10$H1BWv0t5xAlygmqVM27WyOJfmc6/rOufNZnUeOAG0x61Vv0RMXH2e', 8, NULL, NULL, '2023-10-11 07:48:20', '2023-10-17 03:47:12');
+(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'Z7PLNGXHFHyHJooPB8Kvm1QOZWyWret4tkhVoyGh78AIZi3qwPBQ1gvtbXEu', '2023-07-27 12:15:00', '2023-11-13 08:44:22');
 
 --
 -- Indexes for dumped tables
@@ -1059,7 +1095,7 @@ ALTER TABLE `goldar`
 -- AUTO_INCREMENT for table `guru`
 --
 ALTER TABLE `guru`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `kelas`
@@ -1077,7 +1113,7 @@ ALTER TABLE `kelas_siswa`
 -- AUTO_INCREMENT for table `kk`
 --
 ALTER TABLE `kk`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `kunci_monitoring_harian`
@@ -1089,13 +1125,13 @@ ALTER TABLE `kunci_monitoring_harian`
 -- AUTO_INCREMENT for table `monitoring_doa`
 --
 ALTER TABLE `monitoring_doa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `monitoring_hadits`
 --
 ALTER TABLE `monitoring_hadits`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `monitoring_harian`
@@ -1107,13 +1143,13 @@ ALTER TABLE `monitoring_harian`
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
@@ -1125,7 +1161,7 @@ ALTER TABLE `monitoring_tahsin`
 -- AUTO_INCREMENT for table `orang_tua`
 --
 ALTER TABLE `orang_tua`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `pekerjaan`
@@ -1155,7 +1191,7 @@ ALTER TABLE `pertanyaan_data_harian`
 -- AUTO_INCREMENT for table `siswa`
 --
 ALTER TABLE `siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `surah`
@@ -1173,7 +1209,7 @@ ALTER TABLE `tahun_ajaran`
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
 --
 ALTER TABLE `tahun_ajaran_aktif`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `users`
