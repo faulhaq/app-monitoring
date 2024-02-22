@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 21, 2024 at 01:14 PM
+-- Generation Time: Feb 22, 2024 at 03:17 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -37,6 +37,7 @@ CREATE TABLE `agama` (
 --
 
 INSERT INTO `agama` (`id`, `nama`) VALUES
+(10, 'ABC'),
 (7, 'Budha'),
 (4, 'Hindu'),
 (1, 'Islam'),
@@ -64,10 +65,7 @@ CREATE TABLE `data_harian` (
 --
 
 INSERT INTO `data_harian` (`id`, `bulan`, `tahun`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(15, 1, 2023, 14, '2023-12-02 09:41:29', '2023-12-02 09:41:29'),
-(16, 12, 2023, 14, '2023-12-02 09:42:32', '2023-12-02 09:42:32'),
-(17, 2, 2023, 14, '2023-12-06 04:11:27', '2023-12-06 04:11:27'),
-(18, 12, 2023, 8, '2023-12-13 04:14:40', '2023-12-13 04:14:40');
+(20, 1, 2024, 19, '2024-02-22 02:07:12', '2024-02-22 02:07:12');
 
 -- --------------------------------------------------------
 
@@ -87,6 +85,7 @@ CREATE TABLE `goldar` (
 INSERT INTO `goldar` (`id`, `nama`) VALUES
 (1, 'A'),
 (4, 'AB'),
+(7, 'AE'),
 (2, 'B'),
 (3, 'O');
 
@@ -148,10 +147,8 @@ CREATE TABLE `kelas` (
 --
 
 INSERT INTO `kelas` (`id`, `tingkatan`, `nama`, `id_tahun_ajaran`, `id_guru`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(8, '2', 'D', 1, 4, '2023-08-02 12:51:42', '2023-08-23 04:23:25', NULL),
-(9, '6', 'D', 3, 7, '2023-08-03 13:27:31', '2023-08-03 13:27:45', NULL),
-(14, '3', NULL, 1, 4, '2023-09-15 03:28:21', '2023-12-03 10:19:00', NULL),
-(15, '1', NULL, 1, 5, '2023-09-26 03:59:13', '2023-12-03 10:18:50', NULL);
+(18, '2', NULL, 3, 2, '2024-02-22 00:43:59', '2024-02-22 00:43:59', NULL),
+(19, '1', NULL, 3, 1, '2024-02-22 02:02:48', '2024-02-22 02:02:48', NULL);
 
 -- --------------------------------------------------------
 
@@ -172,14 +169,16 @@ CREATE TABLE `kelas_siswa` (
 --
 
 INSERT INTO `kelas_siswa` (`id`, `id_siswa`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(8, 2, 9, '2023-08-23 03:46:23', NULL),
-(9, 5, 9, '2023-08-23 03:46:23', NULL),
-(10, 3, 9, '2023-08-23 03:46:23', NULL),
-(16, 5, 8, '2023-08-23 04:29:17', NULL),
-(17, 6, 8, '2023-08-23 04:33:09', NULL),
-(21, 4, 8, '2023-08-23 07:03:24', NULL),
-(22, 2, 14, '2023-09-15 03:30:10', NULL),
-(23, 3, 14, '2023-09-15 03:30:10', NULL);
+(46, 3, 18, '2024-02-22 02:00:07', NULL),
+(47, 9, 18, '2024-02-22 02:00:07', NULL),
+(48, 10, 18, '2024-02-22 02:00:07', NULL),
+(49, 11, 18, '2024-02-22 02:00:07', NULL),
+(50, 2, 18, '2024-02-22 02:00:07', NULL),
+(51, 4, 19, '2024-02-22 02:06:53', NULL),
+(52, 5, 19, '2024-02-22 02:06:53', NULL),
+(53, 6, 19, '2024-02-22 02:06:53', NULL),
+(54, 8, 19, '2024-02-22 02:06:53', NULL),
+(55, 12, 19, '2024-02-22 02:06:53', NULL);
 
 -- --------------------------------------------------------
 
@@ -230,11 +229,7 @@ CREATE TABLE `kunci_monitoring_harian` (
 --
 
 INSERT INTO `kunci_monitoring_harian` (`id`, `id_data_harian`, `id_siswa`, `point`, `tanggal`) VALUES
-(2, 17, 2, 0, '2023-02-01'),
-(3, 17, 2, 0, '2023-02-02'),
-(4, 17, 2, 0, '2023-02-04'),
-(6, 18, 4, 0, '2023-12-13'),
-(7, 18, 4, 123, '2023-12-01');
+(8, 20, 4, 100, '2024-01-28');
 
 -- --------------------------------------------------------
 
@@ -258,7 +253,8 @@ CREATE TABLE `monitoring_doa` (
 --
 
 INSERT INTO `monitoring_doa` (`id`, `id_siswa`, `doa`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(1, 4, 'Doa masuk masjid', 'lancar', NULL, NULL, NULL, '2024-02-08 03:09:11');
+(1, 4, 'Doa masuk masjid', 'lancar', NULL, NULL, NULL, '2024-02-08 03:09:11'),
+(2, 3, 'abc', 'lancar', NULL, NULL, NULL, '2024-02-22 02:12:40');
 
 -- --------------------------------------------------------
 
@@ -306,24 +302,8 @@ CREATE TABLE `monitoring_harian` (
 --
 
 INSERT INTO `monitoring_harian` (`id`, `id_siswa`, `id_pertanyaan`, `jawaban`, `tanggal`, `created_by`, `created_at`, `updated_at`) VALUES
-(1, 2, 4, 'ya', '2023-02-01', NULL, '2023-12-06 04:13:31', NULL),
-(2, 2, 5, 'tidak', '2023-02-01', NULL, '2023-12-06 04:13:31', NULL),
-(3, 2, 3, 'Angga', '2023-02-01', NULL, '2023-12-06 04:13:31', NULL),
-(4, 2, 6, 'Pemrograman', '2023-02-01', NULL, '2023-12-06 04:13:31', NULL),
-(8, 3, 3, 'qqweqwe', '2023-02-02', NULL, '2023-12-06 13:21:16', NULL),
-(9, 3, 6, 'dddd', '2023-02-02', NULL, '2023-12-06 13:21:16', NULL),
-(10, 3, 4, 'ya', '2023-02-01', NULL, '2023-12-06 13:48:35', NULL),
-(11, 3, 5, 'ya', '2023-02-01', NULL, '2023-12-06 13:48:35', NULL),
-(12, 3, 3, 'Paul', '2023-02-01', NULL, '2023-12-06 13:48:35', NULL),
-(13, 3, 6, 'pemrograman', '2023-02-01', NULL, '2023-12-06 13:48:35', NULL),
-(14, 2, 3, 'zxczxczxc', '2023-02-03', NULL, '2023-12-06 15:07:16', NULL),
-(15, 2, 4, 'ya', '2023-02-04', NULL, '2023-12-06 15:13:07', NULL),
-(16, 2, 5, 'ya', '2023-02-04', NULL, '2023-12-06 15:13:07', NULL),
-(17, 2, 3, 'a', '2023-02-04', NULL, '2023-12-06 15:13:07', NULL),
-(18, 2, 6, 'b', '2023-02-04', NULL, '2023-12-06 15:13:07', NULL),
-(21, 4, 11, 'ya', '2023-12-13', NULL, '2023-12-13 11:10:33', NULL),
-(22, 4, 10, 'ya', '2023-12-13', NULL, '2023-12-13 11:10:33', NULL),
-(23, 4, 12, 'nasi', '2023-12-13', NULL, '2023-12-13 11:10:33', NULL);
+(24, 4, 16, 'ya', '2024-01-28', 2, '2024-02-22 02:16:00', NULL),
+(25, 4, 15, 'sudah semua', '2024-01-28', 2, '2024-02-22 02:16:00', NULL);
 
 -- --------------------------------------------------------
 
@@ -347,7 +327,8 @@ CREATE TABLE `monitoring_mahfudhot` (
 --
 
 INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `mahfudhot`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(1, 4, 'Mahfudhot orang tua', 'lancar', NULL, NULL, NULL, '2024-02-08 03:06:55');
+(1, 4, 'Mahfudhot orang tua', 'lancar', NULL, NULL, NULL, '2024-02-08 03:06:55'),
+(2, 3, 'abcd', 'lancar', NULL, NULL, NULL, '2024-02-22 02:12:27');
 
 -- --------------------------------------------------------
 
@@ -372,7 +353,8 @@ CREATE TABLE `monitoring_tahfidz` (
 --
 
 INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(1, 4, 2, '1-25', 'lancar', NULL, NULL, NULL, '2024-02-08 03:05:27');
+(1, 4, 2, '1-25', 'lancar', NULL, 'terimakasih bu guru', 2, '2024-02-08 03:05:27'),
+(2, 10, 4, '1-20', 'lancar', NULL, NULL, NULL, '2024-02-22 02:12:13');
 
 -- --------------------------------------------------------
 
@@ -398,7 +380,8 @@ CREATE TABLE `monitoring_tahsin` (
 --
 
 INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(1, 4, 1, 'iqro', 1, 'lancar', NULL, 'terimakasih', NULL, '2023-12-03 11:57:53');
+(1, 4, 1, 'iqro', 1, 'lancar', NULL, 'terimakasih', NULL, '2023-12-03 11:57:53'),
+(2, 3, 1, 'iqro', 112, 'lancar', NULL, NULL, NULL, '2024-02-22 02:11:58');
 
 -- --------------------------------------------------------
 
@@ -458,6 +441,7 @@ CREATE TABLE `pekerjaan` (
 --
 
 INSERT INTO `pekerjaan` (`id`, `nama`) VALUES
+(7, 'Dosen'),
 (1, 'Guru'),
 (2, 'Polisi'),
 (4, 'Satpam'),
@@ -484,6 +468,7 @@ INSERT INTO `pendidikan` (`id`, `nama`) VALUES
 (12, 'D3'),
 (8, 'MA'),
 (9, 'MTS'),
+(16, 'PROF'),
 (1, 'S1'),
 (2, 'S2'),
 (3, 'S3'),
@@ -535,14 +520,8 @@ CREATE TABLE `pertanyaan_data_harian` (
 --
 
 INSERT INTO `pertanyaan_data_harian` (`id`, `id_data_harian`, `pertanyaan`, `tipe`, `list_opsi`, `created_at`, `updated_at`) VALUES
-(3, 17, 'siapa nama anda ?', 'isian', NULL, '2023-12-06 04:12:04', NULL),
-(4, 17, 'apakah hari ini sudah makan ?', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-06 04:12:04', NULL),
-(5, 17, 'apakah hari ini sehat ?', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-06 04:12:04', NULL),
-(6, 17, 'apa mata kuliah hari ini ?', 'isian', NULL, '2023-12-06 04:12:04', NULL),
-(9, 16, 'Siapa nama anda ?', 'isian', NULL, '2023-12-13 04:13:22', NULL),
-(10, 18, 'Apakah sudah membantu orang tua ?', 'isian', NULL, '2023-12-13 04:14:40', NULL),
-(11, 18, 'apakah sudah belajar ?', 'opsi', '[\"ya\",\"tidak\"]', '2023-12-13 04:14:40', NULL),
-(12, 18, 'hari ini makan apa ?', 'isian', NULL, '2023-12-13 04:14:40', NULL);
+(15, 20, 'aaa', 'isian', NULL, '2024-02-22 02:07:29', NULL),
+(16, 20, 'bbb', 'opsi', '[\"ya\",\"tidak\"]', '2024-02-22 02:07:29', NULL);
 
 -- --------------------------------------------------------
 
@@ -765,7 +744,7 @@ CREATE TABLE `tahun_ajaran_aktif` (
 --
 
 INSERT INTO `tahun_ajaran_aktif` (`id`, `id_tahun_ajaran`) VALUES
-(32, 1);
+(33, 3);
 
 -- --------------------------------------------------------
 
@@ -790,7 +769,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'Z7PLNGXHFHyHJooPB8Kvm1QOZWyWret4tkhVoyGh78AIZi3qwPBQ1gvtbXEu', '2023-07-27 12:15:00', '2023-11-13 08:44:22');
+(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'Z7PLNGXHFHyHJooPB8Kvm1QOZWyWret4tkhVoyGh78AIZi3qwPBQ1gvtbXEu', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
+(16, 'orang_tua', 'elmahartati@gmail.com', '$2y$10$GSYdp7AvqF0D3RA3B6J1v.Mx4vjCh8ikQ8S68VfJznmpUl97dlOOO', NULL, 2, NULL, '2024-02-22 02:13:37', '2024-02-22 02:14:06');
 
 --
 -- Indexes for dumped tables
@@ -1077,19 +1057,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `agama`
 --
 ALTER TABLE `agama`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `data_harian`
 --
 ALTER TABLE `data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `goldar`
 --
 ALTER TABLE `goldar`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `guru`
@@ -1101,13 +1081,13 @@ ALTER TABLE `guru`
 -- AUTO_INCREMENT for table `kelas`
 --
 ALTER TABLE `kelas`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `kk`
@@ -1119,13 +1099,13 @@ ALTER TABLE `kk`
 -- AUTO_INCREMENT for table `kunci_monitoring_harian`
 --
 ALTER TABLE `kunci_monitoring_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `monitoring_doa`
 --
 ALTER TABLE `monitoring_doa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `monitoring_hadits`
@@ -1137,25 +1117,25 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_harian`
 --
 ALTER TABLE `monitoring_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -1167,13 +1147,13 @@ ALTER TABLE `orang_tua`
 -- AUTO_INCREMENT for table `pekerjaan`
 --
 ALTER TABLE `pekerjaan`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `pendidikan`
 --
 ALTER TABLE `pendidikan`
-  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` smallint(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `pengumuman`
@@ -1185,7 +1165,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `pertanyaan_data_harian`
 --
 ALTER TABLE `pertanyaan_data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `siswa`
@@ -1209,13 +1189,13 @@ ALTER TABLE `tahun_ajaran`
 -- AUTO_INCREMENT for table `tahun_ajaran_aktif`
 --
 ALTER TABLE `tahun_ajaran_aktif`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables
@@ -1247,8 +1227,8 @@ ALTER TABLE `kelas`
 -- Constraints for table `kelas_siswa`
 --
 ALTER TABLE `kelas_siswa`
-  ADD CONSTRAINT `kelas_siswa_fk1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON UPDATE CASCADE,
-  ADD CONSTRAINT `kelas_siswa_fk2` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON UPDATE CASCADE;
+  ADD CONSTRAINT `kelas_siswa_fk1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `kelas_siswa_ibfk_1` FOREIGN KEY (`id_kelas`) REFERENCES `kelas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `kunci_monitoring_harian`

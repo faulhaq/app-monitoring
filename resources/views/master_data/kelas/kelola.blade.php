@@ -64,7 +64,7 @@ $id_guru = $user->id_guru;
                         <tbody>
                             @foreach ($siswa as $v)
                             <tr>
-                                <td>{{ $v->id }}</td>
+                                <td>{{ $loop->iteration }}</td>
                                 <td>{{ $v->nik }}</td>
                                 <td>{{ $v->nis }}</td>
                                 <td>{{ $v->nama }}</td>

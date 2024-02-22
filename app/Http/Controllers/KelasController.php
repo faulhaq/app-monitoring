@@ -26,9 +26,9 @@ class KelasController extends Controller
         $ftahun_ajaran = is_string($_GET["ftahun_ajaran"] ?? NULL) ? $_GET["ftahun_ajaran"] : NULL;
 
         if ($ftahun_ajaran && $ftahun_ajaran !== "all") {
-            $kelas = Kelas::where("id_tahun_ajaran", $ftahun_ajaran)->get();
+            $kelas = Kelas::where("id_tahun_ajaran", $ftahun_ajaran)->orderBy("tingkatan", "asc")->get();
         } else {
-            $kelas = Kelas::get();
+            $kelas = Kelas::orderBy("tingkatan", "asc")->get();
         }
 
         return view("master_data.kelas.index",
