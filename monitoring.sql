@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2024 at 01:50 AM
+-- Generation Time: Feb 23, 2024 at 02:41 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -65,7 +65,8 @@ CREATE TABLE `data_harian` (
 --
 
 INSERT INTO `data_harian` (`id`, `bulan`, `tahun`, `id_kelas`, `created_at`, `updated_at`) VALUES
-(20, 1, 2024, 19, '2024-02-22 02:07:12', '2024-02-22 02:07:12');
+(21, 2, 2024, 18, '2024-02-23 01:03:47', '2024-02-23 01:03:47'),
+(22, 2, 2024, 19, '2024-02-23 01:04:35', '2024-02-23 01:04:35');
 
 -- --------------------------------------------------------
 
@@ -224,13 +225,6 @@ CREATE TABLE `kunci_monitoring_harian` (
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `kunci_monitoring_harian`
---
-
-INSERT INTO `kunci_monitoring_harian` (`id`, `id_data_harian`, `id_siswa`, `point`, `tanggal`) VALUES
-(8, 20, 4, 100, '2024-01-28');
-
 -- --------------------------------------------------------
 
 --
@@ -254,7 +248,8 @@ CREATE TABLE `monitoring_doa` (
 
 INSERT INTO `monitoring_doa` (`id`, `id_siswa`, `doa`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
 (1, 4, 'Doa masuk masjid', 'lancar', NULL, NULL, NULL, '2024-02-08 03:09:11'),
-(2, 3, 'abc', 'lancar', NULL, NULL, NULL, '2024-02-22 02:12:40');
+(2, 3, 'abc', 'lancar', NULL, NULL, NULL, '2024-02-22 02:12:40'),
+(3, 4, 'Doa makan', 'lancar', NULL, NULL, NULL, '2024-02-23 01:11:19');
 
 -- --------------------------------------------------------
 
@@ -278,7 +273,8 @@ CREATE TABLE `monitoring_hadits` (
 --
 
 INSERT INTO `monitoring_hadits` (`id`, `id_siswa`, `hadits`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(1, 4, 'Hadits tentang marah', 'lancar', NULL, NULL, NULL, '2024-02-08 03:08:12');
+(1, 4, 'Hadits tentang marah', 'lancar', NULL, NULL, NULL, '2024-02-08 03:08:12'),
+(2, 4, 'Hadits Orang Tua', 'lancar', NULL, NULL, NULL, '2024-02-23 01:10:39');
 
 -- --------------------------------------------------------
 
@@ -302,8 +298,10 @@ CREATE TABLE `monitoring_harian` (
 --
 
 INSERT INTO `monitoring_harian` (`id`, `id_siswa`, `id_pertanyaan`, `jawaban`, `tanggal`, `created_by`, `created_at`, `updated_at`) VALUES
-(24, 4, 16, 'ya', '2024-01-28', 2, '2024-02-22 02:16:00', NULL),
-(25, 4, 15, 'sudah semua', '2024-01-28', 2, '2024-02-22 02:16:00', NULL);
+(30, 4, 19, 'ya', '2024-02-23', 2, '2024-02-23 01:15:42', NULL),
+(31, 4, 20, 'membantu menyapu dan mencuci piring', '2024-02-23', 2, '2024-02-23 01:15:42', NULL),
+(32, 4, 19, 'ya', '2024-02-02', 2, '2024-02-23 01:16:35', NULL),
+(33, 4, 20, 'membantu siram tanaman', '2024-02-02', 2, '2024-02-23 01:16:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -328,7 +326,8 @@ CREATE TABLE `monitoring_mahfudhot` (
 
 INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `mahfudhot`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
 (1, 4, 'Mahfudhot orang tua', 'lancar', NULL, NULL, NULL, '2024-02-08 03:06:55'),
-(2, 3, 'abcd', 'lancar', NULL, NULL, NULL, '2024-02-22 02:12:27');
+(2, 3, 'abcd', 'lancar', NULL, NULL, NULL, '2024-02-22 02:12:27'),
+(3, 4, 'mahfudhot sabar', 'lancar', NULL, NULL, NULL, '2024-02-23 01:09:37');
 
 -- --------------------------------------------------------
 
@@ -354,7 +353,8 @@ CREATE TABLE `monitoring_tahfidz` (
 
 INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
 (1, 4, 2, '1-25', 'lancar', NULL, 'terimakasih bu guru', 2, '2024-02-08 03:05:27'),
-(2, 10, 4, '1-20', 'lancar', NULL, NULL, NULL, '2024-02-22 02:12:13');
+(2, 10, 4, '1-20', 'lancar', NULL, NULL, NULL, '2024-02-22 02:12:13'),
+(3, 4, 8, '1-20', 'lancar', NULL, NULL, NULL, '2024-02-23 01:08:17');
 
 -- --------------------------------------------------------
 
@@ -521,8 +521,10 @@ CREATE TABLE `pertanyaan_data_harian` (
 --
 
 INSERT INTO `pertanyaan_data_harian` (`id`, `id_data_harian`, `pertanyaan`, `tipe`, `list_opsi`, `created_at`, `updated_at`) VALUES
-(15, 20, 'aaa', 'isian', NULL, '2024-02-22 02:07:29', NULL),
-(16, 20, 'bbb', 'opsi', '[\"ya\",\"tidak\"]', '2024-02-22 02:07:29', NULL);
+(17, 21, 'apakah sudah mengaji ?', 'opsi', '[\"ya\",\"tidak\"]', '2024-02-23 01:03:47', NULL),
+(18, 21, 'apakah anak membantu orang tua ? apa yang dibantu oleh anak ?', 'isian', NULL, '2024-02-23 01:03:47', NULL),
+(19, 22, 'apakah sudah sholat ?', 'opsi', '[\"ya\",\"tidak\"]', '2024-02-23 01:04:35', NULL),
+(20, 22, 'apa yang dilakukan anak ketika dirumah ?', 'isian', NULL, '2024-02-23 01:04:35', NULL);
 
 -- --------------------------------------------------------
 
@@ -770,7 +772,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'hlZXNCgqHdxCe08EUHqFQQKszsW1CdHw7HV60zKv8elvP37CW0YGsM5ql2zq', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
+(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'nPgQq5otks1woM8p6XMGUXdNnvAaTm55Xm2wL4HEHlK94ixL4rgmfgiOjK3k', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
 (16, 'orang_tua', 'elmahartati@gmail.com', '$2y$10$GSYdp7AvqF0D3RA3B6J1v.Mx4vjCh8ikQ8S68VfJznmpUl97dlOOO', NULL, 2, NULL, '2024-02-22 02:13:37', '2024-02-22 02:14:06'),
 (17, 'orang_tua', 'amalianovitasari@gmail.com', '$2y$10$LLGkgVf6CuALGNO/KgBfSeCDcGvVikcae3yJtquuy7kMAXHS.0WTW', NULL, 6, NULL, '2024-02-22 14:49:30', '2024-02-22 14:49:39'),
 (18, 'orang_tua', 'ekaiswahyudi@gmail.com', '$2y$10$J3Y3x2Mkw6IBu0/JByG/1ejsQ1vYP5FgTeLMvXQEAAnUymrbZYS9W', NULL, 8, NULL, '2024-02-22 14:49:47', '2024-02-22 14:50:33'),
@@ -1075,7 +1077,7 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT for table `data_harian`
 --
 ALTER TABLE `data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `goldar`
@@ -1117,31 +1119,31 @@ ALTER TABLE `kunci_monitoring_harian`
 -- AUTO_INCREMENT for table `monitoring_doa`
 --
 ALTER TABLE `monitoring_doa`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `monitoring_hadits`
 --
 ALTER TABLE `monitoring_hadits`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `monitoring_harian`
 --
 ALTER TABLE `monitoring_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
 --
 ALTER TABLE `monitoring_mahfudhot`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
@@ -1177,7 +1179,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `pertanyaan_data_harian`
 --
 ALTER TABLE `pertanyaan_data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `siswa`
