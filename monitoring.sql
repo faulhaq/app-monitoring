@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 22, 2024 at 03:17 AM
+-- Generation Time: Feb 23, 2024 at 01:50 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -380,8 +380,9 @@ CREATE TABLE `monitoring_tahsin` (
 --
 
 INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(1, 4, 1, 'iqro', 1, 'lancar', NULL, 'terimakasih', NULL, '2023-12-03 11:57:53'),
-(2, 3, 1, 'iqro', 112, 'lancar', NULL, NULL, NULL, '2024-02-22 02:11:58');
+(2, 3, 1, 'iqro', 112, 'lancar', NULL, NULL, NULL, '2024-02-22 02:11:58'),
+(3, 4, 1, 'iqro', 10, 'lancar', NULL, 'Terimakasih', 2, '2024-02-22 15:50:01'),
+(4, 4, 1, 'iqro', 11, 'lancar', NULL, NULL, NULL, '2024-02-22 15:50:24');
 
 -- --------------------------------------------------------
 
@@ -769,8 +770,19 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'Z7PLNGXHFHyHJooPB8Kvm1QOZWyWret4tkhVoyGh78AIZi3qwPBQ1gvtbXEu', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
-(16, 'orang_tua', 'elmahartati@gmail.com', '$2y$10$GSYdp7AvqF0D3RA3B6J1v.Mx4vjCh8ikQ8S68VfJznmpUl97dlOOO', NULL, 2, NULL, '2024-02-22 02:13:37', '2024-02-22 02:14:06');
+(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'hlZXNCgqHdxCe08EUHqFQQKszsW1CdHw7HV60zKv8elvP37CW0YGsM5ql2zq', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
+(16, 'orang_tua', 'elmahartati@gmail.com', '$2y$10$GSYdp7AvqF0D3RA3B6J1v.Mx4vjCh8ikQ8S68VfJznmpUl97dlOOO', NULL, 2, NULL, '2024-02-22 02:13:37', '2024-02-22 02:14:06'),
+(17, 'orang_tua', 'amalianovitasari@gmail.com', '$2y$10$LLGkgVf6CuALGNO/KgBfSeCDcGvVikcae3yJtquuy7kMAXHS.0WTW', NULL, 6, NULL, '2024-02-22 14:49:30', '2024-02-22 14:49:39'),
+(18, 'orang_tua', 'ekaiswahyudi@gmail.com', '$2y$10$J3Y3x2Mkw6IBu0/JByG/1ejsQ1vYP5FgTeLMvXQEAAnUymrbZYS9W', NULL, 8, NULL, '2024-02-22 14:49:47', '2024-02-22 14:50:33'),
+(19, 'orang_tua', 'dadinatsir@gmail.com', '$2y$10$JinI1mLa9Yasi2kIitRlJucjy24NsqEu62GkUqdIsdDPiZV0oGGAe', NULL, 9, NULL, '2024-02-22 14:49:53', '2024-02-22 14:50:43'),
+(20, 'orang_tua', 'purwadiwaluyo@gmail.com', '$2y$10$ydfxUmxwuUz2JsVTtOQghOv3RmFhU50UM73XnNkM8biP4Pt6CBYMq', NULL, 10, NULL, '2024-02-22 14:49:58', '2024-02-22 14:50:50'),
+(21, 'orang_tua', 'entengkuswoyo@gmail.com', '$2y$10$Zo80GEdNfCEdqQRhlrzsWOBJJhKSdQEguAuE1gLYFtcx/bTte7Qm2', NULL, 11, NULL, '2024-02-22 14:50:03', '2024-02-22 14:51:00'),
+(22, 'orang_tua', 'harjasamaulana@gmail.com', '$2y$10$5w2QFHLsR6EG2LZFzgvcLen3jHdZkYI0WVxMn0yCUvRVkgr3BTT/i', NULL, 12, NULL, '2024-02-22 14:50:09', '2024-02-22 14:51:12'),
+(23, 'orang_tua', 'agnesastuti@gmail.com', '$2y$10$ocqG6vyzgVxlb2j1qY.bHuqhKsjqOxX7OpDB.As9kWpE4gniBDqCy', NULL, 13, NULL, '2024-02-22 14:50:15', '2024-02-22 14:51:21'),
+(24, 'orang_tua', 'taniawulandari@gmail.com', '$2y$10$goTzn9DHuOB5dv7m0a/9aOFHZ9mf9KZIpGlZ6Dqr5CWizvflv2pTG', NULL, 14, NULL, '2024-02-22 14:50:20', '2024-02-22 14:51:28'),
+(25, 'orang_tua', 'idawijayanti@gmail.com', '$2y$10$Cto9/B5/d56iUOUCp35qS.neqQ55GEv6NZP8bNQ9eW6xk6QQMZQJS', NULL, 15, NULL, '2024-02-22 14:50:24', '2024-02-22 14:50:24'),
+(26, 'guru', 'ratihwahyuni@gmail.com', '$2y$10$QuE35KcoF3dksHNWdM2nKuFtGg3HY7evsISaKut9HWMolugQz2zM6', 1, NULL, NULL, '2024-02-22 14:51:35', '2024-02-22 14:51:52'),
+(27, 'guru', 'jasminprastuti@gmail.com', '$2y$10$MpSGFwEvhRqmRXxOE2UJQedU3DbuxqI9rZ0HrehJPO3jiqzRO5.3u', 2, NULL, NULL, '2024-02-22 14:51:39', '2024-02-22 14:52:03');
 
 --
 -- Indexes for dumped tables
@@ -1135,7 +1147,7 @@ ALTER TABLE `monitoring_tahfidz`
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`
@@ -1195,7 +1207,7 @@ ALTER TABLE `tahun_ajaran_aktif`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- Constraints for dumped tables
