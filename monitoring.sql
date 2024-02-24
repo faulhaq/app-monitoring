@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 23, 2024 at 02:41 AM
+-- Generation Time: Feb 24, 2024 at 05:43 PM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -341,6 +341,7 @@ CREATE TABLE `monitoring_tahfidz` (
   `id_surah` tinyint(3) UNSIGNED NOT NULL,
   `ayat` varchar(16) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
+  `catatan` varchar(255) DEFAULT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `feedback` text DEFAULT NULL,
   `feedback_by` int(10) UNSIGNED DEFAULT NULL,
@@ -351,10 +352,11 @@ CREATE TABLE `monitoring_tahfidz` (
 -- Dumping data for table `monitoring_tahfidz`
 --
 
-INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(1, 4, 2, '1-25', 'lancar', NULL, 'terimakasih bu guru', 2, '2024-02-08 03:05:27'),
-(2, 10, 4, '1-20', 'lancar', NULL, NULL, NULL, '2024-02-22 02:12:13'),
-(3, 4, 8, '1-20', 'lancar', NULL, NULL, NULL, '2024-02-23 01:08:17');
+INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `catatan`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
+(1, 4, 2, '1-25', 'lancar', NULL, NULL, 'terimakasih bu guru', 2, '2024-02-08 03:05:27'),
+(2, 10, 4, '1-20', 'lancar', NULL, NULL, NULL, NULL, '2024-02-22 02:12:13'),
+(3, 4, 8, '1-20', 'lancar', NULL, NULL, NULL, NULL, '2024-02-23 01:08:17'),
+(4, 3, 2, '1-20', 'lancar', 'bacaan lebih ditata lagi', NULL, NULL, NULL, '2024-02-24 16:42:38');
 
 -- --------------------------------------------------------
 
@@ -367,8 +369,9 @@ CREATE TABLE `monitoring_tahsin` (
   `id_siswa` int(10) UNSIGNED NOT NULL,
   `n` tinyint(3) UNSIGNED NOT NULL,
   `tipe` enum('iqro','juz') NOT NULL,
-  `halaman` smallint(5) NOT NULL,
+  `halaman` varchar(32) NOT NULL,
   `lu` enum('lancar','ulang') NOT NULL,
+  `catatan` varchar(255) DEFAULT NULL,
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `feedback` text DEFAULT NULL,
   `feedback_by` int(10) UNSIGNED DEFAULT NULL,
@@ -379,10 +382,11 @@ CREATE TABLE `monitoring_tahsin` (
 -- Dumping data for table `monitoring_tahsin`
 --
 
-INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
-(2, 3, 1, 'iqro', 112, 'lancar', NULL, NULL, NULL, '2024-02-22 02:11:58'),
-(3, 4, 1, 'iqro', 10, 'lancar', NULL, 'Terimakasih', 2, '2024-02-22 15:50:01'),
-(4, 4, 1, 'iqro', 11, 'lancar', NULL, NULL, NULL, '2024-02-22 15:50:24');
+INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `catatan`, `created_by`, `feedback`, `feedback_by`, `created_at`) VALUES
+(2, 3, 1, 'iqro', '112', 'lancar', NULL, NULL, NULL, NULL, '2024-02-22 02:11:58'),
+(3, 4, 1, 'iqro', '10', 'lancar', NULL, NULL, 'Terimakasih', 2, '2024-02-22 15:50:01'),
+(4, 4, 1, 'iqro', '11', 'lancar', NULL, NULL, NULL, NULL, '2024-02-22 15:50:24'),
+(5, 3, 1, 'iqro', '25', 'lancar', 'bacaan lebih ditata lagi', NULL, NULL, NULL, '2024-02-24 16:41:44');
 
 -- --------------------------------------------------------
 
@@ -1143,13 +1147,13 @@ ALTER TABLE `monitoring_mahfudhot`
 -- AUTO_INCREMENT for table `monitoring_tahfidz`
 --
 ALTER TABLE `monitoring_tahfidz`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`

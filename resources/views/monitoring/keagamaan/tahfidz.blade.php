@@ -27,6 +27,7 @@ $tipe_monitoring = "tahfidz";
                     <th>Surah</th>
                     <th>Ayat</th>
                     <th>Keterangan</th>
+                    <th>Catatan</th>
                     <th>Dibuat Oleh</th>
                     <th>Tanggal</th>
                     <th>Aksi</th>
@@ -39,6 +40,7 @@ $tipe_monitoring = "tahfidz";
                         <td>{{ $v->surah() }}</td>
                         <td>{{ $v->ayat }}</td>
                         <td>{{ $v->lu }}</td>
+                        <td>{{ $v->catatan }}</td>
                         <td>{{ $v->created_by() }}</td>
                         <td>{{ fix_id_dt($v->created_at) }}</td>
                         <td>
@@ -117,6 +119,10 @@ $tipe_monitoring = "tahfidz";
                                     Ulang
                                     </label>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="catatan">Catatan</label>
+                                <input type="text" id="catatan" name="catatan" class="form-control @error('catatan') is-invalid @enderror">
                             </div>
                         </div>
                     </div>

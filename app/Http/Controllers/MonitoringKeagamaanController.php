@@ -197,8 +197,9 @@ class MonitoringKeagamaanController extends Controller
         $r->validate([
             "tipe"       => "required|in:iqro,juz",
             "n"          => "required|integer",
-            "halaman"    => "required|integer",
+            "halaman"    => "required|string",
             "lu"         => "required|in:L,U",
+            "catatan"    => "string",
             "fkelas"     => "required"
         ]);
 
@@ -226,6 +227,7 @@ class MonitoringKeagamaanController extends Controller
             "n"          => $r->n,
             "halaman"    => $r->halaman,
             "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
+            "catatan"    => $r->catatan,
             "created_by" => $created_by
         ]);
         $url = route('monitoring.keagamaan.tahsin')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
@@ -287,6 +289,7 @@ class MonitoringKeagamaanController extends Controller
             "surah"      => "required",
             "ayat"       => "required",
             "lu"         => "required|in:L,U",
+            "catatan"    => "string",
             "fkelas"     => "required"
         ]);
 
@@ -314,6 +317,7 @@ class MonitoringKeagamaanController extends Controller
             "id_surah"   => $r->surah,
             "ayat"       => $r->ayat,
             "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
+            "catatan"    => $r->catatan,
             "created_by" => $created_by
         ]);
         $url = route('monitoring.keagamaan.tahfidz')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;

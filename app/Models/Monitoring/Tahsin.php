@@ -10,7 +10,7 @@ class Tahsin extends Model
 {
     use CreatedByTrait;
 
-    protected $fillable = ['id_siswa', 'n', 'tipe', 'halaman', 'lu', 'feedback', 'feedback_by', 'created_by'];
+    protected $fillable = ['id_siswa', 'n', 'tipe', 'halaman', 'lu', "catatan", 'feedback', 'feedback_by', 'created_by'];
 
     protected $table = 'monitoring_tahsin';
 

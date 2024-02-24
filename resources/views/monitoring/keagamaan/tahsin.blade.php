@@ -27,6 +27,7 @@ $tipe_monitoring = "tahsin";
                     <th>Iqro/Juz</th>
                     <th>Halaman</th>
                     <th>Keterangan</th>
+                    <th>Catatan</th>
                     <th>Dibuat oleh</th>
                     <th>Tanggal</th>
                     <th>Aksi</th>
@@ -39,6 +40,7 @@ $tipe_monitoring = "tahsin";
                         <td>{{ $v->tipe." ".$v->n }}</td>
                         <td>{{ $v->halaman }}</td>
                         <td>{{ $v->lu }}</td>
+                        <td>{{ $v->catatan }}</td>
                         <td>{{ $v->created_by() }}</td>
                         <td>{{ fix_id_dt($v->created_at) }}</td>
                         <td>
@@ -111,7 +113,7 @@ $tipe_monitoring = "tahsin";
                             </div>
                             <div class="form-group">
                                 <label for="halaman">Halaman</label>
-                                <input type="text" id="halaman" name="halaman" onkeypress="return inputAngka(event)" class="form-control @error('halaman') is-invalid @enderror" required>
+                                <input type="text" id="halaman" name="halaman" class="form-control @error('halaman') is-invalid @enderror" required>
                             </div>
                             <div class="form-group">
                                 <label for="lu">Keterangan</label>
@@ -127,6 +129,10 @@ $tipe_monitoring = "tahsin";
                                     Ulang
                                     </label>
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="catatan">Catatan</label>
+                                <input type="text" id="catatan" name="catatan" class="form-control @error('catatan') is-invalid @enderror">
                             </div>
                         </div>
                     </div>
