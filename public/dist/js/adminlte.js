@@ -695,6 +695,8 @@
     $(window).on('load', function () {
       PushMenu._jQueryInterface.call($(Selector.TOGGLE_BUTTON));
     });
+
+
     /**
      * jQuery API
      * ====================================================

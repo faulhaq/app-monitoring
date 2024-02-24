@@ -5,7 +5,7 @@
   <li class="breadcrumb-item active">Monitoring Keagamaan</li>
 @endsection
 @section('content')
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-4 col-12 col-md-6">
         <a href="{{ route('monitoring.keagamaan.tahsin') }}">
         <div class="small-box bg-primary">
             <div class="inner" style="color: #FFFFFF;">
@@ -18,7 +18,7 @@
         </div>
         </a>
     </div>
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-4 col-12 col-md-6">
         <a href="{{ route('monitoring.keagamaan.tahfidz') }}">
         <div class="small-box bg-info">
             <div class="inner" style="color: #FFFFFF;">
@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-4 col-12 col-md-6">
         <a href="{{ route('monitoring.keagamaan.mahfudhot') }}">
         <div class="small-box bg-success">
             <div class="inner" style="color: #FFFFFF;">
@@ -44,7 +44,7 @@
         </div>        
     </div>
 
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-4 col-12 col-md-6">
         <a href="{{ route('monitoring.keagamaan.hadits') }}">
         <div class="small-box bg-warning">
             <div class="inner" style="color: #FFFFFF;">
@@ -57,7 +57,7 @@
         </div>
     </div>
 
-    <div class="col-lg-4 col-6">
+    <div class="col-lg-4 col-12 col-md-6">
         <a href="{{ route('monitoring.keagamaan.doa') }}">
         <div class="small-box bg-secondary">
             <div class="inner" style="color: #FFFFFF;">
