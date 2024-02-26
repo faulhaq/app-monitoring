@@ -9,7 +9,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Auth::routes();
 Route::get('/login/cek_email/json', 'UserController@cek_email');
@@ -126,7 +126,7 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/user', 'UserController');
     });
 
-    Route::middleware(["role:admin"])->group(function() {
+    Route::middleware(["role:admin"])->group(function () {
         Route::post('/admin/pengumuman/simpan', 'PengumumanController@simpan')->name('admin.pengumuman.simpan');
         Route::resource('/pengumuman', 'PengumumanController');
     });

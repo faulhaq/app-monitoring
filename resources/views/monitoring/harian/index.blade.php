@@ -1,15 +1,15 @@
 @extends('template.home')
-@section('heading', 'Dashboard '.Auth::user()->role())
+@section('heading', 'Dashboard ' . Auth::user()->role())
 @section('page')
-  <li class="breadcrumb-item active">Data Monitoring</li>
-  <li class="breadcrumb-item active">Monitoring Harian</li>
+    <li class="breadcrumb-item active">Data Monitoring</li>
+    <li class="breadcrumb-item active">Monitoring Harian</li>
 @endsection
 @section('content')
-    <div class="col-lg-4 col-6">
+    <div class="col-xl-4 ol-md-5 col-sm-6">
         <a href="{{ route('monitoring.harian.index2') }}">
-            <div class="small-box bg-info">
+            <div class="small-box pb-3 bg-info">
                 <div class="inner">
-                    <h3>Monitoring Harian</h3>
+                    <span class="menu-title">Monitoring Harian</span>
                     <p>Kegiatan Harian</p>
                 </div>
                 <div class="icon">
