@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2024 at 05:43 PM
+-- Generation Time: Feb 26, 2024 at 11:32 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -99,7 +99,7 @@ INSERT INTO `goldar` (`id`, `nama`) VALUES
 CREATE TABLE `guru` (
   `id` int(20) UNSIGNED NOT NULL,
   `nik` char(16) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nip` varchar(30) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nsm` char(18) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -122,7 +122,7 @@ CREATE TABLE `guru` (
 -- Dumping data for table `guru`
 --
 
-INSERT INTO `guru` (`id`, `nik`, `nip`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+INSERT INTO `guru` (`id`, `nik`, `nsm`, `nama`, `email`, `jk`, `agama`, `goldar`, `pekerjaan`, `pendidikan`, `telp`, `tmp_lahir`, `tgl_lahir`, `alamat`, `foto`, `status`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, '2582668149791338', NULL, 'Ratih Wahyuni', 'ratihwahyuni@gmail.com', 'P', 1, 4, NULL, NULL, NULL, 'Bantul', '1992-12-12', 'Bantul', NULL, 'aktif', '2024-02-21 13:02:24', NULL, NULL),
 (2, '2363395548413331', NULL, 'Jasmin Prastuti', 'jasminprastuti@gmail.com', 'P', 1, 1, NULL, NULL, NULL, 'Bantul', '1995-02-09', 'Bantul', NULL, 'aktif', '2024-02-21 13:02:24', NULL, NULL);
 
@@ -826,7 +826,7 @@ ALTER TABLE `guru`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `nik` (`nik`),
   ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `nip` (`nip`),
+  ADD UNIQUE KEY `nip` (`nsm`),
   ADD KEY `nama` (`nama`),
   ADD KEY `jk` (`jk`),
   ADD KEY `agama` (`agama`),

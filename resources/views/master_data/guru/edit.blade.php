@@ -22,8 +22,8 @@
                             <input type="text" id="nik" name="nik" value="{{ $guru->nik }}" class="form-control" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="nip">NIP</label>
-                            <input type="text" id="nip" name="nip" value="{{ $guru->nip }}" class="form-control" readonly>
+                            <label for="nsm">NSM</label>
+                            <input type="text" id="nsm" name="nsm" value="{{ $guru->nsm }}" class="form-control" readonly>
                         </div>
                         <div class="form-group">
                             <label for="nama">Nama Guru</label>

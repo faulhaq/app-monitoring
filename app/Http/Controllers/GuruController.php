@@ -42,7 +42,7 @@ class GuruController extends Controller
         $uq = ($must_be_unique ? "|unique:guru" : "");
         $r->validate([
             'nik'           => 'required|digits:16'.$uq,
-            'nip'           => 'max:30'.$uq,
+            'nsm'           => 'max:18'.$uq,
             'nama'          => 'required|max:255',
             'email'         => 'required|max:255|'.$uq,
             'jk'            => 'required|in:L,P',
@@ -78,7 +78,7 @@ class GuruController extends Controller
 
         Guru::create([
             'nik'        => $r->nik,
-            'nip'        => $r->nip,
+            'nsm'        => $r->nsm,
             'nama'       => $r->nama,
             'email'      => $r->email,
             'jk'         => $r->jk,
@@ -150,7 +150,7 @@ class GuruController extends Controller
 
         $data = [
             'nik'        => $r->nik,
-            'nip'        => $r->nip,
+            'nsm'        => $r->nsm,
             'nama'       => $r->nama,
             'email'      => $r->email,
             'jk'         => $r->jk,
