@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use URL;
-use Auth;
-use Illuminate\Support\Facades\Crypt;
-use Illuminate\Http\Request;
-use App\Models\Master\Siswa;
 use App\Models\Master\Kelas;
-use App\Models\Master\TahunAjaran;
-use App\Models\Monitoring\Tahsin;
-use App\Models\Monitoring\Mahfudhot;
-use App\Models\Monitoring\Hadits;
-use App\Models\Monitoring\Doa;
-use App\Models\Monitoring\Tahfidz;
 use App\Models\Master\OrangTua;
-use App\Models\Master\Guru;
+use App\Models\Master\Siswa;
+use App\Models\Master\TahunAjaran;
+use App\Models\Monitoring\Doa;
+use App\Models\Monitoring\Hadits;
+use App\Models\Monitoring\Mahfudhot;
+use App\Models\Monitoring\Tahfidz;
+use App\Models\Monitoring\Tahsin;
+use Auth;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use URL;
 
 class MonitoringKeagamaanController extends Controller
 {
@@ -23,12 +22,12 @@ class MonitoringKeagamaanController extends Controller
     {
         $r->validate([
             "tipe_monitoring" => "required|in:tahsin,mahfudhot,hadits,doa,tahfidz",
-            "data_id"         => "required|integer",
-            "feedback"        => "required",
+            "data_id" => "required|integer",
+            "feedback" => "required",
         ]);
 
         $user = Auth::user();
-        $data = NULL;
+        $data = null;
         if ($user->role === "orang_tua") {
             $orang_tua = OrangTua::find($user->id_orang_tua);
             if (!$orang_tua) {
@@ -75,7 +74,7 @@ class MonitoringKeagamaanController extends Controller
 
         $data->update([
             "feedback_by" => $feedback_by,
-            "feedback"    => $r->feedback
+            "feedback" => $r->feedback,
         ]);
 
         return redirect(URL::previous())->with('success', 'Berhasil mengirimkan feedback');
@@ -83,35 +82,46 @@ class MonitoringKeagamaanController extends Controller
 
     public function index()
     {
-        return view("monitoring.keagamaan.index");
+        $menu = [
+            "Tahsin" => "bg-primary",
+            "Tahfidz" => "bg-info",
+            "Mahfudhot" => "bg-success",
+            "Hadits" => "bg-warning",
+            "Doa" => "bg-secondary",
+        ];
+
+        return view("monitoring.keagamaan.index", compact("menu"));
     }
 
     public function get_created_by()
     {
         $user = Auth::user();
-        if ($user->role === "admin")
-            return NULL;
+        if ($user->role === "admin") {
+            return null;
+        }
 
-        if ($user->role === "guru")
+        if ($user->role === "guru") {
             return $user->id;
+        }
 
         abort(404);
-        return NULL;
+        return null;
     }
 
     private function get_kelas($user)
     {
-        if ($user->role !== "orang_tua")
+        if ($user->role !== "orang_tua") {
             return Kelas::get();
+        }
 
-        return NULL;
+        return null;
     }
 
     /*
      * Pengisian variable $siswa terdapat 2 kondisi:
      * 1. Ketika $user->role !== "orang_tua":
      *    Tampilkan semua siswa (hanya ketika $fkelas !== "all").
-     * 
+     *
      * 2. Ketika $user->role === "orang_tua":
      *    Tampilkan semua siswa yang memiliki id_kk sama dengan
      *    orang tua.
@@ -123,16 +133,16 @@ class MonitoringKeagamaanController extends Controller
 
             if ($user->role !== "orang_tua") {
                 $siswa = $siswa
-                        ->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
-                        ->where("kelas_siswa.id_kelas", $fkelas);
+                    ->join("kelas_siswa", "siswa.id", "kelas_siswa.id_siswa")
+                    ->where("kelas_siswa.id_kelas", $fkelas);
             }
 
             if ($user->role === "orang_tua") {
                 $siswa = $siswa
-                            ->join("kk", "kk.id", "siswa.id_kk")
-                            ->join("orang_tua", "kk.id", "orang_tua.id_kk")
-                            ->join("users", "orang_tua.id", "users.id_orang_tua")
-                            ->where("users.id", $user->id);
+                    ->join("kk", "kk.id", "siswa.id_kk")
+                    ->join("orang_tua", "kk.id", "orang_tua.id_kk")
+                    ->join("users", "orang_tua.id", "users.id_orang_tua")
+                    ->where("users.id", $user->id);
             }
 
             $siswa = $siswa->get();
@@ -144,12 +154,11 @@ class MonitoringKeagamaanController extends Controller
 
     public function tahsin()
     {
-        $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
-        $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
+        $fkelas = is_string($_GET["fkelas"] ?? null) ? $_GET["fkelas"] : null;
+        $fsiswa = is_string($_GET["fsiswa"] ?? null) ? $_GET["fsiswa"] : null;
         $user = Auth::user();
         $kelas = $this->get_kelas($user);
         $siswa = $this->get_siswa($fkelas, $user);
-        
 
         if ($fkelas && $fsiswa) {
             $sel_siswa = Siswa::find($fsiswa);
@@ -158,19 +167,19 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $tahsin = Tahsin::where("id_siswa", $fsiswa)
-                            ->orderBy("created_at", "desc")->get();
+                ->orderBy("created_at", "desc")->get();
         } else {
-            $sel_siswa = NULL;
+            $sel_siswa = null;
             $tahsin = [];
             if ($user->role === "orang_tua" && count($siswa) == 1) {
-                return redirect(route("monitoring.keagamaan.tahsin")."?fkelas=-1&fsiswa={$siswa[0]->id}");
+                return redirect(route("monitoring.keagamaan.tahsin") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
         }
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.tahsin",
-                    compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                            "tahsin", "siswa", "sel_siswa"));
+            compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
+                "tahsin", "siswa", "sel_siswa"));
     }
 
     public function tahsin_destroy($id)
@@ -178,13 +187,13 @@ class MonitoringKeagamaanController extends Controller
         $id = Crypt::decrypt($id);
         if (!$id) {
             abort(404);
-            return NULL;
+            return null;
         }
 
         $tahsin = Tahsin::find($id);
         if (!$tahsin) {
             abort(404);
-            return NULL;
+            return null;
         }
 
         $tahsin->delete();
@@ -195,12 +204,12 @@ class MonitoringKeagamaanController extends Controller
     public function tahsin_store(Request $r, $id_siswa)
     {
         $r->validate([
-            "tipe"       => "required|in:iqro,juz",
-            "n"          => "required|integer",
-            "halaman"    => "required|string",
-            "lu"         => "required|in:L,U",
-            "catatan"    => "string",
-            "fkelas"     => "required"
+            "tipe" => "required|in:iqro,juz",
+            "n" => "required|integer",
+            "halaman" => "required|string",
+            "lu" => "required|in:L,U",
+            "catatan" => "string",
+            "fkelas" => "required",
         ]);
 
         $fkelas = Crypt::decrypt($r->fkelas);
@@ -223,21 +232,21 @@ class MonitoringKeagamaanController extends Controller
 
         $created_by = $this->get_created_by();
         Tahsin::store([
-            "id_siswa"   => $id_siswa,
-            "n"          => $r->n,
-            "halaman"    => $r->halaman,
-            "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
-            "catatan"    => $r->catatan,
-            "created_by" => $created_by
+            "id_siswa" => $id_siswa,
+            "n" => $r->n,
+            "halaman" => $r->halaman,
+            "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
+            "catatan" => $r->catatan,
+            "created_by" => $created_by,
         ]);
-        $url = route('monitoring.keagamaan.tahsin')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        $url = route('monitoring.keagamaan.tahsin') . "?fkelas=" . $fkelas . "&fsiswa=" . $id_siswa;
         return redirect($url)->with('success', 'Berhasil menambahkan data tahsin!');
     }
 
     public function tahfidz()
     {
-        $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
-        $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
+        $fkelas = is_string($_GET["fkelas"] ?? null) ? $_GET["fkelas"] : null;
+        $fsiswa = is_string($_GET["fsiswa"] ?? null) ? $_GET["fsiswa"] : null;
         $user = Auth::user();
         $kelas = $this->get_kelas($user);
         $siswa = $this->get_siswa($fkelas, $user);
@@ -249,19 +258,19 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $tahfidz = Tahfidz::where("id_siswa", $fsiswa)
-                                ->orderBy("created_at", "desc")->get();
+                ->orderBy("created_at", "desc")->get();
         } else {
-            $sel_siswa = NULL;
+            $sel_siswa = null;
             $tahfidz = [];
             if ($user->role === "orang_tua" && count($siswa) == 1) {
-                return redirect(route("monitoring.keagamaan.tahfidz")."?fkelas=-1&fsiswa={$siswa[0]->id}");
+                return redirect(route("monitoring.keagamaan.tahfidz") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
         }
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.tahfidz",
-                    compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                            "tahfidz", "siswa", "sel_siswa"));
+            compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
+                "tahfidz", "siswa", "sel_siswa"));
     }
 
     public function tahfidz_destroy($id)
@@ -269,13 +278,13 @@ class MonitoringKeagamaanController extends Controller
         $id = Crypt::decrypt($id);
         if (!$id) {
             abort(404);
-            return NULL;
+            return null;
         }
 
         $tahfidz = Tahfidz::find($id);
         if (!$tahfidz) {
             abort(404);
-            return NULL;
+            return null;
         }
 
         $tahfidz->delete();
@@ -286,11 +295,11 @@ class MonitoringKeagamaanController extends Controller
     public function tahfidz_store(Request $r, $id_siswa)
     {
         $r->validate([
-            "surah"      => "required",
-            "ayat"       => "required",
-            "lu"         => "required|in:L,U",
-            "catatan"    => "string",
-            "fkelas"     => "required"
+            "surah" => "required",
+            "ayat" => "required",
+            "lu" => "required|in:L,U",
+            "catatan" => "string",
+            "fkelas" => "required",
         ]);
 
         $fkelas = Crypt::decrypt($r->fkelas);
@@ -313,21 +322,21 @@ class MonitoringKeagamaanController extends Controller
 
         $created_by = $this->get_created_by();
         Tahfidz::store([
-            "id_siswa"   => $id_siswa,
-            "id_surah"   => $r->surah,
-            "ayat"       => $r->ayat,
-            "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
-            "catatan"    => $r->catatan,
-            "created_by" => $created_by
+            "id_siswa" => $id_siswa,
+            "id_surah" => $r->surah,
+            "ayat" => $r->ayat,
+            "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
+            "catatan" => $r->catatan,
+            "created_by" => $created_by,
         ]);
-        $url = route('monitoring.keagamaan.tahfidz')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        $url = route('monitoring.keagamaan.tahfidz') . "?fkelas=" . $fkelas . "&fsiswa=" . $id_siswa;
         return redirect($url)->with('success', 'Berhasil menambahkan data tahfidz!');
     }
 
     public function mahfudhot()
     {
-        $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
-        $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
+        $fkelas = is_string($_GET["fkelas"] ?? null) ? $_GET["fkelas"] : null;
+        $fsiswa = is_string($_GET["fsiswa"] ?? null) ? $_GET["fsiswa"] : null;
         $user = Auth::user();
         $kelas = $this->get_kelas($user);
         $siswa = $this->get_siswa($fkelas, $user);
@@ -339,19 +348,19 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $mahfudhot = Mahfudhot::where("id_siswa", $fsiswa)
-                                ->orderBy("created_at", "desc")->get();
+                ->orderBy("created_at", "desc")->get();
         } else {
-            $sel_siswa = NULL;
+            $sel_siswa = null;
             $mahfudhot = [];
             if ($user->role === "orang_tua" && count($siswa) == 1) {
-                return redirect(route("monitoring.keagamaan.mahfudhot")."?fkelas=-1&fsiswa={$siswa[0]->id}");
+                return redirect(route("monitoring.keagamaan.mahfudhot") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
         }
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.mahfudhot",
-                    compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                            "mahfudhot", "siswa", "sel_siswa"));
+            compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
+                "mahfudhot", "siswa", "sel_siswa"));
     }
 
     public function mahfudhot_destroy($id)
@@ -359,13 +368,13 @@ class MonitoringKeagamaanController extends Controller
         $id = Crypt::decrypt($id);
         if (!$id) {
             abort(404);
-            return NULL;
+            return null;
         }
 
         $mahfudhot = Mahfudhot::find($id);
         if (!$mahfudhot) {
             abort(404);
-            return NULL;
+            return null;
         }
 
         $mahfudhot->delete();
@@ -376,9 +385,9 @@ class MonitoringKeagamaanController extends Controller
     public function mahfudhot_store(Request $r, $id_siswa)
     {
         $r->validate([
-            "mahfudhot"  => "required",
-            "lu"         => "required|in:L,U",
-            "fkelas"     => "required"
+            "mahfudhot" => "required",
+            "lu" => "required|in:L,U",
+            "fkelas" => "required",
         ]);
 
         $fkelas = Crypt::decrypt($r->fkelas);
@@ -401,19 +410,19 @@ class MonitoringKeagamaanController extends Controller
 
         $created_by = $this->get_created_by();
         Mahfudhot::store([
-            "id_siswa"   => $id_siswa,
-            "mahfudhot"  => $r->mahfudhot,
-            "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
-            "created_by" => $created_by
+            "id_siswa" => $id_siswa,
+            "mahfudhot" => $r->mahfudhot,
+            "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
+            "created_by" => $created_by,
         ]);
-        $url = route('monitoring.keagamaan.mahfudhot')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        $url = route('monitoring.keagamaan.mahfudhot') . "?fkelas=" . $fkelas . "&fsiswa=" . $id_siswa;
         return redirect($url)->with('success', 'Berhasil menambahkan data mahfudhot!');
     }
 
     public function hadits()
     {
-        $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
-        $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
+        $fkelas = is_string($_GET["fkelas"] ?? null) ? $_GET["fkelas"] : null;
+        $fsiswa = is_string($_GET["fsiswa"] ?? null) ? $_GET["fsiswa"] : null;
         $user = Auth::user();
         $kelas = $this->get_kelas($user);
         $siswa = $this->get_siswa($fkelas, $user);
@@ -425,19 +434,19 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $hadits = Hadits::where("id_siswa", $fsiswa)
-                            ->orderBy("created_at", "desc")->get();
+                ->orderBy("created_at", "desc")->get();
         } else {
-            $sel_siswa = NULL;
+            $sel_siswa = null;
             $hadits = [];
             if ($user->role === "orang_tua" && count($siswa) == 1) {
-                return redirect(route("monitoring.keagamaan.hadits")."?fkelas=-1&fsiswa={$siswa[0]->id}");
+                return redirect(route("monitoring.keagamaan.hadits") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
         }
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.hadits",
-                    compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                            "hadits", "siswa", "sel_siswa"));
+            compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
+                "hadits", "siswa", "sel_siswa"));
     }
 
     public function hadits_destroy($id)
@@ -445,13 +454,13 @@ class MonitoringKeagamaanController extends Controller
         $id = Crypt::decrypt($id);
         if (!$id) {
             abort(404);
-            return NULL;
+            return null;
         }
 
         $hadits = Hadits::find($id);
         if (!$hadits) {
             abort(404);
-            return NULL;
+            return null;
         }
 
         $hadits->delete();
@@ -462,9 +471,9 @@ class MonitoringKeagamaanController extends Controller
     public function hadits_store(Request $r, $id_siswa)
     {
         $r->validate([
-            "hadits"  => "required",
-            "lu"         => "required|in:L,U",
-            "fkelas"     => "required"
+            "hadits" => "required",
+            "lu" => "required|in:L,U",
+            "fkelas" => "required",
         ]);
 
         $fkelas = Crypt::decrypt($r->fkelas);
@@ -487,19 +496,19 @@ class MonitoringKeagamaanController extends Controller
 
         $created_by = $this->get_created_by();
         Hadits::store([
-            "id_siswa"   => $id_siswa,
-            "hadits"  => $r->hadits,
-            "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
-            "created_by" => $created_by
+            "id_siswa" => $id_siswa,
+            "hadits" => $r->hadits,
+            "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
+            "created_by" => $created_by,
         ]);
-        $url = route('monitoring.keagamaan.hadits')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        $url = route('monitoring.keagamaan.hadits') . "?fkelas=" . $fkelas . "&fsiswa=" . $id_siswa;
         return redirect($url)->with('success', 'Berhasil menambahkan data hadits!');
     }
 
     public function doa()
     {
-        $fkelas = is_string($_GET["fkelas"] ?? NULL) ? $_GET["fkelas"] : NULL;
-        $fsiswa = is_string($_GET["fsiswa"] ?? NULL) ? $_GET["fsiswa"] : NULL;
+        $fkelas = is_string($_GET["fkelas"] ?? null) ? $_GET["fkelas"] : null;
+        $fsiswa = is_string($_GET["fsiswa"] ?? null) ? $_GET["fsiswa"] : null;
         $user = Auth::user();
         $kelas = $this->get_kelas($user);
         $siswa = $this->get_siswa($fkelas, $user);
@@ -511,19 +520,19 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $doa = Doa::where("id_siswa", $fsiswa)
-                        ->orderBy("created_at", "desc")->get();
+                ->orderBy("created_at", "desc")->get();
         } else {
-            $sel_siswa = NULL;
+            $sel_siswa = null;
             $doa = [];
             if ($user->role === "orang_tua" && count($siswa) == 1) {
-                return redirect(route("monitoring.keagamaan.doa")."?fkelas=-1&fsiswa={$siswa[0]->id}");
+                return redirect(route("monitoring.keagamaan.doa") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
         }
 
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.doa",
-                    compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                            "doa", "siswa", "sel_siswa"));
+            compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
+                "doa", "siswa", "sel_siswa"));
     }
 
     public function doa_destroy($id)
@@ -531,13 +540,13 @@ class MonitoringKeagamaanController extends Controller
         $id = Crypt::decrypt($id);
         if (!$id) {
             abort(404);
-            return NULL;
+            return null;
         }
 
         $doa = Doa::find($id);
         if (!$doa) {
             abort(404);
-            return NULL;
+            return null;
         }
 
         $doa->delete();
@@ -548,9 +557,9 @@ class MonitoringKeagamaanController extends Controller
     public function doa_store(Request $r, $id_siswa)
     {
         $r->validate([
-            "doa"        => "required",
-            "lu"         => "required|in:L,U",
-            "fkelas"     => "required"
+            "doa" => "required",
+            "lu" => "required|in:L,U",
+            "fkelas" => "required",
         ]);
 
         $fkelas = Crypt::decrypt($r->fkelas);
@@ -573,17 +582,13 @@ class MonitoringKeagamaanController extends Controller
 
         $created_by = $this->get_created_by();
         Doa::store([
-            "id_siswa"   => $id_siswa,
-            "doa"        => $r->doa,
-            "lu"         => ($r->lu === "L" ? "lancar" : "ulang"),
-            "created_by" => $created_by
+            "id_siswa" => $id_siswa,
+            "doa" => $r->doa,
+            "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
+            "created_by" => $created_by,
         ]);
-        $url = route('monitoring.keagamaan.doa')."?fkelas=".$fkelas."&fsiswa=".$id_siswa;
+        $url = route('monitoring.keagamaan.doa') . "?fkelas=" . $fkelas . "&fsiswa=" . $id_siswa;
         return redirect($url)->with('success', 'Berhasil menambahkan data doa!');
     }
 
-
 }
-
-
-

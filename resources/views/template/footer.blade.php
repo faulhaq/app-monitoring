@@ -1,6 +1,6 @@
     <footer class="main-footer">
         <marquee>
-            <strong>Copyright &copy; <script>document.write(new Date().getFullYear());</script> MI Nurrohmah Bina Insani. </strong> 
+            <strong>Copyright &copy; <script>document.write(new Date().getFullYear());</script> MI Nurrohmah Bina Insani. </strong>
         </marquee>
     </footer>
 
@@ -106,7 +106,7 @@
         }
         return true;
     }
-    
+
     $(document).on('click', '[data-toggle="lightbox"]', function(event) {
         event.preventDefault();
         $(this).ekkoLightbox({
@@ -115,7 +115,9 @@
     });
 
     $(function () {
-        $("#example1").DataTable();
+        $("#example1").DataTable({
+            responsive: true,
+        });
         $('#example2').DataTable({
             "paging": false,
             "lengthChange": false,
@@ -125,7 +127,7 @@
             "autoWidth": true,
         });
     });
-    
+
     $(document).ready(function () {
         bsCustomFileInput.init();
     });
@@ -179,7 +181,7 @@
         $('#timepicker').datetimepicker({
         format: 'LT'
         })
-        
+
         //Bootstrap Duallistbox
         $('.duallistbox').bootstrapDualListbox()
 
@@ -203,7 +205,7 @@
         showConfirmButton: false,
         timer: 3000
     });
-    
+
     $(function () {
         $('.textarea').summernote()
     })

@@ -1,74 +1,26 @@
 @extends('template.home')
-@section('heading', 'Dashboard '.Auth::user()->role())
+@section('heading', 'Dashboard ' . Auth::user()->role())
 @section('page')
-  <li class="breadcrumb-item active">Data Monitoring</li>
-  <li class="breadcrumb-item active">Monitoring Keagamaan</li>
+    <li class="breadcrumb-item active">Data Monitoring</li>
+    <li class="breadcrumb-item active">Monitoring Keagamaan</li>
 @endsection
 @section('content')
-    <div class="col-lg-4 col-12 col-md-6">
-        <a href="{{ route('monitoring.keagamaan.tahsin') }}">
-        <div class="small-box bg-primary">
-            <div class="inner" style="color: #FFFFFF;">
-                <h3> Monitoring Tahsin </h3>
-                <p>Tahsin</p>
-            </div>
-            <div class="icon">
-                <i class="nav-icon fas fa-clipboard"></i>
-            </div>
-        </div>
-        </a>
-    </div>
-    <div class="col-lg-4 col-12 col-md-6">
-        <a href="{{ route('monitoring.keagamaan.tahfidz') }}">
-        <div class="small-box bg-info">
-            <div class="inner" style="color: #FFFFFF;">
-                <h3> Monitoring Tahfidz </h3>
-                <p>Tahfidz</p>
-            </div>
-            <div class="icon">
-                <i class="nav-icon fas fa-clipboard"></i>
-            </div>
-        </div>
-    </div>
 
-    <div class="col-lg-4 col-12 col-md-6">
-        <a href="{{ route('monitoring.keagamaan.mahfudhot') }}">
-        <div class="small-box bg-success">
-            <div class="inner" style="color: #FFFFFF;">
-                <h3> Monitoring Mahfudhot </h3>
-                <p>Mahfudhot</p>
-            </div>
-            <div class="icon">
-                <i class="nav-icon fas fa-clipboard"></i>
-            </div>
-        </div>        
-    </div>
-
-    <div class="col-lg-4 col-12 col-md-6">
-        <a href="{{ route('monitoring.keagamaan.hadits') }}">
-        <div class="small-box bg-warning">
-            <div class="inner" style="color: #FFFFFF;">
-                <h3> Monitoring Hadits </h3>
-                <p>Hadits</p>
-            </div>
-            <div class="icon">
-                <i class="nav-icon fas fa-clipboard"></i>
-            </div>
+    @foreach ($menu as $item => $variant)
+        <div class="col-xl-4 ol-md-5 col-sm-6">
+            <a href="{{ route('monitoring.keagamaan.' . strtolower($item)) }}">
+                <div class="small-box pb-3 {{ $variant }}">
+                    <div class="inner" style="color: #FFFFFF;">
+                        <span class="menu-title"> Monitoring {{ $item }} </span>
+                        <p>{{ $item }}</p>
+                    </div>
+                    <div class="icon">
+                        <i class="nav-icon fas fa-clipboard"></i>
+                    </div>
+                </div>
+            </a>
         </div>
-    </div>
-
-    <div class="col-lg-4 col-12 col-md-6">
-        <a href="{{ route('monitoring.keagamaan.doa') }}">
-        <div class="small-box bg-secondary">
-            <div class="inner" style="color: #FFFFFF;">
-                <h3> Monitoring Doa </h3>
-                <p>Doa</p>
-            </div>
-            <div class="icon">
-                <i class="nav-icon fas fa-clipboard"></i>
-            </div>
-        </div>
-    </div>
+    @endforeach
 
 @endsection
 @section('script')

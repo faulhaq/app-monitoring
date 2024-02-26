@@ -50,53 +50,8 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="shrotcut icon" href="{{ asset('img/Logomi.png') }}">
-    <style>
-        .ctr {
-            text-align: center !important;
-        }
-        
-        thead > tr > th, tbody > tr > td{
-            vertical-align: middle !important;
-        }
 
-        td> input.form-control{
-            width: 60px !important;
-            padding: 8px !important;
-            box-shadow: none !important;
-        }
-
-        input[name=predikat]{
-            align-items: center;
-            width:60px !important;
-            background:#fff !important;
-            box-shadow: none !important;
-        }
-
-        input[disabled],input[disabled]:hover{
-            cursor: default !important;
-            border:none !important;
-        }
-        
-        .textarea-rapot{
-            font-size:11px !important;
-            background: #fff !important;
-            border:none !important;
-            font-size: 11px !important;
-            cursor: default !important;
-        }
-
-        @media (min-width: 768px) {
-            .img-details {
-                margin-left: 40px;
-            }
-            .btn-details {
-                margin-top: 28px !important;
-            }
-            .btn-details-siswa {
-                margin-top: 175px !important;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset("css/style.css") }}" />
 </head>
 <!-- sidebar-collapse -->
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed sidebar-open">
@@ -124,14 +79,14 @@
         </div><!-- /.container-fluid -->
         </div>
         <!-- /.content-header -->
-        
+
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
                 <div class="row">
                     @yield('content')
                 </div>
-                
+
                 <!-- end of class row -->
             </div><!-- /.container-fluid -->
         </section>
