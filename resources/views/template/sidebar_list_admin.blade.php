@@ -108,7 +108,7 @@
         <li class="nav-item">
             <a href="{{ route('harian.index') }}" class="nav-link" id="DataHarian">
                 <i class="nav-icon fas fa-clipboard"></i>
-                <p>Data Monitoring Harian</p>
+                <p style="font-size:15px;">Data Monitoring Harian</p>
             </a>
         </li>
         <li class="nav-item">
