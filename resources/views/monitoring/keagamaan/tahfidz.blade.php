@@ -42,7 +42,7 @@
                                 <td>{{ $v->lu }}</td>
                                 <td>{{ $v->catatan }}</td>
                                 <td>{{ $v->created_by() }}</td>
-                                <td>{{ fix_id_dt($v->created_at) }}</td>
+                                <td>{{ $v->tanggal }}</td>
                                 <td>
                                     <form class="d-flex flex-col"
                                         action="{{ route('monitoring.keagamaan.tahfidz.destroy', Crypt::encrypt($v->id)) }}"
@@ -135,6 +135,11 @@
                                     <label for="catatan">Catatan</label>
                                     <input type="text" id="catatan" name="catatan"
                                         class="form-control @error('catatan') is-invalid @enderror">
+                                </div>
+                                <div class="form-group">
+                                    <label for="tanggal">Tanggal</label>
+                                    <input type="date" id="tanggal" name="tanggal" value="{{ now()->toDateString('Y-m-d') }}" max="{{ now()->toDateString('Y-m-d') }}"
+                                        class="form-control @error('filter_tanggal') is-invalid @enderror" required>
                                 </div>
                             </div>
                         </div>

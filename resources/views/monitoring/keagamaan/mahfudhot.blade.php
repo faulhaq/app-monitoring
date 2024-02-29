@@ -38,7 +38,7 @@
                                 <td>{{ $v->mahfudhot }}</td>
                                 <td>{{ $v->lu }}</td>
                                 <td>{{ $v->created_by() }}</td>
-                                <td>{{ fix_id_dt($v->created_at) }}</td>
+                                <td>{{ $v->tanggal }}</td>
                                 <td>
                                     <form
                                         action="{{ route('monitoring.keagamaan.mahfudhot.destroy', Crypt::encrypt($v->id)) }}"
@@ -115,6 +115,11 @@
                                         <label class="form-check-label" for="luu">
                                             Ulang
                                         </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="tanggal">Tanggal</label>
+                                        <input type="date" id="tanggal" name="tanggal" value="{{ now()->toDateString('Y-m-d') }}" max="{{ now()->toDateString('Y-m-d') }}"
+                                            class="form-control @error('filter_tanggal') is-invalid @enderror" required>
                                     </div>
                                 </div>
                             </div>
