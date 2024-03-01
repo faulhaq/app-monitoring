@@ -167,7 +167,7 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $tahsin = Tahsin::where("id_siswa", $fsiswa)
-                ->orderBy("created_at", "desc")->get();
+                ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
             $tahsin = [];
@@ -260,7 +260,7 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $tahfidz = Tahfidz::where("id_siswa", $fsiswa)
-                ->orderBy("created_at", "desc")->get();
+                ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
             $tahfidz = [];
@@ -352,7 +352,7 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $mahfudhot = Mahfudhot::where("id_siswa", $fsiswa)
-                ->orderBy("created_at", "desc")->get();
+                ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
             $mahfudhot = [];
@@ -440,7 +440,7 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $hadits = Hadits::where("id_siswa", $fsiswa)
-                ->orderBy("created_at", "desc")->get();
+                ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
             $hadits = [];
@@ -528,7 +528,7 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $doa = Doa::where("id_siswa", $fsiswa)
-                ->orderBy("created_at", "desc")->get();
+                ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
             $doa = [];
