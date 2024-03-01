@@ -19,7 +19,7 @@
                 <div class="col-md-1 mb-4"></div>
                 <div class="col-md-7">
                     <h5 class="card-title card-text mb-2">NIK : {{ $guru->nik }}</h5>
-                    <h5 class="card-title card-text mb-2">NIP : {{ $guru->nip }}</h5>
+                    <h5 class="card-title card-text mb-2">NSM : {{ $guru->nsm }}</h5>
                     <h5 class="card-title card-text mb-2">Nama : {{ $guru->nama }}</h5>
                     <h5 class="card-title card-text mb-2">Tempat Lahir : {{ $guru->tmp_lahir }}</h5>
                     <h5 class="card-title card-text mb-2">Tanggal Lahir : {{ fix_id_d($guru->tgl_lahir) }}</h5>

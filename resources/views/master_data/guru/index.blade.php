@@ -95,10 +95,10 @@
                                         class="form-control @error('nik') is-invalid @enderror">
                                 </div>
                                 <div class="form-group">
-                                    <label for="nip">NIP</label>
-                                    <input type="text" id="nip" name="nip"
+                                    <label for="nsm">NSM</label>
+                                    <input type="text" id="nsm" name="nsm"
                                         onkeypress="return inputAngka(event)"
-                                        class="form-control @error('nip') is-invalid @enderror">
+                                        class="form-control @error('nsm') is-invalid @enderror">
                                 </div>
                                 <div class="form-group">
                                     <label for="nama">Nama Guru</label>

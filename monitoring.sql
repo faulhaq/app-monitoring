@@ -109,7 +109,7 @@ DROP TABLE IF EXISTS `guru`;
 CREATE TABLE `guru` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `nik` char(16) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-  `nip` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `nsm` char(18) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `nama` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `jk` enum('L','P') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -129,7 +129,7 @@ CREATE TABLE `guru` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `nik` (`nik`),
   UNIQUE KEY `email` (`email`),
-  UNIQUE KEY `nip` (`nip`),
+  UNIQUE KEY `nip` (`nsm`),
   KEY `nama` (`nama`),
   KEY `jk` (`jk`),
   KEY `agama` (`agama`),
@@ -314,11 +314,12 @@ CREATE TABLE `monitoring_doa` (
   KEY `created_by` (`created_by`),
   KEY `created_at` (`created_at`),
   KEY `feedback_by` (`feedback_by`),
+  KEY `tanggal` (`tanggal`),
   FULLTEXT KEY `feedback` (`feedback`),
   CONSTRAINT `monitoring_doa_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `monitoring_doa_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `monitoring_doa_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -354,11 +355,12 @@ CREATE TABLE `monitoring_hadits` (
   KEY `created_by` (`created_by`),
   KEY `created_at` (`created_at`),
   KEY `feedback_by` (`feedback_by`),
+  KEY `tanggal` (`tanggal`),
   FULLTEXT KEY `feedback` (`feedback`),
   CONSTRAINT `monitoring_hadits_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `monitoring_hadits_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `monitoring_hadits_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -434,11 +436,12 @@ CREATE TABLE `monitoring_mahfudhot` (
   KEY `created_by` (`created_by`),
   KEY `created_at` (`created_at`),
   KEY `feedback_by` (`feedback_by`),
+  KEY `tanggal` (`tanggal`),
   FULLTEXT KEY `feedback` (`feedback`),
   CONSTRAINT `monitoring_mahfudhot_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `monitoring_mahfudhot_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `monitoring_mahfudhot_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -476,12 +479,13 @@ CREATE TABLE `monitoring_tahfidz` (
   KEY `created_by` (`created_by`),
   KEY `created_at` (`created_at`),
   KEY `feedback_by` (`feedback_by`),
+  KEY `tanggal` (`tanggal`),
   FULLTEXT KEY `feedback` (`feedback`),
   CONSTRAINT `monitoring_tahfidz_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `monitoring_tahfidz_ibfk_2` FOREIGN KEY (`id_surah`) REFERENCES `surah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `monitoring_tahfidz_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `monitoring_tahfidz_ibfk_4` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -511,7 +515,7 @@ CREATE TABLE `monitoring_tahsin` (
   `created_by` int unsigned DEFAULT NULL,
   `feedback` text,
   `feedback_by` int unsigned DEFAULT NULL,
-  `tanggal` date DEFAULT NULL,
+  `tanggal` date NOT NULL,
   `created_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `id_siswa` (`id_siswa`),
@@ -521,11 +525,12 @@ CREATE TABLE `monitoring_tahsin` (
   KEY `created_by` (`created_by`),
   KEY `created_at` (`created_at`),
   KEY `feedback_by` (`feedback_by`),
+  KEY `tanggal` (`tanggal`),
   FULLTEXT KEY `feedback` (`feedback`),
   CONSTRAINT `monitoring_tahsin_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `monitoring_tahsin_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `monitoring_tahsin_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -534,6 +539,7 @@ CREATE TABLE `monitoring_tahsin` (
 
 LOCK TABLES `monitoring_tahsin` WRITE;
 /*!40000 ALTER TABLE `monitoring_tahsin` DISABLE KEYS */;
+INSERT INTO `monitoring_tahsin` VALUES (6,2,12,'iqro','1','lancar',NULL,NULL,NULL,NULL,'2024-02-28','2024-03-01 19:08:30');
 /*!40000 ALTER TABLE `monitoring_tahsin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -896,4 +902,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-03-01  1:03:23
+-- Dump completed on 2024-03-01 19:10:33
