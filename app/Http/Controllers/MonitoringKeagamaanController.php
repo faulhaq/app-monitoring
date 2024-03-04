@@ -167,7 +167,7 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $tahsin = Tahsin::where("id_siswa", $fsiswa)
-                ->orderBy("created_at", "desc")->get();
+                ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
             $tahsin = [];
@@ -208,8 +208,9 @@ class MonitoringKeagamaanController extends Controller
             "n" => "required|integer",
             "halaman" => "required|string",
             "lu" => "required|in:L,U",
-            "catatan" => "string",
+            "catatan" => "string|nullable",
             "fkelas" => "required",
+            "tanggal" => "required|date|date_format:Y-m-d|before:tomorrow|after:1900-01-01",
         ]);
 
         $fkelas = Crypt::decrypt($r->fkelas);
@@ -237,6 +238,7 @@ class MonitoringKeagamaanController extends Controller
             "halaman" => $r->halaman,
             "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
             "catatan" => $r->catatan,
+            "tanggal" => $r->tanggal,
             "created_by" => $created_by,
         ]);
         $url = route('monitoring.keagamaan.tahsin') . "?fkelas=" . $fkelas . "&fsiswa=" . $id_siswa;
@@ -258,7 +260,7 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $tahfidz = Tahfidz::where("id_siswa", $fsiswa)
-                ->orderBy("created_at", "desc")->get();
+                ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
             $tahfidz = [];
@@ -270,7 +272,7 @@ class MonitoringKeagamaanController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.tahfidz",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                "tahfidz", "siswa", "sel_siswa"));
+                "tahfidz", "siswa", "sel_siswa", "tanggal"));
     }
 
     public function tahfidz_destroy($id)
@@ -298,8 +300,9 @@ class MonitoringKeagamaanController extends Controller
             "surah" => "required",
             "ayat" => "required",
             "lu" => "required|in:L,U",
-            "catatan" => "string",
+            "catatan" => "string|nullable",
             "fkelas" => "required",
+            "tanggal" => "required|date|date_format:Y-m-d|before:tomorrow|after:1900-01-01",
         ]);
 
         $fkelas = Crypt::decrypt($r->fkelas);
@@ -327,6 +330,7 @@ class MonitoringKeagamaanController extends Controller
             "ayat" => $r->ayat,
             "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
             "catatan" => $r->catatan,
+            "tanggal" => $r->tanggal,
             "created_by" => $created_by,
         ]);
         $url = route('monitoring.keagamaan.tahfidz') . "?fkelas=" . $fkelas . "&fsiswa=" . $id_siswa;
@@ -348,7 +352,7 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $mahfudhot = Mahfudhot::where("id_siswa", $fsiswa)
-                ->orderBy("created_at", "desc")->get();
+                ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
             $mahfudhot = [];
@@ -360,7 +364,7 @@ class MonitoringKeagamaanController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.mahfudhot",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                "mahfudhot", "siswa", "sel_siswa"));
+                "mahfudhot", "siswa", "sel_siswa", "tanggal"));
     }
 
     public function mahfudhot_destroy($id)
@@ -388,6 +392,7 @@ class MonitoringKeagamaanController extends Controller
             "mahfudhot" => "required",
             "lu" => "required|in:L,U",
             "fkelas" => "required",
+            "tanggal" => "required|date|date_format:Y-m-d|before:tomorrow|after:1900-01-01",
         ]);
 
         $fkelas = Crypt::decrypt($r->fkelas);
@@ -413,6 +418,7 @@ class MonitoringKeagamaanController extends Controller
             "id_siswa" => $id_siswa,
             "mahfudhot" => $r->mahfudhot,
             "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
+            "tanggal" => $r->tanggal,
             "created_by" => $created_by,
         ]);
         $url = route('monitoring.keagamaan.mahfudhot') . "?fkelas=" . $fkelas . "&fsiswa=" . $id_siswa;
@@ -434,7 +440,7 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $hadits = Hadits::where("id_siswa", $fsiswa)
-                ->orderBy("created_at", "desc")->get();
+                ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
             $hadits = [];
@@ -446,7 +452,7 @@ class MonitoringKeagamaanController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.hadits",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                "hadits", "siswa", "sel_siswa"));
+                "hadits", "siswa", "sel_siswa", "tanggal"));
     }
 
     public function hadits_destroy($id)
@@ -474,6 +480,7 @@ class MonitoringKeagamaanController extends Controller
             "hadits" => "required",
             "lu" => "required|in:L,U",
             "fkelas" => "required",
+            "tanggal" => "required|date|date_format:Y-m-d|before:tomorrow|after:1900-01-01",
         ]);
 
         $fkelas = Crypt::decrypt($r->fkelas);
@@ -499,6 +506,7 @@ class MonitoringKeagamaanController extends Controller
             "id_siswa" => $id_siswa,
             "hadits" => $r->hadits,
             "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
+            "tanggal" => $r->tanggal,
             "created_by" => $created_by,
         ]);
         $url = route('monitoring.keagamaan.hadits') . "?fkelas=" . $fkelas . "&fsiswa=" . $id_siswa;
@@ -520,7 +528,7 @@ class MonitoringKeagamaanController extends Controller
                 return;
             }
             $doa = Doa::where("id_siswa", $fsiswa)
-                ->orderBy("created_at", "desc")->get();
+                ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
             $doa = [];
@@ -532,7 +540,7 @@ class MonitoringKeagamaanController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.doa",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                "doa", "siswa", "sel_siswa"));
+                "doa", "siswa", "sel_siswa", "tanggal"));
     }
 
     public function doa_destroy($id)
@@ -560,6 +568,7 @@ class MonitoringKeagamaanController extends Controller
             "doa" => "required",
             "lu" => "required|in:L,U",
             "fkelas" => "required",
+            "tanggal" => "required|date|date_format:Y-m-d|before:tomorrow|after:1900-01-01",
         ]);
 
         $fkelas = Crypt::decrypt($r->fkelas);
@@ -585,6 +594,7 @@ class MonitoringKeagamaanController extends Controller
             "id_siswa" => $id_siswa,
             "doa" => $r->doa,
             "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
+            "tanggal" => $r->tanggal,
             "created_by" => $created_by,
         ]);
         $url = route('monitoring.keagamaan.doa') . "?fkelas=" . $fkelas . "&fsiswa=" . $id_siswa;
