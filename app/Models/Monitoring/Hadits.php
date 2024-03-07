@@ -2,13 +2,15 @@
 
 namespace App\Models\Monitoring;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Models\Master\Guru;
 use App\Models\Master\OrangTua;
+use App\User;
+use Illuminate\Database\Eloquent\Model;
 
 class Hadits extends Model
 {
     use CreatedByTrait;
-    
+
     protected $fillable = ['id_siswa', 'hadits', 'lu', 'feedback', 'feedback_by', 'created_by'];
 
     protected $table = 'monitoring_hadits';
@@ -26,13 +28,34 @@ class Hadits extends Model
 
     public function feedback_by()
     {
-        if (!$this->feedback_by)
-            return NULL;
+        if (!$this->feedback_by) {
+            return null;
+        }
 
         $orang_tua = OrangTua::find($this->feedback_by);
-        if (!$orang_tua)
-            return NULL;
+        if (!$orang_tua) {
+            return null;
+        }
 
         return $orang_tua->nama;
+    }
+
+    public function created_by()
+    {
+        if (!$this->created_by) {
+            return null;
+        }
+
+        $user = User::find($this->created_by);
+        if (!$user) {
+            return null;
+        }
+
+        $guru = Guru::find($user->id_guru);
+        if (!$guru) {
+            return null;
+        }
+
+        return $guru->nama;
     }
 }
