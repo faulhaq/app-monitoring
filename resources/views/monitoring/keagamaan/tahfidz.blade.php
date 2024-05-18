@@ -19,8 +19,9 @@
             <div class="card-body">
                 <div class="row">
                     @include('monitoring.search_bar')
-                </div>
-                <table id="example1" class="table table-bordered table-hover table-responsive-md">
+                </div> 
+                <table id="example1" class="table table-bordered table-hover dt-responsive nowrap"
+                    style="width:100%">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -30,7 +31,7 @@
                             <th>Catatan</th>
                             <th>Dibuat Oleh</th>
                             <th>Tanggal</th>
-                            <th>Aksi</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>

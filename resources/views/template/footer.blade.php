@@ -71,8 +71,15 @@
 <!-- Ekko Lightbox -->
 <script src="{{ asset('plugins/ekko-lightbox/ekko-lightbox.min.js') }}"></script>
 <!-- DataTables -->
-<script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
+{{-- <script src="{{ asset('plugins/datatables/jquery.dataTables.js') }}"></script>
 <script src="{{ asset('plugins/datatables-bs4/js/dataTables.bootstrap4.js') }}"></script>
+<script src="{{ asset('plugins/datatables-responsive/js/dataTables.responsive.min.js') }}"></script> --}}
+{{-- TODO: use local file isntead of CDN --}}
+<script src="https://cdn.datatables.net/2.0.7/js/dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/2.0.7/js/dataTables.bootstrap4.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/dataTables.responsive.min.js"></script>
+<script src="https://cdn.datatables.net/responsive/3.0.2/js/responsive.bootstrap4.min.js"></script>
 <!-- bs-custom-file-input -->
 <script src="{{ asset('plugins/bs-custom-file-input/bs-custom-file-input.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -118,13 +125,15 @@
         $("#example1").DataTable({
             responsive: true,
         });
+
         $('#example2').DataTable({
-            "paging": false,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": false,
-            "info": false,
-            "autoWidth": true,
+            responsive: true,
+            paging: false,
+            lengthChange: false,
+            searching: false,
+            ordering: false,
+            info: false,
+            autoWidth: true,
         });
     });
 
@@ -138,7 +147,9 @@
 
         //Initialize Select2 Elements
         $('.select2bs4').select2({
-        theme: 'bootstrap4'
+        theme: 'bootstrap4',
+        minimumResultsForSearch: -1,
+        width: ''
         })
 
         //Datemask dd/mm/yyyy
