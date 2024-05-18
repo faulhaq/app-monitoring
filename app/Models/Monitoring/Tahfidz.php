@@ -5,8 +5,10 @@ namespace App\Models\Monitoring;
 use App\Models\Master\Guru;
 use App\Models\Master\OrangTua;
 use App\Models\Ref\Surah;
+use App\Models\Users;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Tahfidz extends Model
 {
@@ -46,22 +48,23 @@ class Tahfidz extends Model
         return $orang_tua->nama;
     }
 
-    public function created_by()
-    {
+    public function role() {
         if (!$this->created_by) {
             return null;
         }
 
         $user = User::find($this->created_by);
+
         if (!$user) {
             return null;
         }
 
-        $guru = Guru::find($user->id_guru);
-        if (!$guru) {
-            return null;
-        }
+        $roles = [
+            'admin' => 'Admin',
+            'guru' => 'Guru',
+            'orang_tua' => 'Orang Tua'
+        ];
 
-        return $guru->nama;
+        return $roles[$user->role] ?? null;
     }
 }

@@ -24,6 +24,7 @@ class SiswaController extends Controller
         $kelas = Kelas::get();
         $tahun_ajaran = TahunAjaran::get();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
+        $ftahun_ajaran = is_string($_GET["ftahun_ajaran"] ?? NULL) ? $_GET["ftahun_ajaran"] : NULL;
 
         $siswa = Siswa::select("siswa.*");
         if ($fkelas && $fkelas !== "all") {

@@ -21,7 +21,7 @@
                     <div class="col-md">
                     </div>
                 </div>
-                <table id="example1" class="table table-bordered table-hover table-responsive-md">
+                <table id="example1" class="table table-bordered table-hover dt-responsive nowrap" style="width: 100%">
                     <thead>
                         <tr>
                             <th>No.</th>

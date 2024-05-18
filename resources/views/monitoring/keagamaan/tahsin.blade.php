@@ -20,7 +20,7 @@
                 <div class="row">
                     @include('monitoring.search_bar')
                 </div>
-                <table id="example1" class="table table-bordered table-hover table-responsive-md">
+                <table id="example1" class="table table-bordered table-hover dt-responsive nowrap" style="width: 100%">
                     <thead>
                         <tr>
                             <th>No.</th>

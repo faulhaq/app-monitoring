@@ -13,7 +13,7 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-                <table id="example1" class="table table-bordered table-hover table-responsive-md" style="width: 100%">
+                <table id="example1" class="table table-bordered table-hover dt-responsive nowrap" style="width: 100%">
                     <thead>
                         <tr>
                             <th>No.</th>

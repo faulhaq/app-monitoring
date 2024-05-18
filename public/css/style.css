@@ -48,3 +48,17 @@ span.menu-title {
     font-size: 1.6rem;
     font-weight: 700;
 }
+
+.dtr-details {
+    width: 100%;
+}
+
+.dtr-details > li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dtr-details > li > span.dtr-title {
+    flex-grow: 1;
+}

@@ -132,6 +132,12 @@ class MonitoringHarianController extends Controller
         $kelas = NULL;
         $fsiswa = NULL;
         $jawaban_terkunci = false;
+        $siswa = NULL;
+        $epoch = strtotime($ftanggal);
+        $month_now = (int) date("m", $epoch);
+        $year_now = (int) date("Y", $epoch);
+        $bulan = $month_now;
+        $tahun = $year_now;
 
         if ($user->role === "admin") {
             $list_kelas = Kelas::all();
@@ -201,12 +207,6 @@ class MonitoringHarianController extends Controller
     
                 $ftanggal = $tmp;
             }
-
-            $epoch = strtotime($ftanggal);
-            $month_now = (int) date("m", $epoch);
-            $year_now = (int) date("Y", $epoch);
-            $bulan = $month_now;
-            $tahun = $year_now;
 
             $harian = Harian::where("id_kelas", $kelas->id)
                             ->where("tahun", $year_now)

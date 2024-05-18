@@ -42,7 +42,7 @@
                                 <td>{{ $v->ayat }}</td>
                                 <td>{{ $v->lu }}</td>
                                 <td>{{ $v->catatan }}</td>
-                                <td>{{ $v->created_by() }}</td>
+                                <td>{{ $v->role() }}</td>
                                 <td>{{ $v->tanggal }}</td>
                                 <td>
                                     <form class="d-flex flex-col"

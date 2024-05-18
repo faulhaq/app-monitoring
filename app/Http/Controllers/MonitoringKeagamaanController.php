@@ -14,7 +14,6 @@ use App\Models\Monitoring\Tahsin;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
-use URL;
 
 class MonitoringKeagamaanController extends Controller
 {
@@ -263,7 +262,7 @@ class MonitoringKeagamaanController extends Controller
                 ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
-            $tahfidz = [];
+            $tahfidz = Tahfidz::all();
             if ($user->role === "orang_tua" && count($siswa) == 1) {
                 return redirect(route("monitoring.keagamaan.tahfidz") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
@@ -272,7 +271,7 @@ class MonitoringKeagamaanController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.tahfidz",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                "tahfidz", "siswa", "sel_siswa", "tanggal"));
+                "tahfidz", "siswa", "sel_siswa"));
     }
 
     public function tahfidz_destroy($id)
@@ -355,7 +354,7 @@ class MonitoringKeagamaanController extends Controller
                 ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
-            $mahfudhot = [];
+            $mahfudhot = Mahfudhot::all();
             if ($user->role === "orang_tua" && count($siswa) == 1) {
                 return redirect(route("monitoring.keagamaan.mahfudhot") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
@@ -364,7 +363,7 @@ class MonitoringKeagamaanController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.mahfudhot",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                "mahfudhot", "siswa", "sel_siswa", "tanggal"));
+                "mahfudhot", "siswa", "sel_siswa"));
     }
 
     public function mahfudhot_destroy($id)
@@ -443,7 +442,7 @@ class MonitoringKeagamaanController extends Controller
                 ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
-            $hadits = [];
+            $hadits = Hadits::all();
             if ($user->role === "orang_tua" && count($siswa) == 1) {
                 return redirect(route("monitoring.keagamaan.hadits") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
@@ -452,7 +451,7 @@ class MonitoringKeagamaanController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.hadits",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                "hadits", "siswa", "sel_siswa", "tanggal"));
+                "hadits", "siswa", "sel_siswa"));
     }
 
     public function hadits_destroy($id)
@@ -531,7 +530,7 @@ class MonitoringKeagamaanController extends Controller
                 ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
-            $doa = [];
+            $doa = Doa::all();
             if ($user->role === "orang_tua" && count($siswa) == 1) {
                 return redirect(route("monitoring.keagamaan.doa") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
@@ -540,7 +539,7 @@ class MonitoringKeagamaanController extends Controller
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.doa",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
-                "doa", "siswa", "sel_siswa", "tanggal"));
+                "doa", "siswa", "sel_siswa"));
     }
 
     public function doa_destroy($id)

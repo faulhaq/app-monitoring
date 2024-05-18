@@ -20,7 +20,7 @@
                 <div class="row">
                     @include('monitoring.search_bar')
                 </div>
-                <table id="example1" class="table table-bordered table-hover table-responsive-md">
+                <table id="example1" class="table table-bordered table-hover dt-responsive nowrap" style="width: 100%">
                     <thead>
                         <tr>
                             <th>No.</th>
@@ -37,7 +37,7 @@
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ $v->doa }}</td>
                                 <td>{{ $v->lu }}</td>
-                                <td>{{ $v->created_by() }}</td>
+                                <td>{{ $v->role() }}</td>
                                 <td>{{ $v->tanggal }}</td>
                                 <td>
                                     <form action="{{ route('monitoring.keagamaan.doa.destroy', Crypt::encrypt($v->id)) }}"
