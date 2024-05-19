@@ -75,6 +75,31 @@ INSERT INTO `data_harian` VALUES (21,2,2024,18,'2024-02-23 01:03:47','2024-02-23
 UNLOCK TABLES;
 
 --
+-- Table structure for table `doa`
+--
+
+DROP TABLE IF EXISTS `doa`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `doa` (
+  `id` tinyint unsigned NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nama` (`nama`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `doa`
+--
+
+LOCK TABLES `doa` WRITE;
+/*!40000 ALTER TABLE `doa` DISABLE KEYS */;
+INSERT INTO `doa` VALUES (1,'Test test');
+/*!40000 ALTER TABLE `doa` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `goldar`
 --
 
@@ -158,6 +183,31 @@ LOCK TABLES `guru` WRITE;
 /*!40000 ALTER TABLE `guru` DISABLE KEYS */;
 INSERT INTO `guru` VALUES (1,'2582668149791338',NULL,'Ratih Wahyuni','ratihwahyuni@gmail.com','P',1,4,NULL,NULL,NULL,'Bantul','1992-12-12','Bantul',NULL,'aktif','2024-02-21 13:02:24',NULL,NULL),(2,'2363395548413331',NULL,'Jasmin Prastuti','jasminprastuti@gmail.com','P',1,1,NULL,NULL,NULL,'Bantul','1995-02-09','Bantul',NULL,'aktif','2024-02-21 13:02:24',NULL,NULL);
 /*!40000 ALTER TABLE `guru` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `hadits`
+--
+
+DROP TABLE IF EXISTS `hadits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `hadits` (
+  `id` tinyint unsigned NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nama` (`nama`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `hadits`
+--
+
+LOCK TABLES `hadits` WRITE;
+/*!40000 ALTER TABLE `hadits` DISABLE KEYS */;
+INSERT INTO `hadits` VALUES (1,'Test');
+/*!40000 ALTER TABLE `hadits` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -291,6 +341,31 @@ LOCK TABLES `kunci_monitoring_harian` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `mahfudhot`
+--
+
+DROP TABLE IF EXISTS `mahfudhot`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `mahfudhot` (
+  `id` tinyint unsigned NOT NULL AUTO_INCREMENT,
+  `nama` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `nama` (`nama`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `mahfudhot`
+--
+
+LOCK TABLES `mahfudhot` WRITE;
+/*!40000 ALTER TABLE `mahfudhot` DISABLE KEYS */;
+INSERT INTO `mahfudhot` VALUES (2,'Bebas'),(1,'Test test');
+/*!40000 ALTER TABLE `mahfudhot` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `monitoring_doa`
 --
 
@@ -319,7 +394,7 @@ CREATE TABLE `monitoring_doa` (
   CONSTRAINT `monitoring_doa_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `monitoring_doa_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `monitoring_doa_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -360,7 +435,7 @@ CREATE TABLE `monitoring_hadits` (
   CONSTRAINT `monitoring_hadits_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `monitoring_hadits_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `monitoring_hadits_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -369,6 +444,7 @@ CREATE TABLE `monitoring_hadits` (
 
 LOCK TABLES `monitoring_hadits` WRITE;
 /*!40000 ALTER TABLE `monitoring_hadits` DISABLE KEYS */;
+INSERT INTO `monitoring_hadits` VALUES (4,3,'Test','lancar',NULL,NULL,NULL,'2024-05-19','2024-05-19 14:12:44');
 /*!40000 ALTER TABLE `monitoring_hadits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -441,7 +517,7 @@ CREATE TABLE `monitoring_mahfudhot` (
   CONSTRAINT `monitoring_mahfudhot_ibfk_1` FOREIGN KEY (`id_siswa`) REFERENCES `siswa` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `monitoring_mahfudhot_ibfk_2` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `monitoring_mahfudhot_ibfk_3` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -450,6 +526,7 @@ CREATE TABLE `monitoring_mahfudhot` (
 
 LOCK TABLES `monitoring_mahfudhot` WRITE;
 /*!40000 ALTER TABLE `monitoring_mahfudhot` DISABLE KEYS */;
+INSERT INTO `monitoring_mahfudhot` VALUES (7,3,'Test test','lancar',NULL,NULL,NULL,'2024-05-19','2024-05-19 14:10:42');
 /*!40000 ALTER TABLE `monitoring_mahfudhot` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -485,7 +562,7 @@ CREATE TABLE `monitoring_tahfidz` (
   CONSTRAINT `monitoring_tahfidz_ibfk_2` FOREIGN KEY (`id_surah`) REFERENCES `surah` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `monitoring_tahfidz_ibfk_3` FOREIGN KEY (`created_by`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   CONSTRAINT `monitoring_tahfidz_ibfk_4` FOREIGN KEY (`feedback_by`) REFERENCES `orang_tua` (`id`) ON DELETE SET NULL ON UPDATE SET NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -494,6 +571,7 @@ CREATE TABLE `monitoring_tahfidz` (
 
 LOCK TABLES `monitoring_tahfidz` WRITE;
 /*!40000 ALTER TABLE `monitoring_tahfidz` DISABLE KEYS */;
+INSERT INTO `monitoring_tahfidz` VALUES (5,3,2,'1-25','lancar','lebih diperjelas kembali bacaannya',NULL,NULL,NULL,'2024-05-19','2024-05-19 14:18:04');
 /*!40000 ALTER TABLE `monitoring_tahfidz` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -902,4 +980,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-05-19 10:32:56
+-- Dump completed on 2024-05-19 14:25:36
