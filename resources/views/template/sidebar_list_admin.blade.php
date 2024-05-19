@@ -57,6 +57,33 @@
         </li>
     </ul>
 
+    <ul class="nav nav-treeview ml-4">
+        <li class="nav-item">
+            <a href="{{ route('data_ref.mahfudhot.index') }}" class="nav-link" id="DataRefMahfudhot">
+                <i class="fas fa-users nav-icon"></i>
+                <p>Data Mahfudhot</p>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="nav nav-treeview ml-4">
+        <li class="nav-item">
+            <a href="{{ route('data_ref.hadits.index') }}" class="nav-link" id="DataRefHadits">
+                <i class="fas fa-users nav-icon"></i>
+                <p>Data Hadits</p>
+            </a>
+        </li>
+    </ul>
+
+    <ul class="nav nav-treeview ml-4">
+        <li class="nav-item">
+            <a href="{{ route('data_ref.doa.index') }}" class="nav-link" id="DataRefDoa">
+                <i class="fas fa-users nav-icon"></i>
+                <p>Data Doa</p>
+            </a>
+        </li>
+    </ul>
+
 </li>
 
 <li class="nav-item has-treeview" id="liMasterData">

@@ -152,6 +152,19 @@
         width: ''
         })
 
+        $('.select2-search').select2({
+            theme: 'bootstrap4',
+            matchers: function (params, data) {
+                if ($.trim(params.term) === '') {
+                    return data
+                }
+                if (data.text.toLowerCase().indexOf(params.term.toLowerCase()) > -1) {
+                    return data
+                }
+                return null
+            }
+        })
+
         //Datemask dd/mm/yyyy
         $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
         //Datemask2 mm/dd/yyyy

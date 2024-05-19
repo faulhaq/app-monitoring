@@ -96,8 +96,13 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="doa">Doa</label>
-                                    <input type="text" id="doa" name="doa"
-                                        class="form-control @error('doa') is-invalid @enderror" required>
+                                    <select id="doa" name="doa"
+                                        class="form-control select2-search @error('doa') is-invalid @enderror" required>
+                                        <option value="">-- Pilih Doa ---</option>
+                                        @foreach (\App\Models\Ref\Doa::all() as $d)
+                                            <option value="{{ $d->nama }}">{{ $d->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="lu">Keterangan</label>

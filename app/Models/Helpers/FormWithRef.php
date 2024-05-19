@@ -6,6 +6,7 @@ use App\Models\Ref\Agama;
 use App\Models\Ref\Pendidikan;
 use App\Models\Ref\Pekerjaan;
 use App\Models\Ref\Goldar;
+use App\Models\Ref\Mahfudhot;
 
 class FormWithRef
 {
@@ -38,4 +39,9 @@ class FormWithRef
     {
         return self::gen_drop_down(Goldar::get(), $selval);
     }
+
+    // public static function get_mahfudhot($selval = null)
+    // {
+    //     return self::gen_drop_down(Mahfudhot::get(), $selval);
+    // }
 }

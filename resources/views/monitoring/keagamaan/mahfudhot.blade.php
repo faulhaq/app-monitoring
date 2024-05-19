@@ -97,8 +97,13 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="mahfudhot">Mahfudhot</label>
-                                    <input type="text" id="mahfudhot" name="mahfudhot"
-                                        class="form-control @error('mahfudhot') is-invalid @enderror" required>
+                                    <select id="mahfudhot" name="mahfudhot"
+                                        class="form-control select2-search @error('mahfudhot') is-invalid @enderror" required>
+                                        <option value="">-- Pilih Mahfudhot ---</option>
+                                        @foreach (\App\Models\Ref\Mahfudhot::all() as $m)
+                                            <option value="{{ $m->nama }}">{{ $m->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="lu">Keterangan</label>

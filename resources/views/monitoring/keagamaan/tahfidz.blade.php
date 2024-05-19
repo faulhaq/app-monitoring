@@ -103,7 +103,7 @@
                                 <div class="form-group">
                                     <label for="surah">Surah</label>
                                     <select id="surah" name="surah"
-                                        class="form-control @error('surah') is-invalid @enderror" required>
+                                        class="form-control select2-search @error('surah') is-invalid @enderror" required>
                                         <option value="">-- Pilih Surah ---</option>
                                         @foreach (\App\Models\Ref\Surah::all() as $s)
                                             <option value="{{ $s->id }}">{{ $s->nama }}</option>

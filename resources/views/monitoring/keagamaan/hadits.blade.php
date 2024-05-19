@@ -96,8 +96,13 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="hadits">Hadits</label>
-                                    <input type="text" id="hadits" name="hadits"
+                                   <select id="hadits" name="hadits"
                                         class="form-control @error('hadits') is-invalid @enderror" required>
+                                        <option value="">-- Pilih Hadits ---</option>
+                                        @foreach (\App\Models\Ref\Hadits::all() as $h)
+                                            <option value="{{ $h->nama }}">{{ $h->nama }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="lu">Keterangan</label>

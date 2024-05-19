@@ -14,6 +14,7 @@ use App\Models\Monitoring\Tahsin;
 use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\URL;
 
 class MonitoringKeagamaanController extends Controller
 {
@@ -354,7 +355,7 @@ class MonitoringKeagamaanController extends Controller
                 ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
-            $mahfudhot = Mahfudhot::all();
+            $mahfudhot = [];
             if ($user->role === "orang_tua" && count($siswa) == 1) {
                 return redirect(route("monitoring.keagamaan.mahfudhot") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
@@ -388,9 +389,9 @@ class MonitoringKeagamaanController extends Controller
     public function mahfudhot_store(Request $r, $id_siswa)
     {
         $r->validate([
-            "mahfudhot" => "required",
+            "mahfudhot" => "required|string",
             "lu" => "required|in:L,U",
-            "fkelas" => "required",
+            "fkelas" => "required|string",
             "tanggal" => "required|date|date_format:Y-m-d|before:tomorrow|after:1900-01-01",
         ]);
 
@@ -442,7 +443,7 @@ class MonitoringKeagamaanController extends Controller
                 ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
-            $hadits = Hadits::all();
+            $hadits = [];
             if ($user->role === "orang_tua" && count($siswa) == 1) {
                 return redirect(route("monitoring.keagamaan.hadits") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
@@ -530,7 +531,7 @@ class MonitoringKeagamaanController extends Controller
                 ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
-            $doa = Doa::all();
+            $doa = [];
             if ($user->role === "orang_tua" && count($siswa) == 1) {
                 return redirect(route("monitoring.keagamaan.doa") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
