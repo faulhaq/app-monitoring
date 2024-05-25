@@ -92,4 +92,22 @@ class User extends Authenticatable
         $ret = $ret->limit(1)->first();
         return $ret->nama ?? "";
     }
+    public function profile()
+    {
+        if ($this->role === "guru") {
+            $ret = DB::table("guru")->where("id", $this->id_guru)->first();
+            $ret->foto =(!empty($ret->foto)) ? "uploads/".$this->role."/".$ret->foto  : "img/placeholder.jpg";
+            return $ret;
+        } else if ($this->role === "orang_tua") {
+            $ret = DB::table("orang_tua")->where("id", $this->id_orang_tua)->first();
+            $ret->foto =(!empty($ret->foto)) ? "uploads/".$this->role."/".$ret->foto  : "img/placeholder.jpg";
+            return $ret;
+        } else if ($this->role === "siswa") {
+            $ret = DB::table("siswa")->where("id", $this->id_siswa)->first();
+            $ret->foto =(!empty($ret->foto)) ? "uploads/".$this->role."/".$ret->foto  : "img/placeholder.jpg";
+            return $ret;
+        } else {
+            return null;
+        }
+    }
 }

@@ -4,7 +4,39 @@
     <li class="breadcrumb-item active">Dashboard</li>
 @endsection
 @section('content')
-    <div class="col-md-12">
+    <div class="col-md-6">
+        <div class="card card-secondary" style="min-height: 385px;">
+            <div class="card-header">
+                <h3 class="card-title" style="color: white;">
+                    Profile</h3>
+            </div>
+            <div class="card-body">
+                <div class="d-flex flex-column align-items-center">
+                    @if (is_null($profil))
+                        <div class="mt-3">
+                            <img src="{{ asset('img/placeholder.jpg') }}" class="profile-user-img img-fluid rounded-circle"
+                                alt="Foto profil">
+                        </div>
+                        <div class="mt-3 text-center">
+                            <div class="text-bold">Admin {{ Auth::user()->id }}</div>
+                            <div class="text-muted">{{ Auth::user()->email }}</div>
+                        </div>
+                    @else
+                        <div class="mt-3">
+                            <img src="{{ $profil->foto }}" class="profile-user-img img-fluid rounded-circle"
+                                alt="Foto profil">
+                        </div>
+                        <div class="mt-3 text-center">
+                            <div class="text-bold">{{ $profil->nama }}</div>
+                            <div class="text-muted">{{ $profil->email }}</div>
+                            <div class="text-muted">{{ $profil->nik }}</div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
         <div class="card card-warning" style="min-height: 385px;">
             <div class="card-header">
                 <h3 class="card-title" style="color: white;">

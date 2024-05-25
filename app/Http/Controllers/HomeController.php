@@ -41,9 +41,12 @@ class HomeController extends Controller
         $siswa_lk = DB::select("SELECT COUNT(1) AS c FROM `siswa` WHERE jk = 'L' GROUP BY jk;")[0]->c ?? 0;
         $siswa_pr = DB::select("SELECT COUNT(1) AS c FROM `siswa` WHERE jk = 'P' GROUP BY jk;")[0]->c ?? 0;
         $siswa_all = DB::select("SELECT COUNT(1) AS c FROM `siswa`;")[0]->c ?? 0;
-        
+
+        $profil = Auth::user()->profile();
+
+
         return view("home", compact("pengumuman", "guru_lk", "guru_pr", "guru_all",
-                                    "siswa_lk", "siswa_pr", "siswa_all"));
+                                    "siswa_lk", "siswa_pr", "siswa_all", "profil"));
     }
 
     public function admin()

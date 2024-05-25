@@ -32,7 +32,7 @@ $name = $user->name();
                             <img src="{{ $foto }}" width="130px" class="profile-user-img img-fluid img-circle" alt="User profile picture">
                         </a>
                     @else
-                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/male.jpg') }}" alt="User profile picture">
+                        <img class="profile-user-img img-fluid img-circle" src="{{ asset('img/placeholder.jpg') }}" alt="User profile picture">
                     @endif
                     </div>
                     <h3 class="profile-username text-center">{{ $name }}</h3>
