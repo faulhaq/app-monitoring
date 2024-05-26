@@ -57,25 +57,29 @@
         </div>
     </div>
     <div class="col-md-6">
-        <div class="card card-info" style="min-height: 385px;">
+        <div class="card card-info" style="max-height: 385px;">
             <div class="card-header">
                 <h3 class="card-title" style="color: white;">
                     Pemberitahuan
                 </h3>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="overflow-y: scroll; max-height: 385px;">
                 @if (Auth::user()->role === 'guru')
                     <div class="alert alert-info" role="alert">
                         Notifikasi untuk guru
                     </div>
                 @elseif(Auth::user()->role === 'orang_tua')
-                    <div class="alert alert-info" role="alert">
-                        Notifikasi untuk orang tua
-                    </div>
+                @foreach($data_notif as $dn)
+                    @foreach($dn as $tg => $v)
+                        <div class="alert alert-danger" role="alert">
+                            <a href="{{ route('monitoring.harian.index2',['fsiswa' => $v['siswa']->id, 'ftanggal' => $tg]) }}">Belum mengisi feedback untuk {{ $v['siswa']->nama }}. tanggal {{ $tg }}</a>
+                        </div>
+                    @endforeach
+                @endforeach
                 @else
-                    <div class="alert alert-danger" role="alert">
-                        Anda tidak memiliki akses untuk fitur ini
-                    </div>
+                <div class="alert alert-danger" role="alert">
+                    Anda tidak memiliki akses untuk fitur ini
+                </div>
                 @endif
             </div>
         </div>

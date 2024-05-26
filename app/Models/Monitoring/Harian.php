@@ -2,6 +2,7 @@
 
 namespace App\Models\Monitoring;
 
+use App\Models\Master\Siswa;
 use Illuminate\Database\Eloquent\Model;
 
 class Harian extends Model
@@ -13,4 +14,9 @@ class Harian extends Model
     protected $table = 'monitoring_harian';
 
     public $timestamps = true;
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, "id_siswa", "id");
+    }
 }

@@ -37,4 +37,18 @@ class OrangTua extends Model
 
         return $siswa->id_kk === $this->id_kk;
     }
+
+    public function data_anak($id_orang_tua)
+    {
+        $orang_tua = $this->find($id_orang_tua);
+        if (!$orang_tua) {
+            return null;
+        }
+        $anak = $orang_tua->get_all_anak();
+        $data_anak = [];
+        foreach ($anak as $a) {
+            $data_anak[] = $a->data_siswa($a["id"]);
+        }
+        return $anak;
+    }
 }

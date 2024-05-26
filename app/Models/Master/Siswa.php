@@ -102,4 +102,14 @@ class Siswa extends Model
                     ->get();
         return $ibu;
     }
+
+    public function data_siswa($id)
+    {
+        $siswa = $this->where("id", $id)->first();
+        if (!$siswa) {
+            return null;
+        }
+
+        return $siswa;
+    }
 }

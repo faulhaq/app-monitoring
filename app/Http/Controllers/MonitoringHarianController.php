@@ -355,7 +355,6 @@ class MonitoringHarianController extends Controller
         $tanggal = NULL;
 
         if (!isset($r->point) || !is_numeric($r->point)) {
-            dd($r);
             abort(404);
             return;
         }

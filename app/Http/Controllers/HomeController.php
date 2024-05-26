@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Auth;
 use DB;
 use App\Guru;
+use App\Models\Master\Harian;
+use App\Models\Monitoring\Harian as MonitoringHarian;
 use App\Models\Master\Kelas;
 use App\Models\Master\Siswa;
 // use App\Siswa;
@@ -44,9 +46,78 @@ class HomeController extends Controller
 
         $profil = Auth::user()->profile();
 
+        $bulan = (int) date("m");
+        $tahun = (int) date("Y");
 
+        if (Auth::user()->role === "orang_tua") {
+            $siswa = (new OrangTua())->data_anak(Auth::user()->id_orang_tua);
+
+            $data_harian = [];
+            foreach ($siswa as $s) {
+                $harian = Harian::where("bulan", $bulan)
+                ->where("tahun", $tahun)
+                ->where("id_kelas", $s->kelas()->id)
+                    ->first()->toArray();
+
+                $data_harian[] = $harian;
+            }
+
+            $id_siswa = array_column($siswa->toArray(), "id");
+
+            if ($data_harian) {
+                $data_jawaban = [];
+                foreach ($id_siswa as $id) {
+                    $jawaban = MonitoringHarian::with("siswa")->where("tanggal", "LIKE", "{$tahun}-" . sprintf("%02d", $bulan) . "-%")
+                        ->where("id_siswa", $id)
+                        ->get();
+                    $data_jawaban[] = $jawaban;
+                }
+            }
+
+            $data_list_tanggal = [];
+            foreach ($data_jawaban as $dj) {
+                $list_tanggal = [];
+                for ($i = 1; $i <= 31; $i++) {
+                    $dt = "{$tahun}-" . sprintf("%02d", $bulan) . "-" . sprintf("%02d", $i);
+                    $ep = strtotime($dt);
+                    if (date("Y-m-d", $ep) !== $dt)
+                        continue;
+
+                    $data_siswa = [];
+                    $found = false;
+                    foreach ($dj as $j) {
+                        if ($j->tanggal !== $dt) {
+                            $found = false;
+                            $data_siswa = $j->siswa;
+                            break;
+                        }
+                    }
+                    foreach ($dj as $j) {
+                        if ($j->tanggal === $dt) {
+                            $found = true;
+                            break;
+                        }
+                    }
+
+                    $list_tanggal[$dt] = ["status" => $found, "siswa" => $data_siswa];
+                }
+                $data_list_tanggal[] = $list_tanggal;
+            }
+
+            $data_notif =  array_map(
+                function ($array) {
+                    return array_filter($array, function ($value) {
+                        return $value["status"] === false;
+                    });
+                },
+                $data_list_tanggal
+            );
+        }  else {
+            $data_notif = [];
+        }
+        
         return view("home", compact("pengumuman", "guru_lk", "guru_pr", "guru_all",
-                                    "siswa_lk", "siswa_pr", "siswa_all", "profil"));
+                                    "siswa_lk", "siswa_pr", "siswa_all", "profil", "data_notif"));
     }
 
     public function admin()
