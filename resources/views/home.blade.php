@@ -56,8 +56,9 @@
             </div>
         </div>
     </div>
+    @if (Auth::user()->role !== 'admin')
     <div class="col-md-6">
-        <div class="card card-info" style="max-height: 385px;">
+        <div class="card card-info" style="min-height: 385px;">
             <div class="card-header">
                 <h3 class="card-title" style="color: white;">
                     Pemberitahuan
@@ -65,25 +66,44 @@
             </div>
             <div class="card-body" style="overflow-y: scroll; max-height: 385px;">
                 @if (Auth::user()->role === 'guru')
-                    <div class="alert alert-info" role="alert">
-                        Notifikasi untuk guru
-                    </div>
-                @elseif(Auth::user()->role === 'orang_tua')
-                @foreach($data_notif as $dn)
-                    @foreach($dn as $tg => $v)
-                        <div class="alert alert-danger" role="alert">
-                            <a href="{{ route('monitoring.harian.index2',['fsiswa' => $v['siswa']->id, 'ftanggal' => $tg]) }}">Belum mengisi feedback untuk {{ $v['siswa']->nama }}. tanggal {{ $tg }}</a>
+                    @if (!empty(array_filter($data_notif)))
+                        @foreach($data_notif as $dn)
+                            @foreach($dn as $tg => $v)
+                                <div class="alert alert-danger" role="alert">
+                                    <a href="{{ route('monitoring.harian.index2',['fsiswa' => $v['siswa']->id, 'ftanggal' => $tg]) }}">Belum mengisi feedback untuk {{ $v['siswa']->nama }}. tanggal {{ fix_id_d($tg) }}</a>
+                                </div>
+                            @endforeach
+                        @endforeach
+                    @else
+                        <div class="text-center">
+                            Notifikasi tidak ditemukan
                         </div>
-                    @endforeach
-                @endforeach
+                    @endif
+                        
+                @elseif(Auth::user()->role === 'orang_tua')
+                   @if (!empty(array_filter($data_notif)))
+                        @foreach($data_notif as $dn)
+                            @foreach($dn as $tg => $v)
+                                <div class="alert alert-danger" role="alert">
+                                    <a href="{{ route('monitoring.harian.index2',['fsiswa' => $v['siswa']['id'], 'ftanggal' => $tg]) }}">Belum mengisi monitoring untuk {{ $v['siswa']['nama'] }}. tanggal {{ fix_id_d($tg) }}</a>
+                                </div>
+                            @endforeach 
+                        @endforeach
+                    @else
+                        <div class="text-center">
+                            Notifikasi tidak ditemukan
+                        </div>
+                    @endif
                 @else
-                <div class="alert alert-danger" role="alert">
+                <div class="text-center">
                     Anda tidak memiliki akses untuk fitur ini
                 </div>
                 @endif
             </div>
         </div>
     </div>
+    @endif
+    @if (Auth::user()->role === 'orang_tua')
     <div class="col-md-6">
         <div class="card card-success" style="min-height: 385px;">
             <div class="card-header">
@@ -92,23 +112,25 @@
                 </h3>
             </div>
             <div class="card-body">
-                @if (Auth::user()->role === 'guru')
-                    <div class="alert alert-info" role="alert">
-                        Notifikasi untuk guru
-                    </div>
-                @elseif(Auth::user()->role === 'orang_tua')
-                    <div class="alert alert-info" role="alert">
-                        Notifikasi untuk orang tua
-                    </div>
-                @else
-                    <div class="alert alert-danger" role="alert">
-                        Anda tidak memiliki akses untuk fitur ini
-                    </div>
+                @if (!empty(array_filter($data_monitoring_agama)))
+                    @foreach($data_monitoring_agama as $dma)
+                        @foreach($dma as $dm)
+                            <div class="alert alert-danger" role="alert">
+                            @php
+                                $table = (new $dm)->getTable();
+                                $v = explode('_', $table);
+                                $name = end($v);
+                            @endphp
+                                <a href="{{ route('monitoring.keagamaan.'.$name) }}">{{ parse_value((new $dm)->getTable()) }} untuk {{ $dm->siswa->nama  }}. tanggal {{ fix_id_d($dm->tanggal) }}</a>
+                            </div>
+                        @endforeach
+                    @endforeach
                 @endif
-                </>
             </div>
         </div>
     </div>
+    @endif
+
 
     @if (Auth::user()->role !== 'orang_tua')
         <div class="col-lg-6">

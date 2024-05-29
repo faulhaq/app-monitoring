@@ -38,7 +38,7 @@
                                 <td>{{ $v->mahfudhot }}</td>
                                 <td>{{ $v->lu }}</td>
                                 <td>{{ $v->role() }}</td>
-                                <td>{{ $v->tanggal }}</td>
+                                <td>{{ fix_id_d($v->tanggal) }}</td>
                                 <td>
                                     <form
                                         action="{{ route('monitoring.keagamaan.mahfudhot.destroy', Crypt::encrypt($v->id)) }}"

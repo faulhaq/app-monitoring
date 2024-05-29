@@ -49,6 +49,6 @@ class OrangTua extends Model
         foreach ($anak as $a) {
             $data_anak[] = $a->data_siswa($a["id"]);
         }
-        return $anak;
+        return $data_anak;
     }
 }

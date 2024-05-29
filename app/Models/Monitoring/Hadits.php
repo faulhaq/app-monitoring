@@ -2,8 +2,8 @@
 
 namespace App\Models\Monitoring;
 
-use App\Models\Master\Guru;
 use App\Models\Master\OrangTua;
+use App\Models\Master\Siswa;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
 
@@ -58,5 +58,10 @@ class Hadits extends Model
         ];
 
         return $roles[$user->role] ?? null;
+    }
+
+    public function siswa()
+    {
+        return $this->belongsTo(Siswa::class, 'id_siswa');
     }
 }

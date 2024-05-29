@@ -52,6 +52,15 @@ $app->singleton(
 |
 */
 
+function parse_value($value)
+{
+    $value = str_replace('_', ' ', $value);
+    
+    $value = ucwords($value);
+    
+    return $value;
+}
+
 function fix_id_d($str)
 {
     if (!$str)

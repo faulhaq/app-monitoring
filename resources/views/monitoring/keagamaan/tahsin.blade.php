@@ -42,7 +42,7 @@
                                 <td>{{ $v->lu }}</td>
                                 <td>{{ $v->catatan }}</td>
                                 <td>{{ $v->created_by() }}</td>
-                                <td>{{ $v->tanggal }}</td>
+                                <td>{{ fix_id_d($v->tanggal) }}</td>
                                 <td>
                                     <form class="d-flex flex-col"
                                         action="{{ route('monitoring.keagamaan.tahsin.destroy', Crypt::encrypt($v->id)) }}"
