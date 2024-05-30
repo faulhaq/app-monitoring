@@ -8,7 +8,7 @@
         <div class="card card-secondary" style="min-height: 385px;">
             <div class="card-header">
                 <h3 class="card-title" style="color: white;">
-                    Profile</h3>
+                    Profil</h3>
             </div>
             <div class="card-body">
                 <div class="d-flex flex-column align-items-center">
@@ -29,7 +29,7 @@
                         <div class="mt-3 text-center">
                             <div class="text-bold">{{ $profil->nama }}</div>
                             <div class="text-muted">{{ $profil->email }}</div>
-                            <div class="text-muted">{{ $profil->nik }}</div>
+                            <div class="text-muted">{{ $profil->telp }}</div>
                         </div>
                     @endif
                 </div>
