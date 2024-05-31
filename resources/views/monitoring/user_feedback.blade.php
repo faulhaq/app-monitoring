@@ -44,7 +44,7 @@
         }
     }
 
-    @if (isset($_GET["show_feedback_pop_up"], $_GET["id"]) && is_numeric($_GET["id"]))
+    @if (isset($_GET["show_feedback_pop_up"], $_GET["id"]) && is_numeric($_GET["id"]) && !isset($_GET["skip_feedback"]))
     document.addEventListener("DOMContentLoaded", function(event) {
         $('.show-feedback').modal('toggle');
         handle_user_feedback_id("", "", {{ $_GET["id"] }});

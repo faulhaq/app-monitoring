@@ -91,7 +91,12 @@ class MonitoringKeagamaanController extends Controller
             "feedback" => $r->feedback,
         ]);
 
-        return redirect(URL::previous())->with('success', 'Berhasil mengirimkan feedback');
+        $url = URL::previous();
+        if (strpos($url, "?") !== false) {
+            $url .= "&skip_feedback=1";
+        }
+
+        return redirect($url)->with('success', 'Berhasil mengirimkan feedback');
     }
 
     public function index()
