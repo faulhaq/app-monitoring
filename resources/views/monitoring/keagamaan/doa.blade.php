@@ -35,7 +35,7 @@
                         @foreach ($doa as $v)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $v->doa }}</td>
+                                <td>{{ $v->doa()->nama }}</td>
                                 <td>{{ $v->lu }}</td>
                                 <td>{{ $v->role() }}</td>
                                 <td>{{ fix_id_d($v->tanggal) }}</td>
@@ -96,11 +96,11 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="doa">Doa</label>
-                                    <select id="doa" name="doa"
+                                    <select id="doa" name="id_doa"
                                         class="form-control select2-search @error('doa') is-invalid @enderror" required>
                                         <option value="">-- Pilih Doa ---</option>
                                         @foreach (\App\Models\Ref\Doa::all() as $d)
-                                            <option value="{{ $d->nama }}">{{ $d->nama }}</option>
+                                            <option value="{{ $d->id }}">{{ $d->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -6,12 +6,13 @@ use App\Models\Master\OrangTua;
 use App\Models\Master\Siswa;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Ref\mahfudhot as MahfudhotRef;
 
 class Mahfudhot extends Model
 {
     use CreatedByTrait;
 
-    protected $fillable = ['id_siswa', 'mahfudhot', 'lu', 'feedback', 'feedback_by', 'created_by'];
+    protected $fillable = ['id_siswa', 'id_mahfudhot', 'lu', 'feedback', 'feedback_by', 'created_by'];
 
     protected $table = 'monitoring_mahfudhot';
 
@@ -63,5 +64,10 @@ class Mahfudhot extends Model
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, 'id_siswa');
+    }
+
+    public function mahfudhot()
+    {
+        return MahfudhotRef::find($this->id_mahfudhot);
     }
 }

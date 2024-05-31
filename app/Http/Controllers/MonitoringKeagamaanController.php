@@ -406,7 +406,7 @@ class MonitoringKeagamaanController extends Controller
     public function mahfudhot_store(Request $r, $id_siswa)
     {
         $r->validate([
-            "mahfudhot" => "required|string",
+            "id_mahfudhot" => "required|string",
             "lu" => "required|in:L,U",
             "fkelas" => "required|string",
             "tanggal" => "required|date|date_format:Y-m-d|before:tomorrow|after:1900-01-01",
@@ -433,7 +433,7 @@ class MonitoringKeagamaanController extends Controller
         $created_by = $this->get_created_by();
         Mahfudhot::store([
             "id_siswa" => $id_siswa,
-            "mahfudhot" => $r->mahfudhot,
+            "id_mahfudhot" => $r->id_mahfudhot,
             "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
             "tanggal" => $r->tanggal,
             "created_by" => $created_by,
@@ -495,7 +495,7 @@ class MonitoringKeagamaanController extends Controller
     public function hadits_store(Request $r, $id_siswa)
     {
         $r->validate([
-            "hadits" => "required",
+            "id_hadits" => "required",
             "lu" => "required|in:L,U",
             "fkelas" => "required",
             "tanggal" => "required|date|date_format:Y-m-d|before:tomorrow|after:1900-01-01",
@@ -522,7 +522,7 @@ class MonitoringKeagamaanController extends Controller
         $created_by = $this->get_created_by();
         Hadits::store([
             "id_siswa" => $id_siswa,
-            "hadits" => $r->hadits,
+            "id_hadits" => $r->id_hadits,
             "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
             "tanggal" => $r->tanggal,
             "created_by" => $created_by,
@@ -584,7 +584,7 @@ class MonitoringKeagamaanController extends Controller
     public function doa_store(Request $r, $id_siswa)
     {
         $r->validate([
-            "doa" => "required",
+            "id_doa" => "required",
             "lu" => "required|in:L,U",
             "fkelas" => "required",
             "tanggal" => "required|date|date_format:Y-m-d|before:tomorrow|after:1900-01-01",
@@ -611,7 +611,7 @@ class MonitoringKeagamaanController extends Controller
         $created_by = $this->get_created_by();
         Doa::store([
             "id_siswa" => $id_siswa,
-            "doa" => $r->doa,
+            "id_doa" => $r->id_doa,
             "lu" => ($r->lu === "L" ? "lancar" : "ulang"),
             "tanggal" => $r->tanggal,
             "created_by" => $created_by,

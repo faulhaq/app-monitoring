@@ -35,7 +35,7 @@
                         @foreach ($hadits as $v)
                             <tr>
                                 <td>{{ $loop->iteration }}</td>
-                                <td>{{ $v->hadits }}</td>
+                                <td>{{ $v->hadits()->nama }}</td>
                                 <td>{{ $v->lu }}</td>
                                 <td>{{ $v->role() }}</td>
                                 <td>{{ fix_id_d($v->tanggal) }}</td>
@@ -96,11 +96,11 @@
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label for="hadits">Hadits</label>
-                                   <select id="hadits" name="hadits"
+                                   <select id="hadits" name="id_hadits"
                                         class="form-control select2-search @error('hadits') is-invalid @enderror" required>
                                         <option value="">-- Pilih Hadits ---</option>
                                         @foreach (\App\Models\Ref\Hadits::all() as $h)
-                                            <option value="{{ $h->nama }}">{{ $h->nama }}</option>
+                                            <option value="{{ $h->id }}">{{ $h->nama }}</option>
                                         @endforeach
                                     </select>
                                 </div>

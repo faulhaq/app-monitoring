@@ -6,12 +6,13 @@ use App\Models\Master\OrangTua;
 use App\Models\Master\Siswa;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Ref\Hadits as HaditsRef;
 
 class Hadits extends Model
 {
     use CreatedByTrait;
 
-    protected $fillable = ['id_siswa', 'hadits', 'lu', 'feedback', 'feedback_by', 'created_by'];
+    protected $fillable = ['id_siswa', 'id_hadits', 'lu', 'feedback', 'feedback_by', 'created_by'];
 
     protected $table = 'monitoring_hadits';
 
@@ -63,5 +64,10 @@ class Hadits extends Model
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, 'id_siswa');
+    }
+
+    public function hadits()
+    {
+        return HaditsRef::find($this->id_hadits);
     }
 }

@@ -6,12 +6,13 @@ use App\Models\Master\OrangTua;
 use App\Models\Master\Siswa;
 use App\User;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Ref\Doa as DoaRef;
 
 class Doa extends Model
 {
     use CreatedByTrait;
 
-    protected $fillable = ['id_siswa', 'doa', 'lu', 'feedback', 'feedback_by', 'created_by'];
+    protected $fillable = ['id_siswa', 'id_doa', 'lu', 'feedback', 'feedback_by', 'created_by'];
 
     protected $table = 'monitoring_doa';
 
@@ -63,5 +64,10 @@ class Doa extends Model
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, 'id_siswa');
+    }
+
+    public function doa()
+    {
+        return DoaRef::find($this->id_doa);
     }
 }
