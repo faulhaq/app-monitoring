@@ -119,6 +119,7 @@ class Siswa extends Model
         $kelas = $this->kelas();
         $bulan = (int) date("m");
         $tahun = (int) date("Y");
+        $hari  = (int) date("d");
         $harian = Harian::where("id_kelas", $kelas->id)
                         ->where("bulan", $bulan)
                         ->where("tahun", $tahun)
@@ -132,7 +133,7 @@ class Siswa extends Model
                         ->get();
 
         $list_tanggal = [];
-        for ($i = 1; $i <= 31; $i++) {
+        for ($i = 1; $i <= $hari; $i++) {
             $dt = "{$tahun}-".sprintf("%02d", $bulan)."-".sprintf("%02d", $i);
             $ep = strtotime($dt);
             if (date("Y-m-d", $ep) !== $dt)
