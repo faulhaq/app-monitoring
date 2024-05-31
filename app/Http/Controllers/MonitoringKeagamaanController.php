@@ -263,7 +263,7 @@ class MonitoringKeagamaanController extends Controller
                 ->orderBy("tanggal", "desc")->get();
         } else {
             $sel_siswa = null;
-            $tahfidz = Tahfidz::all();
+            $tahfidz = [];
             if ($user->role === "orang_tua" && count($siswa) == 1) {
                 return redirect(route("monitoring.keagamaan.tahfidz") . "?fkelas=-1&fsiswa={$siswa[0]->id}");
             }
