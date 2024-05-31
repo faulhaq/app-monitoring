@@ -124,62 +124,21 @@ class HomeController extends Controller
                 foreach ($pencapaian as $p) {
                     $data_pencapaian[] = $p;
                 }
+
+                $unasnwered_harian = $anak->get_unasnwered_harian();
+                foreach ($unasnwered_harian as $t) {
+                    $data_notif[] = [
+                        "id_siswa" => $anak->id,
+                        "tanggal"  => $t,
+                        "str"      => "Monitoring harian {$anak->nama} tanggal ".fix_id_d($t)." belum diisi!",
+                    ];
+                }
             }
+
 
         } else if (Auth::user()->role === "guru") {
-            $siswa = (new Guru())->data_siswa(Auth::user()->id_guru);
-
-            $id_siswa = array_column($siswa, "id");
-
+            $data_notif = [];
             $data_pencapaian = [];
-            $data_jawaban = [];
-            foreach ($id_siswa as $id) {
-                $jawaban = MonitoringHarian::with("siswa")->where("tanggal", "LIKE", "{$tahun}-" . sprintf("%02d", $bulan) . "-%")
-                    ->where("id_siswa", $id)
-                    ->first();
-                $data_jawaban[] = $jawaban;
-            }
-
-
-            $data_jawaban = array_values(array_filter($data_jawaban, function($subarray) {
-                return !empty($subarray);
-            }));
-
-            if (!$data_jawaban) {
-                $data_notif = [];
-                goto out;
-            }
-
-            $data_list_tanggal = [];
-            foreach ($data_jawaban as $dj) {
-                $list_tanggal = [];
-                for ($i = 1; $i <= date("d"); $i++) {
-                    $dt = "{$tahun}-" . sprintf("%02d", $bulan) . "-" . sprintf("%02d", $i);
-                    $ep = strtotime($dt);
-                    if (date("Y-m-d", $ep) !== $dt)
-                        continue;
-
-                    $data_siswa = [];
-                    $found = false;
-                    if ($dj->tanggal !== $dt) {
-                        $found = false;
-                    }
-                    if ($dj->tanggal === $dt) {
-                        $found = true;
-                        $data_siswa = $dj->siswa;
-                    }
-
-                    $list_tanggal[$dt] = ["status" => $found, "siswa" => $data_siswa];
-                }
-                $data_list_tanggal[] = $list_tanggal;
-            }
-
-            $data_notif = array_map(function($array) {
-                return array_filter($array, function($value) {
-                    return $value["status"] === true;
-                });
-            }, $data_list_tanggal);
-
         } else {
             $data_notif = [];
             $data_pencapaian = [];

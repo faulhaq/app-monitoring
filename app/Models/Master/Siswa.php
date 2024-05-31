@@ -11,6 +11,7 @@ use App\Models\Master\TahunAjaran;
 use App\Models\Master\Kelas;
 use App\Models\Master\KK;
 use DB;
+use App\Models\Monitoring\Harian as MonitoringHarian;
 
 class Siswa extends Model
 {
@@ -111,5 +112,46 @@ class Siswa extends Model
         }
 
         return $siswa;
+    }
+
+    public function get_unasnwered_harian()
+    {
+        $kelas = $this->kelas();
+        $bulan = (int) date("m");
+        $tahun = (int) date("Y");
+        $harian = Harian::where("id_kelas", $kelas->id)
+                        ->where("bulan", $bulan)
+                        ->where("tahun", $tahun)
+                        ->first();
+
+        if (!$harian)
+            return [];
+
+        $jawaban = MonitoringHarian::where("id_siswa", $this->id)
+                        ->where("tanggal", "LIKE", "{$tahun}-".sprintf("%02d", $bulan)."-%")
+                        ->get();
+
+        $list_tanggal = [];
+        for ($i = 1; $i <= 31; $i++) {
+            $dt = "{$tahun}-".sprintf("%02d", $bulan)."-".sprintf("%02d", $i);
+            $ep = strtotime($dt);
+            if (date("Y-m-d", $ep) !== $dt)
+                continue;
+
+            $found = false;
+            foreach ($jawaban as $j) {
+                if ($j->tanggal === $dt) {
+                    $found = true;
+                    break;
+                }
+            }
+
+            if (!$found) {
+                $list_tanggal[] = $dt;
+                continue;
+            }
+        }
+
+        return $list_tanggal;
     }
 }

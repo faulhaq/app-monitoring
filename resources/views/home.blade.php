@@ -64,7 +64,7 @@
                     Pemberitahuan
                 </h3>
             </div>
-            <div class="card-body" style="overflow-y: scroll; max-height: 385px;">
+            <div class="card-body" style="overflow-y: scroll; max-height: 335px;">
                 @if (Auth::user()->role === 'guru')
                     @if (!empty(array_filter($data_notif)))
                         @foreach($data_notif as $dn)
@@ -83,11 +83,14 @@
                 @elseif(Auth::user()->role === 'orang_tua')
                    @if (!empty(array_filter($data_notif)))
                         @foreach($data_notif as $dn)
-                            @foreach($dn as $tg => $v)
+                            {{-- @foreach($dn as $tg => $v)
                                 <div class="alert alert-danger" role="alert">
                                     <a href="{{ route('monitoring.harian.index2',['fsiswa' => $v['siswa']['id'], 'ftanggal' => $tg]) }}">Belum mengisi monitoring untuk {{ $v['siswa']['nama'] }}. tanggal {{ fix_id_d($tg) }}</a>
                                 </div>
-                            @endforeach 
+                            @endforeach  --}}
+                            <div class="alert alert-danger" role="alert">
+                                <a href="{{ route('monitoring.harian.index2')."?fsiswa={$dn["id_siswa"]}&ftanggal={$dn["tanggal"]}" }}">{{ $dn["str"] }}</a>
+                            </div>
                         @endforeach
                     @else
                         <div class="text-center">
