@@ -112,9 +112,9 @@
                 </h3>
             </div>
             <div class="card-body">
-                @if (!empty(array_filter($data_monitoring_agama)))
-                    @foreach($data_monitoring_agama as $dma)
-                        @foreach($dma as $dm)
+                @if (!empty(array_filter($data_pencapaian)))
+                    @foreach($data_pencapaian as $dp)
+                        {{-- @foreach($dma as $dm)
                             <div class="alert alert-danger" role="alert">
                             @php
                                 $table = (new $dm)->getTable();
@@ -123,7 +123,10 @@
                             @endphp
                                 <a href="{{ route('monitoring.keagamaan.'.$name) }}">{{ parse_value((new $dm)->getTable()) }} untuk {{ $dm->siswa->nama  }}. tanggal {{ fix_id_d($dm->tanggal) }}</a>
                             </div>
-                        @endforeach
+                        @endforeach --}}
+                        <div class="alert alert-danger" role="alert">
+                        <a href="{{ route('monitoring.keagamaan.'.$dp["type"])."?fkelas=-1&fsiswa={$dp['id_siswa']}&mark_as_seen=1&type={$dp['type']}&id_data={$dp['id']}" }}">{{ $dp["str"] }}</a>
+                        </div>
                     @endforeach
                 @endif
             </div>

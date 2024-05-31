@@ -15,9 +15,23 @@ use Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\URL;
+use DB;
 
 class MonitoringKeagamaanController extends Controller
 {
+    private function handle_mark_as_seen()
+    {
+        $type = is_string($_GET["type"] ?? NULL) ? $_GET["type"] : NULL;
+        $id = is_string($_GET["id_data"] ?? NULL) ? $_GET["id_data"] : NULL;
+        if (!$type || !$id) {
+            return;
+        }
+
+        $pdo = DB::connection()->getPdo();
+        $st = $pdo->prepare("UPDATE `monitoring_{$type}` SET `seen_by_ortu` = '1' WHERE `id` = ?");
+        $st->execute([$id]);
+    }
+
     public function store_feedback(Request $r)
     {
         $r->validate([
@@ -176,6 +190,7 @@ class MonitoringKeagamaanController extends Controller
             }
         }
 
+        $this->handle_mark_as_seen();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.tahsin",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
@@ -269,6 +284,7 @@ class MonitoringKeagamaanController extends Controller
             }
         }
 
+        $this->handle_mark_as_seen();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.tahfidz",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
@@ -361,6 +377,7 @@ class MonitoringKeagamaanController extends Controller
             }
         }
 
+        $this->handle_mark_as_seen();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.mahfudhot",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
@@ -449,6 +466,7 @@ class MonitoringKeagamaanController extends Controller
             }
         }
 
+        $this->handle_mark_as_seen();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.hadits",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
@@ -537,6 +555,7 @@ class MonitoringKeagamaanController extends Controller
             }
         }
 
+        $this->handle_mark_as_seen();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.doa",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
