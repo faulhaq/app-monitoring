@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2024 at 08:16 AM
+-- Generation Time: May 31, 2024 at 09:44 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -310,6 +310,7 @@ CREATE TABLE `monitoring_doa` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `feedback` text DEFAULT NULL,
   `feedback_by` int(10) UNSIGNED DEFAULT NULL,
+  `feedback_seen` enum('0','1') NOT NULL DEFAULT '0',
   `tanggal` date NOT NULL,
   `created_at` datetime NOT NULL,
   `seen_by_ortu` enum('0','1') NOT NULL DEFAULT '0'
@@ -319,8 +320,8 @@ CREATE TABLE `monitoring_doa` (
 -- Dumping data for table `monitoring_doa`
 --
 
-INSERT INTO `monitoring_doa` (`id`, `id_siswa`, `id_doa`, `lu`, `created_by`, `feedback`, `feedback_by`, `tanggal`, `created_at`, `seen_by_ortu`) VALUES
-(6, 13, 2, 'lancar', NULL, NULL, NULL, '2024-05-31', '2024-05-31 10:26:28', '0');
+INSERT INTO `monitoring_doa` (`id`, `id_siswa`, `id_doa`, `lu`, `created_by`, `feedback`, `feedback_by`, `feedback_seen`, `tanggal`, `created_at`, `seen_by_ortu`) VALUES
+(6, 13, 2, 'lancar', NULL, NULL, NULL, '0', '2024-05-31', '2024-05-31 10:26:28', '0');
 
 -- --------------------------------------------------------
 
@@ -336,6 +337,7 @@ CREATE TABLE `monitoring_hadits` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `feedback` text DEFAULT NULL,
   `feedback_by` int(10) UNSIGNED DEFAULT NULL,
+  `feedback_seen` enum('0','1') NOT NULL DEFAULT '0',
   `tanggal` date NOT NULL,
   `created_at` datetime NOT NULL,
   `seen_by_ortu` enum('0','1') NOT NULL DEFAULT '0'
@@ -345,9 +347,9 @@ CREATE TABLE `monitoring_hadits` (
 -- Dumping data for table `monitoring_hadits`
 --
 
-INSERT INTO `monitoring_hadits` (`id`, `id_siswa`, `id_hadits`, `lu`, `created_by`, `feedback`, `feedback_by`, `tanggal`, `created_at`, `seen_by_ortu`) VALUES
-(6, 4, 6, 'lancar', NULL, NULL, NULL, '2024-05-31', '2024-05-31 10:34:20', '0'),
-(7, 13, 5, 'lancar', NULL, NULL, NULL, '2024-05-31', '2024-05-31 10:34:49', '0');
+INSERT INTO `monitoring_hadits` (`id`, `id_siswa`, `id_hadits`, `lu`, `created_by`, `feedback`, `feedback_by`, `feedback_seen`, `tanggal`, `created_at`, `seen_by_ortu`) VALUES
+(6, 4, 6, 'lancar', NULL, NULL, 2, '0', '2024-05-31', '2024-05-31 10:34:20', '0'),
+(7, 13, 5, 'lancar', NULL, NULL, NULL, '0', '2024-05-31', '2024-05-31 10:34:49', '0');
 
 -- --------------------------------------------------------
 
@@ -392,6 +394,7 @@ CREATE TABLE `monitoring_mahfudhot` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `feedback` text DEFAULT NULL,
   `feedback_by` int(10) UNSIGNED DEFAULT NULL,
+  `feedback_seen` enum('0','1') NOT NULL DEFAULT '0',
   `tanggal` date NOT NULL,
   `created_at` datetime NOT NULL,
   `seen_by_ortu` enum('0','1') NOT NULL DEFAULT '0'
@@ -401,9 +404,9 @@ CREATE TABLE `monitoring_mahfudhot` (
 -- Dumping data for table `monitoring_mahfudhot`
 --
 
-INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `id_mahfudhot`, `lu`, `created_by`, `feedback`, `feedback_by`, `tanggal`, `created_at`, `seen_by_ortu`) VALUES
-(9, 13, 3, 'lancar', NULL, NULL, NULL, '2024-05-31', '2024-05-31 10:32:01', '0'),
-(10, 4, 8, 'lancar', NULL, NULL, NULL, '2024-05-31', '2024-05-31 10:42:02', '0');
+INSERT INTO `monitoring_mahfudhot` (`id`, `id_siswa`, `id_mahfudhot`, `lu`, `created_by`, `feedback`, `feedback_by`, `feedback_seen`, `tanggal`, `created_at`, `seen_by_ortu`) VALUES
+(9, 13, 3, 'lancar', NULL, NULL, NULL, '0', '2024-05-31', '2024-05-31 10:32:01', '0'),
+(10, 4, 8, 'lancar', NULL, 'bbbb', 2, '0', '2024-05-31', '2024-05-31 10:42:02', '0');
 
 -- --------------------------------------------------------
 
@@ -421,6 +424,7 @@ CREATE TABLE `monitoring_tahfidz` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `feedback` text DEFAULT NULL,
   `feedback_by` int(10) UNSIGNED DEFAULT NULL,
+  `feedback_seen` enum('0','1') NOT NULL DEFAULT '0',
   `tanggal` date NOT NULL,
   `created_at` datetime NOT NULL,
   `seen_by_ortu` enum('0','1') NOT NULL DEFAULT '0'
@@ -430,11 +434,11 @@ CREATE TABLE `monitoring_tahfidz` (
 -- Dumping data for table `monitoring_tahfidz`
 --
 
-INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `catatan`, `created_by`, `feedback`, `feedback_by`, `tanggal`, `created_at`, `seen_by_ortu`) VALUES
-(5, 3, 2, '1-25', 'lancar', 'lebih diperjelas kembali bacaannya', NULL, NULL, NULL, '2024-05-19', '2024-05-19 14:18:04', '0'),
-(6, 4, 78, '1-20', 'lancar', 'Sudah Bagus', NULL, NULL, NULL, '2024-05-20', '2024-05-20 08:27:06', '0'),
-(7, 4, 2, '1-20', 'lancar', 'Sudah Bagus', NULL, NULL, NULL, '2024-05-31', '2024-05-31 07:22:09', '0'),
-(8, 4, 4, '1-20', 'lancar', 'Sudah Bagus', NULL, NULL, NULL, '2024-05-31', '2024-05-31 10:41:51', '0');
+INSERT INTO `monitoring_tahfidz` (`id`, `id_siswa`, `id_surah`, `ayat`, `lu`, `catatan`, `created_by`, `feedback`, `feedback_by`, `feedback_seen`, `tanggal`, `created_at`, `seen_by_ortu`) VALUES
+(5, 3, 2, '1-25', 'lancar', 'lebih diperjelas kembali bacaannya', NULL, NULL, NULL, '0', '2024-05-19', '2024-05-19 14:18:04', '0'),
+(6, 4, 78, '1-20', 'lancar', 'Sudah Bagus', NULL, 'aaaaa', 2, '0', '2024-05-20', '2024-05-20 08:27:06', '0'),
+(7, 4, 2, '1-20', 'lancar', 'Sudah Bagus', NULL, NULL, NULL, '0', '2024-05-31', '2024-05-31 07:22:09', '0'),
+(8, 4, 4, '1-20', 'lancar', 'Sudah Bagus', NULL, NULL, NULL, '0', '2024-05-31', '2024-05-31 10:41:51', '0');
 
 -- --------------------------------------------------------
 
@@ -453,6 +457,7 @@ CREATE TABLE `monitoring_tahsin` (
   `created_by` int(10) UNSIGNED DEFAULT NULL,
   `feedback` text DEFAULT NULL,
   `feedback_by` int(10) UNSIGNED DEFAULT NULL,
+  `feedback_seen` enum('0','1') NOT NULL DEFAULT '0',
   `tanggal` date NOT NULL,
   `created_at` datetime NOT NULL,
   `seen_by_ortu` enum('0','1') NOT NULL DEFAULT '0'
@@ -462,11 +467,14 @@ CREATE TABLE `monitoring_tahsin` (
 -- Dumping data for table `monitoring_tahsin`
 --
 
-INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `catatan`, `created_by`, `feedback`, `feedback_by`, `tanggal`, `created_at`, `seen_by_ortu`) VALUES
-(6, 2, 12, 'iqro', '1', 'lancar', NULL, NULL, NULL, NULL, '2024-02-28', '2024-03-01 19:08:30', '0'),
-(7, 4, 1, 'iqro', '25', 'lancar', 'bacaan lebih ditata lagi', NULL, NULL, NULL, '2024-05-31', '2024-05-31 07:20:39', '1'),
-(8, 4, 1, 'iqro', '10', 'lancar', 'bacaan lebih ditata lagi', NULL, NULL, NULL, '2024-05-31', '2024-05-31 07:20:49', '1'),
-(9, 13, 1, 'iqro', '10', 'lancar', 'bacaan lebih ditata lagi', NULL, NULL, NULL, '2024-05-31', '2024-05-31 10:20:34', '1');
+INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`, `catatan`, `created_by`, `feedback`, `feedback_by`, `feedback_seen`, `tanggal`, `created_at`, `seen_by_ortu`) VALUES
+(6, 2, 12, 'iqro', '1', 'lancar', NULL, NULL, NULL, NULL, '0', '2024-02-28', '2024-03-01 19:08:30', '0'),
+(7, 4, 1, 'iqro', '25', 'lancar', 'bacaan lebih ditata lagi', NULL, NULL, NULL, '0', '2024-05-31', '2024-05-31 07:20:39', '1'),
+(8, 4, 1, 'iqro', '10', 'lancar', 'bacaan lebih ditata lagi', NULL, NULL, NULL, '0', '2024-05-31', '2024-05-31 07:20:49', '1'),
+(9, 13, 1, 'iqro', '10', 'lancar', 'bacaan lebih ditata lagi', NULL, NULL, NULL, '0', '2024-05-31', '2024-05-31 10:20:34', '1'),
+(10, 4, 1, 'iqro', '10', 'lancar', 'bacaan lebih ditata lagi', 26, 'terimakasih', 2, '1', '2024-05-31', '2024-05-31 14:12:08', '0'),
+(11, 4, 1, 'iqro', '123', 'lancar', 'bacaan sudah bagus', 26, NULL, NULL, '0', '2024-05-31', '2024-05-31 14:20:22', '0'),
+(12, 13, 1, 'iqro', '3', 'ulang', NULL, 26, 'mantab', 2, '1', '2024-05-31', '2024-05-31 14:40:21', '0');
 
 -- --------------------------------------------------------
 
@@ -859,8 +867,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'nPgQq5otks1woM8p6XMGUXdNnvAaTm55Xm2wL4HEHlK94ixL4rgmfgiOjK3k', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
-(16, 'orang_tua', 'elmahartati@gmail.com', '$2y$10$GSYdp7AvqF0D3RA3B6J1v.Mx4vjCh8ikQ8S68VfJznmpUl97dlOOO', NULL, 2, NULL, '2024-02-22 02:13:37', '2024-02-22 02:14:06'),
+(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'xT7uQIwDmoEDsTYpBLuIPVat6udtuuVJK1ZfQqxutBKdsJZApnDxaIL6Sbk3', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
+(16, 'orang_tua', 'elmahartati@gmail.com', '$2y$10$GSYdp7AvqF0D3RA3B6J1v.Mx4vjCh8ikQ8S68VfJznmpUl97dlOOO', NULL, 2, 'n8UNDXM9Renr75pdFpgYHxp7AbRCIvI1cGMPPoJ5zELgnrs5sHFQrEwt42ZQ', '2024-02-22 02:13:37', '2024-02-22 02:14:06'),
 (17, 'orang_tua', 'amalianovitasari@gmail.com', '$2y$10$LLGkgVf6CuALGNO/KgBfSeCDcGvVikcae3yJtquuy7kMAXHS.0WTW', NULL, 6, NULL, '2024-02-22 14:49:30', '2024-02-22 14:49:39'),
 (18, 'orang_tua', 'ekaiswahyudi@gmail.com', '$2y$10$J3Y3x2Mkw6IBu0/JByG/1ejsQ1vYP5FgTeLMvXQEAAnUymrbZYS9W', NULL, 8, NULL, '2024-02-22 14:49:47', '2024-02-22 14:50:33'),
 (19, 'orang_tua', 'dadinatsir@gmail.com', '$2y$10$JinI1mLa9Yasi2kIitRlJucjy24NsqEu62GkUqdIsdDPiZV0oGGAe', NULL, 9, NULL, '2024-02-22 14:49:53', '2024-02-22 14:50:43'),
@@ -996,7 +1004,8 @@ ALTER TABLE `monitoring_doa`
   ADD KEY `feedback_by` (`feedback_by`),
   ADD KEY `tanggal` (`tanggal`),
   ADD KEY `id_doa` (`id_doa`),
-  ADD KEY `seen_by_ortu` (`seen_by_ortu`);
+  ADD KEY `seen_by_ortu` (`seen_by_ortu`),
+  ADD KEY `feedback_seen` (`feedback_seen`);
 ALTER TABLE `monitoring_doa` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
@@ -1011,7 +1020,8 @@ ALTER TABLE `monitoring_hadits`
   ADD KEY `feedback_by` (`feedback_by`),
   ADD KEY `tanggal` (`tanggal`),
   ADD KEY `id_hadits` (`id_hadits`),
-  ADD KEY `seen_by_ortu` (`seen_by_ortu`);
+  ADD KEY `seen_by_ortu` (`seen_by_ortu`),
+  ADD KEY `feedback_seen` (`feedback_seen`);
 ALTER TABLE `monitoring_hadits` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
@@ -1039,7 +1049,8 @@ ALTER TABLE `monitoring_mahfudhot`
   ADD KEY `feedback_by` (`feedback_by`),
   ADD KEY `tanggal` (`tanggal`),
   ADD KEY `id_mahfudhot` (`id_mahfudhot`),
-  ADD KEY `seen_by_ortu` (`seen_by_ortu`);
+  ADD KEY `seen_by_ortu` (`seen_by_ortu`),
+  ADD KEY `feedback_seen` (`feedback_seen`);
 ALTER TABLE `monitoring_mahfudhot` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
@@ -1054,7 +1065,8 @@ ALTER TABLE `monitoring_tahfidz`
   ADD KEY `created_at` (`created_at`),
   ADD KEY `feedback_by` (`feedback_by`),
   ADD KEY `tanggal` (`tanggal`),
-  ADD KEY `seen_by_ortu` (`seen_by_ortu`);
+  ADD KEY `seen_by_ortu` (`seen_by_ortu`),
+  ADD KEY `feedback_seen` (`feedback_seen`);
 ALTER TABLE `monitoring_tahfidz` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
@@ -1070,7 +1082,8 @@ ALTER TABLE `monitoring_tahsin`
   ADD KEY `created_at` (`created_at`),
   ADD KEY `feedback_by` (`feedback_by`),
   ADD KEY `tanggal` (`tanggal`),
-  ADD KEY `seen_by_ortu` (`seen_by_ortu`);
+  ADD KEY `seen_by_ortu` (`seen_by_ortu`),
+  ADD KEY `feedback_seen` (`feedback_seen`);
 ALTER TABLE `monitoring_tahsin` ADD FULLTEXT KEY `feedback` (`feedback`);
 
 --
@@ -1285,7 +1298,7 @@ ALTER TABLE `monitoring_tahfidz`
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`

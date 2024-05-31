@@ -24,6 +24,7 @@ use App\Models\Ref\Surah;
 use App\Models\Ref\Doa as DoaRef;
 use App\Models\Ref\Hadits as HaditsRef;
 use App\Models\Ref\Mahfudhot as MahfudhotRef;
+use Crypt;
 
 class HomeController extends Controller
 {
@@ -149,9 +150,22 @@ class HomeController extends Controller
             }
 
 
-        } else if (Auth::user()->role === "guru") {
+        } else if ($user->role === "guru") {
             $data_notif = [];
             $data_pencapaian = [];
+
+            foreach (Guru::get_unseen_feedback_by_user_id($user->id) as $f) {
+                $data_notif[] = [
+                    "id"         => $f->id,
+                    "tipe_notif" => "feedback_guru",
+                    "id_siswa"   => $f->id_siswa,
+                    "tanggal"    => $f->tanggal,
+                    "str"        => "{$f->nama}: Feedback monitoring {$f->tipe} tanggal ".fix_id_d($f->tanggal),
+                    "tipe"       => $f->tipe,
+                    "feedback"   => $f->feedback,
+                    "nama_ortu"  => $f->nama_ortu,
+                ];
+            }
         } else {
             $data_notif = [];
             $data_pencapaian = [];

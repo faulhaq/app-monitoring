@@ -68,11 +68,11 @@
                 @if (Auth::user()->role === 'guru')
                     @if (!empty(array_filter($data_notif)))
                         @foreach($data_notif as $dn)
-                            @foreach($dn as $tg => $v)
-                                <div class="alert alert-danger" role="alert">
-                                    <a href="{{ route('monitoring.harian.index2',['fsiswa' => $v['siswa']->id, 'ftanggal' => $tg]) }}">Belum mengisi feedback untuk {{ $v['siswa']->nama }}. tanggal {{ fix_id_d($tg) }}</a>
-                                </div>
-                            @endforeach
+                            @if ($dn["tipe_notif"] === "feedback_guru")
+                                <a href="{{ route('monitoring.keagamaan.'.$dn["tipe"])."?type={$dn["tipe"]}&fkelas=-1&id_data={$dn["id"]}&id={$dn["id"]}&fsiswa={$dn["id_siswa"]}&ftanggal={$dn["tanggal"]}&show_feedback_pop_up=1&fguru=1&feedback=".Crypt::encrypt($dn["feedback"])."&nama_ortu=".Crypt::encrypt($dn["nama_ortu"]) }}">
+                                    {{ $dn["str"] }}
+                                </a>
+                            @endif
                         @endforeach
                     @else
                         <div class="text-center">

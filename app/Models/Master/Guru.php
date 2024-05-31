@@ -5,6 +5,10 @@ namespace App\Models\Master;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Ref\TraitRef;
+use App\Models\Master\Siswa;
+use App\Models\Master\OrangTua;
+use DB;
+use PDO;
 
 class Guru extends Model
 {
@@ -33,5 +37,36 @@ class Guru extends Model
         }
         
         return $data_siswa;
+    }
+
+    public static function get_unseen_feedback_by_user_id($id_user)
+    {
+        $pdo = DB::connection()->getPdo();
+        $stmt = $pdo->prepare("            
+            SELECT id, id_siswa, tanggal, feedback, feedback_by, 'doa' AS tipe FROM monitoring_doa WHERE feedback IS NOT NULL and feedback_seen = '0' AND created_by = {$id_user} UNION ALL
+            SELECT id, id_siswa, tanggal, feedback, feedback_by, 'hadits' AS tipe FROM monitoring_hadits WHERE feedback IS NOT NULL and feedback_seen = '0' AND created_by = {$id_user} UNION ALL
+            SELECT id, id_siswa, tanggal, feedback, feedback_by, 'mahfudhot' AS tipe FROM monitoring_mahfudhot WHERE feedback IS NOT NULL and feedback_seen = '0' AND created_by = {$id_user} UNION ALL
+            SELECT id, id_siswa, tanggal, feedback, feedback_by, 'tahfidz' AS tipe FROM monitoring_tahfidz WHERE feedback IS NOT NULL and feedback_seen = '0' AND created_by = {$id_user} UNION ALL
+            SELECT id, id_siswa, tanggal, feedback, feedback_by, 'tahsin' AS tipe FROM monitoring_tahsin WHERE feedback IS NOT NULL and feedback_seen = '0' AND created_by = {$id_user};
+        ");
+        $stmt->execute();
+        $ret = [];
+        while ($tmp = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $siswa = Siswa::find($tmp["id_siswa"]);
+            if (!$siswa) {
+                continue;
+            }
+
+            $ortu = OrangTua::find($tmp["feedback_by"]);
+            if (!$ortu) {
+                continue;
+            }
+
+            $ret[] = (object) array_merge($tmp, [
+                "nama"     => $siswa->nama,
+                "nama_ortu" => $ortu->nama,
+            ]);
+        }
+        return $ret;
     }
 }

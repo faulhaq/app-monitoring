@@ -19,17 +19,39 @@ use DB;
 
 class MonitoringKeagamaanController extends Controller
 {
-    private function handle_mark_as_seen()
+    private static function is_type_allowed($type): bool
     {
-        $type = is_string($_GET["type"] ?? NULL) ? $_GET["type"] : NULL;
-        $id = is_string($_GET["id_data"] ?? NULL) ? $_GET["id_data"] : NULL;
-        if (!$type || !$id) {
-            return;
-        }
+        return in_array($type, ["tahsin", "mahfudhot", "hadits", "doa", "tahfidz"]);
+    }
 
-        $pdo = DB::connection()->getPdo();
-        $st = $pdo->prepare("UPDATE `monitoring_{$type}` SET `seen_by_ortu` = '1' WHERE `id` = ?");
-        $st->execute([$id]);
+    private function handle_mark_as_seen(): void
+    {
+        if (Auth::user()->role === "orang_tua") {
+            $type = is_string($_GET["type"] ?? NULL) ? $_GET["type"] : NULL;
+            $id = is_string($_GET["id_data"] ?? NULL) ? $_GET["id_data"] : NULL;
+            if (!$type || !$id || !self::is_type_allowed($type)) {
+                return;
+            }
+
+            $pdo = DB::connection()->getPdo();
+            $st = $pdo->prepare("UPDATE `monitoring_{$type}` SET `seen_by_ortu` = '1' WHERE `id` = ?");
+            $st->execute([$id]);
+        }
+    }
+
+    private function handle_feedback_as_seen(): void
+    {
+        if (Auth::user()->role === "guru") {
+            $type = is_string($_GET["type"] ?? NULL) ? $_GET["type"] : NULL;
+            $id = is_string($_GET["id_data"] ?? NULL) ? $_GET["id_data"] : NULL;
+            if (!$type || !$id || !self::is_type_allowed($type)) {
+                return;
+            }
+
+            $pdo = DB::connection()->getPdo();
+            $st = $pdo->prepare("UPDATE `monitoring_{$type}` SET `feedback_seen` = '1' WHERE `id` = ?");
+            $st->execute([$id]);
+        }
     }
 
     public function store_feedback(Request $r)
@@ -196,6 +218,7 @@ class MonitoringKeagamaanController extends Controller
         }
 
         $this->handle_mark_as_seen();
+        $this->handle_feedback_as_seen();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.tahsin",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
@@ -290,6 +313,7 @@ class MonitoringKeagamaanController extends Controller
         }
 
         $this->handle_mark_as_seen();
+        $this->handle_feedback_as_seen();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.tahfidz",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
@@ -383,6 +407,7 @@ class MonitoringKeagamaanController extends Controller
         }
 
         $this->handle_mark_as_seen();
+        $this->handle_feedback_as_seen();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.mahfudhot",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
@@ -472,6 +497,7 @@ class MonitoringKeagamaanController extends Controller
         }
 
         $this->handle_mark_as_seen();
+        $this->handle_feedback_as_seen();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.hadits",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
@@ -561,6 +587,7 @@ class MonitoringKeagamaanController extends Controller
         }
 
         $this->handle_mark_as_seen();
+        $this->handle_feedback_as_seen();
         $id_tahun_ajaran_aktif = TahunAjaran::get_id_tahun_ajaran_aktif();
         return view("monitoring.keagamaan.doa",
             compact("kelas", "id_tahun_ajaran_aktif", "fkelas", "fsiswa",
