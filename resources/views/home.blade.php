@@ -111,7 +111,7 @@
                     Pencapaian
                 </h3>
             </div>
-            <div class="card-body">
+            <div class="card-body" style="overflow-y: scroll; max-height: 335px;">
                 @if (!empty(array_filter($data_pencapaian)))
                     @foreach($data_pencapaian as $dp)
                         {{-- @foreach($dma as $dm)
