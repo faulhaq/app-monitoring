@@ -103,81 +103,29 @@ class HomeController extends Controller
         $siswa_pr = DB::select("SELECT COUNT(1) AS c FROM `siswa` WHERE jk = 'P' GROUP BY jk;")[0]->c ?? 0;
         $siswa_all = DB::select("SELECT COUNT(1) AS c FROM `siswa`;")[0]->c ?? 0;
 
-        $profil = Auth::user()->profile();
+        $user = Auth::user();
+        $profil = $user->profile();
 
         $bulan = (int) date("m");
         $tahun = (int) date("Y");
 
-        if (Auth::user()->role === "orang_tua") {
-            $siswa = (new OrangTua())->data_anak(Auth::user()->id_orang_tua);
-
-            $data_harian = [];
-            foreach ($siswa as $s) {
-                $harian = Harian::where("bulan", $bulan)
-                ->where("tahun", $tahun)
-                ->where("id_kelas", $s->kelas()->id)
-                    ->first();
-
-                $data_harian[] = $harian;
-            }
-
-            $id_siswa = array_column($siswa, "id");
-
-            $data_jawaban = [];
-            $data_pencapaian = $this->get_pencapaian($id_siswa[0]);
-            foreach ($id_siswa as $id) {
-                $jawaban = MonitoringHarian::with("siswa")->where("tanggal", "LIKE", "{$tahun}-" . sprintf("%02d", $bulan) . "-%")
-                    ->where("id_siswa", $id)
-                    ->get()->toArray();
-
-                $data_jawaban[] = $jawaban;
-            }
-
-            $data_jawaban = array_values(array_filter($data_jawaban, function ($subarray) {
-                return !empty($subarray);
-            }));
-
-            if (!$data_jawaban && !$data_pencapaian) {
-                $data_notif = [];
-                goto out;
-            }
-
-            $data_list_tanggal = [];
-            foreach ($data_jawaban as $dj) {
-                $list_tanggal = [];
-                for ($i = 1; $i <= date("d"); $i++) {
-                    $dt = "{$tahun}-" . sprintf("%02d", $bulan) . "-" . sprintf("%02d", $i);
-                    $ep = strtotime($dt);
-                    if (date("Y-m-d", $ep) !== $dt)
-                        continue;
-
-                    $data_siswa = [];
-                    $found = false;
-                    foreach ($dj as $j) {
-                        if ($j['tanggal'] !== $dt) {
-                            $found = false;
-                            $data_siswa = $j['siswa'];
-                        }
-                    }
-                    foreach ($dj as $j) {
-                        if ($j['tanggal'] === $dt) {
-                            $found = true;
-                        }
-                    }
-
-                    $list_tanggal[$dt] = ["status" => $found, "siswa" => $data_siswa];
+        if ($user->role === "orang_tua") {
+            $data_notif = [];
+            $data_pencapaian = [];
+            /*
+             * 1) Dapatkan semua anak dari orang tua yang login.
+             * 2) Dapatkan 5 pencapaian terbaru dari setiap anak.
+             * 3) Tampilkan data pencapaian terbaru.
+             */
+            $orang_tua = $user->orang_tua();
+            $list_anak = $orang_tua->get_all_anak();
+            foreach ($list_anak as $anak) {
+                $pencapaian = $this->get_pencapaian($anak->id);
+                foreach ($pencapaian as $p) {
+                    $data_pencapaian[] = $p;
                 }
-                $data_list_tanggal[] = $list_tanggal;
             }
 
-            $data_notif =  array_map(
-                function ($array) {
-                    return array_filter($array, function ($value) {
-                        return $value["status"] === false;
-                    });
-                },
-                $data_list_tanggal
-            );
         } else if (Auth::user()->role === "guru") {
             $siswa = (new Guru())->data_siswa(Auth::user()->id_guru);
 
