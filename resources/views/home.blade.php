@@ -83,13 +83,16 @@
                 @elseif(Auth::user()->role === 'orang_tua')
                    @if (!empty(array_filter($data_notif)))
                         @foreach($data_notif as $dn)
-                            {{-- @foreach($dn as $tg => $v)
-                                <div class="alert alert-danger" role="alert">
-                                    <a href="{{ route('monitoring.harian.index2',['fsiswa' => $v['siswa']['id'], 'ftanggal' => $tg]) }}">Belum mengisi monitoring untuk {{ $v['siswa']['nama'] }}. tanggal {{ fix_id_d($tg) }}</a>
-                                </div>
-                            @endforeach  --}}
                             <div class="alert alert-danger" role="alert">
-                                <a href="{{ route('monitoring.harian.index2')."?fsiswa={$dn["id_siswa"]}&ftanggal={$dn["tanggal"]}" }}">{{ $dn["str"] }}</a>
+                                @if ($dn["tipe_notif"] === "harian")
+                                    <a href="{{ route('monitoring.harian.index2')."?fsiswa={$dn["id_siswa"]}&ftanggal={$dn["tanggal"]}" }}">
+                                        {{ $dn["str"] }}
+                                    </a>
+                                @elseif ($dn["tipe_notif"] === "feedback")
+                                    <a href="{{ route('monitoring.keagamaan.'.$dn["tipe"])."?fkelas=-1&id={$dn["id"]}&fsiswa={$dn["id_siswa"]}&ftanggal={$dn["tanggal"]}&show_feedback_pop_up=1" }}">
+                                        {{ $dn["str"] }}
+                                    </a>
+                                @endif
                             </div>
                         @endforeach
                     @else
@@ -117,16 +120,6 @@
             <div class="card-body" style="overflow-y: scroll; max-height: 335px;">
                 @if (!empty(array_filter($data_pencapaian)))
                     @foreach($data_pencapaian as $dp)
-                        {{-- @foreach($dma as $dm)
-                            <div class="alert alert-danger" role="alert">
-                            @php
-                                $table = (new $dm)->getTable();
-                                $v = explode('_', $table);
-                                $name = end($v);
-                            @endphp
-                                <a href="{{ route('monitoring.keagamaan.'.$name) }}">{{ parse_value((new $dm)->getTable()) }} untuk {{ $dm->siswa->nama  }}. tanggal {{ fix_id_d($dm->tanggal) }}</a>
-                            </div>
-                        @endforeach --}}
                         <div class="alert alert-danger" role="alert">
                         <a href="{{ route('monitoring.keagamaan.'.$dp["type"])."?fkelas=-1&fsiswa={$dp['id_siswa']}&mark_as_seen=1&type={$dp['type']}&id_data={$dp['id']}" }}">{{ $dp["str"] }}</a>
                         </div>

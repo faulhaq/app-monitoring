@@ -128,9 +128,22 @@ class HomeController extends Controller
                 $unasnwered_harian = $anak->get_unasnwered_harian();
                 foreach ($unasnwered_harian as $t) {
                     $data_notif[] = [
-                        "id_siswa" => $anak->id,
-                        "tanggal"  => $t,
-                        "str"      => "Monitoring harian {$anak->nama} tanggal ".fix_id_d($t)." belum diisi!",
+                        "tipe_notif" => "harian",
+                        "id_siswa"   => $anak->id,
+                        "tanggal"    => $t,
+                        "str"        => "{$anak->nama}: Monitoring harian tanggal ".fix_id_d($t)." belum diisi!",
+                    ];
+                }
+
+                $missng_feedback = $anak->get_missing_feedback();
+                foreach ($missng_feedback as $m) {
+                    $data_notif[] = [
+                        "tipe_notif" => "feedback",
+                        "id_siswa"   => $anak->id,
+                        "tanggal"    => $m->tanggal,
+                        "str"        => "{$anak->nama}: Harap isi feedback monitoring {$m->tipe} tanggal ".fix_id_d($m->tanggal)."!",
+                        "tipe"       => $m->tipe,
+                        "id"         => $m->id,
                     ];
                 }
             }

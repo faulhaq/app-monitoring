@@ -27,9 +27,14 @@
     {
         let feedback_text = $(e).attr("user-feedback");
         let feedback_by = $(e).attr("user-feedback-by");
+        handle_user_feedback_id(feedback_text, feedback_by, $(e).attr("user-data-id"));
+    }
+
+    function handle_user_feedback_id(feedback_text, feedback_by, id)
+    {
         if (!feedback_text) {
             $("#feedback-form").show();
-            $("#user-feedback-data-id").val($(e).attr("user-data-id"));
+            $("#user-feedback-data-id").val(id);
             $("#user-feedback").html("");
             $("#user-feedback-by").html("Isi Feedback");
         } else {
@@ -38,4 +43,11 @@
             $("#user-feedback-by").html("Feedback dari "+feedback_by);
         }
     }
+
+    @if (isset($_GET["show_feedback_pop_up"], $_GET["id"]) && is_numeric($_GET["id"]))
+    document.addEventListener("DOMContentLoaded", function(event) {
+        $('.show-feedback').modal('toggle');
+        handle_user_feedback_id("", "", {{ $_GET["id"] }});
+    });
+    @endif
 </script>

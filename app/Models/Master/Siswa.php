@@ -11,6 +11,7 @@ use App\Models\Master\TahunAjaran;
 use App\Models\Master\Kelas;
 use App\Models\Master\KK;
 use DB;
+use PDO;
 use App\Models\Monitoring\Harian as MonitoringHarian;
 
 class Siswa extends Model
@@ -154,5 +155,24 @@ class Siswa extends Model
         }
 
         return $list_tanggal;
+    }
+
+    public function get_missing_feedback()
+    {
+        $pdo = DB::connection()->getPdo();
+        $id_siswa = $this->id;
+        $stmt = $pdo->prepare("
+            SELECT tanggal, id, id_siswa, 'doa' AS tipe FROM monitoring_doa WHERE id_siswa = {$id_siswa} AND feedback IS NULL UNION ALL
+            SELECT tanggal, id, id_siswa, 'hadits' AS tipe FROM monitoring_hadits WHERE id_siswa = {$id_siswa} AND feedback IS NULL UNION ALL
+            SELECT tanggal, id, id_siswa, 'mahfudhot' AS tipe FROM monitoring_mahfudhot WHERE id_siswa = {$id_siswa} AND feedback IS NULL UNION ALL
+            SELECT tanggal, id, id_siswa, 'tahfidz' AS tipe FROM monitoring_tahfidz WHERE id_siswa = {$id_siswa} AND feedback IS NULL UNION ALL
+            SELECT tanggal, id, id_siswa, 'tahsin' AS tipe FROM monitoring_tahsin WHERE id_siswa = {$id_siswa} AND feedback IS NULL;
+        ");
+        $stmt->execute();
+        $ret = [];
+        while ($tmp = $stmt->fetchObject()) {
+            $ret[] = $tmp;
+        }
+        return $ret;
     }
 }
