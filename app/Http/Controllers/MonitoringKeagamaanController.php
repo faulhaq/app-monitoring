@@ -152,7 +152,7 @@ class MonitoringKeagamaanController extends Controller
     private function get_kelas($user)
     {
         if ($user->role !== "orang_tua") {
-            return Kelas::get();
+            return Kelas::orderBy("tingkatan", "asc")->get();
         }
 
         return null;
