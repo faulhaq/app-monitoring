@@ -4,7 +4,7 @@
     <li class="breadcrumb-item active">Dashboard</li>
 @endsection
 @section('content')
-    <div class="col-md-6">
+    <div class="col-md-12">
         <div class="card card-secondary" style="min-height: 385px;">
             <div class="card-header">
                 <h3 class="card-title" style="color: white;">
