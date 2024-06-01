@@ -69,4 +69,69 @@ class Guru extends Model
         }
         return $ret;
     }
+
+    public function get_all_siswa_where_guru_is_wali_kelas()
+    {
+        $id_guru = $this->id;
+        $list_kelas = Kelas::where("id_guru", $id_guru)->get();
+        $ret = [];
+
+        foreach ($list_kelas as $k) {
+            $kelas_siswa = KelasSiswa::where("id_kelas", $k->id)->get();
+            foreach ($kelas_siswa as $s) {
+                if (isset($ret[$s->id_siswa])) {
+                    continue;
+                }
+
+                $ret[$s->id_siswa] = Siswa::find($s->id_siswa);
+            }
+        }
+
+        dd($ret);
+        return array_keys($ret);
+    }
+
+    public function get_all_kelas_where_guru_is_wali_kelas()
+    {
+        return Kelas::where("id_guru", $this->id)->get();
+    }
+
+    public static function find_answered_and_unlocked_harian($list_kelas)
+    {
+        $ret = [];
+        foreach ($list_kelas as $k) {
+            $id_kelas = $k->id;
+
+            $list_siswa = Siswa::get_siswa_by_id_kelas($id_kelas)->get();
+            $data_harian = Harian::where("id_kelas", $id_kelas)->get();
+            foreach ($data_harian as $h) {
+                $bulan = $h->bulan;
+                $tahun = $h->tahun;
+
+                foreach ($list_siswa as $siswa) {
+                    for ($i = 1; $i <= 31; $i++) {
+                        $dt = "{$tahun}-".sprintf("%02d", $bulan)."-".sprintf("%02d", $i);
+                        $ep = strtotime($dt);
+                        if (date("Y-m-d", $ep) !== $dt)
+                            continue;
+
+                        $count = Harian::count_answer_per_3_ident($siswa->id, $h->id, $dt);
+                        if ($count === 0)
+                            continue;
+
+                        $ret[] = (object) [
+                            "id_data_harian" => $h->id,
+                            "id_siswa"       => $siswa->id,
+                            "tanggal"        => $dt,
+                            "count"          => $count,
+                            "nama"           => $siswa->nama,
+                            "id_kelas"       => $id_kelas,
+                        ];
+                    }
+                }
+            }
+        }
+
+        return $ret;
+    }
 }

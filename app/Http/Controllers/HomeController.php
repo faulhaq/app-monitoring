@@ -164,6 +164,10 @@ class HomeController extends Controller
             $data_notif = [];
             $data_pencapaian = [];
 
+            $guru = $user->guru();
+            $list_kelas = $guru->get_all_kelas_where_guru_is_wali_kelas();
+            $answered_and_unlocked_list = Guru::find_answered_and_unlocked_harian($list_kelas);
+
             foreach (Guru::get_unseen_feedback_by_user_id($user->id) as $f) {
                 $data_notif[] = [
                     "id"         => $f->id,
@@ -174,6 +178,17 @@ class HomeController extends Controller
                     "tipe"       => $f->tipe,
                     "feedback"   => $f->feedback,
                     "nama_ortu"  => $f->nama_ortu,
+                ];
+            }
+
+            foreach ($answered_and_unlocked_list as $a) {
+                $data_notif[] = [
+                    "str"        => "{$a->nama}: Laporan harian tanggal ".fix_id_d($a->tanggal)." belum dinilai!",
+                    "id_siswa"   => $a->id_siswa,
+                    "tanggal"    => $a->tanggal,
+                    "id"         => $a->id_data_harian,
+                    "id_kelas"   => $a->id_kelas,
+                    "tipe_notif" => "harian_unlocked",
                 ];
             }
         } else {

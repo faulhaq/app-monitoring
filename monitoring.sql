@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 01, 2024 at 06:03 AM
+-- Generation Time: Jun 01, 2024 at 10:00 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -280,8 +280,9 @@ CREATE TABLE `kunci_monitoring_harian` (
 --
 
 INSERT INTO `kunci_monitoring_harian` (`id`, `id_data_harian`, `id_siswa`, `point`, `point_seen`, `tanggal`) VALUES
-(9, 24, 4, 100, '1', '2024-06-01'),
-(10, 24, 13, 50, '1', '2024-06-01');
+(12, 23, 4, 90, '0', '2024-05-31'),
+(13, 22, 4, 30, '0', '2024-02-02'),
+(14, 24, 13, 100, '0', '2024-06-01');
 
 -- --------------------------------------------------------
 
@@ -389,12 +390,13 @@ INSERT INTO `monitoring_harian` (`id`, `id_siswa`, `id_pertanyaan`, `jawaban`, `
 (33, 4, 20, 'membantu siram tanaman', '2024-02-02', 2, '2024-02-23 01:16:35', NULL),
 (34, 4, 22, 'ya', '2024-05-31', 2, '2024-05-31 11:00:02', NULL),
 (35, 13, 22, 'ya', '2024-05-05', 2, '2024-05-31 11:12:51', NULL),
-(36, 4, 25, 'ya', '2024-06-01', 2, '2024-06-01 10:43:45', NULL),
-(37, 4, 23, 'ok', '2024-06-01', 2, '2024-06-01 10:43:45', NULL),
-(38, 4, 24, 'ty', '2024-06-01', 2, '2024-06-01 10:43:45', NULL),
 (39, 13, 25, 'tidak', '2024-06-01', 2, '2024-06-01 11:02:16', NULL),
 (40, 13, 23, 'ok', '2024-06-01', 2, '2024-06-01 11:02:16', NULL),
-(41, 13, 24, 'yy', '2024-06-01', 2, '2024-06-01 11:02:16', NULL);
+(41, 13, 24, 'yy', '2024-06-01', 2, '2024-06-01 11:02:16', NULL),
+(42, 4, 25, 'ya', '2024-06-01', 2, '2024-06-01 14:30:16', NULL),
+(43, 4, 23, 'ok', '2024-06-01', 2, '2024-06-01 14:30:16', NULL),
+(45, 4, 22, 'ya', '2024-05-30', 2, '2024-06-01 14:32:20', NULL),
+(46, 4, 21, 'zzzz', '2024-05-30', 2, '2024-06-01 14:32:20', NULL);
 
 -- --------------------------------------------------------
 
@@ -490,7 +492,8 @@ INSERT INTO `monitoring_tahsin` (`id`, `id_siswa`, `n`, `tipe`, `halaman`, `lu`,
 (9, 13, 1, 'iqro', '10', 'lancar', 'bacaan lebih ditata lagi', NULL, NULL, NULL, '0', '2024-05-31', '2024-05-31 10:20:34', '1'),
 (10, 4, 1, 'iqro', '10', 'lancar', 'bacaan lebih ditata lagi', 26, 'terimakasih', 2, '1', '2024-05-31', '2024-05-31 14:12:08', '0'),
 (11, 4, 1, 'iqro', '123', 'lancar', 'bacaan sudah bagus', 26, NULL, NULL, '0', '2024-05-31', '2024-05-31 14:20:22', '0'),
-(12, 13, 1, 'iqro', '3', 'ulang', NULL, 26, 'mantab', 2, '1', '2024-05-31', '2024-05-31 14:40:21', '0');
+(12, 13, 1, 'iqro', '3', 'ulang', NULL, 26, 'mantab', 2, '1', '2024-05-31', '2024-05-31 14:40:21', '0'),
+(13, 13, 2, 'iqro', '123', 'lancar', 'bacaan sudah bagus', 26, 'ok', 2, '1', '2024-06-01', '2024-06-01 11:04:51', '0');
 
 -- --------------------------------------------------------
 
@@ -1276,7 +1279,7 @@ ALTER TABLE `kk`
 -- AUTO_INCREMENT for table `kunci_monitoring_harian`
 --
 ALTER TABLE `kunci_monitoring_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `mahfudhot`
@@ -1300,7 +1303,7 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_harian`
 --
 ALTER TABLE `monitoring_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
@@ -1318,7 +1321,7 @@ ALTER TABLE `monitoring_tahfidz`
 -- AUTO_INCREMENT for table `monitoring_tahsin`
 --
 ALTER TABLE `monitoring_tahsin`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT for table `orang_tua`

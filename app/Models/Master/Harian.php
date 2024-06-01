@@ -4,6 +4,8 @@ namespace App\Models\Master;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Master\Kelas;
+use DB;
+use PDO;
 
 class Harian extends Model
 {
@@ -77,5 +79,40 @@ class Harian extends Model
     public function get_all_pertanyaan()
     {
         return PertanyaanHarian::where("id_data_harian", $this->id)->orderBy("tipe", "asc")->get();
+    }
+
+    public static function count_answer_per_3_ident($id_siswa, $id_data_harian, $tanggal)
+    {
+        /*
+         * Hitung jumlah jawaban dengan filter berikut ini:
+         * - id_siswa
+         * - tanggal
+         * - id_data_harian
+         */
+
+        $pdo = DB::connection()->getPdo();
+        $stmt = $pdo->prepare("
+            SELECT COUNT(1) FROM monitoring_harian AS a
+            INNER JOIN pertanyaan_data_harian AS b ON b.id = a.id_pertanyaan
+            WHERE a.id_siswa = :id_siswa
+            AND b.id_data_harian = :id_data_harian
+            AND a.tanggal = :tanggal
+            AND NOT EXISTS (
+                SELECT 1 FROM kunci_monitoring_harian
+                WHERE id_siswa = :id_siswa2
+                AND id_data_harian = :id_data_harian2
+                AND tanggal = :tanggal2
+            );
+        ");
+        $stmt->execute([
+            ":id_siswa"        => $id_siswa,
+            ":id_data_harian"  => $id_data_harian,
+            ":tanggal"         => $tanggal,
+            ":id_siswa2"       => $id_siswa,
+            ":id_data_harian2" => $id_data_harian,
+            ":tanggal2"        => $tanggal
+        ]);
+        $ret = $stmt->fetch(PDO::FETCH_NUM);
+        return (int) $ret[0];
     }
 }

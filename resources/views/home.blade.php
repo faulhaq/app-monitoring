@@ -68,11 +68,17 @@
                 @if (Auth::user()->role === 'guru')
                     @if (!empty(array_filter($data_notif)))
                         @foreach($data_notif as $dn)
+                            <div class="alert alert-danger" role="alert">
                             @if ($dn["tipe_notif"] === "feedback_guru")
                                 <a href="{{ route('monitoring.keagamaan.'.$dn["tipe"])."?type={$dn["tipe"]}&fkelas=-1&id_data={$dn["id"]}&id={$dn["id"]}&fsiswa={$dn["id_siswa"]}&ftanggal={$dn["tanggal"]}&show_feedback_pop_up=1&fguru=1&feedback=".Crypt::encrypt($dn["feedback"])."&nama_ortu=".Crypt::encrypt($dn["nama_ortu"]) }}">
                                     {{ $dn["str"] }}
                                 </a>
+                            @elseif ($dn["tipe_notif"] === "harian_unlocked")
+                                <a href="{{ route('monitoring.harian.index2')."?fkelas={$dn["id_kelas"]}&fsiswa={$dn["id_siswa"]}&ftanggal={$dn["tanggal"]}" }}">
+                                    {{ $dn["str"] }}
+                                </a>
                             @endif
+                            </div>
                         @endforeach
                     @else
                         <div class="text-center">
