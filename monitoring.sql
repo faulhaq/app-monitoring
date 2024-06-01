@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 31, 2024 at 09:44 AM
+-- Generation Time: Jun 01, 2024 at 06:03 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -67,7 +67,8 @@ CREATE TABLE `data_harian` (
 INSERT INTO `data_harian` (`id`, `bulan`, `tahun`, `id_kelas`, `created_at`, `updated_at`) VALUES
 (21, 2, 2024, 18, '2024-02-23 01:03:47', '2024-02-23 01:03:47'),
 (22, 2, 2024, 19, '2024-02-23 01:04:35', '2024-02-23 01:04:35'),
-(23, 5, 2024, 19, '2024-05-31 10:10:37', '2024-05-31 10:10:37');
+(23, 5, 2024, 19, '2024-05-31 10:10:37', '2024-05-31 10:10:37'),
+(24, 6, 2024, 19, '2024-06-01 10:42:52', '2024-06-01 10:42:52');
 
 -- --------------------------------------------------------
 
@@ -270,8 +271,17 @@ CREATE TABLE `kunci_monitoring_harian` (
   `id_data_harian` int(10) UNSIGNED NOT NULL,
   `id_siswa` int(10) UNSIGNED NOT NULL,
   `point` int(10) UNSIGNED NOT NULL,
+  `point_seen` enum('0','1') NOT NULL DEFAULT '0',
   `tanggal` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `kunci_monitoring_harian`
+--
+
+INSERT INTO `kunci_monitoring_harian` (`id`, `id_data_harian`, `id_siswa`, `point`, `point_seen`, `tanggal`) VALUES
+(9, 24, 4, 100, '1', '2024-06-01'),
+(10, 24, 13, 50, '1', '2024-06-01');
 
 -- --------------------------------------------------------
 
@@ -378,7 +388,13 @@ INSERT INTO `monitoring_harian` (`id`, `id_siswa`, `id_pertanyaan`, `jawaban`, `
 (32, 4, 19, 'ya', '2024-02-02', 2, '2024-02-23 01:16:35', NULL),
 (33, 4, 20, 'membantu siram tanaman', '2024-02-02', 2, '2024-02-23 01:16:35', NULL),
 (34, 4, 22, 'ya', '2024-05-31', 2, '2024-05-31 11:00:02', NULL),
-(35, 13, 22, 'ya', '2024-05-05', 2, '2024-05-31 11:12:51', NULL);
+(35, 13, 22, 'ya', '2024-05-05', 2, '2024-05-31 11:12:51', NULL),
+(36, 4, 25, 'ya', '2024-06-01', 2, '2024-06-01 10:43:45', NULL),
+(37, 4, 23, 'ok', '2024-06-01', 2, '2024-06-01 10:43:45', NULL),
+(38, 4, 24, 'ty', '2024-06-01', 2, '2024-06-01 10:43:45', NULL),
+(39, 13, 25, 'tidak', '2024-06-01', 2, '2024-06-01 11:02:16', NULL),
+(40, 13, 23, 'ok', '2024-06-01', 2, '2024-06-01 11:02:16', NULL),
+(41, 13, 24, 'yy', '2024-06-01', 2, '2024-06-01 11:02:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -618,7 +634,10 @@ INSERT INTO `pertanyaan_data_harian` (`id`, `id_data_harian`, `pertanyaan`, `tip
 (19, 22, 'apakah sudah sholat ?', 'opsi', '[\"ya\",\"tidak\"]', '2024-02-23 01:04:35', NULL),
 (20, 22, 'apa yang dilakukan anak ketika dirumah ?', 'isian', NULL, '2024-02-23 01:04:35', NULL),
 (21, 23, 'a', 'isian', NULL, '2024-05-31 10:10:37', NULL),
-(22, 23, 'b', 'opsi', '[\"ya\",\"tidak\"]', '2024-05-31 10:10:37', NULL);
+(22, 23, 'b', 'opsi', '[\"ya\",\"tidak\"]', '2024-05-31 10:10:37', NULL),
+(23, 24, 'aaa', 'isian', NULL, '2024-06-01 10:42:52', NULL),
+(24, 24, 'bbb', 'isian', NULL, '2024-06-01 10:42:52', NULL),
+(25, 24, 'ccc', 'opsi', '[\"ya\",\"tidak\"]', '2024-06-01 10:42:52', NULL);
 
 -- --------------------------------------------------------
 
@@ -867,7 +886,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `role`, `email`, `password`, `id_guru`, `id_orang_tua`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'xT7uQIwDmoEDsTYpBLuIPVat6udtuuVJK1ZfQqxutBKdsJZApnDxaIL6Sbk3', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
+(1, 'admin', 'admin@gmail.com', '$2y$10$iqO92iUBxlecYnPIzREt6O/nUf90PWyAoU.x7fIxnq0MJ409M8lt2', NULL, NULL, 'K6hARyQUVQjFQC3o5cfkYbk1cIUIqtSSVcSm6FOI1fRpdYaGxJv1GlOF2339', '2023-07-27 12:15:00', '2023-11-13 08:44:22'),
 (16, 'orang_tua', 'elmahartati@gmail.com', '$2y$10$GSYdp7AvqF0D3RA3B6J1v.Mx4vjCh8ikQ8S68VfJznmpUl97dlOOO', NULL, 2, 'n8UNDXM9Renr75pdFpgYHxp7AbRCIvI1cGMPPoJ5zELgnrs5sHFQrEwt42ZQ', '2024-02-22 02:13:37', '2024-02-22 02:14:06'),
 (17, 'orang_tua', 'amalianovitasari@gmail.com', '$2y$10$LLGkgVf6CuALGNO/KgBfSeCDcGvVikcae3yJtquuy7kMAXHS.0WTW', NULL, 6, NULL, '2024-02-22 14:49:30', '2024-02-22 14:49:39'),
 (18, 'orang_tua', 'ekaiswahyudi@gmail.com', '$2y$10$J3Y3x2Mkw6IBu0/JByG/1ejsQ1vYP5FgTeLMvXQEAAnUymrbZYS9W', NULL, 8, NULL, '2024-02-22 14:49:47', '2024-02-22 14:50:33'),
@@ -983,7 +1002,8 @@ ALTER TABLE `kunci_monitoring_harian`
   ADD KEY `id_data_harian` (`id_data_harian`),
   ADD KEY `id_siswa` (`id_siswa`),
   ADD KEY `tanggal` (`tanggal`),
-  ADD KEY `point` (`point`);
+  ADD KEY `point` (`point`),
+  ADD KEY `point_seen` (`point_seen`);
 
 --
 -- Indexes for table `mahfudhot`
@@ -1208,7 +1228,7 @@ ALTER TABLE `agama`
 -- AUTO_INCREMENT for table `data_harian`
 --
 ALTER TABLE `data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `doa`
@@ -1256,7 +1276,7 @@ ALTER TABLE `kk`
 -- AUTO_INCREMENT for table `kunci_monitoring_harian`
 --
 ALTER TABLE `kunci_monitoring_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `mahfudhot`
@@ -1280,7 +1300,7 @@ ALTER TABLE `monitoring_hadits`
 -- AUTO_INCREMENT for table `monitoring_harian`
 --
 ALTER TABLE `monitoring_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `monitoring_mahfudhot`
@@ -1328,7 +1348,7 @@ ALTER TABLE `pengumuman`
 -- AUTO_INCREMENT for table `pertanyaan_data_harian`
 --
 ALTER TABLE `pertanyaan_data_harian`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `siswa`

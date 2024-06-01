@@ -13,6 +13,7 @@ use App\Models\Master\KK;
 use DB;
 use PDO;
 use App\Models\Monitoring\Harian as MonitoringHarian;
+use App\Models\Monitoring\KunciMonitoringHarian;
 
 class Siswa extends Model
 {
@@ -174,5 +175,12 @@ class Siswa extends Model
             $ret[] = $tmp;
         }
         return $ret;
+    }
+
+    public function get_harian_point_unseen()
+    {
+        return KunciMonitoringHarian::where("id_siswa", $this->id)
+                    ->where("point_seen", "0")
+                    ->get();
     }
 }

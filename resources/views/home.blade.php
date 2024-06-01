@@ -92,6 +92,10 @@
                                     <a href="{{ route('monitoring.keagamaan.'.$dn["tipe"])."?fkelas=-1&id={$dn["id"]}&fsiswa={$dn["id_siswa"]}&ftanggal={$dn["tanggal"]}&show_feedback_pop_up=1" }}">
                                         {{ $dn["str"] }}
                                     </a>
+                                @elseif ($dn["tipe_notif"] === "harian_point")
+                                    <a href="{{ route('monitoring.harian.index2')."?fsiswa={$dn["id_siswa"]}&ftanggal={$dn["tanggal"]}&point_seen=1&id_data={$dn["id"]}" }}">
+                                        {{ $dn["str"] }}
+                                    </a>
                                 @endif
                             </div>
                         @endforeach

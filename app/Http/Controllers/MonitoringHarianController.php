@@ -38,6 +38,28 @@ class MonitoringHarianController extends Controller
         return false;
     }
 
+    private function set_point_seen(): void
+    {
+        if (!isset($_GET["point_seen"], $_GET["id_data"], $_GET["fsiswa"], $_GET["ftanggal"]))
+            return;
+
+        $id = $_GET["id_data"];
+        $fsiswa = $_GET["fsiswa"];
+        $ftanggal = $_GET["ftanggal"];
+
+        if (!is_numeric($id) || !is_numeric($fsiswa) || !is_string($ftanggal))
+            return;
+
+        $id = (int) $id;
+        $fsiswa = (int) $fsiswa;
+
+        KunciMonitoringHarian::where("id", $id)
+                             ->where("id_siswa", $fsiswa)
+                             ->where("tanggal", $ftanggal)
+                             ->limit(1)
+                             ->update(["point_seen" => "1"]);
+    }
+
     public function index2_orang_tua($user)
     {
         $orang_tua = $user->orang_tua();
@@ -117,6 +139,7 @@ class MonitoringHarianController extends Controller
             return redirect(route("monitoring.harian.index2")."?fsiswa={$list_siswa[0]->id}&ftanggal={$ftanggal}");
         }
 
+        $this->set_point_seen();
         return view("monitoring.harian.orang_tua.index",
                     compact("tahun", "bulan", "orang_tua", "list_siswa", "siswa",
                             "fsiswa", "ftanggal", "pertanyaan", "jawaban", "jawaban_terkunci"));

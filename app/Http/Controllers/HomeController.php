@@ -147,9 +147,19 @@ class HomeController extends Controller
                         "id"         => $m->id,
                     ];
                 }
+
+                $point_unseen = $anak->get_harian_point_unseen();
+                foreach ($point_unseen as $p) {
+                    $data_notif[] = [
+                        "tipe_notif" => "harian_point",
+                        "id_siswa"   => $anak->id,
+                        "tanggal"    => $p->tanggal,
+                        "str"        => "{$anak->nama}: Monitoring harian tanggal ".fix_id_d($p->tanggal)." sudah dinilai (nilai: {$p->point})!",
+                        "id"         => $p->id,
+                        "point"      => $p->point,
+                    ];
+                }
             }
-
-
         } else if ($user->role === "guru") {
             $data_notif = [];
             $data_pencapaian = [];
