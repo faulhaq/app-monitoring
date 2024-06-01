@@ -4,7 +4,11 @@
     <li class="breadcrumb-item active">Dashboard</li>
 @endsection
 @section('content')
+    @if (Auth::user()->role === 'admin' || Auth::user()->role === 'guru')
     <div class="col-md-12">
+    @else
+    <div class="col-md-6">
+    @endif
         <div class="card card-secondary" style="min-height: 385px;">
             <div class="card-header">
                 <h3 class="card-title" style="color: white;">
