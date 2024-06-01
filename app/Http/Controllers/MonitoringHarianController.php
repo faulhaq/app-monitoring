@@ -150,7 +150,7 @@ class MonitoringHarianController extends Controller
         $pertanyaan = [];
         $jawaban = [];
         $list_siswa = [];
-        $ftanggal = date("Y-m-d");
+        $ftanggal = isset($_GET["ftanggal"]) ? $_GET["ftanggal"] : date("Y-m-d");
         $fkelas = NULL;
         $kelas = NULL;
         $fsiswa = NULL;
